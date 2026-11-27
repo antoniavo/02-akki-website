@@ -1,0 +1,166 @@
+/*
+  AKKI – lebendes Logo
+  Einbau:
+    <canvas data-akki-logo style="width:100%;height:260px;background:#0D2740;border-radius:14px"></canvas>
+    <script src="logo/logo-animiert.js"></script>
+  Optional: data-untertitel="..." und data-zeile2="..." am <canvas> ändern die Texte unter dem Logo.
+  Ohne Zusatzprogramme. Bei "Bewegung reduzieren" im Betriebssystem wird nur das stille Logo gezeigt.
+*/
+(function () {
+  const BASE = '#8FD4F0', ACC = '#45E9DA', HEAD = '#EAF3F7', TXT = '#EAF3F7', TXT2 = '#8A99A2';
+  const LETTERS = [
+    [[0, 100, 35, 0], [35, 0, 70, 100], [14, 60, 56, 60]],
+    [[0, 0, 0, 100], [0, 62, 54, 0], [19, 40, 58, 100]],
+    [[0, 0, 0, 100], [0, 62, 54, 0], [19, 40, 58, 100]],
+    [[0, 0, 0, 100]]
+  ];
+  const WIDTHS = [70, 58, 58, 0], GAP = 28;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function start(c) {
+    const x = c.getContext('2d');
+    const sub1 = c.dataset.untertitel || 'Arbeitskreis Künstliche Intelligenz';
+    const sub2 = c.dataset.zeile2 || 'AG Digitalisierung · DGOU';
+    let W, H, P = [], E = [], N = [], Q = [], m = { x: -999, y: -999 }, last = 0, grid, MIN, txtY, fs;
+
+    function add(px, py) {
+      const gx = Math.floor(px / MIN), gy = Math.floor(py / MIN);
+      for (let a = -1; a <= 1; a++) for (let b = -1; b <= 1; b++) {
+        const cell = grid.get((gx + a) + ',' + (gy + b));
+        if (cell) for (const i of cell) if ((P[i].x - px) ** 2 + (P[i].y - py) ** 2 < MIN * MIN) return i;
+      }
+      P.push({ x: px, y: py, g: 0 });
+      const k = gx + ',' + gy;
+      if (!grid.has(k)) grid.set(k, []);
+      grid.get(k).push(P.length - 1);
+      return P.length - 1;
+    }
+    function edge(a, b) { if (a !== b) E.push(a < b ? [a, b] : [b, a]); }
+
+    function build() {
+      const r = window.devicePixelRatio || 1;
+      W = c.clientWidth; H = c.clientHeight || 260;
+      c.width = W * r; c.height = H * r; x.setTransform(r, 0, 0, r, 0, 0);
+      const tot = WIDTHS.reduce((a, b) => a + b, 0) + GAP * 3;
+      const sc = Math.min((W * 0.8) / tot, (H * 0.58) / 100);
+      fs = Math.max(11, Math.min(18, sc * 11));
+      const blockH = 100 * sc + fs * 3.4;
+      const ox = (W - tot * sc) / 2, oy = (H - blockH) / 2;
+      txtY = oy + 100 * sc + fs * 1.9;
+      const step = 7 * sc / 1.45, rails = [-2, -1, 0, 1, 2], rg = 5 * sc / 1.45;
+      MIN = 5.2 * sc / 1.45;
+      P = []; E = []; grid = new Map(); let cx = 0;
+      LETTERS.forEach((segs, li) => {
+        segs.forEach(([x1, y1, x2, y2]) => {
+          const ax = ox + (cx + x1) * sc, ay = oy + y1 * sc, bx = ox + (cx + x2) * sc, by = oy + y2 * sc;
+          const len = Math.hypot(bx - ax, by - ay), ux = (bx - ax) / len, uy = (by - ay) / len, nx = -uy, ny = ux;
+          const n = Math.floor(len / step), idx = [];
+          rails.forEach((rr, ri) => {
+            idx[ri] = [];
+            const sh = (ri % 2) * step / 2;
+            for (let k = 0; k <= n; k++) {
+              const t = Math.min(k * step + sh, len);
+              const id = add(ax + ux * t + nx * rr * rg, ay + uy * t + ny * rr * rg);
+              if (k > 0) edge(idx[ri][k - 1], id);
+              idx[ri].push(id);
+            }
+          });
+          for (let ri = 1; ri < rails.length; ri++) for (let k = 0; k <= n; k++) {
+            edge(idx[ri - 1][k], idx[ri][k]);
+            if (k + 1 <= n) (ri % 2) ? edge(idx[ri - 1][k + 1], idx[ri][k]) : edge(idx[ri - 1][k], idx[ri][k + 1]);
+          }
+        });
+        cx += WIDTHS[li] + GAP;
+      });
+      const seen = new Set();
+      E = E.filter(([a, b]) => { const k = a + '-' + b; if (seen.has(k)) return false; seen.add(k); return true; });
+      N = P.map(() => []);
+      E.forEach(([a, b]) => { N[a].push(b); N[b].push(a); });
+      Q = [];
+      if (!reduce) for (let k = 0; k < 3; k++) spawn(Math.floor(Math.random() * P.length));
+    }
+
+    function spawn(a) {
+      if (!N[a] || !N[a].length) return;
+      Q.push({ a, b: N[a][0], t: 0, tr: [], life: Q.length < 3 ? 1e9 : 200 });
+      if (Q.length > 9) Q.splice(3, 1);
+    }
+
+    function draw() {
+      x.clearRect(0, 0, W, H);
+      for (const p of P) {
+        const dx = p.x - m.x, dy = p.y - m.y;
+        if (dx * dx + dy * dy < 1600) p.g = Math.min(1, p.g + 0.15);
+        p.g *= 0.965;
+      }
+      x.lineWidth = 0.8; x.strokeStyle = BASE; x.globalAlpha = 0.17; x.beginPath();
+      for (const [i, j] of E) { x.moveTo(P[i].x, P[i].y); x.lineTo(P[j].x, P[j].y); }
+      x.stroke();
+      x.strokeStyle = ACC;
+      for (const [i, j] of E) {
+        const gg = Math.min(P[i].g, P[j].g);
+        if (gg > 0.05) { x.globalAlpha = gg * 0.8; x.beginPath(); x.moveTo(P[i].x, P[i].y); x.lineTo(P[j].x, P[j].y); x.stroke(); }
+      }
+      for (const q of Q) {
+        q.life--; q.t += 0.05;
+        if (q.t >= 1) {
+          P[q.b].g = Math.max(P[q.b].g, 0.8);
+          const o = N[q.b].filter(n => n !== q.a); let nb = q.a;
+          if (o.length) {
+            const dx = P[q.b].x - P[q.a].x, dy = P[q.b].y - P[q.a].y;
+            o.sort((u, v) => ((P[v].x - P[q.b].x) * dx + (P[v].y - P[q.b].y) * dy) - ((P[u].x - P[q.b].x) * dx + (P[u].y - P[q.b].y) * dy));
+            nb = Math.random() < 0.7 ? o[0] : o[Math.floor(Math.random() * o.length)];
+          }
+          q.a = q.b; q.b = nb; q.t = 0;
+        }
+        const A = P[q.a], B = P[q.b];
+        q.tr.push([A.x + (B.x - A.x) * q.t, A.y + (B.y - A.y) * q.t]);
+        if (q.tr.length > 40) q.tr.shift();
+      }
+      Q = Q.filter(q => q.life > 0);
+      const pr = MIN * 0.33;
+      for (const p of P) {
+        x.globalAlpha = 0.55 + p.g * 0.45; x.fillStyle = p.g > 0.2 ? ACC : BASE;
+        x.beginPath(); x.arc(p.x, p.y, pr + p.g * pr * 0.35, 0, 6.283); x.fill();
+      }
+      x.lineCap = 'round';
+      for (const q of Q) {
+        const tr = q.tr, fade = Math.min(1, q.life / 40);
+        for (let k = 1; k < tr.length; k++) {
+          const f = k / tr.length;
+          x.globalAlpha = f * 0.9 * fade; x.strokeStyle = ACC; x.lineWidth = 0.6 + f * 2.6;
+          x.beginPath(); x.moveTo(tr[k - 1][0], tr[k - 1][1]); x.lineTo(tr[k][0], tr[k][1]); x.stroke();
+        }
+        const h = tr[tr.length - 1];
+        if (h) { x.globalAlpha = fade; x.fillStyle = HEAD; x.beginPath(); x.arc(h[0], h[1], 2.8, 0, 6.283); x.fill(); }
+      }
+      x.globalAlpha = 1; x.textAlign = 'center'; x.textBaseline = 'alphabetic';
+      x.fillStyle = TXT; x.font = '500 ' + fs + 'px Manrope, system-ui, sans-serif';
+      if (x.letterSpacing !== undefined) x.letterSpacing = (fs * 0.08) + 'px';
+      x.fillText(sub1, W / 2, txtY);
+      x.fillStyle = TXT2; x.font = '400 ' + (fs * 0.75) + 'px Manrope, system-ui, sans-serif';
+      x.fillText(sub2, W / 2, txtY + fs * 1.35);
+      if (x.letterSpacing !== undefined) x.letterSpacing = '0px';
+      if (!reduce) requestAnimationFrame(draw);
+    }
+
+    c.setAttribute('role', 'img');
+    if (!c.getAttribute('aria-label')) c.setAttribute('aria-label', 'AKKI – ' + sub1 + ', ' + sub2);
+    c.addEventListener('mousemove', e => {
+      const r = c.getBoundingClientRect(); m.x = e.clientX - r.left; m.y = e.clientY - r.top;
+      const now = performance.now();
+      if (!reduce && now - last > 350) {
+        let bi = -1, bd = 900;
+        P.forEach((p, i) => { const d = (p.x - m.x) ** 2 + (p.y - m.y) ** 2; if (d < bd) { bd = d; bi = i; } });
+        if (bi >= 0) { spawn(bi); last = now; }
+      }
+      if (reduce) draw();
+    });
+    c.addEventListener('mouseleave', () => { m.x = -999; m.y = -999; if (reduce) draw(); });
+    window.addEventListener('resize', () => { build(); if (reduce) draw(); });
+    build(); draw();
+  }
+
+  function init() { document.querySelectorAll('canvas[data-akki-logo]').forEach(start); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();

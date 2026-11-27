@@ -1,0 +1,40 @@
+{
+  "hinweis": "Vorläufig, wird vor Ort bestätigt.",
+  "struktur": {
+    "name": "DGOU",
+    "zusatz": "Deutsche Gesellschaft für Orthopädie und Unfallchirurgie",
+    "unterpunkte": [
+      {
+        "name": "AG Digitalisierung",
+        "zusatz": "Neue Leitung seit dem Halbjahrestreffen am 6. August 2026",
+        "pruefen": true,
+        "leitung": null,
+        "unterpunkte": [
+          {
+            "name": "Arbeitskreise",
+            "pruefen": true,
+            "unterpunkte": [
+              { "name": "AKKI – Künstliche Intelligenz", "zusatz": "KI in Patientenversorgung und Forschung", "leitung": null },
+              { "name": "AK Medien und digitale Systeme", "zusatz": null, "leitung": null },
+              { "name": "AK Weißbuch Digitalisierung", "zusatz": "Strukturierung und strategische Entwicklung der Digitalisierung in O&U", "pruefen": true, "leitung": null },
+              { "name": "AK S3-Leitlinie Coxarthrose – digitale Technologien", "pruefen": true, "leitung": null }
+            ]
+          },
+          {
+            "name": "Kompetenzbereiche",
+            "pruefen": true,
+            "unterpunkte": [
+              { "name": "Datenschutz und digitale Rechte" },
+              { "name": "mHealth / Apps" },
+              { "name": "Digitale Dokumentation" },
+              { "name": "Digitale Kommunikation" },
+              { "name": "Fort- und Weiterbildung im digitalen Zeitalter" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "ansprechpersonen": null,
+  "links": null
+}

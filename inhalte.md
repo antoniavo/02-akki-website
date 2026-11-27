@@ -143,20 +143,21 @@ Hinweis: „Liste wird laufend ergänzt.“
 ---
 
 ## Schon festgelegt
-- **Farbpalette** (zentral in public/style.css, Stand 27.11.2026):
-  - Hauptfarbe `#00508A`: Überschriften, Links, Buttons
-  - Akzent `#008F83`: Linien, Hover, Kachel-Oberkanten (nicht als Textfarbe, zu wenig Kontrast)
-  - Mint `#78CBB9`: nur für Flächen und Logo
-  - Helle Kacheln `#E6F5F1`
-  - Hintergrund `#FFFFFF`
-  - Kopf- und Fußzeile `#002B45` (auch Fließtext); Links dort weiß und unterstrichen
+- **Farbpalette** (zentral in public/style.css, Stand 27.11.2026, Namen wie in ARBEITSAUFTRAG.md A1):
+  - Blau `#00508A`: Überschriften, Links
+  - Petrol `#008F83`: Linien, Rahmen, Hover, aktive Navigation (nicht als kleine Textfarbe, zu wenig Kontrast)
+  - Petrol-Text `#007A70`: Buttons (weiße Schrift) und Text-Akzente, damit der Kontrast 4,5:1 erreicht (Abweichung von A1, weil Weiß auf `#008F83` nur 4,0:1 hat)
+  - Mint `#78CBB9`: Logo, kleine Akzente, Badges (mit dunkler Schrift)
+  - Mint-hell `#E6F5F1`: sparsam, höchstens ein hervorgehobener Bereich pro Seite
+  - Weiß `#FFFFFF`: Seiten- und Kartenhintergrund; Hell `#F5F8FA`: abwechselnde Abschnitte und Seitenköpfe
+  - Navy `#002B45`: nur Logo-Kachel und Footer (Team: weniger Dunkelblau, Navigation und Seitenköpfe hell)
+  - Text `#2B3A45`, Nebentext `#4A5560`, Rahmen `#DCE5EC`
   - Lebendes Logo: Punkte/Linien `#78CBB9`, Impulse `#FFFFFF`, Hintergrund `#002B45`
 - **Design-Vorgaben für alle Seiten:**
-  - Rahmen `#DCE5EC`
   - Schriften: Archivo für Überschriften, Manrope für Fließtext (lokal in public/fonts, ohne Google)
-  - Ecken 14 px
-  - Keine Stockfotos. Bildplätze vorerst als Platzhalter „Foto folgt“.
-- Seiten: Start · Wer wir sind · Projekte · Publikationen · KI Lab · Mitmachen/Kontakt · Impressum · Datenschutz (Fußzeile)
-- Logo: das lebende AKKI-Logo in public/logo/ – logo-animiert.js groß im Kopf der Startseite auf #002B45; logo-hell.svg / logo-dunkel.svg für Navigation und Browser-Icon. Das alte AKKI-Zeichen aus der Hackathon-Seite wird nicht mehr verwendet.
+  - Ecken 14 px, Abstände 8/16/24/40/64 px, Inhaltsbreite max. 1200 px
+  - Keine Stockfotos und keine Bildplätze, bis freigegebene Fotos vorliegen (Initialen-Kreis bei Personen)
+- Seiten: Start · Wer wir sind · Projekte · Publikationen · KI Lab · Mitmachen & Kontakt · Impressum · Datenschutz (Fußzeile). Navigation und Footer stehen nur in public/layout.js.
+- Logo: das lebende AKKI-Logo in public/logo/ – logo-animiert.js in der Logo-Kachel der Startseite auf #002B45; logo-nav.svg (statische Punkte-Wortmarke in Blau mit mintfarbenem Punkt) in der hellen Navigation; logo-hell.svg als Browser-Icon; logo-dunkel.svg für dunkle Flächen. Das alte AKKI-Zeichen aus der Hackathon-Seite wird nicht mehr verwendet.
 - **Suchmaschinen-Sperre (vorerst):** Die Seite ist für Google & Co. gesperrt, bis die DGOU sie freigibt. Wer die Adresse kennt, kann sie trotzdem öffnen. Zum Aufheben: in allen Seiten unter public/ die Zeile `<meta name="robots" content="noindex, nofollow">` samt Kommentar entfernen und in vercel.json den Block `"headers"` löschen.
 - Schreibregel: kurze, ansprechende Texte, pro Abschnitt höchstens 2 Sätze oder Stichpunkte

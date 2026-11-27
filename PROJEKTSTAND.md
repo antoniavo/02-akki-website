@@ -1,8 +1,10 @@
 # PROJEKTSTAND – AKKI-Website (Übergabe nach Clear)
 
-**Stand:** Fr 27.11.2026, ca. 15:30 Uhr (aktualisiert nach dem Bau der KI-Lab-Seite) · AKKI Hackathon 2026, Use Case 02 · Präsentation: Sa 28.11.2026
+**Stand:** Fr 27.11.2026, nach **Block A** des Arbeitsauftrags · AKKI Hackathon 2026, Use Case 02 · Präsentation: Sa 28.11.2026
 
-> **Arbeitsauftrag:** Es läuft die blockweise Überarbeitung nach `ARBEITSAUFTRAG.md` (Reihenfolge Abschnitt 0.4: A bis K). **Erledigt: Block A** (Design: neue Tokens in `style.css`, Navigation und Footer als eine Komponente in `public/layout.js`, Wortmarke `logo/logo-nav.svg`, Komponenten Buttons/Projektkarte/Publikationseintrag/Veranstaltungskarte/Personenkarte). **Nächster Block: B** (Datenstruktur). Abweichung von A1: Button- und Textfarbe ist `--petrol-text` `#007A70` statt `#008F83`, weil Weiß auf `#008F83` nur 4,0:1 hat (Soll 4,5:1); `#008F83` bleibt für Linien und Hover.
+> **Arbeitsauftrag (maßgeblich für Inhalte und Design):** `ARBEITSAUFTRAG.md` wird blockweise abgearbeitet (Reihenfolge Abschnitt 0.4: A, B, C, D, E, F, G, H, I, J, K). Bei Widersprüchen gelten die Teamentscheidungen aus Abschnitt 0.5 dort.
+> **Erledigt: Block A** (Design). **Nächster Block: B** (Datenstruktur: `projekte.json`, `publikationen.json`, `personen.json`, `usecases.json`; `beitraege.json` und `organisation.json` bestehen schon).
+> **Abweichung von A1:** Buttons und Text-Akzente nutzen `--petrol-text` `#007A70` statt `#008F83`, weil Weiß auf `#008F83` nur 4,0:1 erreicht (Soll 4,5:1, A6). `#008F83` bleibt für Linien, Rahmen, Hover und die Unterstreichung der aktiven Navigation.
 
 > **Neue Sitzung:** Vor dem Arbeiten `git log` ansehen und die Liste in Abschnitt 7 gegen den echten Stand prüfen. Diese Datei kann hinter dem Repo zurückliegen.
 
@@ -47,9 +49,11 @@ Leitidee **„The Living Website“**: Die Seite pflegt sich mithilfe von KI wei
 | Teil | Datei / Ort |
 |---|---|
 | Seiten | `public/index.html`, `wer-wir-sind.html`, `projekte.html`, `publikationen.html`, `treffen.html` (KI Lab), `mitmachen.html`, `impressum.html`, `datenschutz.html` |
-| Design | `public/style.css` (alle Farben und Schriften als Variablen), Schriften lokal in `public/fonts` |
+| Design | `public/style.css`: alle Farben, Abstände (8/16/24/40/64), Schriften und Komponenten als Variablen und Klassen; Schriften lokal in `public/fonts`. Alte Variablennamen (`--haupt`, `--akzent`, `--kachel` …) bleiben als Alias für den Smart Editor |
+| Gemeinsame Seitenteile | `public/layout.js`: **Navigation und Footer stehen nur hier** (Menüpunkte in der Liste `SEITEN`, aktiver Punkt automatisch, Skip-Link, Handy-Menü). Jede Seite hat nur die Platzhalter `<div id="seitenkopf" class="kopf-fix">` (mit dem Pflicht-Hinweis, der auch ohne JavaScript sichtbar bleibt) und `<div id="seitenfuss">` |
+| Weitere Skripte | `public/kontakt.js` (zentrale Adresse einsetzen, mailto-Knöpfe), `public/beitraege.js` (Aktuelles, KI-Lab-Termine, Archiv, Suche, Filter, .ics) |
 | Daten | `public/daten/beitraege.json` (Aktuelles und KI-Lab-Termine, zentrale Quelle), `organisation.json` (Organigramm), `kontakt.json` (zentrale E-Mail-Adresse) |
-| Logo | `public/logo/logo-animiert.js` (lebendes Logo), `logo-hell.svg`, `logo-dunkel.svg`, `logo-vorschau.html` |
+| Logo | `public/logo/logo-animiert.js` (lebendes Logo), `logo-nav.svg` (statische Wortmarke in der Navigation), `logo-hell.svg` (Browser-Icon), `logo-dunkel.svg`, `logo-vorschau.html` |
 | Smart Editor | `redaktion/redaktion.html`, **nur lokal** über `server.js` (`http://localhost:3000/redaktion`), nicht öffentlich |
 | Server lokal | `node server.js` (mit KI später: `node --env-file=.env server.js`) |
 | Hosting | Vercel, `vercel.json` (Ausgabeordner `public`, kein Build). Suchmaschinen vorerst gesperrt (`noindex`) |
@@ -60,21 +64,25 @@ Leitidee **„The Living Website“**: Die Seite pflegt sich mithilfe von KI wei
 
 **Logo:** „Lebendes Logo“ – Schriftzug AKKI aus geraden, feinen Punktbahnen (5 versetzte Bahnen pro Strich, keine überlagerten Punkte), stilles Gerüst, Lichtimpulse mit Schweif laufen die Striche entlang, unter der Maus leuchten Knoten auf und starten neue Impulse. Darunter klein: „Arbeitskreis Künstliche Intelligenz“ / „AG Digitalisierung · DGOU“. Bei „Bewegung reduzieren“ steht es still.
 
-**Farbpalette D** (zentral in `style.css`):
+**Farbpalette D** (zentral in `style.css`, Namen wie in `ARBEITSAUFTRAG.md` A1):
 
-| Rolle | Farbe |
-|---|---|
-| Hauptfarbe (Überschriften, Links, Buttons) | `#00508A` |
-| Akzent (Linien, Hover, Kachel-Oberkanten; nicht für kleinen Text) | `#008F83` |
-| Mint (nur Flächen und Logo) | `#78CBB9` |
-| Helle Kacheln | `#E6F5F1` |
-| Hintergrund | `#FFFFFF` |
-| Dunkle Flächen | `#002B45` |
-| Logo | Punkte `#78CBB9`, Impulse `#FFFFFF`, Hintergrund `#002B45` |
+| Token | Wert | Verwendung |
+|---|---|---|
+| `--blau` | `#00508A` | Überschriften, Links |
+| `--petrol` | `#008F83` | Linien, Rahmen, Hover, aktive Navigation (Unterstreichung); nicht als kleine Textfarbe |
+| `--petrol-text` | `#007A70` | Buttons (weiße Schrift 5,2:1) und Text-Akzente; Hover `--petrol-dunkel` `#00655D` |
+| `--mint` | `#78CBB9` | Logo, kleine Akzente, Badges (mit dunkler Schrift) |
+| `--mint-hell` | `#E6F5F1` | sparsam: höchstens ein hervorgehobener Bereich pro Seite |
+| `--weiss` / `--hell` | `#FFFFFF` / `#F5F8FA` | Seiten- und Kartenhintergrund / abwechselnde Abschnitte, Seitenköpfe |
+| `--navy` | `#002B45` | nur Logo-Kachel und Footer |
+| `--text` / `--text-2` | `#2B3A45` / `#4A5560` | Fließtext / Nebentext |
+| `--rahmen` | `#DCE5EC` | Kartenrahmen, Trennlinien |
 
-**Neue Designentscheidung (14:41): weniger Dunkelblau.** Das Team empfindet die großen dunkelblauen Flächen als zu schwer („das Dunkelblau frisst alles“). Ziel: **helle, luftige Seite**. Dunkelblau nur noch gezielt (siehe Abschnitt 7, Schritt 1).
+Status-Badges (`.badge--idee`, `--planung`, `--laufend`, `--abgeschlossen`, `--publiziert`) haben eigene Variablen in `style.css`. Alle Texte erreichen mindestens 4,5:1 (zuletzt gemessen: 5,2:1).
 
-**Seitenstruktur:** Start · Wer wir sind · Projekte · Publikationen · KI Lab · Mitmachen/Kontakt · Fußzeile mit Impressum und Datenschutz. Zugehörigkeit sichtbar: „DGOU › AG Digitalisierung › AKKI“ mit Links zu dgou.de und digitalisierung-dgou.de. Partner-Arbeitskreis: AK Medien und digitale Systeme.
+**Designentscheidung (Team, 14:41): weniger Dunkelblau, helle luftige Seite.** Umgesetzt in Block A: Navigation und Seitenköpfe der Unterseiten sind hell; Dunkelblau nur noch für Footer und Logo-Kachel. Der Startseiten-Kopf (noch dunkel über die ganze Breite) wird in Block C hell mit Logo-Kachel neu gebaut.
+
+**Seitenstruktur:** Start · Wer wir sind · Projekte · Publikationen · KI Lab · Mitmachen & Kontakt (Dateiname `treffen.html` bzw. `mitmachen.html` bleibt) · Fußzeile mit Impressum und Datenschutz. Zugehörigkeit sichtbar: „DGOU › AG Digitalisierung › AKKI“ mit Links zu dgou.de und digitalisierung-dgou.de. Partner-Arbeitskreis: AK Medien und digitale Systeme.
 
 **Rechtliches:** DGOU darf als Betreiberin genannt werden (bestätigt). Inhaltlich verantwortlich (§ 18 Abs. 2 MStV): Prof. Dr. Benedikt Braun und Dr. David Baur, c/o DGOU. Datenschutzbeauftragter: DGOU, datenschutz@dgou.de. Vercel als Hoster freigegeben. Kein Link zur EU-Streitschlichtungsplattform (eingestellt).
 
@@ -82,7 +90,19 @@ Leitidee **„The Living Website“**: Die Seite pflegt sich mithilfe von KI wei
 
 ---
 
-## 5. Was fertig ist (laut GitHub, Stand ca. 15:05)
+## 5. Was fertig ist
+
+**Block A (Design), lokal gespeichert:**
+
+- Neue Tokens in `style.css` (Palette, Abstände, Radius, Raster 1200 px, Zeilenlänge 70 ch, `clamp()`-Schriftgrößen)
+- Helle, sticky Navigation mit Wortmarke (`logo-nav.svg`), Punkte-AKKI in Blau mit mintfarbenem Punkt, daneben „AG Digitalisierung · DGOU“ (verlinkt auf die beiden Seiten); aktiver Punkt Petrol und unterstrichen; Handy-Menü mit Escape-Taste
+- Navigation und Footer nur noch in `layout.js`; `menu.js` entfernt
+- Seitenköpfe der Unterseiten hell und kompakt
+- Wiederverwendbare Komponenten (CSS fertig, Inhalte kommen mit den Blöcken C bis H): Buttons primär/sekundär, Projektkarte mit Status-Badge, Publikationseintrag (Listenzeile), Veranstaltungskarte mit Datumsblock, Personenkarte mit Initialen-Kreis, Linien-Icons
+- Barrierefreiheit: sichtbarer Fokus, Skip-Link, `prefers-reduced-motion`, Klickflächen mindestens 24 px
+- Fehler behoben: Das Handy-Menü war gelb gestrichelt, weil seine Klasse `offen` mit der alten „[OFFEN]“-Markierung kollidierte (jetzt `nav__links--offen`)
+
+**Davor fertig (laut GitHub):**
 
 - Startseite überarbeitet: Headline, Buttons „KI Lab entdecken“ / „Mitmachen“, Schwerpunkte mit Icons, Aktuelles, „Aus dem KI Lab“, Mitmachen-Kasten; Termine aus `beitraege.json`
 - Unterseiten angelegt, Organigramm aus `organisation.json`, Partner-AK mit Ansprechpartnern (PD Dr. Lindhorst, doc. Dr. Stephan Gruener)
@@ -106,32 +126,18 @@ Alle Texte und Fakten stehen in **`inhalte.md`**. Wichtigste Quellen: AG-Präsen
 
 ## 7. Nächste Schritte (Reihenfolge)
 
-1. **Design aufhellen** (Teamwunsch „weniger Dunkelblau“):
-   ```
-   Hell die Website auf, das Dunkelblau wirkt zu schwer. Navigation weiß mit dunkelblauer Schrift und feiner Linie unten. Startseiten-Kopf auf hellem Hintergrund (#FFFFFF bzw. sehr helles Mint #F3FAF8), Headline in #00508A, Text in #4A5560. Das lebende Logo bleibt, sitzt aber in einer kleineren, abgerundeten dunklen Kachel (#002B45) rechts neben der Headline statt über die ganze Breite. Seitenköpfe der Unterseiten hell mit dunkelblauer Überschrift und Untertitel. Dunkelblau nur noch für Logo-Kachel, Buttons und Fußzeile. Headline kürzer: "Künstliche Intelligenz trifft medizinische Expertise." Kontraste prüfen, dann speichern und hochladen.
-   ```
-2. **Projektseite und Navigations-Schriftzug** (noch NICHT gebaut, `public/daten/projekte.json` gibt es noch nicht). Auftrag im Wortlaut:
-   ```
-   Überarbeite projekte.html. Kopfbereich mit Untertitel: "Woran wir arbeiten – von der Forschung bis zum Wissenstransfer." Drei Bereiche:
-   1. "Thematische Schwerpunkte" (kurze Karten mit Icon, je 1–2 Sätze): KI-basierter Leitliniensupport; Erleichterter KI-Zugang in O&U; Clinical Decision Support.
-   2. "Forschungsprojekte und Publikationen" als Projektkarten:
-      - KI-gestützte Wunddokumentation – Validierungsstudie zur automatisierten Erstellung von Wundbefunden im Vergleich zur manuellen Dokumentation. Status: laufend. Ansprechpartner: Prof. Georg Osterhoff (bestätigen).
-      - KI-basierte Arztbriefe – Zukunft oder Gefahr? Status: publiziert. Link: https://pubmed.ncbi.nlm.nih.gov/41436785/
-      - Vergleich von Sprachmodellen bei Patientenfragen zur vorderen Kreuzbandruptur. Status: publiziert. Link: https://pubmed.ncbi.nlm.nih.gov/41253635/
-   3. "Wissenstransfer und Innovation": DGOU KI Lab (→ KI-Lab-Seite), AKKI Hackathon 2026 (→ https://akki-hackathon-2026.vercel.app), Open Source (→ https://github.com/akkidgou-opensource).
-   Projektkarten mit Feldern: Titel, Kurzbeschreibung, Kategorie, Status (Badge: geplant/laufend/publiziert), Ansprechpartner, Publikationslink. Daten zentral in public/daten/projekte.json; Filter nach Status. Fehlende Felder ausblenden, keine Platzhalter, nichts erfinden.
-   Unten Kasten "Forschungsidee einbringen?" mit Button → mailto an die zentrale Kontaktadresse.
-   Zusätzlich in der Navigation: Statt des kleinen SVG-Logos auf Dunkelblau den Schriftzug "AKKI" in Weiß mit kleinem mintfarbenen Punkt zeigen, damit er gut lesbar ist.
-   Dann speichern und hochladen.
-   ```
-   Hinweis: Wird Schritt 1 (hellere Navigation) zuerst gemacht, muss der Schriftzug „AKKI“ auf hellem Grund dunkelblau statt weiß sein. Reihenfolge mit dem Team klären.
-3. ~~KI-Lab-Seite fertigstellen~~ **Erledigt** (siehe Abschnitt 5)
-4. **Vercel-Veröffentlichung** (Antonia): vercel.com → mit GitHub anmelden → Projekt `02-akki-website` importieren → Framework „Other“, kein Build, Output `public` → Deploy. Live-URL notieren.
-5. **Smart Editor mit KI**, sobald ein API-Schlüssel vorliegt (Regeln für KI-Entwürfe in `KONZEPT.md` Abschnitt 4 vorher vom Team freigeben lassen). Evidence Check: Studientyp, Anwendungsbereich, externe Validierung, klinische Einsatzreife, Limitationen.
-6. **Block 7 Prüfung:** tote Links, Seitentitel, Handy-Ansicht (380 px), Kontraste, Rechtschreibung
-7. **Fotos vom Team** (mit Einverständnis) als Ersatz für „Foto folgt“
-8. **Abgabe:** `ergebnis.md` und kurze Beschreibung in `README.md` (siehe `GITHUB_ANLEITUNG.md`, Schritt 5)
-9. **Pitch** (15 Min.): Problem → Lösung → Live-Demo (Smart Editor: DOI oder KI-Lab-Einladung → Entwurf → Freigabe → erscheint auf der Seite) → Ausblick. Plan B: Bildschirmaufnahme der Demo.
+1. **`ARBEITSAUFTRAG.md` blockweise abarbeiten** (vor jedem Block `git status`, nach jedem Block speichern und kurz berichten; Push macht das Team):
+   - ~~A Seitenübergreifendes Design~~ **erledigt**
+   - **B** Datenstruktur · **C** Startseite (hell, Hero mit Logo-Kachel, Headline „Künstliche Intelligenz trifft medizinische Expertise.“) · **D** Wer wir sind · **E** Projekte inkl. Hackathon · **F** Publikationen · **G** KI-Lab-Korrekturen · **H** Mitmachen & Kontakt · **I** Footer, Impressum, Datenschutz · **J** Qualitätskontrolle · **K** Smart Editor
+   - Damit sind die früheren Einzelaufträge „Design aufhellen“ und „Projektseite“ ersetzt (Wortlaut steht in der Git-Historie). Die KI-Lab-Seite wird in Block G korrigiert (nur bestätigte Termine, kein fester Rhythmus, „seit Dezember 2025“).
+   - Auf der öffentlichen Seite entfernt der Auftrag (0.2) alle „Text folgt“-, „wird bestätigt“- und `[OFFEN]`-Platzhalter. Impressum und Datenschutz bleiben bis zur Freigabe als Entwurf.
+2. ~~KI-Lab-Seite fertigstellen~~ **Erledigt** (siehe Abschnitt 5)
+3. **Vercel-Veröffentlichung** (Antonia): vercel.com → mit GitHub anmelden → Projekt `02-akki-website` importieren → Framework „Other“, kein Build, Output `public` → Deploy. Live-URL notieren.
+4. **Smart Editor mit KI** (= Block K, erst wenn A bis J stehen), sobald ein API-Schlüssel vorliegt (Regeln für KI-Entwürfe in `KONZEPT.md` Abschnitt 4 vorher vom Team freigeben lassen). Evidence Check: Studientyp, Anwendungsbereich, externe Validierung, klinische Einsatzreife, Limitationen.
+5. **Qualitätsprüfung** (= Block J): tote Links, Seitentitel, Handy-Ansicht (380 px), Kontraste, Rechtschreibung
+6. **Fotos vom Team** (mit Einverständnis); bis dahin keine Bildplätze anzeigen (Auftrag A5)
+7. **Abgabe:** `ergebnis.md` und kurze Beschreibung in `README.md` (siehe `GITHUB_ANLEITUNG.md`, Schritt 5)
+8. **Pitch** (15 Min.): Problem → Lösung → Live-Demo (Smart Editor: DOI oder KI-Lab-Einladung → Entwurf → Freigabe → erscheint auf der Seite) → Ausblick. Plan B: Bildschirmaufnahme der Demo.
 
 ---
 

@@ -2,6 +2,8 @@
 
 **Stand:** Fr 27.11.2026, ca. 15:30 Uhr (aktualisiert nach dem Bau der KI-Lab-Seite) · AKKI Hackathon 2026, Use Case 02 · Präsentation: Sa 28.11.2026
 
+> **Arbeitsauftrag:** Es läuft die blockweise Überarbeitung nach `ARBEITSAUFTRAG.md` (Reihenfolge Abschnitt 0.4: A bis K). **Erledigt: Block A** (Design: neue Tokens in `style.css`, Navigation und Footer als eine Komponente in `public/layout.js`, Wortmarke `logo/logo-nav.svg`, Komponenten Buttons/Projektkarte/Publikationseintrag/Veranstaltungskarte/Personenkarte). **Nächster Block: B** (Datenstruktur). Abweichung von A1: Button- und Textfarbe ist `--petrol-text` `#007A70` statt `#008F83`, weil Weiß auf `#008F83` nur 4,0:1 hat (Soll 4,5:1); `#008F83` bleibt für Linien und Hover.
+
 > **Neue Sitzung:** Vor dem Arbeiten `git log` ansehen und die Liste in Abschnitt 7 gegen den echten Stand prüfen. Diese Datei kann hinter dem Repo zurückliegen.
 
 > **Für Claude Code nach einem Clear:** Lies zuerst diese Datei, dann `CLAUDE.md` (Regeln der Orga), `inhalte.md` (alle Inhalte und Designvorgaben) und `KONZEPT.md` (Smart Editor). Diese Datei fasst zusammen, was entschieden, gebaut und offen ist.

@@ -1,5 +1,5 @@
-/* Gemeinsames Design aller AKKI-Seiten (Vorgaben: inhalte.md, "Schon festgelegt")
-   ALLE Farben und Schriften stehen hier oben als Variablen.
+/* Gemeinsames Design aller AKKI-Seiten (Vorgabe: ARBEITSAUFTRAG.md, Block A)
+   ALLE Farben, Abstände und Schriften stehen oben als Variablen.
    Für ein späteres offizielles DGOU-Design reicht es, diese Werte zu ändern. */
 
 /* Schriften lokal aus public/fonts (keine Verbindung zu Google).
@@ -26,229 +26,317 @@
 }
 
 :root {
-  /* Grundfarben (Palette laut inhalte.md, "Schon festgelegt") */
-  --bg: #FFFFFF;              /* Seitenhintergrund */
-  --kachel: #E6F5F1;          /* helle Kacheln und Karten */
-  --border: #DCE5EC;          /* Rahmen */
-  --dunkel: #002B45;          /* Kopf- und Fußzeile, Fließtext */
-  --haupt: #00508A;           /* Hauptfarbe: Überschriften, Links, Buttons */
-  --akzent: #008F83;          /* Linien, Hover, Kachel-Oberkanten (als Textfarbe zu wenig Kontrast) */
-  --link: var(--haupt);       /* Links und Text-Akzente auf Hell */
-  --mint: #78CBB9;            /* NUR Flächen und Logo, nie als Textfarbe auf Hell */
+  /* ---- Palette D (ARBEITSAUFTRAG A1) ---- */
+  --blau: #00508A;          /* Überschriften, Links, Primärtext-Akzente */
+  --petrol: #008F83;        /* Linien, Rahmen, Hover, Unterstreichung der aktiven Navigation */
+  --petrol-text: #007A70;   /* Petrol für Button-Füllung und Text: weiße Schrift 5,2:1 (#008F83 hätte nur 4,0:1) */
+  --petrol-dunkel: #00655D; /* Button beim Überfahren */
+  --mint: #78CBB9;          /* Logo, kleine Akzente, Badges (immer mit dunkler Schrift) */
+  --mint-hell: #E6F5F1;     /* sparsam: höchstens ein hervorgehobener Bereich pro Seite */
+  --weiss: #FFFFFF;         /* Seitenhintergrund und Standard-Kartenhintergrund */
+  --hell: #F5F8FA;          /* abwechselnde Abschnitte, Seitenköpfe */
+  --navy: #002B45;          /* Logo-Kachel, Footer */
+  --text: #2B3A45;          /* Fließtext */
+  --text-2: #4A5560;        /* Nebentext, Metadaten */
+  --rahmen: #DCE5EC;        /* Kartenrahmen, Trennlinien */
 
-  /* Abgeleitete Farben */
-  --text-auf-dunkel: #FFFFFF;          /* Schrift und Links auf dunklem Grund */
-  --text-auf-dunkel-leise: #C9D6E0;    /* Nebentexte auf dunklem Grund */
-  --text-fusszeile: #FFFFFF;           /* Schrift in der Fußzeile */
-  --text-leise: #4A5E70;               /* Hinweise auf Hell */
-  --text-neben: #33485C;               /* Beschreibungen auf Hell */
-  --linie-auf-dunkel: rgba(255,255,255,.12);   /* Trennlinien auf Navy */
-  --rahmen-knopf: rgba(255,255,255,.4);        /* Rahmen des Menü-Knopfs */
-  --schatten: rgba(0, 43, 69, .12);            /* Schatten beim Überfahren von Kacheln */
+  /* ---- Abstände (8 / 16 / 24 / 40 / 64) ---- */
+  --a1: 8px;
+  --a2: 16px;
+  --a3: 24px;
+  --a4: 40px;
+  --a5: 64px;
 
-  /* Markierungen */
-  --hinweis-bg: #FFF4CC;           /* Pflicht-Hinweis und "wird bestätigt" */
-  --hinweis-rahmen: #E8D58A;
-  --hinweis-text: #5C4A00;
-  --folgt-bg: #EEF3F7;             /* "Text folgt" */
-  --folgt-rahmen: #9AAFC0;
-  --fehler: #A3262A;               /* Fehlermeldungen */
-
-  /* Tastatur-Fokus (mind. 3:1 Kontrast zum Hintergrund) */
-  --fokus: #00508A;                /* auf hellem Grund */
-  --fokus-auf-dunkel: #FFFFFF;     /* auf dunklem Grund */
-
-  /* Form */
+  /* ---- Form und Raster ---- */
   --radius: 14px;
   --radius-klein: 6px;
+  --breite: 1200px;         /* maximale Inhaltsbreite */
+  --zeile: 70ch;            /* maximale Zeilenlänge für Fließtext */
 
-  /* Schriften (lokal, siehe @font-face oben) */
+  /* ---- Schriften (lokal, siehe @font-face oben) ---- */
   --font-heading: 'Archivo', system-ui, sans-serif;
   --font-body: 'Manrope', system-ui, sans-serif;
+
+  /* ---- Auf dunklem Grund (Footer, Logo-Kachel) ---- */
+  --text-auf-dunkel: #FFFFFF;
+  --text-auf-dunkel-leise: #C9D6E0;
+  --linie-auf-dunkel: rgba(255, 255, 255, .14);
+
+  /* ---- Markierungen und Zustände ---- */
+  --hinweis-bg: #FFF4CC;    /* Pflicht-Hinweis, Entwurf-Banner */
+  --hinweis-rahmen: #E8D58A;
+  --hinweis-text: #5C4A00;
+  --folgt-bg: #EEF3F7;
+  --folgt-rahmen: #9AAFC0;
+  --fehler: #A3262A;
+  --schatten: rgba(0, 43, 69, .12);
+  --fokus: #00508A;         /* Tastatur-Fokus auf hellem Grund (mind. 3:1) */
+  --fokus-auf-dunkel: #FFFFFF;
+
+  /* ---- Status-Badges (Text immer gut lesbar) ---- */
+  --badge-idee-bg: #FFFFFF;      --badge-idee-text: #2B3A45;
+  --badge-planung-bg: #E3ECF3;   --badge-planung-text: #00395F;
+  --badge-laufend-bg: #78CBB9;   --badge-laufend-text: #002B45;
+  --badge-fertig-bg: #E4EAEF;    --badge-fertig-text: #2B3A45;
+  --badge-publiziert-bg: #00508A; --badge-publiziert-text: #FFFFFF;
+
+  /* ---- Alte Namen (Smart Editor und ältere Teile verwenden sie noch) ---- */
+  --bg: var(--weiss);
+  --kachel: var(--weiss);
+  --border: var(--rahmen);
+  --dunkel: var(--text);
+  --haupt: var(--blau);
+  --akzent: var(--petrol);
+  --link: var(--blau);
+  --text-leise: var(--text-2);
+  --text-neben: var(--text-2);
 }
+
+/* =============== Grundlagen =============== */
 * { box-sizing: border-box; }
+html { scroll-padding-top: 130px; }
 html, body { margin: 0; }
 body {
-  background: var(--bg);
-  color: var(--dunkel);
+  background: var(--weiss);
+  color: var(--text);
   font-family: var(--font-body);
   font-size: 1.0625rem;
   line-height: 1.6;
 }
-h1, h2, h3 { font-family: var(--font-heading); color: var(--haupt); line-height: 1.2; margin: 0 0 .5em; }
-a { color: var(--link); text-underline-offset: 2px; }
-a:hover { text-decoration-color: var(--akzent); text-decoration-thickness: 2px; }
-a:focus-visible, button:focus-visible { outline: 3px solid var(--fokus); outline-offset: 2px; }
-.nav :focus-visible, .hero :focus-visible, .seitenkopf :focus-visible, .footer :focus-visible { outline-color: var(--fokus-auf-dunkel); }
-.container { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+h1, h2, h3 { font-family: var(--font-heading); color: var(--blau); line-height: 1.2; margin: 0 0 .5em; }
+h1 { font-size: clamp(1.9rem, 1.2rem + 2.6vw, 2.75rem); }
+h2 { font-size: clamp(1.45rem, 1.1rem + 1.4vw, 1.9rem); }
+h3 { font-size: 1.15rem; }
+p { margin: 0 0 var(--a2); }
+a { color: var(--blau); text-underline-offset: 2px; }
+a:hover { text-decoration-color: var(--petrol); text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--fokus); outline-offset: 2px; }
+.footer :focus-visible, .hero :focus-visible, .logo-kachel :focus-visible { outline-color: var(--fokus-auf-dunkel); }
+.container { max-width: var(--breite); margin: 0 auto; padding: 0 var(--a2); }
+.prosa, .einstieg p { max-width: var(--zeile); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-/* Pflicht-Hinweis, immer sichtbar */
+.skip-link { position: absolute; left: var(--a2); top: -60px; z-index: 100; background: var(--blau); color: var(--text-auf-dunkel); padding: var(--a1) var(--a2); border-radius: var(--radius-klein); font-weight: 700; }
+.skip-link:focus { top: var(--a1); }
+
+/* =============== Kopf: Pflicht-Hinweis und Navigation (eine Komponente, layout.js) =============== */
+.kopf-fix { position: sticky; top: 0; z-index: 50; background: var(--weiss); }
 .prototyp-hinweis {
-  position: sticky; top: 0; z-index: 20;
-  background: var(--hinweis-bg); color: var(--dunkel);
+  background: var(--hinweis-bg); color: var(--navy);
   border-bottom: 1px solid var(--hinweis-rahmen);
   font-size: .85rem; font-weight: 600; text-align: center;
-  padding: 6px 16px;
+  padding: 6px var(--a2);
 }
-
-/* Navigation */
-.nav { background: var(--dunkel); color: var(--text-auf-dunkel); }
-.nav .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; flex-wrap: wrap; padding-top: 6px; padding-bottom: 6px; }
-.nav__marke { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.nav { background: var(--weiss); border-bottom: 1px solid var(--rahmen); }
+.nav__innen { display: flex; align-items: center; justify-content: space-between; gap: var(--a2); min-height: 64px; flex-wrap: wrap; padding-top: 6px; padding-bottom: 6px; }
+.nav__marke { display: flex; align-items: center; gap: 12px; }
 .nav__brand { display: flex; align-items: center; }
-.nav__brand img { height: 48px; width: auto; display: block; }
-.nav__zugehoerigkeit { margin: 0; font-size: .78rem; line-height: 1.35; color: var(--text-auf-dunkel-leise); max-width: 190px; }
-.nav__zugehoerigkeit a { color: var(--text-auf-dunkel); text-decoration: underline; display: inline-block; padding: 4px 0; }
-.nav__toggle { display: none; background: none; border: 1px solid var(--rahmen-knopf); color: var(--text-auf-dunkel); border-radius: 8px; font-size: 1.2rem; padding: 4px 10px; cursor: pointer; }
-.nav__links { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; }
-.nav__links a { color: var(--text-auf-dunkel); text-decoration: none; font-weight: 600; font-size: .95rem; padding: 6px 0; border-bottom: 2px solid transparent; }
-.nav__links a:hover, .nav__links a[aria-current="page"] { border-bottom-color: var(--akzent); }
+.nav__brand img { height: 40px; width: auto; display: block; }
+.nav__zusatz { margin: 0; font-size: .78rem; line-height: 1.3; color: var(--text-2); white-space: nowrap; }
+.nav__zusatz a { color: var(--text-2); display: inline-block; padding: 4px 0; }
+.nav__toggle { display: none; background: var(--weiss); border: 1px solid var(--blau); color: var(--blau); border-radius: var(--radius-klein); font-size: 1.3rem; line-height: 1; width: 44px; height: 44px; cursor: pointer; }
+.nav__links { list-style: none; display: flex; gap: var(--a3); margin: 0; padding: 0; }
+.nav__links a { color: var(--text); text-decoration: none; font-weight: 600; font-size: .95rem; padding: 8px 0; border-bottom: 3px solid transparent; display: inline-block; }
+.nav__links a:hover { color: var(--blau); border-bottom-color: var(--petrol); }
+.nav__links a[aria-current="page"] { color: var(--petrol-text); border-bottom-color: var(--petrol); }
 
-/* Kopfbereich Startseite mit lebendem Logo */
-.hero { background: var(--dunkel); border-top: 1px solid var(--linie-auf-dunkel); }
-.hero canvas { display: block; width: 100%; height: 260px; background: var(--dunkel); border-radius: var(--radius); }
-.hero__text { padding: 8px 0 44px; max-width: 820px; }
+/* =============== Seitenkopf der Unterseiten (hell, kompakt) =============== */
+.seitenkopf { background: var(--hell); border-bottom: 1px solid var(--rahmen); padding: var(--a4) 0 var(--a3); }
+.seitenkopf h1 { margin: 0; }
+.seitenkopf p { margin: var(--a1) 0 0; max-width: var(--zeile); color: var(--text-2); font-size: 1.1rem; }
+
+/* =============== Startseiten-Kopf (wird in Block C neu gebaut) =============== */
+.hero { background: var(--navy); }
+.hero canvas { display: block; width: 100%; height: 260px; background: var(--navy); border-radius: var(--radius); }
+.hero__text { padding: var(--a1) 0 var(--a4); max-width: 820px; }
 .hero__text h1 { color: var(--text-auf-dunkel); font-size: clamp(1.7rem, 4.5vw, 2.6rem); margin-bottom: 12px; }
-.hero__text p { color: var(--text-auf-dunkel-leise); font-size: 1.15rem; margin: 0 0 24px; max-width: 680px; }
-.hero .knopf { border-color: var(--akzent); }
+.hero__text p { color: var(--text-auf-dunkel-leise); font-size: 1.15rem; margin: 0 0 var(--a3); max-width: 680px; }
+.logo-kachel { background: var(--navy); border-radius: var(--radius); overflow: hidden; }
+.logo-kachel canvas { display: block; width: 100%; height: 260px; }
 
-/* Buttons und Pfeil-Links (alle Seiten) */
+/* =============== Abschnitte =============== */
+main section { padding: var(--a4) 0; }
+main section + section { padding-top: 0; }
+main section.abschnitt--hell { background: var(--hell); padding-top: var(--a4); padding-bottom: var(--a4); }
+main section.abschnitt--hell + section { padding-top: var(--a4); }
+main section.abschnitt--mint { background: var(--mint-hell); padding-top: var(--a4); padding-bottom: var(--a4); }
+main section.abschnitt--mint + section { padding-top: var(--a4); }
+.abschnitt-kopf { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px var(--a2); }
+.einstieg p { font-size: 1.15rem; }
+.einstieg__zielgruppe { color: var(--text-2); }
+.hinweis { color: var(--text-2); font-size: .95rem; }
+
+/* Platzhalter-Markierungen (verschwinden Block für Block, siehe ARBEITSAUFTRAG 0.2) */
+.text-folgt { display: inline-block; background: var(--folgt-bg); border: 1px dashed var(--folgt-rahmen); color: var(--text-2); border-radius: var(--radius-klein); padding: 1px 8px; font-size: .9em; font-weight: 600; }
+.bestaetigen { display: inline-block; background: var(--hinweis-bg); border: 1px solid var(--hinweis-rahmen); color: var(--hinweis-text); border-radius: var(--radius-klein); padding: 0 7px; font-size: .78em; font-weight: 700; vertical-align: middle; }
+.entwurf-banner { background: var(--hinweis-bg); color: var(--hinweis-text); border-bottom: 3px solid var(--hinweis-rahmen); text-align: center; padding: 12px var(--a2); font-size: 1.05rem; }
+.offen { display: inline-block; background: var(--hinweis-bg); border: 1px dashed var(--hinweis-text); color: var(--hinweis-text); border-radius: var(--radius-klein); padding: 0 6px; font-weight: 700; }
+
+/* =============== Buttons (überall gleich) =============== */
 .knopfreihe { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 .knopf {
-  display: inline-block; font: 700 1rem var(--font-body); text-decoration: none; cursor: pointer;
-  color: var(--text-auf-dunkel); background: var(--haupt);
-  border: 2px solid var(--haupt); border-radius: var(--radius-klein); padding: 10px 20px;
+  display: inline-block; font: 700 1rem var(--font-body); text-decoration: none; cursor: pointer; text-align: center;
+  color: var(--text-auf-dunkel); background: var(--petrol-text);
+  border: 2px solid var(--petrol-text); border-radius: var(--radius-klein); padding: 10px 20px; min-height: 44px;
 }
-.knopf:hover { border-color: var(--akzent); text-decoration: underline; text-decoration-color: var(--akzent); text-underline-offset: 3px; }
-.knopf--hell { background: var(--text-auf-dunkel); color: var(--haupt); border-color: var(--text-auf-dunkel); }
+.knopf:hover { background: var(--petrol-dunkel); border-color: var(--petrol-dunkel); text-decoration: underline; text-decoration-color: var(--mint); text-underline-offset: 3px; }
+.knopf--sekundaer, .knopf--rand { background: var(--weiss); color: var(--petrol-text); border-color: var(--petrol-text); }
+.knopf--sekundaer:hover, .knopf--rand:hover { background: var(--mint-hell); color: var(--petrol-dunkel); border-color: var(--petrol-dunkel); text-decoration-color: var(--petrol); }
+.knopf--hell { background: var(--weiss); color: var(--blau); border-color: var(--weiss); }
+.knopf--hell:hover { background: var(--mint-hell); color: var(--blau); border-color: var(--mint-hell); }
 .pfeil-link { font-weight: 700; text-decoration: none; display: inline-block; padding: 4px 0; }
 .pfeil-link::after { content: " →"; }
 .pfeil-link:hover { text-decoration: underline; }
 
-/* Seitenkopf der Unterseiten */
-.seitenkopf { background: var(--dunkel); color: var(--text-fusszeile); padding: 36px 0 32px; border-top: 1px solid var(--linie-auf-dunkel); }
-.seitenkopf h1 { color: var(--text-auf-dunkel); margin: 0; font-size: clamp(1.8rem, 5vw, 2.4rem); }
-.seitenkopf p { margin: 8px 0 0; max-width: 720px; color: var(--text-auf-dunkel-leise); }
-
-/* Inhalt */
-main section { padding: 40px 0; }
-main section + section { padding-top: 0; }
-.einstieg p { max-width: 720px; font-size: 1.15rem; }
-.text-folgt { display: inline-block; background: var(--folgt-bg); border: 1px dashed var(--folgt-rahmen); color: var(--text-leise); border-radius: var(--radius-klein); padding: 1px 8px; font-size: .9em; font-weight: 600; }
-.bestaetigen { display: inline-block; background: var(--hinweis-bg); border: 1px solid var(--hinweis-rahmen); color: var(--hinweis-text); border-radius: var(--radius-klein); padding: 0 7px; font-size: .78em; font-weight: 700; vertical-align: middle; }
-.hinweis { color: var(--text-leise); font-size: .95rem; }
-
-/* Rechtstexte (Impressum, Datenschutz) */
-.entwurf-banner { background: var(--hinweis-bg); color: var(--hinweis-text); border-bottom: 3px solid var(--hinweis-rahmen); text-align: center; padding: 12px 16px; font-size: 1.05rem; }
-.offen { display: inline-block; background: var(--hinweis-bg); border: 1px dashed var(--hinweis-text); color: var(--hinweis-text); border-radius: var(--radius-klein); padding: 0 6px; font-weight: 700; }
-.rechtstext .karte h3 { font-size: 1rem; margin: 18px 0 4px; }
-.rechtstext .karte p, .rechtstext .karte ul { margin-top: 0; }
-.rechtstext a { overflow-wrap: anywhere; }
-
-.karte { background: var(--kachel); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
-.karte + .karte { margin-top: 16px; }
+/* =============== Karten (weiß, Rahmen) =============== */
+.karte, .kachel, .aktuell-karte, .archiv-karte { background: var(--weiss); border: 1px solid var(--rahmen); border-radius: var(--radius); padding: var(--a3); }
+.karte + .karte { margin-top: var(--a2); }
 .karte h2 { font-size: 1.35rem; }
 .karte h3 { font-size: 1.1rem; }
-.karte > :last-child { margin-bottom: 0; }
+.karte > :last-child, .kachel > :last-child, .aktuell-karte > :last-child { margin-bottom: 0; }
 .liste { margin: 0; padding-left: 1.2em; }
 .liste li { margin: 4px 0; }
 
-.kacheln { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 24px; }
-.kachel { background: var(--kachel); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; border-top: 4px solid var(--akzent); }
-.kachel h3 { font-size: 1.15rem; }
-.kachel > :last-child { margin-bottom: 0; }
-.kachel__nr { display: inline-block; font-family: var(--font-heading); font-weight: 700; color: var(--link); font-size: .9rem; margin-bottom: 8px; }
+.kacheln { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--a3); margin-top: var(--a3); }
 .kacheln--zwei { grid-template-columns: repeat(2, 1fr); }
-.einstieg__zielgruppe { color: var(--text-neben); }
-
-/* Klickbare Kacheln mit Linien-Icon (Startseite) */
+.kachel { border-top: 4px solid var(--petrol); }
+.kachel h3 { font-size: 1.15rem; }
+.kachel__nr { display: inline-block; font-family: var(--font-heading); font-weight: 700; color: var(--blau); font-size: .9rem; margin-bottom: var(--a1); }
 .kachel--link { position: relative; transition: box-shadow .15s; }
 .kachel--link:hover { box-shadow: 0 4px 16px var(--schatten); }
 .kachel--link h3 a { text-decoration: none; }
 .kachel--link h3 a::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius); }
-.kachel--link:hover h3 a { text-decoration: underline; text-decoration-color: var(--akzent); }
-.kachel__icon { width: 36px; height: 36px; margin-bottom: 10px; fill: none; stroke: var(--haupt); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.kachel--link:hover h3 a { text-decoration: underline; text-decoration-color: var(--petrol); }
 
-/* Aktuelles */
-.aktuell-karte { background: var(--kachel); border: 1px solid var(--border); border-left: 4px solid var(--akzent); border-radius: var(--radius); padding: 22px 24px; }
+/* Icons: einheitliche Linien-Icons (lokal als SVG im HTML, Farbe über currentColor möglich) */
+.icon, .kachel__icon { width: 36px; height: 36px; margin-bottom: 10px; fill: none; stroke: var(--blau); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+/* ---- Projektkarte: Kategorie klein oben, farbiger Status-Badge ---- */
+.projekt-karte { background: var(--weiss); border: 1px solid var(--rahmen); border-radius: var(--radius); padding: var(--a3); display: flex; flex-direction: column; gap: 6px; }
+.projekt-karte__kategorie { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text-2); margin: 0; }
+.projekt-karte h3 { margin: 0; }
+.projekt-karte p { margin: 0; }
+.projekt-karte__meta { font-size: .95rem; color: var(--text-2); }
+.badge { display: inline-block; align-self: flex-start; font-size: .8rem; font-weight: 700; line-height: 1.4; border-radius: 999px; padding: 2px 12px; border: 1px solid transparent; }
+.badge--idee { background: var(--badge-idee-bg); color: var(--badge-idee-text); border: 1px dashed var(--text-2); }
+.badge--planung { background: var(--badge-planung-bg); color: var(--badge-planung-text); }
+.badge--laufend { background: var(--badge-laufend-bg); color: var(--badge-laufend-text); }
+.badge--abgeschlossen { background: var(--badge-fertig-bg); color: var(--badge-fertig-text); }
+.badge--publiziert { background: var(--badge-publiziert-bg); color: var(--badge-publiziert-text); }
+
+/* ---- Publikationseintrag: kompakte Listenzeile, kein Kasten ---- */
+.pub-liste { list-style: none; margin: 0; padding: 0; }
+.pub-eintrag { padding: var(--a2) 0; border-bottom: 1px solid var(--rahmen); }
+.pub-eintrag:last-child { border-bottom: 0; }
+.pub-eintrag__titel { font-family: var(--font-heading); font-weight: 700; color: var(--blau); font-size: 1.1rem; line-height: 1.3; margin: 0 0 4px; }
+.pub-eintrag__autoren, .pub-eintrag__meta { margin: 0; color: var(--text-2); font-size: .95rem; }
+.pub-eintrag__aktionen { display: flex; flex-wrap: wrap; gap: 4px var(--a2); align-items: center; margin-top: var(--a1); font-size: .95rem; }
+.pub-eintrag__aktionen button { font: 600 .95rem var(--font-body); color: var(--blau); background: none; border: 0; padding: 4px 0; min-height: 32px; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+
+/* ---- Veranstaltungskarte: links Datumsblock, rechts Inhalt ---- */
+.veranstaltung { display: grid; grid-template-columns: 76px 1fr; gap: var(--a2); background: var(--weiss); border: 1px solid var(--rahmen); border-radius: var(--radius); padding: var(--a2) var(--a3) var(--a2) var(--a2); }
+.datumsblock { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: var(--mint-hell); border-radius: var(--radius-klein); padding: var(--a1) 0; color: var(--petrol-text); line-height: 1.1; }
+.datumsblock__tag { font-family: var(--font-heading); font-weight: 800; font-size: 1.9rem; }
+.datumsblock__monat { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.veranstaltung h3 { margin: 0 0 4px; }
+.veranstaltung p { margin: 0 0 6px; color: var(--text-2); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+
+/* ---- Personenkarte: Foto nur wenn freigegeben, sonst Initialen-Kreis ---- */
+.person-karte { background: var(--weiss); border: 1px solid var(--rahmen); border-radius: var(--radius); padding: var(--a3); display: flex; gap: var(--a2); align-items: flex-start; }
+.initialen { flex: none; width: 56px; height: 56px; border-radius: 50%; background: var(--mint); color: var(--navy); display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-weight: 800; font-size: 1.2rem; }
+.person-karte h3 { margin: 0 0 2px; }
+.person-karte p { margin: 0; color: var(--text-2); font-size: .95rem; }
+
+/* =============== Aktuelles, KI Lab (bestehende Bausteine, weiße Karten) =============== */
+.aktuell-karte { border-left: 4px solid var(--petrol); padding: 22px var(--a3); }
 .aktuell-karte h3 { font-size: 1.2rem; margin-bottom: 4px; }
-.aktuell-karte__art { display: inline-block; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--link); margin-bottom: 6px; }
-.aktuell-karte__wann { font-weight: 600; margin: 0 0 8px; }
-.aktuell-karte > :last-child { margin-bottom: 0; }
+.aktuell-karte__art { display: inline-block; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--petrol-text); margin-bottom: 6px; }
+.aktuell-karte__wann { font-weight: 600; margin: 0 0 var(--a1); }
 
-/* Aus dem KI Lab */
-.abschnitt-kopf { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
-.termin-karten { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
-.termin-karte { display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: var(--dunkel); background: var(--bg); border: 1px solid var(--border); border-top: 4px solid var(--akzent); border-radius: var(--radius); padding: 18px 20px; transition: box-shadow .15s; }
+.termin-karten { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--a2); margin-top: var(--a2); }
+.termin-karte { display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: var(--text); background: var(--weiss); border: 1px solid var(--rahmen); border-top: 4px solid var(--petrol); border-radius: var(--radius); padding: 18px 20px; transition: box-shadow .15s; }
 .termin-karte:hover { box-shadow: 0 4px 16px var(--schatten); }
-.termin-karte:hover .termin-karte__titel { text-decoration: underline; text-decoration-color: var(--akzent); }
-.termin-karte__datum { font-family: var(--font-heading); font-weight: 700; color: var(--link); font-size: .95rem; }
-.termin-karte__titel { font-family: var(--font-heading); font-weight: 700; color: var(--haupt); font-size: 1.1rem; line-height: 1.3; }
-.termin-karte__text { color: var(--text-neben); font-size: .95rem; }
-
+.termin-karte:hover .termin-karte__titel { text-decoration: underline; text-decoration-color: var(--petrol); }
 .termin-karte__kopf { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
-.kategorie { display: inline-block; font-size: .78rem; font-weight: 700; color: var(--haupt); background: var(--bg); border: 1px solid var(--akzent); border-radius: 999px; padding: 1px 10px; }
+.termin-karte__datum { font-family: var(--font-heading); font-weight: 700; color: var(--petrol-text); font-size: .95rem; }
+.termin-karte__titel { font-family: var(--font-heading); font-weight: 700; color: var(--blau); font-size: 1.1rem; line-height: 1.3; }
+.termin-karte__text { color: var(--text-2); font-size: .95rem; }
+.kategorie { display: inline-block; font-size: .78rem; font-weight: 700; color: var(--navy); background: var(--mint-hell); border: 1px solid var(--mint); border-radius: 999px; padding: 1px 10px; }
 
-/* Seite "KI Lab" */
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.knopf--rand { background: transparent; color: var(--haupt); border-color: var(--haupt); }
-.naechster-termin__datum { font-family: var(--font-heading); font-weight: 700; font-size: 1.35rem; color: var(--haupt); margin: 0; }
-.naechster-termin__zeit { margin: 0 0 12px; color: var(--text-neben); }
+.naechster-termin__datum { font-family: var(--font-heading); font-weight: 700; font-size: 1.35rem; color: var(--blau); margin: 0; }
+.naechster-termin__zeit { margin: 0 0 12px; color: var(--text-2); }
 .naechster-termin__thema { font-weight: 700; margin: 0 0 4px; }
-.naechster-termin__referent { margin: 0 0 4px; color: var(--text-neben); }
-.naechster-termin .knopfreihe { margin-top: 16px; }
+.naechster-termin__referent { margin: 0 0 4px; color: var(--text-2); }
+.naechster-termin .knopfreihe { margin-top: var(--a2); }
 .archiv-werkzeuge { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; margin: 12px 0 20px; }
 .suchfeld { flex: 1 1 260px; }
-.suchfeld input { width: 100%; font: 400 1rem var(--font-body); color: var(--dunkel); background: var(--bg); border: 1px solid var(--text-leise); border-radius: var(--radius-klein); padding: 10px 12px; }
+.suchfeld input { width: 100%; font: 400 1rem var(--font-body); color: var(--text); background: var(--weiss); border: 1px solid var(--text-2); border-radius: var(--radius-klein); padding: 10px 12px; min-height: 44px; }
 .suchfeld input:focus { outline: 3px solid var(--fokus); outline-offset: 1px; }
-.filter { display: flex; flex-wrap: wrap; gap: 8px; }
-.filter-knopf { font: 600 .95rem var(--font-body); color: var(--haupt); background: var(--bg); border: 1px solid var(--haupt); border-radius: 999px; padding: 6px 14px; cursor: pointer; min-height: 36px; }
-.filter-knopf:hover { border-color: var(--akzent); }
-.filter-knopf[aria-pressed="true"] { background: var(--haupt); color: var(--text-auf-dunkel); }
-.archiv-karten { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-@media (max-width: 1000px) { .archiv-karten, .termin-karten { grid-template-columns: repeat(2, 1fr); } }
-.archiv-karte { background: var(--kachel); border: 1px solid var(--border); border-top: 4px solid var(--akzent); border-radius: var(--radius); padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }
+.filter { display: flex; flex-wrap: wrap; gap: var(--a1); }
+.filter-knopf { font: 600 .95rem var(--font-body); color: var(--blau); background: var(--weiss); border: 1px solid var(--blau); border-radius: 999px; padding: 6px 14px; cursor: pointer; min-height: 36px; }
+.filter-knopf:hover { border-color: var(--petrol); background: var(--mint-hell); }
+.filter-knopf[aria-pressed="true"] { background: var(--blau); color: var(--text-auf-dunkel); }
+.archiv-karten { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--a2); }
+.archiv-karte { border-top: 4px solid var(--petrol); padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }
 .archiv-karte__titel { font-size: 1.1rem; margin: 2px 0 0; }
 .archiv-karte__referent { margin: 0; font-weight: 600; }
-.archiv-karte__text { margin: 0; color: var(--text-neben); }
+.archiv-karte__text { margin: 0; color: var(--text-2); }
 
-/* Mitmachen-Kasten (Mint nur als Fläche, Schrift dunkel) */
-.mitmachen-kasten { background: var(--mint); color: var(--dunkel); border-radius: var(--radius); padding: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 32px; }
-.mitmachen-kasten h2 { color: var(--dunkel); margin-bottom: 6px; }
+/* Mitmachen-Band: der eine hervorgehobene Bereich pro Seite (Mint-hell) */
+.mitmachen-kasten { background: var(--mint-hell); color: var(--text); border: 1px solid var(--mint); border-radius: var(--radius); padding: var(--a3) 28px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--a2) var(--a4); }
+.mitmachen-kasten h2 { margin-bottom: 6px; }
 .mitmachen-kasten p { margin: 0; }
-.mitmachen-kasten .pfeil-link { color: var(--dunkel); }
 
-/* Terminliste */
+/* Alte Terminliste (Seite Wer wir sind/Treffen Altlast) */
 .termine { list-style: none; margin: 0; padding: 0; }
-.termine li { display: grid; grid-template-columns: 130px 1fr; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.termine li { display: grid; grid-template-columns: 130px 1fr; gap: 4px var(--a2); padding: 14px 0; border-bottom: 1px solid var(--rahmen); }
 .termine li:last-child { border-bottom: 0; }
-.termine .datum { font-family: var(--font-heading); font-weight: 700; color: var(--link); }
+.termine .datum { font-family: var(--font-heading); font-weight: 700; color: var(--petrol-text); }
 .termine .titel { font-weight: 700; }
-.termine .beschreibung { display: block; font-weight: 400; color: var(--text-neben); }
+.termine .beschreibung { display: block; font-weight: 400; color: var(--text-2); }
 
-/* Organigramm */
+/* Organigramm (wird in Block D grafisch neu gebaut) */
 .organigramm, .organigramm ul { list-style: none; margin: 0; padding: 0; }
-.organigramm ul { margin-left: 14px; padding-left: 16px; border-left: 2px solid var(--border); }
-.organigramm li { margin: 8px 0; }
+.organigramm ul { margin-left: 14px; padding-left: var(--a2); border-left: 2px solid var(--rahmen); }
+.organigramm li { margin: var(--a1) 0; }
 .organigramm .knoten { font-weight: 700; }
-.organigramm .zusatz { display: block; font-size: .95rem; color: var(--text-neben); }
+.organigramm .zusatz { display: block; font-size: .95rem; color: var(--text-2); }
 
-/* Fußzeile */
-.footer { background: var(--dunkel); color: var(--text-fusszeile); padding: 36px 0; margin-top: 24px; }
-.footer .container { display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; }
+/* Rechtstexte (Impressum, Datenschutz) */
+.rechtstext .karte h3 { font-size: 1rem; margin: 18px 0 4px; }
+.rechtstext .karte p, .rechtstext .karte ul { margin-top: 0; }
+.rechtstext a { overflow-wrap: anywhere; }
+
+/* =============== Footer (eine Komponente, layout.js) =============== */
+.footer { background: var(--navy); color: var(--text-auf-dunkel); padding: var(--a4) 0; margin-top: var(--a3); }
+.footer__innen { display: flex; flex-wrap: wrap; gap: var(--a3); justify-content: space-between; }
 .footer strong { font-family: var(--font-heading); color: var(--text-auf-dunkel); }
 .footer a { color: var(--text-auf-dunkel); text-decoration: underline; display: inline-block; padding: 6px 0; }
 .footer ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 18px; flex-wrap: wrap; }
 .footer p { margin: 4px 0; }
 .footer__pfad { font-weight: 600; }
 
-@media (max-width: 760px) {
+/* =============== Mobil =============== */
+@media (max-width: 1000px) {
+  .archiv-karten, .termin-karten { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 960px) {
   .nav__toggle { display: block; }
-  .nav__links { display: none; width: 100%; flex-direction: column; gap: 0; padding-bottom: 12px; }
-  .nav__links.offen { display: flex; }
-  .nav__links a { display: block; padding: 10px 0; border-bottom: 1px solid var(--linie-auf-dunkel); }
-  .nav__zugehoerigkeit { max-width: 150px; }
+  .nav__links { display: none; width: 100%; flex-direction: column; gap: 0; padding-bottom: var(--a1); max-height: calc(100vh - 150px); overflow-y: auto; }
+  .nav__links.nav__links--offen { display: flex; }
+  .nav__links a { display: block; padding: 12px 0; border-bottom: 1px solid var(--rahmen); }
+  .nav__links a[aria-current="page"] { border-bottom-color: var(--petrol); }
+}
+@media (max-width: 760px) {
   .kacheln, .kacheln--zwei, .termin-karten, .archiv-karten { grid-template-columns: 1fr; }
   .mitmachen-kasten { padding: 22px; }
   .termine li { grid-template-columns: 1fr; }
+  .seitenkopf { padding: var(--a3) 0 var(--a2); }
+  main section { padding: var(--a3) 0; }
+}
+
+/* =============== Bewegung reduzieren =============== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }

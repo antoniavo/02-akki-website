@@ -1,7 +1,7 @@
 {
-  "_hinweis": "Schwerpunkte, Projekte und Wissenstransfer. Jeder Datensatz: id, quelle, stand, status (bestaetigt oder entwurf). Leere Felder (null) werden auf der Website nicht angezeigt. Projektstatus: Projektidee, In Planung, Laufend, Abgeschlossen, Publiziert. Keine Ergebnisse behaupten, keine Promotionsprojekte eintragen.",
+  "_hinweis": "Schwerpunkte, Projekte und Wissenstransfer. Jeder Datensatz: id, quelle, stand, status (bestaetigt oder entwurf). Leere Felder (null) werden auf der Website nicht angezeigt. Projektstatus: Projektidee, In Planung, Laufend, Abgeschlossen, Publiziert. Keine Ergebnisse behaupten, keine Promotionsprojekte eintragen. Optionale Projektfelder: statusLabel (Text im Status-Schild), vorgestellt (eine Zeile), mehr (aufklappbare Punkte: label, text), poster (Link, leer = nicht angezeigt).",
   "statusWerte": ["Projektidee", "In Planung", "Laufend", "Abgeschlossen", "Publiziert"],
-  "themenWerte": ["Klinische Dokumentation", "Diagnostik", "Prognostik", "Decision Support", "Patienteninformation", "Leitlinien", "Lehre", "Open Source"],
+  "themenWerte": ["Registerforschung", "Klinische Dokumentation", "Diagnostik", "Prognostik", "Decision Support", "Patienteninformation", "Leitlinien", "Lehre", "Open Source"],
   "schwerpunkteAnsprechpersonen": ["osterhoff"],
   "schwerpunkte": [
     {
@@ -49,6 +49,28 @@
       "quelle": "DGOU-Gremienbericht 2026, Bericht der AG Digitalisierung",
       "stand": "2026-11-27",
       "status": "entwurf"
+    },
+    {
+      "id": "lokale-ki-registerdaten",
+      "titel": "Evaluation lokaler KI-Systeme zur Analyse von Registerdaten",
+      "text": "Wir vergleichen lokal betriebene KI-Systeme bei der Auswertung von Registerdaten: Stimmt die Statistik, ist der Weg nachvollziehbar, wie gut ist der Ergebnisbericht?",
+      "vorgestellt": "Vorgestellt auf der 8. ARKOS-Jahrestagung, 15.–17. Juni 2026, Kloster Banz",
+      "mehr": [
+        { "label": "Ansatz", "text": "Zwei lokale KI-gestützte Analyseabläufe werden an bereits veröffentlichten Registerarbeiten verglichen, zunächst mit synthetischen Testdaten, unter anderem mit der Plattform KNIME." },
+        { "label": "Bewertung", "text": "Unabhängige Gutachterinnen und Gutachter bewerten die Ergebnisberichte verblindet nach einem festen Schema." },
+        { "label": "Ziel", "text": "Ein datenschutzgerechter und nachvollziehbarer Einsatz von KI in der medizinischen Forschung." }
+      ],
+      "poster": null,
+      "thema": "Registerforschung",
+      "projektStatus": "Laufend",
+      "statusLabel": "Laufendes Pilotprojekt",
+      "umfeld": false,
+      "ansprechpersonen": [],
+      "publikation": null,
+      "link": null,
+      "quelle": "Teamangabe, 27.11.2026",
+      "stand": "2026-11-27",
+      "status": "bestaetigt"
     },
     {
       "id": "arztbriefe",

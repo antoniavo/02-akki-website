@@ -134,8 +134,23 @@
     const k = el('article', 'projekt-karte');
     // Kein Kategorie-Schild auf der Karte; das Thema bleibt in den Daten für den Filter
     k.appendChild(el('h3', null, p.titel));
-    k.appendChild(el('span', 'badge badge--' + (STATUS_KLASSE[p.projektStatus] || 'idee'), p.projektStatus));
+    k.appendChild(el('span', 'badge badge--' + (STATUS_KLASSE[p.projektStatus] || 'idee'), p.statusLabel || p.projektStatus));
     if (p.text) k.appendChild(el('p', null, p.text));
+    if (p.vorgestellt) k.appendChild(el('p', 'projekt-karte__meta', p.vorgestellt));
+    // Aufklappbar "Mehr erfahren": nur die Punkte aus den Daten (label und text)
+    if (Array.isArray(p.mehr) && p.mehr.length) {
+      const d = el('details', 'projekt-karte__mehr');
+      d.appendChild(el('summary', null, 'Mehr erfahren'));
+      p.mehr.forEach(m => {
+        const z = el('p');
+        z.appendChild(el('strong', null, m.label + ': '));
+        z.appendChild(document.createTextNode(m.text));
+        d.appendChild(z);
+      });
+      k.appendChild(d);
+    }
+    // Poster: erst anzeigen, wenn in projekte.json ein Link eingetragen ist
+    if (p.poster) k.appendChild(link('Poster ansehen', p.poster, 'pfeil-link'));
     if (p.umfeld && p.umfeldHinweis) k.appendChild(el('p', 'projekt-karte__meta', p.umfeldHinweis));
     const namen = namenListe(p.ansprechpersonen, personen);
     if (namen.length) k.appendChild(el('p', 'projekt-karte__meta', 'Ansprechpartner: ' + namen.join(', ')));

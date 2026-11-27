@@ -566,3 +566,10 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
   .zeitleiste__punkt--ende::after { animation: none; box-shadow: 0 0 0 5px rgba(0, 143, 131, .25); }
   .zeitleiste__impuls { display: none; }
 }
+
+/* Projektkarte: aufklappbares "Mehr erfahren" */
+.projekt-karte__mehr { margin-top: 2px; }
+.projekt-karte__mehr summary { cursor: pointer; font-weight: 700; color: var(--blau); padding: 6px 0; min-height: 36px; }
+.projekt-karte__mehr summary:hover { color: var(--petrol-dunkel); }
+.projekt-karte__mehr summary:focus-visible { outline: 3px solid var(--fokus); outline-offset: 2px; }
+.projekt-karte__mehr p { margin: 0 0 8px; font-size: .95rem; }

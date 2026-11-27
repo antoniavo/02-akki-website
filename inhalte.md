@@ -72,6 +72,7 @@ Alles mit ⚠️ ist aus öffentlichen Quellen zusammengetragen und muss vor Ort
   - OP-Bericht-Assistent – Link: folgt
   - Lokale KI zur Gutachtenerstellung (Freie Themenwahl) – Link: folgt
 - Aktivitäten laut DGOU-Gremienbericht 2026 ⚠️ bestätigen: KI Lab; Validierungsstudie zur KI-gestützten Wunddokumentation
+- Pilotprojekt (Teamangabe 27.11.2026, auf der Projekte-Seite): Evaluation lokaler KI-Systeme zur Analyse von Registerdaten, laufend; vorgestellt auf der 8. ARKOS-Jahrestagung, 15.–17. Juni 2026, Kloster Banz. Keine Personennamen, keine Institutionen, keine Ergebnisse; Poster-Link folgt später (`poster` in `projekte.json`).
 
 ## Publikationen
 - Publikationen werden über https://doi.org/<DOI> verlinkt.

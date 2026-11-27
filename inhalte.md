@@ -128,6 +128,7 @@ Hinweis: „Liste wird laufend ergänzt.“
 - Verantwortliche Person / Stelle (Name, Anschrift): ___
 - Hinweis: Diese Angaben müssen vom Team bzw. von der DGOU kommen, nicht von der KI.
 - Stand: Impressum und Datenschutzerklärung liegen als ENTWURF auf der Website (Banner „Entwurf – rechtliche Freigabe durch die DGOU ausstehend“).
+- Die DGOU hat zugestimmt, als Betreiberin genannt zu werden (Stand 27.11.2026). Impressum-Wortlaut: „Die AKKI-Website ist ein Angebot des Arbeitskreises Künstliche Intelligenz der AG Digitalisierung der Deutschen Gesellschaft für Orthopädie und Unfallchirurgie e. V. (DGOU) …“
 - Offene Punkte [OFFEN], von der DGOU zu klären:
   - Impressum: Inhaltlich verantwortlich nach § 18 Abs. 2 MStV (Name, Anschrift)
   - Datenschutz: Name und Kontaktdaten des Datenschutzbeauftragten

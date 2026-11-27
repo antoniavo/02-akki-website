@@ -1,13 +1,13 @@
 /*
   AKKI – lebendes Logo
   Einbau:
-    <canvas data-akki-logo style="width:100%;height:260px;background:#0D2740;border-radius:14px"></canvas>
+    <canvas data-akki-logo style="width:100%;height:260px;background:#183444;border-radius:14px"></canvas>
     <script src="logo/logo-animiert.js"></script>
   Optional: data-untertitel="..." und data-zeile2="..." am <canvas> ändern die Texte unter dem Logo.
   Ohne Zusatzprogramme. Bei "Bewegung reduzieren" im Betriebssystem wird nur das stille Logo gezeigt.
 */
 (function () {
-  const BASE = '#8FD4F0', ACC = '#45E9DA', HEAD = '#EAF3F7', TXT = '#EAF3F7', TXT2 = '#8A99A2';
+  const BASE = '#C1D7A2', ACC = '#FFFFFF', HEAD = '#FFFFFF', TXT = '#FFFFFF', TXT2 = '#C1D7A2';
   const LETTERS = [
     [[0, 100, 35, 0], [35, 0, 70, 100], [14, 60, 56, 60]],
     [[0, 0, 0, 100], [0, 62, 54, 0], [19, 40, 58, 100]],

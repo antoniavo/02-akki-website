@@ -1,7 +1,8 @@
-// Gemeinsame Seitenteile: Navigation und Fußzeile stehen NUR HIER (eine Komponente für alle Seiten).
+// Gemeinsame Seitenteile: Navigation (kleine Buttons unter dem Logo) und Fußzeile stehen NUR HIER (eine Komponente für alle Seiten).
 // Jede Seite enthält nur zwei Platzhalter:
 //   <div id="seitenkopf" class="kopf-fix"> mit dem Pflicht-Hinweis (steht fest im HTML, auch ohne JavaScript sichtbar)
 //   <div id="seitenfuss"></div>
+// Nur die Startseite hat zusätzlich <div id="hauptnav"></div> im blauen Kopf (unter dem Untertitel); die anderen Seiten bekommen das Band automatisch.
 // Menüpunkte ändern: Liste SEITEN unten. Der aktive Punkt wird automatisch aus dem Dateinamen erkannt.
 (function () {
   const SEITEN = [
@@ -15,31 +16,32 @@
   const aktuell = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   const istAktuell = datei => (datei === aktuell ? ' aria-current="page"' : '');
 
-  // ---------- Kopf: Navigation ----------
+  // ---------- Kopf: Navigation als kleine Buttons unter dem Logo mit Untertitel ----------
+  // Startseite: Die Buttons stehen im Platzhalter <div id="hauptnav"> direkt unter dem lebenden Logo und dem Untertitel.
+  // Alle anderen Seiten: Ein kompaktes blaues Band mit Logo, Untertitel und denselben Buttons wird unter den Pflicht-Hinweis gesetzt.
   const kopf = document.getElementById('seitenkopf');
   if (kopf) {
-    const links = SEITEN.map(([datei, name]) => `<li><a href="${datei}"${istAktuell(datei)}>${name}</a></li>`).join('');
-    kopf.insertAdjacentHTML('beforeend', `
-<nav class="nav" aria-label="Hauptnavigation">
-  <div class="container nav__innen">
-    <button class="nav__toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menü öffnen"><span aria-hidden="true">☰</span><span class="nav__toggle-text">Menü</span></button>
-    <ul class="nav__links" id="nav-links">${links}</ul>
+    const links = SEITEN.map(([datei, name]) => `<li><a class="hauptnav__knopf" href="${datei}"${istAktuell(datei)}>${name}</a></li>`).join('');
+    const navHtml = `<nav class="hauptnav" aria-label="Hauptnavigation"><ul>${links}</ul></nav>`;
+    const platz = document.getElementById('hauptnav');
+    if (platz) {
+      platz.outerHTML = navHtml;
+    } else {
+      const extern = (href, text) => `<a href="${href}" target="_blank" rel="noopener">${text}<span class="sr-only"> (öffnet in neuem Tab)</span></a>`;
+      kopf.insertAdjacentHTML('afterend', `
+<div class="kopfband">
+  <div class="container kopfband__innen">
+    <div class="kopfband__marke">
+      <a class="kopfband__logo" href="index.html"><img src="logo/logo-nav-hell.svg" alt="AKKI – zur Startseite" width="136" height="55"></a>
+      <p class="kopfband__untertitel"><span>Arbeitskreis Künstliche Intelligenz</span><span class="kopfband__untertitel-2">${extern('https://www.digitalisierung-dgou.de/', 'AG Digitalisierung')} · ${extern('https://dgou.de/', 'DGOU')}</span></p>
+    </div>
+    ${navHtml}
   </div>
-</nav>`);
+</div>`);
+    }
     // Skip-Link für Tastaturbedienung, Ziel ist <main id="inhalt">
     kopf.insertAdjacentHTML('beforebegin', '<a class="skip-link" href="#inhalt">Zum Inhalt springen</a>');
-
-    const knopf = document.getElementById('nav-toggle');
-    const liste = document.getElementById('nav-links');
-    function menue(offen) {
-      liste.classList.toggle('nav__links--offen', offen);
-      knopf.setAttribute('aria-expanded', String(offen));
-      knopf.setAttribute('aria-label', offen ? 'Menü schließen' : 'Menü öffnen');
-    }
-    knopf.addEventListener('click', () => menue(!liste.classList.contains('nav__links--offen')));
-    document.addEventListener('keydown', e => { if (e.key === 'Escape' && liste.classList.contains('nav__links--offen')) { menue(false); knopf.focus(); } });
-  }
-  const haupt = document.querySelector('main');
+  }  const haupt = document.querySelector('main');
   if (haupt && !haupt.id) { haupt.id = 'inhalt'; haupt.setAttribute('tabindex', '-1'); }
 
   // ---------- Fußzeile: zwei kompakte Zeilen ----------

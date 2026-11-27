@@ -141,13 +141,6 @@
     const [j, m, t] = String(datum).split('-');
     return t ? `${Number(t)}. ${MONATE[Number(m) - 1]} ${j}` : `${MONATE[Number(m) - 1]} ${j}`;
   }
-  // Erster Satz einer Beschreibung; der Rest (falls vorhanden) kommt in die Details
-  function satzTeilen(text) {
-    const m = String(text || '').match(/^.*?[.!?](?=\s|$)/);
-    const satz = m ? m[0] : String(text || '');
-    return { satz, rest: String(text || '').slice(satz.length).trim() };
-  }
-
   function materialLinks(t) {
     // Folien und Aufzeichnung nur nach Freigabe: leer = ausgeblendet
     const material = el('p', 'archiv-karte__material');
@@ -162,43 +155,66 @@
 
   const pfeilSvg = () => {
     const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('aria-hidden', 'true'); s.setAttribute('class', 'kl-karte__pfeil');
+    s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('aria-hidden', 'true'); s.setAttribute('class', 'kl-zeile__pfeil');
     const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     p.setAttribute('d', 'M6 9l6 6 6-6'); s.appendChild(p);
     return s;
   };
 
-  // Eine kleine Karte: Datum, Titel, Referent:in, ein Satz. Nur vorhandene Angaben; ohne weitere Details nicht aufklappbar.
-  function vortragKarte(t, neuester) {
-    const li = el('li', 'kl-karte' + (neuester ? ' kl-karte--neu' : ''));
-    const { satz, rest } = satzTeilen(t.beschreibung);
+  // Eine Zeile pro Vortrag: Datum, Titel, "· Referent:in" (nur wenn eingetragen), Pfeil. Die Beschreibung steht erst im aufgeklappten Teil.
+  // Ohne Beschreibung, Themen und Material bleibt die Zeile fest (kein Pfeil, nicht klickbar).
+  function vortragZeile(t, nr) {
+    const li = el('li', 'kl-zeile');
     const kategorien = kategorienVon(t);
     const material = materialLinks(t);
-    const kopf = el('span', 'kl-karte__kopf');
-    kopf.appendChild(el('span', 'kl-karte__datum', datumText(t.datum)));
-    kopf.appendChild(el('span', 'kl-karte__titel', t.titel));
-    if (t.referent) kopf.appendChild(el('span', 'kl-karte__referent', t.referent));
-    if (satz) kopf.appendChild(el('span', 'kl-karte__satz', satz));
+    const hatDetails = Boolean(t.beschreibung || kategorien.length || material);
 
-    if (!(rest || kategorien.length || material)) {
-      li.appendChild(el('div', 'kl-karte__fest')).appendChild(kopf);
+    const inhalt = el('span', 'kl-zeile__inhalt');
+    inhalt.appendChild(el('span', 'kl-zeile__datum', datumText(t.datum)));
+    const text = el('span', 'kl-zeile__text');
+    text.appendChild(el('span', 'kl-zeile__titel', t.titel));
+    if (t.referent) text.appendChild(el('span', 'kl-zeile__referent', ' · ' + t.referent));
+    inhalt.appendChild(text);
+
+    if (!hatDetails) {
+      li.appendChild(el('div', 'kl-zeile__kopf kl-zeile__kopf--fest')).appendChild(inhalt);
       return li;
     }
-    const details = el('details');
-    const summary = el('summary');
-    summary.append(kopf, pfeilSvg());
-    details.appendChild(summary);
-    const inhalt = el('div', 'kl-karte__details');
-    if (rest) inhalt.appendChild(el('p', null, rest));
-    if (kategorien.length) inhalt.appendChild(el('p', 'kl-karte__themen', 'Themen: ' + kategorien.join(', ')));
-    if (material) inhalt.appendChild(material);
-    details.appendChild(inhalt);
-    li.appendChild(details);
+    const knopf = el('button', 'kl-zeile__kopf');
+    knopf.type = 'button';
+    knopf.setAttribute('aria-expanded', 'false');
+    knopf.setAttribute('aria-controls', 'kl-panel-' + nr);
+    knopf.append(inhalt, pfeilSvg());
+    li.appendChild(knopf);
+
+    const panel = el('div', 'kl-panel');
+    panel.id = 'kl-panel-' + nr;
+    const innen = el('div', 'kl-panel__innen');
+    if (t.beschreibung) innen.appendChild(el('p', null, t.beschreibung));
+    if (kategorien.length) innen.appendChild(el('p', 'kl-zeile__themen', 'Themen: ' + kategorien.join(', ')));
+    if (material) innen.appendChild(material);
+    panel.appendChild(innen);
+    li.appendChild(panel);
     return li;
   }
 
+  // Nur eine Zeile ist zur selben Zeit offen
   function vortraegeEinrichten(ziel, termine) {
-    ziel.replaceChildren(...termine.map((t, i) => vortragKarte(t, i === 0)));
+    const zeilen = termine.map((t, i) => vortragZeile(t, i));
+    ziel.replaceChildren(...zeilen);
+    zeilen.forEach(li => {
+      const knopf = li.querySelector('button.kl-zeile__kopf');
+      if (!knopf) return;
+      knopf.addEventListener('click', () => {
+        const auf = knopf.getAttribute('aria-expanded') !== 'true';
+        zeilen.forEach(z => {
+          z.classList.remove('kl-auf');
+          const k = z.querySelector('button.kl-zeile__kopf');
+          if (k) k.setAttribute('aria-expanded', 'false');
+        });
+        if (auf) { li.classList.add('kl-auf'); knopf.setAttribute('aria-expanded', 'true'); }
+      });
+    });
   }
   // ---------- Seite "KI Lab": nächster Termin + Kalenderdatei ----------
   function berlinJetzt() {

@@ -1,14 +1,39 @@
-/* Gemeinsames Design aller AKKI-Seiten (Vorgaben: inhalte.md, "Schon festgelegt") */
+/* Gemeinsames Design aller AKKI-Seiten (Vorgaben: inhalte.md, "Schon festgelegt")
+   ALLE Farben und Schriften stehen hier oben als Variablen.
+   Für ein späteres offizielles DGOU-Design reicht es, diese Werte zu ändern. */
 :root {
-  --bg: #F4F7FA;
-  --card: #FFFFFF;
-  --border: #DCE5EC;
-  --navy: #0D2740;
-  --tuerkis: #10CFC4;
-  --tuerkis-text: #0B7A74;
-  --tuerkis-hell: #45E9DA;
-  --hellblau: #63B4E6;
+  /* Grundfarben (Brand Kit, helle Variante) */
+  --bg: #F4F7FA;              /* Seitenhintergrund */
+  --card: #FFFFFF;            /* Karten */
+  --border: #DCE5EC;          /* Rahmen */
+  --navy: #0D2740;            /* Hauptfarbe: Kopfzeile, Überschriften, Text */
+  --tuerkis: #10CFC4;         /* Akzent für Flächen und Hervorhebungen */
+  --tuerkis-text: #0B7A74;    /* Akzent für Links und Text auf Hell */
+  --tuerkis-hell: #45E9DA;    /* Akzent auf dunklem Grund (Fußzeile, Navigation) */
+  --hellblau: #63B4E6;        /* Zweitakzent, sparsam */
+
+  /* Abgeleitete Farben */
+  --text-auf-dunkel: #FFFFFF;          /* Schrift auf Navy */
+  --text-auf-dunkel-leise: #C9D6E0;    /* Nebentexte auf Navy */
+  --text-fusszeile: #EAF3F7;           /* Schrift in der Fußzeile */
+  --text-leise: #4A5E70;               /* Hinweise auf Hell */
+  --text-neben: #33485C;               /* Beschreibungen auf Hell */
+  --linie-auf-dunkel: rgba(255,255,255,.12);   /* Trennlinien auf Navy */
+  --rahmen-knopf: rgba(255,255,255,.4);        /* Rahmen des Menü-Knopfs */
+
+  /* Markierungen */
+  --hinweis-bg: #FFF4CC;           /* Pflicht-Hinweis und "wird bestätigt" */
+  --hinweis-rahmen: #E8D58A;
+  --hinweis-text: #5C4A00;
+  --folgt-bg: #EEF3F7;             /* "Text folgt" */
+  --folgt-rahmen: #9AAFC0;
+  --fehler: #A3262A;               /* Fehlermeldungen */
+
+  /* Form */
   --radius: 14px;
+  --radius-klein: 6px;
+
+  /* Schriften (geladen über Google Fonts im <head> jeder Seite) */
   --font-heading: 'Archivo', system-ui, sans-serif;
   --font-body: 'Manrope', system-ui, sans-serif;
 }
@@ -29,38 +54,41 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--tuerkis); outli
 /* Pflicht-Hinweis, immer sichtbar */
 .prototyp-hinweis {
   position: sticky; top: 0; z-index: 20;
-  background: #FFF4CC; color: var(--navy);
-  border-bottom: 1px solid #E8D58A;
+  background: var(--hinweis-bg); color: var(--navy);
+  border-bottom: 1px solid var(--hinweis-rahmen);
   font-size: .85rem; font-weight: 600; text-align: center;
   padding: 6px 16px;
 }
 
 /* Navigation */
-.nav { background: var(--navy); color: #fff; }
-.nav .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; flex-wrap: wrap; }
+.nav { background: var(--navy); color: var(--text-auf-dunkel); }
+.nav .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; flex-wrap: wrap; padding-top: 6px; padding-bottom: 6px; }
+.nav__marke { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .nav__brand { display: flex; align-items: center; }
 .nav__brand img { height: 48px; width: auto; display: block; }
-.nav__toggle { display: none; background: none; border: 1px solid rgba(255,255,255,.4); color: #fff; border-radius: 8px; font-size: 1.2rem; padding: 4px 10px; cursor: pointer; }
+.nav__zugehoerigkeit { margin: 0; font-size: .78rem; line-height: 1.35; color: var(--text-auf-dunkel-leise); max-width: 190px; }
+.nav__zugehoerigkeit a { color: var(--tuerkis-hell); }
+.nav__toggle { display: none; background: none; border: 1px solid var(--rahmen-knopf); color: var(--text-auf-dunkel); border-radius: 8px; font-size: 1.2rem; padding: 4px 10px; cursor: pointer; }
 .nav__links { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; }
-.nav__links a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; padding: 6px 0; border-bottom: 2px solid transparent; }
+.nav__links a { color: var(--text-auf-dunkel); text-decoration: none; font-weight: 600; font-size: .95rem; padding: 6px 0; border-bottom: 2px solid transparent; }
 .nav__links a:hover, .nav__links a[aria-current="page"] { border-bottom-color: var(--tuerkis-hell); }
 
 /* Kopfbereich Startseite mit lebendem Logo */
-.hero { background: var(--navy); border-top: 1px solid rgba(255,255,255,.08); }
+.hero { background: var(--navy); border-top: 1px solid var(--linie-auf-dunkel); }
 .hero canvas { display: block; width: 100%; height: 260px; background: var(--navy); border-radius: var(--radius); }
 
 /* Seitenkopf der Unterseiten */
-.seitenkopf { background: var(--navy); color: #EAF3F7; padding: 36px 0 32px; border-top: 1px solid rgba(255,255,255,.08); }
-.seitenkopf h1 { color: #fff; margin: 0; font-size: clamp(1.8rem, 5vw, 2.4rem); }
-.seitenkopf p { margin: 8px 0 0; max-width: 720px; color: #C9D6E0; }
+.seitenkopf { background: var(--navy); color: var(--text-fusszeile); padding: 36px 0 32px; border-top: 1px solid var(--linie-auf-dunkel); }
+.seitenkopf h1 { color: var(--text-auf-dunkel); margin: 0; font-size: clamp(1.8rem, 5vw, 2.4rem); }
+.seitenkopf p { margin: 8px 0 0; max-width: 720px; color: var(--text-auf-dunkel-leise); }
 
 /* Inhalt */
 main section { padding: 40px 0; }
 main section + section { padding-top: 0; }
 .einstieg p { max-width: 720px; font-size: 1.15rem; }
-.text-folgt { display: inline-block; background: #EEF3F7; border: 1px dashed #9AAFC0; color: #4A5E70; border-radius: 6px; padding: 1px 8px; font-size: .9em; font-weight: 600; }
-.bestaetigen { display: inline-block; background: #FFF4CC; border: 1px solid #E8D58A; color: #5C4A00; border-radius: 6px; padding: 0 7px; font-size: .78em; font-weight: 700; vertical-align: middle; }
-.hinweis { color: #4A5E70; font-size: .95rem; }
+.text-folgt { display: inline-block; background: var(--folgt-bg); border: 1px dashed var(--folgt-rahmen); color: var(--text-leise); border-radius: var(--radius-klein); padding: 1px 8px; font-size: .9em; font-weight: 600; }
+.bestaetigen { display: inline-block; background: var(--hinweis-bg); border: 1px solid var(--hinweis-rahmen); color: var(--hinweis-text); border-radius: var(--radius-klein); padding: 0 7px; font-size: .78em; font-weight: 700; vertical-align: middle; }
+.hinweis { color: var(--text-leise); font-size: .95rem; }
 
 .karte { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
 .karte + .karte { margin-top: 16px; }
@@ -83,28 +111,30 @@ main section + section { padding-top: 0; }
 .termine li:last-child { border-bottom: 0; }
 .termine .datum { font-family: var(--font-heading); font-weight: 700; color: var(--tuerkis-text); }
 .termine .titel { font-weight: 700; }
-.termine .beschreibung { display: block; font-weight: 400; color: #33485C; }
+.termine .beschreibung { display: block; font-weight: 400; color: var(--text-neben); }
 
 /* Organigramm */
 .organigramm, .organigramm ul { list-style: none; margin: 0; padding: 0; }
 .organigramm ul { margin-left: 14px; padding-left: 16px; border-left: 2px solid var(--border); }
 .organigramm li { margin: 8px 0; }
 .organigramm .knoten { font-weight: 700; }
-.organigramm .zusatz { display: block; font-size: .95rem; color: #33485C; }
+.organigramm .zusatz { display: block; font-size: .95rem; color: var(--text-neben); }
 
 /* Fußzeile */
-.footer { background: var(--navy); color: #EAF3F7; padding: 36px 0; margin-top: 24px; }
+.footer { background: var(--navy); color: var(--text-fusszeile); padding: 36px 0; margin-top: 24px; }
 .footer .container { display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; }
 .footer strong { font-family: var(--font-heading); color: var(--tuerkis-hell); }
 .footer a { color: var(--tuerkis-hell); }
 .footer ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 18px; flex-wrap: wrap; }
 .footer p { margin: 4px 0; }
+.footer__pfad { font-weight: 600; }
 
 @media (max-width: 760px) {
   .nav__toggle { display: block; }
   .nav__links { display: none; width: 100%; flex-direction: column; gap: 0; padding-bottom: 12px; }
   .nav__links.offen { display: flex; }
-  .nav__links a { display: block; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .nav__links a { display: block; padding: 10px 0; border-bottom: 1px solid var(--linie-auf-dunkel); }
+  .nav__zugehoerigkeit { max-width: 150px; }
   .kacheln, .kacheln--zwei { grid-template-columns: 1fr; }
   .termine li { grid-template-columns: 1fr; }
 }

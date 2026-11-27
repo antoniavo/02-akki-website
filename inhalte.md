@@ -63,16 +63,14 @@ Alles mit ⚠️ ist aus öffentlichen Quellen zusammengetragen und muss vor Ort
 - Erleichterter KI-Zugang in O&U
 - Decision-Support-Systeme
 - DGOU KI Lab
-- AKKI Hackathon 2026, 27.–28.11.2026, Kesselhaus des BG Klinikums Unfallkrankenhaus Berlin. Ärzt:innen und technikaffine Kolleg:innen bauen in zwei Tagen Prototypen zu zehn KI-Use-Cases. Veranstalter: BG Klinikum Unfallkrankenhaus Berlin und Helliwood media & education. Link: https://akki-hackathon-2026.vercel.app
+- AKKI Hackathon 2026, 27.–28.11.2026, Kesselhaus des BG Klinikums Unfallkrankenhaus Berlin. Ärzt:innen und technikaffine Kolleg:innen bauen in zwei Tagen Prototypen zu sieben KI-Use-Cases. Veranstalter: BG Klinikum Unfallkrankenhaus Berlin und Helliwood media & education. Link: https://akki-hackathon-2026.vercel.app
   - Wund-AI – Link: folgt
   - AKKI-Website – Link: folgt
   - EKG-AI – Link: folgt
   - Medizinischer Avatar-Übersetzer – Link: folgt
   - Reanimations-Co-Pilot – Link: folgt
-  - Pflege-Zusammenfassung – Link: folgt
-  - Entlassungsassistent – Link: folgt
-  - Implantat-Check – Link: folgt
   - OP-Bericht-Assistent – Link: folgt
+  - Lokale KI zur Gutachtenerstellung (Freie Themenwahl) – Link: folgt
 - Aktivitäten laut DGOU-Gremienbericht 2026 ⚠️ bestätigen: KI Lab; Validierungsstudie zur KI-gestützten Wunddokumentation
 
 ## Publikationen
@@ -162,7 +160,7 @@ Hinweis: „Liste wird laufend ergänzt.“
 
 **Redaktionelle Entwürfe ✍️ (auf der Website sichtbar, `status: "entwurf"`, vom Team freizugeben):**
 - „Wer wir sind“: Selbstverständnis, sieben Ziele, Zeitleiste, Leitung des AKKI und KI-Lab-Moderation (Stand 08.06.2026), Leitung der AG Digitalisierung (Stand Oktober 2026, Fachartikel)
-- „Projekte“: Schwerpunkt-Texte, Projektbeschreibungen, Kurzbeschreibungen der zehn Hackathon-Use-Cases, Einordnung „Forschung aus dem Umfeld der AG“
+- „Projekte“: Schwerpunkt-Texte, Projektbeschreibungen, Kurzbeschreibungen der sieben Hackathon-Use-Cases, Einordnung „Forschung aus dem Umfeld der AG“
 - „Publikationen“: Kurzfassungen und Gruppierung (AKKI, Umfeld, Berichte)
 - „KI Lab“: Einleitung, Titel und Beschreibungen der neun Termine, Kategorien
 - „Mitmachen“: Texte der vier Karten, Abschnitt Mitarbeit, FAQ

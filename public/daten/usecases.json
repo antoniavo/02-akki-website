@@ -1,5 +1,5 @@
 {
-  "_hinweis": "Hackathon 2026: Rahmendaten und zehn Use Cases (Nr. 10 mit Kennzeichnung „Freie Themenwahl“). Titel bestätigt, Kurzbeschreibungen redaktioneller Entwurf. Felder team, repository, demo, ergebnis bleiben ausgeblendet, solange sie null sind.",
+  "_hinweis": "Hackathon 2026: Rahmendaten und sieben Use Cases (Nr. 7 mit Kennzeichnung „Freie Themenwahl“). Titel bestätigt, Kurzbeschreibungen redaktioneller Entwurf. Felder team, repository, demo, ergebnis bleiben ausgeblendet, solange sie null sind.",
   "hackathon": {
     "titel": "AKKI Hackathon 2026",
     "text": "Beim ersten KI-Hackathon des AKKI entwickeln Ärztinnen, Ärzte und technikinteressierte Teilnehmende in interdisziplinären Teams Prototypen für Orthopädie und Unfallchirurgie. Programmierkenntnisse sind keine Voraussetzung.",
@@ -66,38 +66,8 @@
       "status": "entwurf"
     },
     {
-      "id": "pflege-zusammenfassung",
-      "nr": 6,
-      "titel": "Pflege-Zusammenfassung",
-      "text": "KI-gestützte Zusammenfassung pflegerischer Dokumentation",
-      "team": null, "repository": null, "demo": null, "ergebnis": null,
-      "quelle": "Hackathon-Website (Titel); Kurzbeschreibung redaktionell",
-      "stand": "2026-11-27",
-      "status": "entwurf"
-    },
-    {
-      "id": "entlassungsassistent",
-      "nr": 7,
-      "titel": "Entlassungsassistent",
-      "text": "Unterstützung bei Entlassungsinformationen",
-      "team": null, "repository": null, "demo": null, "ergebnis": null,
-      "quelle": "Hackathon-Website (Titel); Kurzbeschreibung redaktionell",
-      "stand": "2026-11-27",
-      "status": "entwurf"
-    },
-    {
-      "id": "implantat-check",
-      "nr": 8,
-      "titel": "Implantat-Check",
-      "text": "Digitale Unterstützung rund um Implantatinformationen",
-      "team": null, "repository": null, "demo": null, "ergebnis": null,
-      "quelle": "Hackathon-Website (Titel); Kurzbeschreibung redaktionell",
-      "stand": "2026-11-27",
-      "status": "entwurf"
-    },
-    {
       "id": "op-bericht-assistent",
-      "nr": 9,
+      "nr": 6,
       "titel": "OP-Bericht-Assistent",
       "text": "Entwürfe für die operative Dokumentation",
       "team": null, "repository": null, "demo": null, "ergebnis": null,
@@ -107,7 +77,7 @@
     },
     {
       "id": "lokale-ki-gutachten",
-      "nr": 10,
+      "nr": 7,
       "titel": "Lokale KI zur Gutachtenerstellung",
       "kennzeichnung": "Freie Themenwahl",
       "text": "Unterstützung bei der Erstellung medizinischer Gutachten mit einer lokal betriebenen KI – die Daten verlassen den eigenen Rechner nicht.",

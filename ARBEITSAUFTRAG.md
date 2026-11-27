@@ -103,7 +103,7 @@ In `public/daten/`:
 | `personen.json` | Leitung, Ansprechpartner (neu) |
 | `organisation.json` | Organigramm (besteht) |
 | `kontakt.json` | zentrale Adresse + Betreff-Vorlagen (besteht) |
-| `usecases.json` | 9 Hackathon-Use-Cases (neu) |
+| `usecases.json` | 7 Hackathon-Use-Cases (neu) |
 
 Jeder Datensatz: `id`, `quelle`, `stand` (Datum), `status` (`bestaetigt` | `entwurf`), dazu die inhaltlichen Felder. Öffentlich angezeigt wird alles mit `bestaetigt` **und** `entwurf` – **nicht** angezeigt werden leere Felder. Seiten laden die Daten per JavaScript; dieselbe Information nie doppelt in HTML pflegen. Die Startseite zieht Aktuelles, KI-Lab-Termine und neueste Publikation aus diesen Dateien.
 
@@ -215,16 +215,14 @@ Themen-Werte: Klinische Dokumentation · Diagnostik · Prognostik · Decision Su
 ### E4. Hackathon 2026 (eigener Bereich, Anker `#hackathon`)
 ✍️ „Beim ersten KI-Hackathon des AKKI entwickeln Ärztinnen, Ärzte und technikinteressierte Teilnehmende in interdisziplinären Teams Prototypen für Orthopädie und Unfallchirurgie. Programmierkenntnisse sind keine Voraussetzung.“
 ✅ 27.–28.11.2026 · BG Klinikum Unfallkrankenhaus Berlin, Kesselhaus · Veranstalter: BG Klinikum Unfallkrankenhaus Berlin und Helliwood media & education im fjs e. V. · Website `https://akki-hackathon-2026.vercel.app/`
-**Neun Use Cases** (`usecases.json`, Raster mit 3 Spalten, Hinweis „Hackathon-Prototypen – nicht für den klinischen Einsatz“). Kurzbeschreibungen ✍️, Titel ✅:
+**Sieben Use Cases** (`usecases.json`, Raster mit 3 Spalten, Hinweis „Hackathon-Prototypen – nicht für den klinischen Einsatz“). Kurzbeschreibungen ✍️, Titel ✅:
 1. Wund-AI – KI-gestützte strukturierte Wunddokumentation
 2. AKKI-Website – Website des Arbeitskreises mit KI-gestützter Redaktion (dieses Projekt)
 3. EKG-AI – KI-Unterstützung bei der Aufbereitung von EKG-Befunden
 4. Medizinischer Avatar-Übersetzer – digitale Hilfe für mehrsprachige Patientenkommunikation
 5. Reanimations-Co-Pilot – digitale Assistenz in Reanimationssituationen
-6. Pflege-Zusammenfassung – KI-gestützte Zusammenfassung pflegerischer Dokumentation
-7. Entlassungsassistent – Unterstützung bei Entlassungsinformationen
-8. Implantat-Check – digitale Unterstützung rund um Implantatinformationen
-9. OP-Bericht-Assistent – Entwürfe für die operative Dokumentation
+6. OP-Bericht-Assistent – Entwürfe für die operative Dokumentation
+7. Lokale KI zur Gutachtenerstellung (Kennzeichnung „Freie Themenwahl“) – Unterstützung bei der Erstellung medizinischer Gutachten mit einer lokal betriebenen KI
 Felder für später (ausgeblendet, solange leer): Team, Repository, Demo, Ergebnis. Zu „AKKI-Website“ das eigene Repo verlinken: `https://github.com/antoniavo/02-akki-website`.
 
 Unten: Kasten „Forschungsidee einbringen?“ → mailto, Betreff „Forschungskooperation“.

@@ -135,9 +135,10 @@ Hinweis: „Liste wird laufend ergänzt.“
   - Datenschutz: Hosting bei Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA (freigegeben); Logfiles (IP-Adresse, Zeitpunkt, aufgerufene Seite, Browser), Zweck sicherer Betrieb, Art. 6 Abs. 1 lit. f DSGVO, Übermittlung USA auf Grundlage EU-US Data Privacy Framework bzw. Standardvertragsklauseln
 - Offene Punkte [OFFEN], von der DGOU zu klären:
   - Datenschutz, Hosting (nicht auf der Website markiert, aber von Art. 13 DSGVO verlangt bzw. üblich): Speicherdauer der Server-Logfiles bei Vercel; Auftragsverarbeitungsvertrag mit Vercel
+  - Impressum: Vereinsregisternummer widersprüchlich. Das offizielle DGOU-Impressum nennt VR 3956, die Satzung 2026 nennt VR 3953. Auf der Website steht bis zur Klärung mit der DGOU-Geschäftsstelle VR 3956 (Angabe aus dem offiziellen Impressum).
   - Datenschutz: Rechtsgrundlage für Kontakt per E-Mail bestätigen (Entwurf: Art. 6 Abs. 1 lit. f DSGVO)
-  - Datenschutz: Speicherdauer von E-Mail-Anfragen
-  - Datenschutz: Zuständige Datenschutz-Aufsichtsbehörde
+  - Datenschutz: Speicherdauer von E-Mail-Anfragen (auf der Website neutral formuliert: „nach Erledigung der Anfrage gelöscht, soweit keine gesetzlichen Aufbewahrungspflichten bestehen“; mit der DGOU abstimmen)
+  - Datenschutz: Zuständige Datenschutz-Aufsichtsbehörde (auf der Website neutral nach Art. 77 DSGVO formuliert, ohne Behörde zu nennen)
   - Gesamter Text: rechtliche Prüfung und Freigabe durch die DGOU; danach Entwurf-Banner entfernen
 
 ---

@@ -1,0 +1,20 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240" fill="none" stroke="#8FDCCB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="">
+  <!-- Bildschirm mit Videokonferenz -->
+  <rect x="40" y="22" width="280" height="172" rx="12"/>
+  <path d="M150 194v22M210 194v22M120 216h120"/>
+  <!-- vier Teilnehmerkacheln -->
+  <rect x="58" y="40" width="120" height="68" rx="8" stroke-opacity=".55"/>
+  <rect x="182" y="40" width="120" height="68" rx="8"/>
+  <rect x="58" y="112" width="120" height="68" rx="8" stroke-opacity=".55"/>
+  <rect x="182" y="112" width="120" height="68" rx="8" stroke-opacity=".55"/>
+  <g stroke="#FFFFFF" stroke-opacity=".85">
+    <circle cx="118" cy="66" r="10"/><path d="M98 100c2-12 10-17 20-17s18 5 20 17"/>
+    <circle cx="242" cy="66" r="10"/><path d="M222 100c2-12 10-17 20-17s18 5 20 17"/>
+    <circle cx="118" cy="138" r="10"/><path d="M98 172c2-12 10-17 20-17s18 5 20 17"/>
+    <circle cx="242" cy="138" r="10"/><path d="M222 172c2-12 10-17 20-17s18 5 20 17"/>
+  </g>
+  <!-- Sprechblase und Funken -->
+  <path d="M280 8h56a8 8 0 0 1 8 8v26a8 8 0 0 1-8 8h-26l-14 12v-12h-16a8 8 0 0 1-8-8V16a8 8 0 0 1 8-8z"/>
+  <path d="M296 24h32M296 36h20" stroke-opacity=".7"/>
+  <path d="M22 96l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" stroke-opacity=".8"/>
+</svg>

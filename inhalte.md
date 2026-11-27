@@ -150,7 +150,7 @@ Hinweis: „Liste wird laufend ergänzt.“
 2. Aktuelle Arbeitskreise der AG und ihre Leitungen (Team: drei AKs; recherchiert: Medien und digitale Systeme, Weißbuch, S3-Leitlinie Coxarthrose; Kompetenzbereiche). Auf der Website steht nur der AK Medien und digitale Systeme.
 3. Gründung des AKKI im Januar 2021 bestätigen
 4. `akki@dgou.de` bei der DGOU einrichten lassen (bis dahin nicht zustellbar)
-5. KI Lab: aktueller Rhythmus, Ablauf, Teilnahmebedingungen („offen für alle“?), nächster bestätigter Termin (Eintrag mit `bestaetigt: true`, Datum, `beginn`, `ende` in `beitraege.json`), Auftakt Dezember 2025 oder Januar 2026, Themen Juni und Oktober 2026
+5. KI Lab: aktueller Rhythmus, Ablauf, Teilnahmebedingungen („offen für alle“?), nächster bestätigter Termin (Eintrag mit `bestaetigt: true`, Datum, `beginn`, `ende` in `beitraege.json`), Auftakt Januar 2026 (vom Team festgelegt), Themen Juni und Oktober 2026
 6. Referentin KI Lab 15.09.2026 (Anna Klempert oder Anna Völker?), bis dahin weggelassen
 7. Status der Forschungsprojekte (Wunddokumentation: Ergebnisse dürfen nicht behauptet werden)
 8. Freigabe von Personen- und Veranstaltungsfotos (bis dahin Initialen-Kreise, keine Bildplätze)

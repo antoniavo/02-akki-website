@@ -3,13 +3,12 @@
 //   #aktuelles-liste   – Karten "Aktuelles" (Startseite)
 //   #kilab-letzte      – die letzten drei KI-Lab-Termine (Startseite)
 //   #naechster-termin  – nächster BESTÄTIGTER KI-Lab-Termin (bestaetigt: true, volles Datum, Zukunft, beginn/ende); sonst Newsletter-Hinweis (Seite "KI Lab")
-//   #kilab-archiv      – Archiv mit Suche (#kilab-suche) und Filtern (#kilab-filter) (Seite "KI Lab")
+//   #kilab-archiv      – Liste der bisherigen Termine mit Lupen-Suche (#kilab-suche) und Themenkacheln (.kl-thema); #kilab-zuletzt – jüngster Vortrag (Seite "KI Lab")
 // Alle Texte werden als reiner Text eingefügt (kein HTML aus der Datei).
 // Termine ohne Titel ("folgt") werden nicht angezeigt; Referent:innen nur, wenn eingetragen (= bestätigt).
 (function () {
   const MONATE = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
   const WOCHENTAGE = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
-  const KATEGORIEN = ['KI-Tools', 'Automatisierung', 'Strategie', 'Praxisbericht', 'Datenschutz', 'Forschung', 'Klinische KI', 'Softwareentwicklung'];
   // Mehrfachzuordnung: "kategorien" (Liste); das alte Einzelfeld "kategorie" wird weiter verstanden
   const kategorienVon = t => (Array.isArray(t.kategorien) ? t.kategorien : (t.kategorie ? [t.kategorie] : []));
 
@@ -86,14 +85,21 @@
     return a;
   }
 
-  // ---------- Seite "KI Lab": Archiv mit Suche und Filter ----------
-  function archivKarte(t) {
-    const art = el('article', 'archiv-karte');
-    // Kein Kategorie-Schild auf der Karte: nur das Datum (Kategorien dienen weiter dem Filter oben)
-    art.appendChild(el('div', 'termin-karte__datum', datumText(t.datum)));
-    art.appendChild(el('h3', 'archiv-karte__titel', t.titel));
-    if (t.referent) art.appendChild(el('p', 'archiv-karte__referent', t.referent));
-    if (t.beschreibung) art.appendChild(el('p', 'archiv-karte__text', t.beschreibung));
+  // ---------- Seite "KI Lab": jüngster Vortrag, Themenkacheln, Liste ----------
+  // "2026-11-03" -> "3. November 2026"
+  function datumLang(datum) {
+    const [j, m, t] = String(datum).split('-');
+    return t ? `${Number(t)}. ${MONATE[Number(m) - 1]} ${j}` : `${MONATE[Number(m) - 1]} ${j}`;
+  }
+  // Erster Satz einer Beschreibung; der Rest (falls vorhanden) kommt in die Details
+  function satzTeilen(text) {
+    const m = String(text || '').match(/^.*?[.!?](?=\s|$)/);
+    const satz = m ? m[0] : String(text || '');
+    return { satz, rest: String(text || '').slice(satz.length).trim() };
+  }
+  const terminId = t => 'termin-' + t.datum;
+
+  function materialLinks(t) {
     // Folien und Aufzeichnung nur nach Freigabe: leer = ausgeblendet
     const material = el('p', 'archiv-karte__material');
     [['Folien', t.folien], ['Aufzeichnung', t.aufzeichnung]].forEach(([name, url]) => {
@@ -102,44 +108,148 @@
       a.href = url; a.target = '_blank'; a.rel = 'noopener';
       material.appendChild(a); material.appendChild(document.createTextNode(' '));
     });
-    if (material.childNodes.length) art.appendChild(material);
-    return art;
+    return material.childNodes.length ? material : null;
+  }
+
+  function datumsBlock(datum) {
+    const [jahr, monat, tag] = String(datum).split('-');
+    if (!tag) return el('span', 'kl-eintrag__datum', datumText(datum));
+    const block = el('span', 'datumsblock');
+    block.appendChild(el('span', 'datumsblock__tag', String(Number(tag))));
+    block.appendChild(el('span', 'datumsblock__monat', MONATE[Number(monat) - 1].slice(0, 3)));
+    block.appendChild(el('span', 'datumsblock__jahr', jahr));
+    return block;
+  }
+
+  const pfeilSvg = () => {
+    const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('aria-hidden', 'true'); s.setAttribute('class', 'kl-eintrag__pfeil');
+    const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    p.setAttribute('d', 'M6 9l6 6 6-6'); s.appendChild(p);
+    return s;
+  };
+
+  // Eine Zeile der Liste. Nur vorhandene Angaben; ohne weitere Details bleibt die Zeile fest (nicht aufklappbar).
+  function listenEintrag(t) {
+    const li = el('li');
+    li.id = terminId(t);
+    const { satz, rest } = satzTeilen(t.beschreibung);
+    const kategorien = kategorienVon(t);
+    const material = materialLinks(t);
+    const haupt = el('span', 'kl-eintrag__haupt');
+    haupt.appendChild(el('span', 'kl-eintrag__titel', t.titel));
+    if (t.referent) haupt.appendChild(el('span', 'kl-eintrag__referent', t.referent));
+    if (satz) haupt.appendChild(el('span', 'kl-eintrag__satz', satz));
+
+    const hatDetails = Boolean(rest || kategorien.length || material);
+    if (!hatDetails) {
+      const zeile = el('div', 'kl-eintrag kl-eintrag--fest');
+      zeile.append(datumsBlock(t.datum), haupt);
+      li.appendChild(zeile);
+      return li;
+    }
+    const details = el('details', 'kl-eintrag');
+    const kopf = el('summary');
+    kopf.append(datumsBlock(t.datum), haupt, pfeilSvg());
+    details.appendChild(kopf);
+    const inhalt = el('div', 'kl-eintrag__details');
+    if (rest) inhalt.appendChild(el('p', null, rest));
+    if (kategorien.length) inhalt.appendChild(el('p', 'kl-eintrag__themen', 'Themen: ' + kategorien.join(', ')));
+    if (material) inhalt.appendChild(material);
+    details.appendChild(inhalt);
+    li.appendChild(details);
+    return li;
+  }
+
+  function zuletztEinrichten(abschnitt, t, oeffnen) {
+    if (!abschnitt || !t) return;
+    const karte = abschnitt.querySelector('.kl-zuletzt');
+    const bild = el('div', 'kl-zuletzt__bild');
+    const img = el('img');
+    img.src = 'bilder/kilab-vortrag.svg'; img.alt = ''; img.width = 360; img.height = 240;
+    bild.appendChild(img);
+    const kategorien = kategorienVon(t);
+    if (kategorien.length) bild.appendChild(el('p', 'kl-zuletzt__themen', kategorien.join(' · ')));
+    const text = el('div', 'kl-zuletzt__text');
+    text.appendChild(el('p', 'kl-zuletzt__datum', datumLang(t.datum)));
+    text.appendChild(el('h3', null, t.titel));
+    if (t.referent) text.appendChild(el('p', 'kl-zuletzt__referent', t.referent));
+    if (t.beschreibung) text.appendChild(el('p', 'kl-zuletzt__beschreibung', t.beschreibung));
+    const link = el('a', 'pfeil-link', 'Vortrag entdecken');
+    link.href = '#' + terminId(t);
+    link.addEventListener('click', e => { e.preventDefault(); oeffnen(t); });
+    text.appendChild(link);
+    karte.replaceChildren(bild, text);
+    abschnitt.hidden = false;
   }
 
   function archivEinrichten(ziel, termine) {
     const suche = document.getElementById('kilab-suche');
-    const filterBox = document.getElementById('kilab-filter');
+    const suchbox = document.getElementById('kilab-suchbox');
+    const lupe = document.getElementById('kilab-lupe');
     const anzahl = document.getElementById('kilab-anzahl');
-    let kategorie = 'Alle';
-
-    if (filterBox) {
-      const vorhanden = KATEGORIEN.filter(k => termine.some(t => kategorienVon(t).includes(k)));
-      ['Alle', ...vorhanden].forEach(k => {
-        const b = el('button', 'filter-knopf', k);
-        b.type = 'button';
-        b.setAttribute('aria-pressed', k === 'Alle' ? 'true' : 'false');
-        b.addEventListener('click', () => {
-          kategorie = k;
-          filterBox.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-          zeigen();
-        });
-        filterBox.appendChild(b);
-      });
-    }
+    const hinweis = document.getElementById('kilab-filterhinweis');
+    const hinweisName = document.getElementById('kilab-filtername');
+    const zurueck = document.getElementById('kilab-zuruecksetzen');
+    const kacheln = [...document.querySelectorAll('.kl-thema')];
+    const ohneBewegung = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let aktiv = null; // gewählte Themenkachel
 
     function zeigen() {
       const begriff = (suche ? suche.value : '').trim().toLowerCase();
+      const gesucht = aktiv ? aktiv.dataset.kategorien.split(',') : null;
       const treffer = termine.filter(t =>
-        (kategorie === 'Alle' || kategorienVon(t).includes(kategorie)) &&
+        (!gesucht || kategorienVon(t).some(k => gesucht.includes(k))) &&
         (!begriff || [t.titel, t.beschreibung, t.referent, kategorienVon(t).join(' '), datumText(t.datum)]
           .filter(Boolean).join(' ').toLowerCase().includes(begriff)));
-      ziel.replaceChildren(...(treffer.length ? treffer.map(archivKarte) : [el('p', 'hinweis', 'Keine passenden Termine gefunden.')]));
+      ziel.replaceChildren(...treffer.map(listenEintrag));
+      if (!treffer.length) ziel.replaceChildren(el('li', 'hinweis', 'Keine passenden Termine gefunden.'));
       if (anzahl) anzahl.textContent = treffer.length === 1 ? '1 Termin' : `${treffer.length} Termine`;
+      if (hinweis) {
+        hinweis.hidden = !aktiv;
+        if (aktiv && hinweisName) hinweisName.textContent = 'Gefiltert nach: ' + aktiv.dataset.name;
+      }
+    }
+
+    function waehlen(kachel) {
+      aktiv = aktiv === kachel ? null : kachel;
+      kacheln.forEach(k => k.setAttribute('aria-pressed', String(k === aktiv)));
+      zeigen();
+      const abschnitt = document.getElementById('kilab-liste-abschnitt');
+      if (aktiv && abschnitt) abschnitt.scrollIntoView({ behavior: ohneBewegung ? 'auto' : 'smooth', block: 'start' });
+    }
+    kacheln.forEach(k => k.addEventListener('click', () => waehlen(k)));
+    if (zurueck) zurueck.addEventListener('click', () => { if (aktiv) waehlen(aktiv); });
+
+    if (lupe && suchbox) {
+      lupe.addEventListener('click', () => {
+        const auf = suchbox.hidden;
+        suchbox.hidden = !auf;
+        lupe.setAttribute('aria-expanded', String(auf));
+        if (auf && suche) suche.focus();
+      });
     }
     if (suche) suche.addEventListener('input', zeigen);
-    zeigen();
-  }
 
+    // Einen Termin sichtbar machen, aufklappen und hinscrollen (z. B. von "Vortrag entdecken")
+    function oeffnen(t) {
+      if (aktiv) { aktiv.setAttribute('aria-pressed', 'false'); aktiv = null; }
+      if (suche && suche.value) suche.value = '';
+      zeigen();
+      const li = document.getElementById(terminId(t));
+      if (!li) return;
+      const details = li.querySelector('details');
+      if (details) details.open = true;
+      li.scrollIntoView({ behavior: ohneBewegung ? 'auto' : 'smooth', block: 'center' });
+      const kopf = li.querySelector('summary');
+      if (kopf) kopf.focus({ preventScroll: true });
+      li.firstElementChild.classList.remove('kl-markiert'); void li.offsetWidth; li.firstElementChild.classList.add('kl-markiert');
+      history.replaceState(null, '', '#' + terminId(t));
+    }
+
+    zeigen();
+    return oeffnen;
+  }
   // ---------- Seite "KI Lab": nächster Termin + Kalenderdatei ----------
   function berlinJetzt() {
     const t = Object.fromEntries(new Intl.DateTimeFormat('en-CA', {
@@ -243,7 +353,12 @@
       if (aktuell) aktuell.replaceChildren(...(daten.aktuelles || []).map(aktuellKarte));
       if (letzte) letzte.replaceChildren(...termine.slice(0, 3).map(terminKarteKurz));
       if (naechster) naechsterTerminEinrichten(naechster, naechsterBestaetigterTermin(daten));
-      if (archiv) archivEinrichten(archiv, termine);
+      if (archiv) {
+        const oeffnen = archivEinrichten(archiv, termine);
+        zuletztEinrichten(document.getElementById('kilab-zuletzt'), termine[0], oeffnen);
+        const ziel = termine.find(t => '#' + terminId(t) === decodeURIComponent(location.hash));
+        if (ziel) oeffnen(ziel);
+      }
     })
     .catch(() => {
       [aktuell, letzte, archiv].filter(Boolean).forEach(z => z.replaceChildren(el('p', 'hinweis', 'Die Inhalte konnten gerade nicht geladen werden.')));

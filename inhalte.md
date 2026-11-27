@@ -143,15 +143,19 @@ Hinweis: „Liste wird laufend ergänzt.“
 ---
 
 ## Schon festgelegt
-- **Design-Vorgaben für alle Seiten** (helle Variante des AKKI Brand Kits, siehe daten/hackathon-website/styles/main.css):
-  - Hintergrund `#F4F7FA`, Karten `#FFFFFF`, Rahmen `#DCE5EC`
-  - Hauptfarbe Navy `#0D2740`: Kopfzeile, Überschriften, Text
-  - Akzent Türkis `#10CFC4` für Flächen und Hervorhebungen; für Links und Text auf Hell das dunklere `#0B7A74`
-  - Zweitakzent Hellblau `#63B4E6` sparsam
-  - Fußzeile dunkel wie die Hackathon-Seite (`#0D2740` mit Türkis `#45E9DA`)
-  - Schriften: Archivo für Überschriften, Manrope für Fließtext (Google Fonts wie in der Vorlage)
+- **Farbpalette** (zentral in public/style.css, Stand 27.11.2026):
+  - Hauptfarbe `#00508A`: Überschriften, Links, Buttons
+  - Akzent `#008F83`: Linien, Hover, Kachel-Oberkanten (nicht als Textfarbe, zu wenig Kontrast)
+  - Mint `#78CBB9`: nur für Flächen und Logo
+  - Helle Kacheln `#E6F5F1`
+  - Hintergrund `#FFFFFF`
+  - Kopf- und Fußzeile `#002B45` (auch Fließtext); Links dort weiß und unterstrichen
+  - Lebendes Logo: Punkte/Linien `#78CBB9`, Impulse `#FFFFFF`, Hintergrund `#002B45`
+- **Design-Vorgaben für alle Seiten:**
+  - Rahmen `#DCE5EC`
+  - Schriften: Archivo für Überschriften, Manrope für Fließtext (lokal in public/fonts, ohne Google)
   - Ecken 14 px
   - Keine Stockfotos. Bildplätze vorerst als Platzhalter „Foto folgt“.
 - Seiten: Start · Wer wir sind · Projekte · Publikationen · Treffen · Mitmachen/Kontakt · Impressum · Datenschutz (Fußzeile)
-- Logo: das lebende AKKI-Logo in public/logo/ – logo-animiert.js groß im Kopf der Startseite auf #0D2740; logo-hell.svg / logo-dunkel.svg für Navigation und Browser-Icon. Das alte AKKI-Zeichen aus der Hackathon-Seite wird nicht mehr verwendet.
+- Logo: das lebende AKKI-Logo in public/logo/ – logo-animiert.js groß im Kopf der Startseite auf #002B45; logo-hell.svg / logo-dunkel.svg für Navigation und Browser-Icon. Das alte AKKI-Zeichen aus der Hackathon-Seite wird nicht mehr verwendet.
 - Schreibregel: kurze, ansprechende Texte, pro Abschnitt höchstens 2 Sätze oder Stichpunkte

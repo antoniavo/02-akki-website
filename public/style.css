@@ -26,14 +26,15 @@
 }
 
 :root {
-  /* Grundfarben (Farbschema Stand 27.11.2026) */
+  /* Grundfarben (Palette laut inhalte.md, "Schon festgelegt") */
   --bg: #FFFFFF;              /* Seitenhintergrund */
-  --kachel: #EEF4E6;          /* helle Kacheln und Karten */
+  --kachel: #E6F5F1;          /* helle Kacheln und Karten */
   --border: #DCE5EC;          /* Rahmen */
-  --dunkel: #183444;          /* Hauptfarbe: Text, Überschriften, Kopf- und Fußzeile */
-  --akzent: #008A91;          /* Linien, Kachel-Oberkanten (für Text zu wenig Kontrast) */
-  --link: #007A80;            /* kleine Links und Text-Akzente auf Hell; auch Buttons (weiße Schrift 5,1:1) */
-  --hellgruen: #C1D7A2;       /* NUR Flächen und Logo, nie als Textfarbe auf Hell */
+  --dunkel: #002B45;          /* Kopf- und Fußzeile, Fließtext */
+  --haupt: #00508A;           /* Hauptfarbe: Überschriften, Links, Buttons */
+  --akzent: #008F83;          /* Linien, Hover, Kachel-Oberkanten (als Textfarbe zu wenig Kontrast) */
+  --link: var(--haupt);       /* Links und Text-Akzente auf Hell */
+  --mint: #78CBB9;            /* NUR Flächen und Logo, nie als Textfarbe auf Hell */
 
   /* Abgeleitete Farben */
   --text-auf-dunkel: #FFFFFF;          /* Schrift und Links auf dunklem Grund */
@@ -53,7 +54,7 @@
   --fehler: #A3262A;               /* Fehlermeldungen */
 
   /* Tastatur-Fokus (mind. 3:1 Kontrast zum Hintergrund) */
-  --fokus: #007A80;                /* auf hellem Grund */
+  --fokus: #00508A;                /* auf hellem Grund */
   --fokus-auf-dunkel: #FFFFFF;     /* auf dunklem Grund */
 
   /* Form */
@@ -73,8 +74,9 @@ body {
   font-size: 1.0625rem;
   line-height: 1.6;
 }
-h1, h2, h3 { font-family: var(--font-heading); color: var(--dunkel); line-height: 1.2; margin: 0 0 .5em; }
-a { color: var(--link); }
+h1, h2, h3 { font-family: var(--font-heading); color: var(--haupt); line-height: 1.2; margin: 0 0 .5em; }
+a { color: var(--link); text-underline-offset: 2px; }
+a:hover { text-decoration-color: var(--akzent); text-decoration-thickness: 2px; }
 a:focus-visible, button:focus-visible { outline: 3px solid var(--fokus); outline-offset: 2px; }
 .nav :focus-visible, .hero :focus-visible, .seitenkopf :focus-visible, .footer :focus-visible { outline-color: var(--fokus-auf-dunkel); }
 .container { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
@@ -99,7 +101,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--fokus); outline
 .nav__toggle { display: none; background: none; border: 1px solid var(--rahmen-knopf); color: var(--text-auf-dunkel); border-radius: 8px; font-size: 1.2rem; padding: 4px 10px; cursor: pointer; }
 .nav__links { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; }
 .nav__links a { color: var(--text-auf-dunkel); text-decoration: none; font-weight: 600; font-size: .95rem; padding: 6px 0; border-bottom: 2px solid transparent; }
-.nav__links a:hover, .nav__links a[aria-current="page"] { border-bottom-color: var(--hellgruen); }
+.nav__links a:hover, .nav__links a[aria-current="page"] { border-bottom-color: var(--akzent); }
 
 /* Kopfbereich Startseite mit lebendem Logo */
 .hero { background: var(--dunkel); border-top: 1px solid var(--linie-auf-dunkel); }

@@ -37,8 +37,8 @@ function seiteFolgt(res) {
   res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
   res.end(`<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Seite folgt – AKKI</title></head>
-<body style="font-family:sans-serif;background:#FFFFFF;color:#183444;padding:40px 16px;text-align:center">
-<h1>Diese Seite folgt</h1><p>Sie ist noch nicht gebaut.</p><p><a href="/" style="color:#007A80">Zur Startseite</a></p>
+<body style="font-family:sans-serif;background:#FFFFFF;color:#002B45;padding:40px 16px;text-align:center">
+<h1>Diese Seite folgt</h1><p>Sie ist noch nicht gebaut.</p><p><a href="/" style="color:#00508A">Zur Startseite</a></p>
 </body></html>`);
 }
 

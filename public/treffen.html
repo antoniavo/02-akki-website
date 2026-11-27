@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KI Lab – AKKI</title>
-<meta name="description" content="Das DGOU KI Lab des AKKI: KI kennenlernen, Erfahrungen austauschen, Wissen vertiefen. Online, jeden ersten Dienstag im Monat, kostenlos. Nächster Termin und bisherige Veranstaltungen.">
+<meta name="description" content="Das DGOU KI Lab des AKKI: KI kennenlernen, Erfahrungen teilen. Unser Online-Format für KI in der Medizin, jeden ersten Dienstag im Monat, kostenlos.">
 <!-- Vorerst fuer Suchmaschinen gesperrt, bis die DGOU die Seite freigibt (siehe inhalte.md) -->
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="logo/logo-hell.svg">
@@ -17,137 +17,69 @@
   <div class="prototyp-hinweis" role="note">Prototyp – nur Testdaten. Kein Ersatz für ärztliche Beurteilung.</div>
 </div>
 
-<!-- 1. Kompakter Kopf -->
+<!-- 1. Kopf: weiß, kompakt -->
 <header class="kl-kopf">
-  <div class="container kl-kopf__innen">
-    <div class="kl-kopf__text">
-      <p class="kl-kopf__zeile">AKKI · Seit Januar 2026</p>
-      <h1>DGOU KI Lab</h1>
-      <p class="kl-kopf__unter">KI kennenlernen. Erfahrungen austauschen. Wissen vertiefen.</p>
-      <ul class="kl-meta">
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
-          Online
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-          Jeden ersten Dienstag im Monat
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1"/></svg>
-          Kostenlos
-        </li>
-      </ul>
-    </div>
-    <img class="kl-kopf__bild" src="bilder/kilab-konferenz.svg" alt="" width="360" height="240">
+  <div class="container">
+    <p class="kl-kopf__zeile">DGOU KI Lab · Seit Januar 2026</p>
+    <h1>KI kennenlernen. Erfahrungen teilen.</h1>
+    <p class="kl-kopf__unter">Unser Online-Format für KI in der Medizin.</p>
+    <ul class="kl-meta">
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+        Online
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        Jeden ersten Dienstag im Monat
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1"/></svg>
+        Kostenlos
+      </li>
+    </ul>
   </div>
 </header>
 
 <main>
-  <!-- 2. Schmale Leiste: nächster Termin = nächster erster Dienstag im Monat (berechnet in beitraege.js); Thema und Referent:in aus daten/beitraege.json, wenn für diesen Tag eingetragen -->
-  <section class="kl-leiste" aria-labelledby="naechster-titel">
-    <div class="container kl-leiste__innen" id="naechster-termin">
-      <h2 id="naechster-titel">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-        Nächstes KI Lab:
-      </h2>
-      <div class="kl-leiste__termin" data-feld="mit-termin" hidden>
-        <p class="naechster-termin__datum" data-feld="datum"></p>
-      </div>
-      <p class="kl-leiste__ohne" data-feld="ohne-termin">Der nächste Termin konnte gerade nicht berechnet werden.</p>
-      <div class="kl-leiste__knoepfe">
-        <button class="knopf knopf--rand" type="button" id="ics-knopf" hidden>In den Kalender (.ics)</button>
-        <a class="knopf knopf--rand" data-kontakt-mailto="Newsletter KI Lab" href="mitmachen.html">Informiert bleiben</a>
-      </div>
-      <!-- Zweite Zeile: eingetragenes Thema (mit Referent:in) oder, solange keins eingetragen ist, die Frage nach einer Idee -->
-      <div class="kl-leiste__thema" data-feld="thema-block" hidden>
-        <p class="naechster-termin__thema" data-feld="thema" hidden></p>
-        <p class="naechster-termin__referent" data-feld="referent" hidden></p>
-        <p class="kl-leiste__frage" data-feld="ohne-thema">Das Thema steht noch aus. Haben Sie eine Idee?</p>
-        <a class="knopf" data-feld="vorschlag" data-kontakt-mailto="Themenvorschlag KI Lab">Thema vorschlagen</a>
-      </div>
-    </div>  </section>
-
-  <!-- 3. Zuletzt im KI Lab (jüngster Vortrag, kommt aus beitraege.json) -->
-  <section class="kl-abschnitt" id="kilab-zuletzt" aria-labelledby="zuletzt-titel" hidden>
+  <!-- 2. Termin-Ticket: nächster erster Dienstag im Monat (berechnet in beitraege.js); Thema und Referent:in nur, wenn in daten/beitraege.json eingetragen -->
+  <section class="kl-abschnitt" aria-label="Nächster Termin">
     <div class="container">
-      <h2 id="zuletzt-titel">Zuletzt im KI Lab</h2>
-      <article class="kl-zuletzt"></article>
-    </div>
-  </section>
-
-  <!-- 4. Themenkacheln: Klick filtert die Liste darunter -->
-  <section class="kl-abschnitt" aria-labelledby="thema-wahl-titel">
-    <div class="container">
-      <h2 id="thema-wahl-titel">Was interessiert Sie?</h2>
-      <div class="kl-themen">
-        <button type="button" class="kl-thema" data-kategorien="KI-Tools" data-name="KI-Tools entdecken" aria-pressed="false">
-          <span class="kl-thema__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3l1.9 5.4L18 10.3l-5.1 1.9L11 17.5l-1.9-5.3L4 10.3l5.1-1.9z"/><path d="M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg></span>
-          <span class="kl-thema__titel">KI-Tools entdecken</span>
-          <span class="kl-thema__text">Gemini, Claude, ChatGPT, Copilot</span>
-        </button>
-        <button type="button" class="kl-thema" data-kategorien="Automatisierung" data-name="Arbeitsabläufe automatisieren" aria-pressed="false">
-          <span class="kl-thema__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="7" r="2.5"/><circle cx="18" cy="7" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8.5 7h7M7.3 9.2l3.5 6.6M16.7 9.2l-3.5 6.6"/></svg></span>
-          <span class="kl-thema__titel">Arbeitsabläufe automatisieren</span>
-          <span class="kl-thema__text">n8n, Cowork, Workflows</span>
-        </button>
-        <button type="button" class="kl-thema" data-kategorien="Klinische KI,Praxisbericht" data-name="KI in der klinischen Praxis" aria-pressed="false">
-          <span class="kl-thema__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg></span>
-          <span class="kl-thema__titel">KI in der klinischen Praxis</span>
-          <span class="kl-thema__text">Medizinische Sprachmodelle</span>
-        </button>
-        <button type="button" class="kl-thema" data-kategorien="Datenschutz,Strategie" data-name="Datenschutz &amp; Strategie" aria-pressed="false">
-          <span class="kl-thema__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
-          <span class="kl-thema__titel">Datenschutz &amp; Strategie</span>
-          <span class="kl-thema__text">DSGVO, KI-Strategie</span>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. Bisherige Veranstaltungen (aus public/daten/beitraege.json über beitraege.js) -->
-  <section class="kl-abschnitt" id="kilab-liste-abschnitt" aria-labelledby="liste-titel">
-    <div class="container">
-      <div class="abschnitt-kopf kl-listenkopf">
-        <h2 id="liste-titel">Bisherige Veranstaltungen</h2>
-        <div class="kl-listenkopf__rechts">
-          <p class="hinweis" id="kilab-anzahl" aria-live="polite"></p>
-          <button type="button" class="kl-lupe" id="kilab-lupe" aria-expanded="false" aria-controls="kilab-suchbox" aria-label="Termine durchsuchen">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-          </button>
+      <div class="kl-ticket" id="naechster-termin">
+        <div class="kl-ticket__datum" aria-hidden="true">
+          <span class="kl-ticket__tag" data-feld="tag"></span>
+          <span class="kl-ticket__monat" data-feld="monat"></span>
+          <span class="kl-ticket__jahr" data-feld="jahr"></span>
+        </div>
+        <div class="kl-ticket__text">
+          <p class="kl-ticket__zeile"><span data-feld="zeile"></span><span class="sr-only" data-feld="datum-lang"></span></p>
+          <p class="kl-ticket__thema" data-feld="thema" hidden></p>
+          <p class="kl-ticket__referent" data-feld="referent" hidden></p>
+          <p class="kl-ticket__frage" data-feld="ohne-thema">Das Thema steht noch aus. <a data-kontakt-mailto="Themenvorschlag KI Lab" href="mitmachen.html">Haben Sie eine Idee?<span class="sr-only"> Thema vorschlagen</span></a></p>
+        </div>
+        <div class="kl-ticket__knopf">
+          <button class="knopf" type="button" id="ics-knopf" hidden>In den Kalender</button>
         </div>
       </div>
-      <div class="kl-suchbox" id="kilab-suchbox" hidden>
-        <label class="suchfeld">
-          <span class="sr-only">Termine durchsuchen</span>
-          <input type="search" id="kilab-suche" placeholder="Titel, Referent:in oder Stichwort …" autocomplete="off">
-        </label>
-      </div>
-      <p class="kl-filterhinweis" id="kilab-filterhinweis" hidden>
-        <span id="kilab-filtername"></span>
-        <button type="button" class="kl-filterhinweis__zurueck" id="kilab-zuruecksetzen">Alle anzeigen</button>
-      </p>
-      <ul class="kl-liste" id="kilab-archiv"></ul>
-
-      <details class="kl-ablauf">
-        <summary>Wie läuft ein KI Lab ab?</summary>
-        <ul class="liste">
-          <li>Seit Januar 2026</li>
-          <li>Jeden ersten Dienstag im Monat</li>
-          <li>Online über Microsoft Teams</li>
-          <li>Kostenlos</li>
-          <li id="moderation" hidden></li>
-        </ul>
-      </details>
     </div>
   </section>
 
-  <!-- 6. Abschluss -->
+  <!-- 3. Vorträge als Raster kleiner Karten, neueste zuerst (aus public/daten/beitraege.json über beitraege.js) -->
+  <section class="kl-abschnitt" aria-labelledby="vortraege-titel">
+    <div class="container">
+      <h2 id="vortraege-titel">Bisherige Vorträge</h2>
+      <ul class="kl-raster" id="kilab-archiv"></ul>
+    </div>
+  </section>
+
+  <!-- 4. Abschlusszeile -->
   <section class="kl-abschnitt kl-abschnitt--ende" aria-labelledby="thema-titel">
     <div class="container">
-      <div class="kl-buehne">
+      <div class="kl-ende">
         <h2 id="thema-titel">Bühne frei für Ihre KI-Idee.</h2>
-        <a class="knopf knopf--hell" data-kontakt-mailto="Themenvorschlag KI Lab">Thema vorschlagen</a>
+        <div class="kl-ende__aktionen">
+          <a class="knopf" data-kontakt-mailto="Themenvorschlag KI Lab" href="mitmachen.html">Thema vorschlagen</a>
+          <a class="kl-ende__link" data-kontakt-mailto="Newsletter KI Lab" href="mitmachen.html">Informiert bleiben</a>
+        </div>
       </div>
     </div>
   </section>
@@ -158,16 +90,5 @@
 <script src="layout.js"></script>
 <script src="kontakt.js"></script>
 <script src="beitraege.js"></script>
-<script>
-  // Moderation aus public/daten/personen.json (Rolle "KI-Lab-Moderation"), damit die Namen nur an einer Stelle stehen
-  fetch('daten/personen.json').then(r => r.ok ? r.json() : null).then(d => {
-    if (!d) return;
-    const namen = d.personen.filter(p => (p.rollen || []).includes('KI-Lab-Moderation')).map(p => p.name);
-    if (!namen.length) return;
-    const li = document.getElementById('moderation');
-    li.textContent = 'Moderation: ' + namen.join(', ');
-    li.hidden = false;
-  }).catch(() => {});
-</script>
 </body>
 </html>

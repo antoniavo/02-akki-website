@@ -1,140 +1,82 @@
-/* Seite "KI Lab" (treffen.html). Farben und Abstände kommen aus den Variablen in style.css. */
+/* Seite "KI Lab" (treffen.html): vier helle Teile. Farben und Abstände kommen aus den Variablen in style.css. */
 
-/* ---------- Gemeinsames ---------- */
 .kl-abschnitt h2 { margin: 0 0 var(--a2); }
 .kl-abschnitt--ende { padding-bottom: var(--a5); }
-.kl-kopf svg, .kl-leiste svg, .kl-thema svg, .kl-lupe svg, .kl-eintrag svg {
-  fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
-}
+.kl-kopf svg, .kl-karte svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-/* ---------- 1. Kopf (dunkel, #2C4F6B wie Footer und Terminal) ---------- */
-.kl-kopf { background: var(--navy); color: var(--text-auf-dunkel); padding: var(--a4) 0; }
-.kl-kopf__innen { display: grid; grid-template-columns: minmax(0, 1fr) minmax(200px, 340px); gap: var(--a4); align-items: center; }
-.kl-kopf h1 { color: var(--text-auf-dunkel); margin: 0; }
-.kl-kopf__zeile { margin: 0 0 var(--a1); color: #8FDCCB; font: 700 .85rem var(--font-heading); letter-spacing: .12em; text-transform: uppercase; }
-.kl-kopf__unter { margin: var(--a1) 0 0; max-width: 34ch; font-size: 1.2rem; line-height: 1.45; color: var(--text-auf-dunkel-leise); }
-.kl-meta { list-style: none; margin: var(--a3) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px var(--a3); }
-.kl-meta li { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--text-auf-dunkel); }
-.kl-meta svg { width: 22px; height: 22px; color: #8FDCCB; flex: none; }
-.kl-kopf__bild { width: 100%; height: auto; justify-self: end; }
+/* ---------- 1. Kopf (weiß, kompakt) ---------- */
+.kl-kopf { background: var(--weiss); border-bottom: 1px solid var(--rahmen); padding: var(--a4) 0 var(--a3); }
+.kl-kopf__zeile { margin: 0 0 var(--a1); color: var(--petrol-text); font: 700 .85rem var(--font-heading); letter-spacing: .12em; text-transform: uppercase; }
+.kl-kopf h1 { margin: 0; }
+.kl-kopf__unter { margin: var(--a1) 0 0; font-size: 1.15rem; color: var(--text-2); }
+.kl-meta { list-style: none; margin: var(--a2) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px var(--a3); }
+.kl-meta li { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--text); }
+.kl-meta svg { width: 22px; height: 22px; color: var(--petrol-text); flex: none; }
 
-/* ---------- 2. Schmale Leiste ---------- */
-main section.kl-leiste { background: var(--hell); border-bottom: 1px solid var(--rahmen); padding: 14px 0; }
-main section.kl-leiste + section { padding-top: var(--a4); }
-.kl-leiste__innen { display: flex; flex-wrap: wrap; align-items: center; gap: 10px var(--a3); }
-.kl-leiste h2 { display: inline-flex; align-items: center; gap: 8px; margin: 0; font-size: 1rem; color: var(--blau); }
-.kl-leiste h2 svg { width: 22px; height: 22px; color: var(--petrol-text); }
-.kl-leiste p { margin: 0; }
-.kl-leiste__termin { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px var(--a2); flex: 1 1 320px; }
-.kl-leiste .naechster-termin__datum { font-size: 1.05rem; }
-.kl-leiste .naechster-termin__thema, .kl-leiste .naechster-termin__referent { margin: 0; }
-.kl-leiste__thema { flex: 1 1 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 8px var(--a2); padding-top: 10px; border-top: 1px solid var(--rahmen); }
-.kl-leiste__frage { color: var(--text-2); }
-.kl-leiste__thema[hidden], .kl-leiste__thema [hidden] { display: none; }
-.kl-leiste__ohne { flex: 1 1 240px; color: var(--text-2); }
-.kl-leiste__knoepfe { display: flex; flex-wrap: wrap; gap: 10px; margin-left: auto; }
-.kl-leiste .knopf { padding-top: 8px; padding-bottom: 8px; min-height: 40px; }
+/* ---------- 2. Termin-Ticket ---------- */
+main section.kl-abschnitt { padding: var(--a4) 0 0; }
+main section.kl-abschnitt + section.kl-abschnitt { padding-top: var(--a4); }
+.kl-ticket { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--a3); background: var(--hell); border: 1px solid var(--rahmen); border-radius: var(--radius); padding: var(--a2) var(--a3) var(--a2) var(--a2); }
+.kl-ticket[hidden] { display: none; }
+.kl-ticket__datum { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 96px; padding: 14px 12px; background: var(--navy); color: var(--text-auf-dunkel); border-radius: var(--radius-klein); line-height: 1.05; text-align: center; }
+.kl-ticket__tag { font: 800 2.6rem var(--font-heading); }
+.kl-ticket__monat { margin-top: 2px; font: 700 .9rem var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
+.kl-ticket__jahr { margin-top: 2px; font-size: .75rem; color: var(--text-auf-dunkel-leise); }
+.kl-ticket__text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.kl-ticket__text p { margin: 0; }
+.kl-ticket__zeile { font: 700 1.1rem var(--font-heading); color: var(--blau); }
+.kl-ticket__thema { font-weight: 700; font-size: 1.1rem; }
+.kl-ticket__referent { color: var(--text-2); }
+.kl-ticket__frage { color: var(--text-2); }
+.kl-ticket__frage a { font-weight: 700; color: var(--blau); text-decoration: underline; text-decoration-color: var(--petrol); text-underline-offset: 3px; }
+.kl-ticket__frage a:hover { color: var(--petrol-dunkel); }
+.kl-ticket__text [hidden] { display: none; }
 
-/* ---------- 3. Zuletzt im KI Lab ---------- */
-.kl-zuletzt { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); border: 1px solid var(--rahmen); border-radius: var(--radius); overflow: hidden; background: var(--weiss); transition: box-shadow .2s ease; }
-.kl-zuletzt:hover { box-shadow: 0 6px 22px var(--schatten); }
-.kl-zuletzt__bild { background: var(--navy); padding: var(--a3); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: var(--a2); }
-.kl-zuletzt__bild img { width: 100%; max-width: 300px; height: auto; }
-.kl-zuletzt__themen { margin: 0; text-align: center; font: 700 .8rem var(--font-heading); letter-spacing: .1em; text-transform: uppercase; color: #8FDCCB; }
-.kl-zuletzt__text { padding: var(--a3) 28px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; justify-content: center; }
-.kl-zuletzt__datum { margin: 0; font: 700 .95rem var(--font-heading); color: var(--petrol-text); }
-.kl-zuletzt__text h3 { margin: 0; font-size: 1.6rem; line-height: 1.25; color: var(--blau); overflow-wrap: break-word; hyphens: auto; }
-.kl-zuletzt__referent { margin: 0; font-weight: 600; color: var(--text-2); }
-.kl-zuletzt__beschreibung { margin: 4px 0 var(--a1); max-width: var(--zeile); }
+/* ---------- 3. Raster kleiner Karten ---------- */
+.kl-raster { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--a2); align-items: start; }
+.kl-karte { background: var(--weiss); border: 1px solid var(--rahmen); border-top: 4px solid var(--petrol); border-radius: var(--radius); transition: box-shadow .15s ease, transform .15s ease; }
+.kl-karte:hover { box-shadow: 0 4px 16px var(--schatten); transform: translateY(-2px); }
+.kl-karte--neu { grid-column: span 2; border-top: 1px solid var(--rahmen); border-left: 6px solid var(--petrol); }
+.kl-karte summary, .kl-karte__fest { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--a1); align-items: start; padding: 16px 18px; }
+.kl-karte__fest { display: block; }
+.kl-karte summary { list-style: none; cursor: pointer; border-radius: var(--radius); }
+.kl-karte summary::-webkit-details-marker { display: none; }
+.kl-karte summary:focus-visible { outline: 3px solid var(--fokus); outline-offset: -3px; }
+.kl-karte__kopf { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.kl-karte__datum { font: 700 .9rem var(--font-heading); color: var(--petrol-text); }
+.kl-karte__titel { font: 700 1.1rem/1.3 var(--font-heading); color: var(--blau); overflow-wrap: break-word; hyphens: auto; }
+.kl-karte summary:hover .kl-karte__titel { text-decoration: underline; text-decoration-color: var(--petrol); text-underline-offset: 3px; }
+.kl-karte__referent { font-size: .92rem; font-weight: 600; color: var(--text-2); }
+.kl-karte__satz { font-size: .95rem; color: var(--text); }
+.kl-karte__pfeil { width: 22px; height: 22px; margin-top: 2px; color: var(--petrol-text); transition: transform .2s ease; }
+.kl-karte details[open] .kl-karte__pfeil { transform: rotate(180deg); }
+.kl-karte__details { padding: 0 18px 16px; }
+.kl-karte__details p { margin: 0 0 8px; }
+.kl-karte__themen { color: var(--text-2); font-size: .92rem; }
 
-/* ---------- 4. Themenkacheln ---------- */
-.kl-themen { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--a2); }
-.kl-thema {
-  font: inherit; text-align: left; cursor: pointer; color: var(--text); background: var(--weiss);
-  border: 1px solid var(--rahmen); border-top: 4px solid var(--petrol); border-radius: var(--radius);
-  padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; min-height: 44px;
-  transition: box-shadow .15s ease, background .15s ease, transform .15s ease;
-}
-.kl-thema:hover { box-shadow: 0 4px 16px var(--schatten); transform: translateY(-2px); }
-.kl-thema:focus-visible { outline: 3px solid var(--fokus); outline-offset: 2px; }
-.kl-thema__icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--mint-hell); color: var(--petrol-text); margin-bottom: 4px; transition: background .15s ease; }
-.kl-thema:hover .kl-thema__icon { background: var(--mint); color: var(--navy); }
-.kl-thema__icon svg { width: 24px; height: 24px; }
-.kl-thema__titel { font: 700 1.1rem/1.3 var(--font-heading); color: var(--blau); }
-.kl-thema__text { color: var(--text-2); font-size: .95rem; }
-.kl-thema[aria-pressed="true"] { background: var(--mint-hell); border-color: var(--petrol-text); box-shadow: 0 0 0 2px var(--petrol-text) inset; }
-.kl-thema[aria-pressed="true"] .kl-thema__icon { background: var(--petrol-text); color: var(--weiss); }
-
-/* ---------- 5. Liste ---------- */
-.kl-listenkopf h2 { margin-bottom: 0; }
-.kl-listenkopf__rechts { display: flex; align-items: center; gap: var(--a2); }
-.kl-listenkopf__rechts .hinweis { margin: 0; }
-.kl-lupe { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--blau); background: var(--weiss); color: var(--blau); cursor: pointer; transition: background .15s ease, border-color .15s ease; }
-.kl-lupe svg { width: 22px; height: 22px; }
-.kl-lupe:hover, .kl-lupe[aria-expanded="true"] { background: var(--mint-hell); border-color: var(--petrol); }
-.kl-lupe:focus-visible { outline: 3px solid var(--fokus); outline-offset: 2px; }
-.kl-suchbox { margin-top: var(--a2); }
-.kl-filterhinweis { display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--a2); margin: var(--a2) 0 0; font-weight: 600; color: var(--text); }
-.kl-filterhinweis__zurueck { font: 700 .95rem var(--font-body); color: var(--blau); background: none; border: 0; padding: 8px 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-.kl-filterhinweis__zurueck:hover { color: var(--petrol-dunkel); text-decoration-color: var(--petrol); }
-.kl-filterhinweis__zurueck:focus-visible { outline: 3px solid var(--fokus); outline-offset: 2px; }
-
-.kl-liste { list-style: none; margin: var(--a2) 0 0; padding: 0; border-top: 1px solid var(--rahmen); }
-.kl-liste > li { border-bottom: 1px solid var(--rahmen); }
-.kl-eintrag > summary, .kl-eintrag--fest { display: grid; grid-template-columns: 68px minmax(0, 1fr) 24px; gap: var(--a2); align-items: start; padding: 16px 12px; }
-.kl-eintrag--fest { grid-template-columns: 68px minmax(0, 1fr); }
-.kl-eintrag > summary { list-style: none; cursor: pointer; transition: background .15s ease; }
-.kl-eintrag > summary::-webkit-details-marker { display: none; }
-.kl-eintrag > summary:hover { background: var(--hell); }
-.kl-eintrag > summary:focus-visible { outline: 3px solid var(--fokus); outline-offset: -3px; }
-.kl-eintrag .datumsblock { width: 68px; padding: 8px 0; }
-.kl-eintrag__datum { font: 700 .95rem var(--font-heading); color: var(--petrol-text); padding-top: 6px; }
-.kl-eintrag__haupt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.kl-eintrag__titel { font: 700 1.1rem/1.3 var(--font-heading); color: var(--blau); overflow-wrap: break-word; hyphens: auto; }
-.kl-eintrag > summary:hover .kl-eintrag__titel { text-decoration: underline; text-decoration-color: var(--petrol); text-underline-offset: 3px; }
-.kl-eintrag__referent { font-size: .92rem; font-weight: 500; color: var(--text-2); }
-.kl-eintrag__satz { color: var(--text); }
-.kl-eintrag__pfeil { width: 22px; height: 22px; margin-top: 4px; color: var(--petrol-text); transition: transform .2s ease; }
-.kl-eintrag[open] .kl-eintrag__pfeil { transform: rotate(180deg); }
-.kl-eintrag__details { padding: 0 12px 20px calc(68px + var(--a2) + 12px); }
-.kl-eintrag__details p { margin: 0 0 8px; max-width: var(--zeile); }
-.kl-eintrag__themen { color: var(--text-2); font-size: .95rem; }
-.kl-eintrag.kl-markiert { animation: kl-blink 1.6s ease; }
-@keyframes kl-blink { 0%, 40% { background: var(--mint-hell); } 100% { background: transparent; } }
-
-.kl-ablauf { margin-top: var(--a3); }
-.kl-ablauf summary { display: inline-block; cursor: pointer; font-weight: 700; color: var(--blau); padding: 8px 0; text-decoration: underline; text-decoration-color: var(--petrol); text-underline-offset: 3px; }
-.kl-ablauf summary:focus-visible { outline: 3px solid var(--fokus); outline-offset: 2px; }
-.kl-ablauf .liste { margin-top: 4px; }
-
-/* ---------- 6. Abschluss ---------- */
-.kl-buehne { background: var(--navy); color: var(--text-auf-dunkel); border-radius: var(--radius); padding: var(--a4) 28px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--a2) var(--a4); }
-.kl-buehne h2 { margin: 0; color: var(--text-auf-dunkel); font-size: 1.7rem; }
+/* ---------- 4. Abschlusszeile ---------- */
+.kl-ende { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--a2) var(--a3); padding: var(--a3) 0 0; border-top: 1px solid var(--rahmen); }
+.kl-ende h2 { margin: 0; font-size: 1.5rem; }
+.kl-ende__aktionen { display: flex; flex-wrap: wrap; align-items: center; gap: var(--a2) var(--a3); }
+.kl-ende__link { font-weight: 700; color: var(--blau); text-decoration: underline; text-decoration-color: var(--petrol); text-underline-offset: 3px; padding: 8px 0; }
+.kl-ende__link:hover { color: var(--petrol-dunkel); }
 
 /* ---------- Schmale Bildschirme ---------- */
 @media (max-width: 1000px) {
-  .kl-themen { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kl-raster { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 760px) {
-  .kl-kopf { padding: var(--a3) 0; }
-  .kl-kopf__innen { grid-template-columns: 1fr; gap: var(--a2); }
-  .kl-kopf__bild { max-width: 240px; justify-self: start; }
-  .kl-leiste__knoepfe { margin-left: 0; }
-  .kl-zuletzt { grid-template-columns: 1fr; }
-  .kl-zuletzt__bild { padding: var(--a2); }
-  .kl-zuletzt__bild img { max-width: 220px; }
-  .kl-zuletzt__text { padding: var(--a3) var(--a2); }
-  .kl-zuletzt__text h3 { font-size: 1.35rem; }
-  .kl-eintrag > summary, .kl-eintrag--fest { grid-template-columns: 56px minmax(0, 1fr) 24px; gap: 12px; padding: 14px 4px; }
-  .kl-eintrag--fest { grid-template-columns: 56px minmax(0, 1fr); }
-  .kl-eintrag .datumsblock { width: 56px; }
-  .kl-eintrag__details { padding: 0 4px 16px calc(56px + 12px + 4px); }
-  .kl-buehne { padding: var(--a3) var(--a2); }
+  .kl-kopf { padding: var(--a3) 0 var(--a2); }
+  .kl-ticket { grid-template-columns: auto minmax(0, 1fr); gap: var(--a2); padding: var(--a2); }
+  .kl-ticket__knopf { grid-column: 1 / -1; }
+  .kl-ticket__knopf .knopf { width: 100%; }
+  .kl-ticket__datum { min-width: 76px; padding: 10px 8px; }
+  .kl-ticket__tag { font-size: 2.1rem; }
 }
-@media (max-width: 560px) {
-  .kl-themen { grid-template-columns: 1fr; }
-  .kl-kopf__bild { display: none; }
+@media (max-width: 640px) {
+  .kl-raster { grid-template-columns: 1fr; }
+  .kl-karte--neu { grid-column: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .kl-thema:hover { transform: none; }
+  .kl-karte:hover { transform: none; }
 }

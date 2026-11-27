@@ -623,3 +623,20 @@ body.startseite { --verlauf: 200px; background: #F4F7F9; }
   .wendekarte.gedreht .wendekarte__hinten, .wendekarte:hover .wendekarte__hinten { opacity: 1; }
   .wendekarte.gedreht .wendekarte__vorne, .wendekarte:hover .wendekarte__vorne { opacity: 0; }
 }
+
+/* Personen: offene Darstellung ohne Kasten (personen.js) */
+.personen { display: flex; flex-wrap: wrap; gap: var(--a3) var(--a4, 40px); margin-top: var(--a3); }
+.person { display: flex; flex-direction: column; align-items: center; text-align: center; width: 152px; }
+.person__foto { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; display: block; transition: transform .2s ease; }
+.person__foto--initialen { display: flex; align-items: center; justify-content: center; background: #E6F5F1; color: #00508A; font-family: var(--font-heading); font-weight: 800; font-size: 1.9rem; }
+.person:hover .person__foto { transform: scale(1.05); }
+.person__name { margin-top: 12px; font-family: var(--font-heading); color: var(--blau); font-size: 1rem; line-height: 1.3; }
+.person__funktion { margin-top: 2px; color: var(--text-2); font-size: .8125rem; line-height: 1.35; }
+.person__linkedin { margin-top: 8px; width: 24px; height: 24px; border-radius: 50%; background: #008F83; display: flex; align-items: center; justify-content: center; transition: background-color .2s ease; }
+.person__linkedin svg { width: 14px; height: 14px; fill: #fff; }
+.person__linkedin:hover, .person__linkedin:focus-visible { background: #00A89A; }
+.personen--links { justify-content: flex-start; }
+.org-box .personen { justify-content: center; gap: var(--a2) var(--a3); margin-top: var(--a2); }
+.org-box .person { width: 132px; }
+.projekt-karte .personen { margin-top: var(--a2); gap: var(--a2); justify-content: flex-start; }
+@media (prefers-reduced-motion: reduce) { .person__foto, .person__linkedin { transition: none; } .person:hover .person__foto { transform: none; } }

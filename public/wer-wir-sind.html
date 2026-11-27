@@ -34,11 +34,11 @@
   <section class="abschnitt--hell" aria-labelledby="leitung-titel">
     <div class="container">
       <h2 id="leitung-titel">Leitung und Ansprechpersonen</h2>
-      <div class="kacheln" id="leitung"></div>
+      <div id="leitung"></div>
       <p class="hinweis stand-zeile" id="leitung-stand"></p>
 
       <h3 class="unterabschnitt">Leitung der AG Digitalisierung</h3>
-      <div class="kacheln" id="ag-leitung"></div>
+      <div id="ag-leitung"></div>
       <p class="hinweis stand-zeile" id="ag-leitung-stand"></p>
     </div>
   </section>
@@ -69,6 +69,7 @@
 
 <script src="layout.js"></script>
 <script src="kontakt.js"></script>
+<script src="personen.js"></script>
 <script src="zeitleiste.js"></script>
 <script>
   // Alle Inhalte kommen aus public/daten/organisation.json und personen.json.
@@ -100,16 +101,7 @@
     k.append(icon, el('h3', null, z.titel), el('p', null, z.text));
     return k;
   }
-  function personKarte(p, rollen, zusatz) {
-    const k = el('article', 'person-karte');
-    k.appendChild(el('span', 'initialen', p.initialen));
-    const t = el('div');
-    t.appendChild(el('h3', null, p.name));
-    rollen.forEach(r => t.appendChild(el('p', null, r)));
-    if (zusatz) t.appendChild(el('p', null, zusatz));
-    k.appendChild(t);
-    return k;
-  }
+  const personenVon = (ids, personen) => (ids || []).map(id => personen[id]).filter(Boolean);
 
   function box(klasse, name, zusatz, link, schild) {
     const b = el('div', 'org-box ' + klasse);
@@ -137,12 +129,11 @@
     o.kind.kinder.forEach(k => {
       const kind = el('div', 'org-kind');
       const b = box(k.hervorgehoben ? 'org-box--akki' : '', k.name, k.zusatz, null, k.schild);
-      const namenVon = ids => (ids || []).map(id => personen[id] && personen[id].name).filter(Boolean);
       if (k.schwerpunkte) b.appendChild(el('span', 'org-box__zusatz', 'Schwerpunkte: ' + k.schwerpunkte));
-      const leitung = namenVon(k.leitung);
-      if (leitung.length) b.appendChild(el('span', 'org-box__zusatz', 'Leitung: ' + leitung.join(', ')));
-      const namen = namenVon(k.ansprechpersonen);
-      if (namen.length) b.appendChild(el('span', 'org-box__zusatz', 'Ansprechpartner: ' + namen.join(', ')));
+      const leitung = personenVon(k.leitung, personen);
+      if (leitung.length) b.appendChild(window.personenReihe(leitung.map(p => ({ person: p, funktionen: ['Leitung'] }))));
+      const ansprech = personenVon(k.ansprechpersonen, personen);
+      if (ansprech.length) b.appendChild(window.personenReihe(ansprech.map(p => ({ person: p, funktionen: ['Ansprechperson'] }))));
       kind.appendChild(b);
       reihe.appendChild(kind);
     });
@@ -165,19 +156,15 @@
     window.zeitleisteAnimieren(document.getElementById('zeitleiste'));
 
     // Leitung des AKKI und KI-Lab-Moderation (AG-Rollen stehen im eigenen Block darunter)
-    document.getElementById('leitung').replaceChildren(...(org.leitungPersonen || []).map(id => {
-      const p = personen[id];
-      return p ? personKarte(p, (p.rollen || []).filter(r => !r.startsWith('AG Digitalisierung'))) : null;
-    }).filter(Boolean));
+    document.getElementById('leitung').replaceChildren(window.personenReihe(personenVon(org.leitungPersonen, personen).map(p => (
+      { person: p, funktionen: (p.rollen || []).filter(r => !r.startsWith('AG Digitalisierung')) }))));
     setze('leitung-stand', org.leitungHinweis);
 
     // Leitung der AG Digitalisierung, mit Quelle und Stand
     const ag = pd.agLeitung;
     if (ag) {
-      document.getElementById('ag-leitung').replaceChildren(...ag.mitglieder.map(m => {
-        const p = personen[m.person];
-        return p ? personKarte(p, [m.funktion], p.ort) : null;
-      }).filter(Boolean));
+      document.getElementById('ag-leitung').replaceChildren(window.personenReihe(ag.mitglieder.map(m => (
+        { person: personen[m.person], funktionen: [m.funktion, personen[m.person] && personen[m.person].ort] }))));
       const stand = document.getElementById('ag-leitung-stand');
       stand.textContent = `Stand: ${ag.stand} · ${ag.hinweis} · Quelle: `;
       const a = el('a', null, 'Fachartikel „Neue Führung – next Level Digitalisierung und KI“, Orthopädie und Unfallchirurgie 5/2026');

@@ -83,6 +83,7 @@
 
 <script src="layout.js"></script>
 <script src="kontakt.js"></script>
+<script src="personen.js"></script>
 <script>
   // Alle Inhalte kommen aus public/daten/projekte.json, usecases.json und personen.json.
   // Texte werden nur als reiner Text eingefügt. Leere Felder (null) werden nicht angezeigt.
@@ -152,8 +153,8 @@
     // Poster: erst anzeigen, wenn in projekte.json ein Link eingetragen ist
     if (p.poster) k.appendChild(link('Poster ansehen', p.poster, 'pfeil-link'));
     if (p.umfeld && p.umfeldHinweis) k.appendChild(el('p', 'projekt-karte__meta', p.umfeldHinweis));
-    const namen = namenListe(p.ansprechpersonen, personen);
-    if (namen.length) k.appendChild(el('p', 'projekt-karte__meta', 'Ansprechpartner: ' + namen.join(', ')));
+    const ansprech = (p.ansprechpersonen || []).map(id => personen[id]).filter(Boolean);
+    if (ansprech.length) k.appendChild(window.personenReihe(ansprech.map(x => ({ person: x, funktionen: ['Ansprechperson'] }))));
     if (p.publikation) k.appendChild(link('Zur Publikation', 'publikationen.html#' + encodeURIComponent(p.publikation), 'pfeil-link'));
     else if (p.link) k.appendChild(link('Mehr erfahren', p.link, 'pfeil-link'));
     return k;
@@ -252,9 +253,9 @@
   Promise.all([holen('daten/projekte.json'), holen('daten/usecases.json'), holen('daten/personen.json')]).then(([pj, uc, pd]) => {
     const personen = Object.fromEntries(pd.personen.map(p => [p.id, p]));
     document.getElementById('schwerpunkte').replaceChildren(...(pj.schwerpunkte || []).map(schwerpunktKarte));
-    const ansprech = namenListe(pj.schwerpunkteAnsprechpersonen, personen);
+    const ansprech = (pj.schwerpunkteAnsprechpersonen || []).map(id => personen[id]).filter(Boolean);
     const zeile = document.getElementById('schwerpunkte-ansprech');
-    if (ansprech.length) zeile.textContent = 'Ansprechpartner: ' + ansprech.join(', '); else zeile.hidden = true;
+    if (ansprech.length) zeile.replaceChildren(window.personenReihe(ansprech.map(x => ({ person: x, funktionen: ['Ansprechperson'] })))); else zeile.hidden = true;
     projekteEinrichten(pj.projekte || [], personen);
     document.getElementById('transfer').replaceChildren(...(pj.transfer || []).map(transferKarte));
 

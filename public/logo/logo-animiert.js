@@ -4,6 +4,9 @@
     <canvas data-akki-logo style="width:100%;height:260px;background:#2C4F6B;border-radius:14px"></canvas>
     <script src="logo/logo-animiert.js"></script>
   Optional: data-untertitel="..." und data-zeile2="..." am <canvas> ändern die Texte unter dem Logo.
+  data-untertitel="aus": Die beiden Zeilen werden NICHT im Canvas gezeichnet (die Seite setzt sie als HTML-Text darunter).
+  In diesem Fall (mit data-auto-hoehe) setzt das Skript am Elternelement des Canvas die Variablen --logo-fs1 und --logo-fs2
+  (Schriftgrößen der beiden Zeilen, wachsen mit dem Logo), damit der HTML-Text dieselben Größen wie bisher im Canvas hat.
   Optional: data-auto-hoehe am <canvas>: Das Logo wird ca. 70 % der Breite groß (max. 900 px, auf dem Handy ca. 90 %),
   die Höhe des Canvas ergibt sich daraus (mit Abstand oben und unten), Untertitel wachsen mit (22 px bzw. 15 px bei voller Größe).
   Lichtimpulse: eine kurze Kette aus 5 hellen Punkten (Weiß bis Mint) wandert über die Punktbahnen; überquerte Logo-Punkte leuchten kurz auf.
@@ -28,10 +31,11 @@
 
   function start(c) {
     const x = c.getContext('2d');
-    const sub1 = c.dataset.untertitel || 'Arbeitskreis Künstliche Intelligenz';
+    const ohneText = String(c.dataset.untertitel || '').toLowerCase() === 'aus';
+    const sub1 = (!ohneText && c.dataset.untertitel) || 'Arbeitskreis Künstliche Intelligenz';
     const sub2 = c.dataset.zeile2 || 'AG Digitalisierung · DGOU';
     const auto = c.hasAttribute('data-auto-hoehe');
-    let W, H, P = [], E = [], N = [], Q = [], m = { x: -999, y: -999 }, last = 0, grid, MIN, txtY, fs, fs2, SC = 1;
+    let W, H, P = [], E = [], N = [], Q = [], m = { x: -999, y: -999 }, last = 0, grid, MIN, txtY, fs, fs2, SC = 1, topPad = 0;
 
     function add(px, py) {
       const gx = Math.floor(px / MIN), gy = Math.floor(py / MIN);
@@ -59,8 +63,14 @@
         fs = Math.max(13, Math.min(22, sc * 6.6));   // Untertitel 1: 22 px bei voller Größe, mindestens 13 px
         fs2 = Math.max(11, fs * 0.68);               // Untertitel 2: 15 px bei voller Größe, mindestens 11 px
         const rand = Math.max(24, Math.min(40, W * 0.035));
-        H = Math.round(100 * sc + fs * 3.4 + 2 * rand);
+        H = Math.round(100 * sc + (ohneText ? fs * 0.9 + rand : fs * 3.4 + 2 * rand));
         c.style.height = H + 'px';
+        // Schriftgrößen für den HTML-Text unter dem Logo (nur wenn der Canvas die Zeilen nicht selbst zeichnet)
+        if (ohneText && c.parentNode) {
+          c.parentNode.style.setProperty('--logo-fs1', fs + 'px');
+          c.parentNode.style.setProperty('--logo-fs2', fs2 + 'px');
+        }
+        topPad = rand;
       } else {
         H = c.clientHeight || 260;
         sc = Math.min((W * 0.8) / tot, (H * 0.58) / 100);
@@ -70,7 +80,8 @@
       SC = sc;
       c.width = W * r; c.height = H * r; x.setTransform(r, 0, 0, r, 0, 0);
       const blockH = 100 * sc + fs * 3.4;
-      const ox = (W - tot * sc) / 2, oy = (H - blockH) / 2;
+      // ohne Untertitel im Canvas: Abstand oben = topPad, der Platz darunter bleibt für den HTML-Text
+      const ox = (W - tot * sc) / 2, oy = (auto && ohneText) ? topPad : (H - blockH) / 2;
       txtY = oy + 100 * sc + fs * 1.9;
       const step = 7 * sc / 1.45, rails = [-2, -1, 0, 1, 2], rg = 5 * sc / 1.45;
       MIN = 5.2 * sc / 1.45;
@@ -169,12 +180,14 @@
         }
       }
       x.globalAlpha = 1; x.textAlign = 'center'; x.textBaseline = 'alphabetic';
-      x.fillStyle = TXT; x.font = '500 ' + fs + 'px Manrope, system-ui, sans-serif';
-      if (x.letterSpacing !== undefined) x.letterSpacing = (fs * 0.08) + 'px';
-      x.fillText(sub1, W / 2, txtY);
-      x.fillStyle = TXT2; x.font = '400 ' + fs2 + 'px Manrope, system-ui, sans-serif';
-      x.fillText(sub2, W / 2, txtY + fs * 1.35);
-      if (x.letterSpacing !== undefined) x.letterSpacing = '0px';
+      if (!ohneText) {
+        x.fillStyle = TXT; x.font = '500 ' + fs + 'px Manrope, system-ui, sans-serif';
+        if (x.letterSpacing !== undefined) x.letterSpacing = (fs * 0.08) + 'px';
+        x.fillText(sub1, W / 2, txtY);
+        x.fillStyle = TXT2; x.font = '400 ' + fs2 + 'px Manrope, system-ui, sans-serif';
+        x.fillText(sub2, W / 2, txtY + fs * 1.35);
+        if (x.letterSpacing !== undefined) x.letterSpacing = '0px';
+      }
       if (!reduce) requestAnimationFrame(draw);
     }
 

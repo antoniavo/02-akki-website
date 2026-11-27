@@ -21,9 +21,13 @@
     <!-- Die Hauptüberschrift (h1) ist nur für Screenreader sichtbar; sichtbar ist das lebende Logo -->
     <h1 class="sr-only">AKKI – Arbeitskreis Künstliche Intelligenz der AG Digitalisierung der DGOU</h1>
     <!-- Lebendes AKKI-Logo, Einbau wie in public/logo/logo-animiert.js beschrieben -->
-    <canvas data-akki-logo data-auto-hoehe aria-hidden="true"></canvas>
+    <canvas data-akki-logo data-auto-hoehe data-untertitel="aus" aria-hidden="true"></canvas>
     <div class="hero__fuss">
-      <p class="hero__zugehoerig">Ein Arbeitskreis der <a href="https://www.digitalisierung-dgou.de/" target="_blank" rel="noopener">AG Digitalisierung</a> der <a href="https://dgou.de/" target="_blank" rel="noopener">DGOU</a></p>
+      <!-- Untertitel als normaler HTML-Text (Größen kommen vom Logo-Skript über --logo-fs1 / --logo-fs2) -->
+      <p class="hero__untertitel">
+        <span class="hero__untertitel-1">Arbeitskreis Künstliche Intelligenz</span>
+        <span class="hero__untertitel-2"><a href="https://www.digitalisierung-dgou.de/" target="_blank" rel="noopener">AG Digitalisierung<span class="sr-only"> (öffnet in neuem Tab)</span></a> · <a href="https://dgou.de/" target="_blank" rel="noopener">DGOU<span class="sr-only"> (öffnet in neuem Tab)</span></a></span>
+      </p>
       <!-- Runder Mitmachen-Button unten rechts in der blauen Fläche; daran hängt das Mitmach-Terminal als Pop-up (terminal.js) -->
       <a class="mitmach-rund" id="mitmachen-knopf" href="mitmachen.html" aria-label="Mitmachen">
         <!-- Drehender Textring innen im Kreis (Bahn: Radius 41), nur Zierde: aria-hidden -->

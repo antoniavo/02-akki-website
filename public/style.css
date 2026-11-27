@@ -350,7 +350,15 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 
 /* =============== Footer (eine Komponente, layout.js) =============== */
 .footer { background: var(--navy); color: var(--text-auf-dunkel); padding: var(--a4) 0; margin-top: var(--a3); }
-.footer__innen { display: flex; flex-wrap: wrap; gap: var(--a3); justify-content: space-between; }
+.footer__innen { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--a4) var(--a3); }
+.footer__spalte ul { flex-direction: column; gap: 0; }
+.footer__marke { display: inline-block; padding: 0; }
+.footer__marke img { height: 40px; width: auto; display: block; }
+.footer__titel { font-family: var(--font-heading); font-weight: 700; margin: 0 0 var(--a1); }
+.footer__unten { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--a1) var(--a3); margin-top: var(--a3); padding-top: var(--a2); border-top: 1px solid var(--linie-auf-dunkel); }
+.footer__unten p { margin: 0; }
+.footer__unten ul { gap: var(--a3); }
+.footer__hinweis { flex-basis: 100%; color: var(--text-auf-dunkel-leise); font-size: .95rem; }
 .footer strong { font-family: var(--font-heading); color: var(--text-auf-dunkel); }
 .footer a { color: var(--text-auf-dunkel); text-decoration: underline; display: inline-block; padding: 6px 0; }
 .footer ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 18px; flex-wrap: wrap; }
@@ -360,6 +368,11 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 /* =============== Mobil =============== */
 @media (max-width: 1000px) {
   .archiv-karten, .termin-karten, .kacheln--vier { grid-template-columns: repeat(2, 1fr); }
+  .footer__innen { grid-template-columns: 1fr 1fr; }
+  .footer__spalte--marke { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .footer__innen { grid-template-columns: 1fr; }
 }
 @media (max-width: 960px) {
   .nav__toggle { display: block; }

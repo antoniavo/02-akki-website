@@ -120,6 +120,7 @@ Hinweis: „Liste wird laufend ergänzt.“
 - Wer kann mitmachen? Text folgt.
 
 ## Kontakt
+- akki@dgou.de (bei der DGOU noch zu bestätigen)
 - digitalisierung@dgou.de (bestätigen)
 - Kontakt-E-Mail-Adresse: ___
 

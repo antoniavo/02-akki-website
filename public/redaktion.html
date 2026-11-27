@@ -44,8 +44,18 @@
   .crossref dd { margin: 0; white-space: pre-line; }
   .abschnitt-titel { margin-top: 28px; }
   .evidence { border-left: 4px solid var(--tuerkis); }
+  .zeile3 { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0 16px; }
+  .zaehler { text-align: right; margin-top: 4px; }
+  .zaehler.voll { color: var(--fehler); font-weight: 700; }
+  .vorschau { border-left: 4px solid var(--hellblau); }
+  .vorschau__kopf { display: grid; grid-template-columns: 90px 1fr; gap: 4px 12px; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .vorschau__kopf dt { font-weight: 700; }
+  .vorschau__kopf dd { margin: 0; }
+  .vorschau__text { margin: 0; white-space: pre-wrap; word-break: break-word; font: 400 1rem/1.6 var(--font-body); color: var(--navy); }
+  .knopfreihe { display: flex; flex-wrap: wrap; gap: 10px; }
   @media (max-width: 760px) {
-    .zeile { grid-template-columns: 1fr; }
+    .zeile, .zeile3 { grid-template-columns: 1fr; }
+    .vorschau__kopf { grid-template-columns: 1fr; }
     .crossref dl { grid-template-columns: 1fr; }
   }
 </style>
@@ -68,6 +78,7 @@
       <div class="reiter" role="tablist" aria-label="Art des Beitrags">
         <button role="tab" id="tab-publikation" aria-selected="true" aria-controls="panel-publikation">Publikation</button>
         <button role="tab" id="tab-veranstaltung" aria-selected="false" aria-controls="panel-veranstaltung" tabindex="-1">Veranstaltung</button>
+        <button role="tab" id="tab-newsletter" aria-selected="false" aria-controls="panel-newsletter" tabindex="-1">Newsletter</button>
       </div>
 
       <!-- Reiter 1: Publikation -->
@@ -158,10 +169,76 @@
         </p>
       </div>
 
+      <!-- Reiter 3: Newsletter (Einladung zum KI Lab) -->
+      <div role="tabpanel" id="panel-newsletter" aria-labelledby="tab-newsletter" hidden>
+        <div class="karte">
+          <h2>1. Termin</h2>
+          <p class="hinweis">Vorgefüllt mit dem nächsten ersten Dienstag im Monat, 18–19 Uhr. Bei Bedarf ändern.</p>
+          <div class="zeile3">
+            <div class="feld"><label for="n-datum">Datum</label><input id="n-datum" type="date"></div>
+            <div class="feld"><label for="n-beginn">Beginn</label><input id="n-beginn" type="time" value="18:00"></div>
+            <div class="feld"><label for="n-ende">Ende</label><input id="n-ende" type="time" value="19:00"></div>
+          </div>
+        </div>
+
+        <h2 class="abschnitt-titel">2. Inhalt</h2>
+        <div class="karte">
+          <div class="feld"><label for="n-thema">Thema</label><input id="n-thema" type="text"></div>
+          <div class="feld"><label for="n-referent">Referent:in</label><input id="n-referent" type="text"></div>
+          <div class="feld"><label for="n-stichpunkte">Stichpunkte zum Inhalt</label><textarea id="n-stichpunkte"></textarea></div>
+          <div class="feld">
+            <label for="n-teams">Teams-Link</label>
+            <small>Erscheint nur in der Einladung und der Kalenderdatei, nie auf der Website. Wird nicht gespeichert.</small>
+            <input id="n-teams" type="url" placeholder="https://teams.microsoft.com/…" spellcheck="false" autocomplete="off">
+          </div>
+        </div>
+
+        <h2 class="abschnitt-titel">3. Themeneinführung</h2>
+        <div class="karte">
+          <p>
+            <button class="knopf" id="n-ki-knopf" type="button">Einführung erzeugen</button>
+            <span class="hinweis" id="n-ki-hinweis"></span>
+          </p>
+          <p class="meldung" id="n-ki-meldung" role="status" aria-live="polite"></p>
+          <div class="feld">
+            <label for="n-einfuehrung">Einführung</label>
+            <small>Höchstens 500 Zeichen. Bitte immer lesen und bei Bedarf anpassen.</small>
+            <textarea id="n-einfuehrung" maxlength="500"></textarea>
+            <small class="zaehler" id="n-zaehler" aria-live="polite">0 / 500 Zeichen</small>
+          </div>
+        </div>
+
+        <h2 class="abschnitt-titel">4. Vorschau der Einladung</h2>
+        <div class="karte vorschau">
+          <dl class="vorschau__kopf">
+            <dt>Absender</dt><dd id="n-v-absender"></dd>
+            <dt>Betreff</dt><dd id="n-v-betreff"></dd>
+          </dl>
+          <pre class="vorschau__text" id="n-v-text"></pre>
+        </div>
+
+        <h2 class="abschnitt-titel">5. Freigabe und Versand vorbereiten</h2>
+        <div class="karte">
+          <div class="feld">
+            <label for="n-freigabe">Freigegeben von</label>
+            <small>Erst nach der Freigabe lassen sich Text, E-Mail und Kalenderdatei erzeugen. Verschickt wird nichts automatisch.</small>
+            <input id="n-freigabe" type="text" autocomplete="off">
+          </div>
+          <p class="meldung" id="n-fehlt" aria-live="polite"></p>
+          <div class="knopfreihe">
+            <button class="knopf" id="n-kopieren" type="button" disabled>Text kopieren</button>
+            <button class="knopf" id="n-mail" type="button" disabled>In E-Mail-Programm öffnen</button>
+            <button class="knopf" id="n-ics" type="button" disabled>Kalenderdatei (.ics) herunterladen</button>
+          </div>
+          <p class="meldung" id="n-aktion-meldung" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+
     </div>
   </section>
 </main>
 
+<script src="/kontakt.js"></script>
 <script>
   // --- Reiter umschalten (auch mit Pfeiltasten) ---
   const tabs = [...document.querySelectorAll('[role="tab"]')];
@@ -227,6 +304,197 @@
     } finally {
       knopf.disabled = false;
     }
+  });
+
+  // =====================================================================
+  // Newsletter: Einladung zum DGOU KI Lab
+  // Nichts wird gespeichert oder automatisch versendet. Der Teams-Link
+  // bleibt im Browser und geht nicht an den Server oder die KI.
+  // =====================================================================
+  const ABSENDER = 'AKKI – Arbeitskreis Künstliche Intelligenz der AG Digitalisierung der DGOU';
+  let KONTAKT = '…'; // kommt aus public/daten/kontakt.json (über kontakt.js)
+  window.akkiKontakt.then(k => { KONTAKT = k.email || '[Kontaktadresse fehlt]'; aktualisieren(); });
+  const n = id => document.getElementById('n-' + id);
+  const wert = id => n(id).value.trim();
+
+  // Datum vorfüllen
+  fetch('/api/naechster-termin').then(r => r.json()).then(t => {
+    if (!n('datum').value) n('datum').value = t.datum;
+    n('beginn').value = t.beginn;
+    n('ende').value = t.ende;
+    aktualisieren();
+  }).catch(() => {});
+
+  // KI verfügbar?
+  fetch('/api/status').then(r => r.json()).then(s => {
+    if (!s.ki) {
+      n('ki-knopf').disabled = true;
+      n('ki-hinweis').textContent = 'Kein API-Schlüssel in .env – bitte die Einführung selbst schreiben.';
+    }
+  }).catch(() => {});
+
+  function datumDeutsch(iso) {
+    if (!iso) return '';
+    const [j, m, t] = iso.split('-').map(Number);
+    const wochentag = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'][new Date(Date.UTC(j, m - 1, t)).getUTCDay()];
+    return `${wochentag}, ${String(t).padStart(2, '0')}.${String(m).padStart(2, '0')}.${j}`;
+  }
+  function datumKurz(iso) {
+    if (!iso) return '';
+    const [j, m, t] = iso.split('-');
+    return `${t}.${m}.${j}`;
+  }
+  function uhrzeit() {
+    const kurz = z => z.endsWith(':00') ? String(Number(z.slice(0, 2))) : z;
+    const b = wert('beginn'), e = wert('ende');
+    if (!b) return '';
+    return e ? `${kurz(b)}–${kurz(e)} Uhr` : `${kurz(b)} Uhr`;
+  }
+  function teamsLinkGueltig() {
+    const l = wert('teams');
+    return !l || /^https:\/\/\S+$/i.test(l);
+  }
+
+  function betreff() {
+    return `Einladung zum DGOU KI Lab am ${datumKurz(wert('datum')) || '…'}: ${wert('thema') || '…'}`;
+  }
+  function einladungstext() {
+    const zeilen = [];
+    zeilen.push(wert('einfuehrung') || '[Einführung fehlt]', '');
+    zeilen.push(`Thema: ${wert('thema') || '…'}`);
+    if (wert('referent')) zeilen.push(`Referent:in: ${wert('referent')}`);
+    zeilen.push(`Datum: ${datumDeutsch(wert('datum')) || '…'}`);
+    zeilen.push(`Uhrzeit: ${uhrzeit() || '…'}`);
+    zeilen.push(`Teams-Link: ${wert('teams') || '[Teams-Link fehlt]'}`, '');
+    zeilen.push('Offen für alle Interessierten, kostenlos.');
+    zeilen.push(`Themenwünsche an ${KONTAKT}`, '');
+    zeilen.push(ABSENDER);
+    return zeilen.join('\n');
+  }
+
+  function fehlendeAngaben() {
+    const fehlt = [];
+    if (!wert('datum')) fehlt.push('Datum');
+    if (!wert('thema')) fehlt.push('Thema');
+    if (!wert('einfuehrung')) fehlt.push('Einführung');
+    if (!wert('teams')) fehlt.push('Teams-Link');
+    else if (!teamsLinkGueltig()) fehlt.push('gültiger Teams-Link (beginnt mit https://)');
+    if (!wert('freigabe')) fehlt.push('Freigegeben von');
+    return fehlt;
+  }
+
+  function aktualisieren() {
+    if (n('einfuehrung').value.length > 500) n('einfuehrung').value = n('einfuehrung').value.slice(0, 500); // harte Grenze
+    const laenge = n('einfuehrung').value.length;
+    n('zaehler').textContent = `${laenge} / 500 Zeichen`;
+    n('zaehler').classList.toggle('voll', laenge >= 500);
+
+    n('v-absender').textContent = ABSENDER;
+    n('v-betreff').textContent = betreff();
+    n('v-text').textContent = einladungstext();
+
+    const fehlt = fehlendeAngaben();
+    ['kopieren', 'mail', 'ics'].forEach(k => { n(k).disabled = fehlt.length > 0; });
+    n('fehlt').className = 'meldung';
+    n('fehlt').textContent = fehlt.length ? 'Noch offen: ' + fehlt.join(', ') + '.' : 'Bereit.';
+  }
+  ['datum', 'beginn', 'ende', 'thema', 'referent', 'stichpunkte', 'teams', 'einfuehrung', 'freigabe']
+    .forEach(id => n(id).addEventListener('input', aktualisieren));
+  aktualisieren();
+
+  // Einführung von der KI erzeugen lassen (Teams-Link wird NICHT mitgeschickt)
+  n('ki-knopf').addEventListener('click', async () => {
+    const meldungKi = n('ki-meldung');
+    meldungKi.className = 'meldung';
+    if (!wert('thema')) { meldungKi.textContent = 'Bitte zuerst ein Thema eintragen.'; return; }
+    if (wert('einfuehrung') && !confirm('Die vorhandene Einführung wird ersetzt. Fortfahren?')) return;
+    n('ki-knopf').disabled = true;
+    meldungKi.textContent = 'Die KI schreibt …';
+    try {
+      const antwort = await fetch('/api/einfuehrung', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ thema: wert('thema'), referent: wert('referent'), stichpunkte: wert('stichpunkte') }),
+      });
+      const d = await antwort.json();
+      if (!antwort.ok) throw new Error(d.fehler || 'Unbekannter Fehler.');
+      n('einfuehrung').value = d.einfuehrung.slice(0, 500);
+      meldungKi.textContent = 'Entwurf eingefügt. Bitte lesen und bei Bedarf anpassen.';
+      aktualisieren();
+    } catch (fehler) {
+      meldungKi.className = 'meldung meldung--fehler';
+      meldungKi.textContent = fehler.message;
+    } finally {
+      n('ki-knopf').disabled = false;
+    }
+  });
+
+  // Text kopieren
+  n('kopieren').addEventListener('click', async () => {
+    const text = `Betreff: ${betreff()}\n\n${einladungstext()}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      n('aktion-meldung').textContent = 'Text mit Betreff in die Zwischenablage kopiert.';
+    } catch {
+      n('aktion-meldung').textContent = 'Kopieren nicht möglich. Bitte den Text in der Vorschau markieren und kopieren.';
+    }
+  });
+
+  // E-Mail-Programm öffnen (ohne Empfänger, es werden keine Adressen gespeichert)
+  n('mail').addEventListener('click', () => {
+    window.location.href = 'mailto:?subject=' + encodeURIComponent(betreff()) + '&body=' + encodeURIComponent(einladungstext());
+    n('aktion-meldung').textContent = 'E-Mail-Entwurf geöffnet. Empfänger bitte im E-Mail-Programm eintragen.';
+  });
+
+  // Kalenderdatei (.ics) erzeugen
+  function icsText(t) {
+    return String(t).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+  }
+  function icsFalten(zeile) {
+    // Zeilen nach 75 Bytes umbrechen (iCalendar-Regel), Umlaute zählen als 2 Bytes
+    const enc = new TextEncoder();
+    const teile = [];
+    let aktuell = '', bytes = 0, grenze = 75;
+    for (const zeichen of zeile) {
+      const b = enc.encode(zeichen).length;
+      if (bytes + b > grenze) { teile.push(aktuell); aktuell = ' '; bytes = 1; grenze = 75; }
+      aktuell += zeichen; bytes += b;
+    }
+    teile.push(aktuell);
+    return teile.join('\r\n');
+  }
+  n('ics').addEventListener('click', () => {
+    const tag = wert('datum').replace(/-/g, '');
+    const zeit = z => z.replace(':', '') + '00';
+    const jetzt = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+    const uid = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())) + '@akki-smart-editor';
+    const zeilen = [
+      'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//AKKI//Smart Editor//DE', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+      'BEGIN:VTIMEZONE', 'TZID:Europe/Berlin',
+      'BEGIN:DAYLIGHT', 'TZOFFSETFROM:+0100', 'TZOFFSETTO:+0200', 'TZNAME:CEST', 'DTSTART:19700329T020000', 'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU', 'END:DAYLIGHT',
+      'BEGIN:STANDARD', 'TZOFFSETFROM:+0200', 'TZOFFSETTO:+0100', 'TZNAME:CET', 'DTSTART:19701025T030000', 'RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU', 'END:STANDARD',
+      'END:VTIMEZONE',
+      'BEGIN:VEVENT',
+      'UID:' + uid,
+      'DTSTAMP:' + jetzt,
+      `DTSTART;TZID=Europe/Berlin:${tag}T${zeit(wert('beginn'))}`,
+      `DTEND;TZID=Europe/Berlin:${tag}T${zeit(wert('ende') || wert('beginn'))}`,
+      'SUMMARY:' + icsText('DGOU KI Lab: ' + wert('thema')),
+      'DESCRIPTION:' + icsText(einladungstext()),
+      'LOCATION:' + icsText('Microsoft Teams: ' + wert('teams')),
+      'URL:' + wert('teams'),
+      'END:VEVENT', 'END:VCALENDAR',
+    ];
+    const inhalt = zeilen.map(icsFalten).join('\r\n') + '\r\n';
+    const blob = new Blob([inhalt], { type: 'text/calendar;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `DGOU-KI-Lab-${wert('datum')}.ics`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    n('aktion-meldung').textContent = 'Kalenderdatei erstellt. Sie liegt in Ihrem Download-Ordner.';
   });
 </script>
 </body>

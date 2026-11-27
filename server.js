@@ -1,9 +1,11 @@
 // Kleiner Server zum lokalen Ansehen der Website und für den AKKI Smart Editor.
 // Liefert die Dateien aus public/ aus und bietet /api/doi (Crossref-Abfrage).
 // Keine Zusatzpakete nötig.
-// Start: node server.js   (später mit KI-Teil: node --env-file=.env server.js)
+// Start: node --env-file-if-exists=.env server.js
+//   (ohne .env läuft alles außer der KI-Einführung, die Felder bleiben dann zum selbst Schreiben)
 //
 // Datenschutz: Eingegebene DOIs, Texte und Abfrage-Ergebnisse werden weder gespeichert noch geloggt.
+// Der API-Schlüssel steht nur in .env und wird nie ausgegeben.
 
 const http = require('node:http');
 const fs = require('node:fs');
@@ -108,6 +110,120 @@ async function apiDoi(req, res, url) {
   }
 }
 
+// --- Nächster KI-Lab-Termin (erster Dienstag im Monat, 18–19 Uhr, Zeitzone Berlin) ---
+
+function berlinJetzt() {
+  const teile = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Berlin', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', hourCycle: 'h23',
+  }).formatToParts(new Date());
+  const t = Object.fromEntries(teile.map(p => [p.type, Number(p.value)]));
+  return { jahr: t.year, monat: t.month, tag: t.day, stunde: t.hour };
+}
+
+function ersterDienstag(jahr, monat) {
+  const wochentag = new Date(Date.UTC(jahr, monat - 1, 1)).getUTCDay(); // 0 = Sonntag, 2 = Dienstag
+  return 1 + ((2 - wochentag + 7) % 7);
+}
+
+function naechsterTermin() {
+  const j = berlinJetzt();
+  let jahr = j.jahr, monat = j.monat, tag = ersterDienstag(jahr, monat);
+  // Termin dieses Monats schon vorbei (nach 19 Uhr am Termintag)? Dann nächster Monat.
+  if (j.tag > tag || (j.tag === tag && j.stunde >= 19)) {
+    monat += 1;
+    if (monat > 12) { monat = 1; jahr += 1; }
+    tag = ersterDienstag(jahr, monat);
+  }
+  const zwei = n => String(n).padStart(2, '0');
+  return { datum: `${jahr}-${zwei(monat)}-${zwei(tag)}`, beginn: '18:00', ende: '19:00' };
+}
+
+// --- KI-Einführung für den Newsletter (Claude API, Schlüssel aus .env) ---------
+
+const MAX_ZEICHEN = 500;
+const KI_MODELL = process.env.ANTHROPIC_MODEL || 'claude-opus-5-5';
+
+// VORSCHLAG – vom Team zu prüfen und freizugeben (siehe CLAUDE.md).
+const SYSTEMPROMPT_EINFUEHRUNG = `Du schreibst die kurze Themeneinführung für eine Einladung zum DGOU KI Lab. Das ist ein Online-Treffen des AKKI (Arbeitskreis Künstliche Intelligenz der AG Digitalisierung der DGOU) für Ärztinnen und Ärzte aus Orthopädie und Unfallchirurgie.
+
+Regeln:
+- Verwende nur das angegebene Thema, die Referentin oder den Referenten und die Stichpunkte. Erfinde keine Fakten, Zahlen, Studien, Titel oder Funktionen.
+- Höchstens 450 Zeichen einschließlich Leerzeichen, zwei bis drei Sätze.
+- Deutsch, sachlich und einladend, ohne Werbesprache und ohne Emojis.
+- Keine Anrede, keine Grußformel, kein Datum, keine Uhrzeit, keine Links.
+- Gib nur den Einführungstext aus.`;
+
+function aufLaengeKuerzen(text) {
+  if (text.length <= MAX_ZEICHEN) return text;
+  const teil = text.slice(0, MAX_ZEICHEN);
+  const satzende = Math.max(teil.lastIndexOf('. '), teil.lastIndexOf('! '), teil.lastIndexOf('? '));
+  if (satzende > 200) return teil.slice(0, satzende + 1);
+  return teil.slice(0, teil.lastIndexOf(' ', MAX_ZEICHEN - 1)) + '…';
+}
+
+function koerperLesen(req, grenze = 10000) {
+  return new Promise((ok, fehler) => {
+    let daten = '';
+    req.setEncoding('utf8');
+    req.on('data', stueck => {
+      daten += stueck;
+      if (daten.length > grenze) { fehler(new Error('zu gross')); req.destroy(); }
+    });
+    req.on('end', () => ok(daten));
+    req.on('error', fehler);
+  });
+}
+
+async function apiEinfuehrung(req, res) {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return json(res, 503, { fehler: 'Kein API-Schlüssel in .env. Bitte die Einführung selbst schreiben.' });
+  }
+  let eingabe;
+  try { eingabe = JSON.parse(await koerperLesen(req)); } catch { return json(res, 400, { fehler: 'Ungültige Anfrage.' }); }
+  const thema = String(eingabe.thema || '').trim().slice(0, 300);
+  const referent = String(eingabe.referent || '').trim().slice(0, 200);
+  const stichpunkte = String(eingabe.stichpunkte || '').trim().slice(0, 3000);
+  if (!thema) return json(res, 400, { fehler: 'Bitte zuerst ein Thema eintragen.' });
+
+  const nachricht = `Thema: ${thema}\nReferent:in: ${referent || '(nicht angegeben)'}\nStichpunkte:\n${stichpunkte || '(keine)'}`;
+
+  try {
+    const antwort = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': process.env.ANTHROPIC_API_KEY,
+        'anthropic-version': '2026-10-21',
+        'anthropic-beta': 'server-side-fallback-2026-07-01',
+      },
+      body: JSON.stringify({
+        model: KI_MODELL,
+        max_tokens: 4000,
+        output_config: { effort: 'low' },
+        fallbacks: 'default',
+        system: SYSTEMPROMPT_EINFUEHRUNG,
+        messages: [{ role: 'user', content: nachricht }],
+      }),
+      signal: AbortSignal.timeout(60000),
+    });
+    const d = await antwort.json();
+    if (!antwort.ok) {
+      const grund = antwort.status === 401 ? 'Der API-Schlüssel in .env wird nicht akzeptiert.'
+        : antwort.status === 429 ? 'Zu viele Anfragen. Bitte kurz warten und noch einmal versuchen.'
+        : 'Die KI ist gerade nicht erreichbar. Bitte selbst schreiben oder später versuchen.';
+      return json(res, 502, { fehler: grund });
+    }
+    if (d.stop_reason === 'refusal') {
+      return json(res, 502, { fehler: 'Die KI hat diese Anfrage abgelehnt. Bitte die Einführung selbst schreiben.' });
+    }
+    const text = (d.content || []).filter(b => b.type === 'text').map(b => b.text).join('').trim();
+    if (!text) return json(res, 502, { fehler: 'Die KI hat keinen Text geliefert. Bitte noch einmal versuchen.' });
+    return json(res, 200, { einfuehrung: aufLaengeKuerzen(text) });
+  } catch {
+    return json(res, 502, { fehler: 'Die KI ist nicht erreichbar. Bitte Internetverbindung prüfen.' });
+  }
+}
+
 // --- Server -----------------------------------------------------------------
 
 http.createServer((req, res) => {
@@ -119,11 +235,17 @@ http.createServer((req, res) => {
     return seiteFolgt(res);
   }
 
-  if (NUR_LOKAL.has(urlPath) && !istLokal(req)) return seiteFolgt(res);
+  if ((NUR_LOKAL.has(urlPath) || urlPath.startsWith('/api/')) && !istLokal(req)) return seiteFolgt(res);
 
   if (urlPath === '/api/doi') {
     if (req.method !== 'GET') return json(res, 405, { fehler: 'Nur GET erlaubt.' });
     return apiDoi(req, res, url);
+  }
+  if (urlPath === '/api/naechster-termin') return json(res, 200, naechsterTermin());
+  if (urlPath === '/api/status') return json(res, 200, { ki: Boolean(process.env.ANTHROPIC_API_KEY) });
+  if (urlPath === '/api/einfuehrung') {
+    if (req.method !== 'POST') return json(res, 405, { fehler: 'Nur POST erlaubt.' });
+    return apiEinfuehrung(req, res);
   }
   if (urlPath.startsWith('/api/')) return json(res, 404, { fehler: 'Unbekannte Schnittstelle.' });
 

@@ -49,21 +49,38 @@
   // ---------- Fußzeile ----------
   const fuss = document.getElementById('seitenfuss');
   if (fuss) {
+    // Die Hauptlinks stammen aus derselben Liste SEITEN wie die Navigation (Start, KI Lab, Projekte, Publikationen)
+    const fussLinks = ['index.html', 'treffen.html', 'projekte.html', 'publikationen.html']
+      .map(d => `<li><a href="${d}"${istAktuell(d)}>${SEITEN.find(s => s[0] === d)[1]}</a></li>`).join('');
     fuss.outerHTML = `
 <footer class="footer">
   <div class="container footer__innen">
-    <div>
-      <p><strong>AKKI</strong> · Arbeitskreis Künstliche Intelligenz</p>
+    <div class="footer__spalte footer__spalte--marke">
+      <a class="footer__marke" href="index.html"><img src="logo/logo-nav-hell.svg" alt="AKKI – zur Startseite" width="99" height="40"></a>
+      <p>Arbeitskreis Künstliche Intelligenz · AG Digitalisierung · DGOU</p>
       <p class="footer__pfad"><a href="https://dgou.de/" target="_blank" rel="noopener">DGOU</a> › <a href="https://www.digitalisierung-dgou.de/" target="_blank" rel="noopener">AG Digitalisierung</a> › <a href="index.html">AKKI</a></p>
-      <p>Partner: AK Medien und digitale Systeme</p>
     </div>
-    <div>
-      <p>Kontakt: <a data-kontakt-email></a></p>
+    <nav class="footer__spalte" aria-label="Seiten">
+      <p class="footer__titel">Seiten</p>
+      <ul>${fussLinks}</ul>
+    </nav>
+    <div class="footer__spalte">
+      <p class="footer__titel">Kontakt und Links</p>
       <ul>
-        <li><a href="impressum.html"${istAktuell('impressum.html')}>Impressum</a></li>
-        <li><a href="datenschutz.html"${istAktuell('datenschutz.html')}>Datenschutz</a></li>
+        <li><a data-kontakt-email></a></li>
+        <li><a href="https://github.com/akkidgou-opensource" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://dgou.de/" target="_blank" rel="noopener">DGOU</a></li>
+        <li><a href="https://www.digitalisierung-dgou.de/" target="_blank" rel="noopener">AG Digitalisierung</a></li>
       </ul>
     </div>
+  </div>
+  <div class="container footer__unten">
+    <p>Partner: AK Medien und digitale Systeme</p>
+    <ul>
+      <li><a href="impressum.html"${istAktuell('impressum.html')}>Impressum</a></li>
+      <li><a href="datenschutz.html"${istAktuell('datenschutz.html')}>Datenschutz</a></li>
+    </ul>
+    <p class="footer__hinweis">Prototyp – nur Testdaten. Kein Ersatz für ärztliche Beurteilung.</p>
   </div>
 </footer>`;
   }

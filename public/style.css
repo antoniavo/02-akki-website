@@ -127,14 +127,6 @@ a:hover { text-decoration-color: var(--petrol); text-decoration-thickness: 2px; 
   font-size: .85rem; font-weight: 600; text-align: center;
   padding: 6px var(--a2);
 }
-.nav { background: var(--weiss); border-bottom: 1px solid var(--rahmen); }
-.nav__innen { display: flex; align-items: center; justify-content: space-between; gap: var(--a2); min-height: 64px; flex-wrap: wrap; padding-top: 6px; padding-bottom: 6px; }
-.nav__toggle { display: none; align-items: center; gap: 10px; background: var(--weiss); border: 1px solid var(--blau); color: var(--blau); border-radius: var(--radius-klein); font: 700 1rem/1 var(--font-body); padding: 0 16px; height: 44px; cursor: pointer; }
-.nav__toggle span:first-child { font-size: 1.3rem; }
-.nav__links { list-style: none; display: flex; gap: var(--a3); margin: 0; padding: 0; }
-.nav__links a { color: var(--text); text-decoration: none; font-weight: 600; font-size: .95rem; padding: 8px 0; border-bottom: 3px solid transparent; display: inline-block; }
-.nav__links a:hover { color: var(--blau); border-bottom-color: var(--petrol); }
-.nav__links a[aria-current="page"] { color: var(--petrol-text); border-bottom-color: var(--petrol); }
 
 /* =============== Seitenkopf der Unterseiten (hell, kompakt) =============== */
 .seitenkopf { background: var(--hell); border-bottom: 1px solid var(--rahmen); padding: var(--a4) 0 var(--a3); }
@@ -150,11 +142,10 @@ a:hover { text-decoration-color: var(--petrol); text-decoration-thickness: 2px; 
 .eyebrow { margin: 0 0 var(--a1); font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--petrol-text); }
 .hero--kompakt { padding-bottom: 80px; overflow-x: clip; } /* der pulsierende Ring darf die Seite nie verbreitern; nach unten bleibt das Terminal-Pop-up frei sichtbar */
 .hero--kompakt canvas { height: 190px; }
-main section.einstiege { padding: 0; margin-top: -56px; position: relative; z-index: 2; }
-.einstiege__raster { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--a2); }
 .hero__fuss { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--a2); min-height: 116px; }
+.hero__mitte { grid-column: 2; display: flex; flex-direction: column; align-items: center; gap: 14px; min-width: 0; }
 .hero__fuss .mitmach-rund, .hero__fuss .terminal-wrap { grid-column: 3; justify-self: end; }
-.hero__untertitel { grid-column: 2; margin: 0; text-align: center; color: var(--text-auf-dunkel); line-height: calc(var(--logo-fs1, 18px) * 1.35); }
+.hero__untertitel { margin: 0; text-align: center; color: var(--text-auf-dunkel); line-height: calc(var(--logo-fs1, 18px) * 1.35); }
 .hero__untertitel-1, .hero__untertitel-2 { display: block; }
 .hero__untertitel-1 { font-weight: 500; font-size: var(--logo-fs1, 18px); letter-spacing: .08em; }
 .hero__untertitel-2 { font-weight: 400; font-size: var(--logo-fs2, 13px); color: #8FDCCB; }
@@ -171,16 +162,6 @@ main section.einstiege { padding: 0; margin-top: -56px; position: relative; z-in
 .mitmach-rund__pfeil { position: relative; font: 800 24px/1 var(--font-body); }
 .mitmach-rund__label { position: absolute; right: calc(100% + 16px); top: 50%; transform: translate(6px, -50%); padding: 6px 14px; border-radius: 999px; background: var(--weiss); color: var(--blau); font: 700 .9rem/1.2 var(--font-body); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s ease, transform .15s ease; }
 .mitmach-rund:hover .mitmach-rund__label, .mitmach-rund:focus-visible .mitmach-rund__label { opacity: 1; transform: translate(0, -50%); }
-.einstieg-kachel { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; grid-template-rows: auto auto; column-gap: 14px; row-gap: 2px; align-items: center; position: relative; min-height: 92px; padding: 20px; background: var(--weiss); border: 1px solid var(--rahmen); border-radius: var(--radius); box-shadow: 0 10px 28px var(--schatten); text-decoration: none; color: var(--text); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
-.einstieg-kachel:hover, .einstieg-kachel:focus-visible { transform: translateY(-3px); border-color: var(--petrol); box-shadow: 0 16px 36px var(--schatten); }
-.einstieg-kachel__icon { grid-row: 1 / 3; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--mint-hell); transition: background .2s ease; }
-.einstieg-kachel__icon svg { width: 22px; height: 22px; fill: none; stroke: var(--petrol-text); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-.einstieg-kachel:hover .einstieg-kachel__icon { background: var(--mint); }
-.einstieg-kachel:hover .einstieg-kachel__icon svg { stroke: var(--navy); }
-.einstieg-kachel__titel { grid-column: 2; align-self: end; font-family: var(--font-heading); font-weight: 800; font-size: 1.25rem; line-height: 1.2; color: var(--blau); overflow-wrap: break-word; hyphens: auto; }
-.einstieg-kachel__sub { grid-column: 2; align-self: start; font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: var(--text-2); overflow-wrap: break-word; }
-.einstieg-kachel__pfeil { grid-row: 1 / 3; grid-column: 3; font-size: 1.3rem; font-weight: 700; color: var(--petrol-text); transition: transform .2s ease; }
-.einstieg-kachel:hover .einstieg-kachel__pfeil { transform: translateX(6px); }
 
 .hackathon-karte { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--a4); padding: var(--a4); background: var(--navy); color: var(--text-auf-dunkel); border: 1px solid rgba(255, 255, 255, .18); border-radius: var(--radius); }
 .hackathon-karte::after { content: ""; position: absolute; right: -80px; bottom: -120px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, rgba(120, 203, 185, .22), rgba(120, 203, 185, 0) 70%); pointer-events: none; }
@@ -192,7 +173,6 @@ main section.einstiege { padding: 0; margin-top: -56px; position: relative; z-in
 .hackathon-karte__zahl strong { margin-right: 6px; font-family: var(--font-heading); font-size: 2.6rem; font-weight: 800; line-height: 1; letter-spacing: 0; color: var(--mint); vertical-align: -4px; }
 .hackathon-karte .knopf--auf-dunkel { background: transparent; color: var(--text-auf-dunkel); border-color: rgba(255, 255, 255, .6); }
 .hackathon-karte .knopf--auf-dunkel:hover { background: rgba(255, 255, 255, .14); border-color: var(--weiss); color: var(--text-auf-dunkel); }
-main section.einstiege + section { padding-top: var(--a4); }
 .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .chip { display: inline-block; padding: 5px 14px; border: 1px solid rgba(255, 255, 255, .3); border-radius: 999px; background: rgba(255, 255, 255, .07); color: var(--text-auf-dunkel); font-size: .88rem; font-weight: 600; text-decoration: none; transition: background .15s ease, color .15s ease, transform .15s ease; }
 .chip:hover { background: var(--mint); border-color: var(--mint); color: var(--navy); transform: translateY(-2px); }
@@ -446,9 +426,6 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 
 /* =============== Mobil =============== */
 @media (max-width: 1200px) {
-  .einstieg-kachel { padding: 18px 14px; column-gap: 10px; }
-  .einstieg-kachel__icon { width: 36px; height: 36px; }
-  .einstieg-kachel__sub { font-size: .68rem; letter-spacing: .02em; }
 }
 @media (max-width: 1000px) {
   .archiv-karten, .termin-karten, .kacheln--vier { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -457,11 +434,6 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 @media (max-width: 560px) {
 }
 @media (max-width: 760px) {
-  .nav__toggle { display: flex; }
-  .nav__links { display: none; width: 100%; flex-direction: column; gap: 0; padding-bottom: var(--a1); max-height: calc(100vh - 150px); overflow-y: auto; }
-  .nav__links.nav__links--offen { display: flex; }
-  .nav__links a { display: block; padding: 12px 0; border-bottom: 1px solid var(--rahmen); }
-  .nav__links a[aria-current="page"] { border-bottom-color: var(--petrol); }
 }
 @media (max-width: 900px) {
   .zeitleiste { grid-template-columns: 1fr; gap: 0; border-left: 2px solid var(--petrol); margin-left: 7px; }
@@ -478,12 +450,9 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
   .footer__zeile { flex-direction: column; align-items: flex-start; gap: 4px; }
   .mitmach-rund { width: 96px; height: 96px; }
   .hero__fuss { grid-template-columns: 1fr; justify-items: center; gap: var(--a2); min-height: 0; }
-  .hero__untertitel { grid-column: 1; }
+  .hero__mitte { grid-column: 1; }
   .hero__fuss .mitmach-rund, .hero__fuss .terminal-wrap { grid-column: 1; justify-self: end; }
   .hero--kompakt canvas { height: 160px; }
-  main section.einstiege { margin-top: -44px; }
-  .einstiege__raster { grid-template-columns: 1fr; gap: var(--a1); }
-  .einstieg-kachel { min-height: 84px; padding: 16px 18px; }
   .neu-pub { flex-wrap: wrap; }
   .neu-pub .kategorie { order: 3; }
   .mitmachen-kasten { padding: 22px; }
@@ -573,3 +542,27 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 .projekt-karte__mehr summary:hover { color: var(--petrol-dunkel); }
 .projekt-karte__mehr summary:focus-visible { outline: 3px solid var(--fokus); outline-offset: 2px; }
 .projekt-karte__mehr p { margin: 0 0 8px; font-size: .95rem; }
+
+/* =============== Hauptnavigation: kleine Buttons unter dem Logo mit Untertitel (alle Seiten gleich) =============== */
+.hauptnav ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0; padding: 0; }
+.hauptnav__knopf { display: inline-block; padding: 6px 14px; border-radius: 8px; background: #007F75; color: #fff; font: 600 .85rem/1.3 var(--font-body); text-decoration: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28); transition: background .15s ease, color .15s ease; }
+.hauptnav__knopf:hover { background: #009286; }
+.hauptnav__knopf[aria-current="page"] { background: #fff; color: #007F75; box-shadow: none; }
+.hauptnav__knopf:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+/* Band auf allen Seiten außer der Startseite: Logo, Untertitel, Buttons */
+.kopfband { background: var(--navy); color: var(--text-auf-dunkel); padding: 18px 0; }
+.kopfband__innen { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px var(--a3); }
+.kopfband__marke { display: flex; align-items: center; gap: var(--a2); }
+.kopfband__logo { display: block; line-height: 0; border-radius: 4px; }
+.kopfband__logo:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.kopfband__logo img { display: block; height: 55px; width: auto; }
+.kopfband__untertitel { margin: 0; display: flex; flex-direction: column; gap: 2px; font-size: .95rem; font-weight: 500; letter-spacing: .06em; }
+.kopfband__untertitel-2 { font-size: .8rem; font-weight: 400; letter-spacing: 0; color: #8FDCCB; }
+.kopfband__untertitel-2 a { color: #8FDCCB; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: rgba(143, 220, 203, .6); }
+.kopfband__untertitel-2 a:hover { color: #fff; text-decoration-color: #fff; }
+.kopfband__untertitel-2 a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.kopfband .hauptnav ul { justify-content: flex-end; }
+@media (max-width: 760px) {
+  .kopfband__innen { flex-direction: column; align-items: flex-start; }
+  .kopfband .hauptnav ul { justify-content: flex-start; }
+}

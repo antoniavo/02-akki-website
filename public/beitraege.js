@@ -34,10 +34,11 @@
 
   // ---------- Startseite ----------
   function aktuellKarte(b) {
-    const art = el('article', 'aktuell-karte');
+    const art = el('article', 'aktuell-karte' + (b.hervorgehoben ? ' aktuell-karte--hervorgehoben' : ''));
     art.appendChild(el('span', 'aktuell-karte__art', b.art));
     art.appendChild(el('h3', null, b.titel));
-    art.appendChild(el('p', 'aktuell-karte__wann', [b.zeitraum, b.ort].filter(Boolean).join(' · ')));
+    const wann = [b.zeitraum, b.ort].filter(Boolean).join(' · ');
+    if (wann) art.appendChild(el('p', 'aktuell-karte__wann', wann));
     if (b.text) art.appendChild(el('p', null, b.text));
     if (b.link) {
       const a = el('a', 'pfeil-link', b.linkText || 'Mehr erfahren');
@@ -45,6 +46,23 @@
       art.appendChild(a);
     }
     return art;
+  }
+
+  // Jüngste Publikation (ohne Verbandsmitteilungen und Berichte) als Karte für "Aktuelles"
+  function publikationsKarte(daten) {
+    const liste = (daten.publikationen || [])
+      .filter(p => p.gruppe !== 'berichte' && p.titel && p.datum)
+      .sort((a, b) => String(b.datum).localeCompare(String(a.datum)));
+    const p = liste[0];
+    if (!p) return null;
+    return aktuellKarte({
+      art: 'Neue Publikation',
+      titel: p.titel,
+      zeitraum: [p.journal, p.jahr].filter(Boolean).join(' · '),
+      text: p.gruppe === 'umfeld' ? 'Forschung aus dem Umfeld der AG Digitalisierung.' : null,
+      link: p.doi ? 'https://doi.org/' + p.doi : p.link,
+      linkText: 'Zur Publikation',
+    });
   }
 
   function terminKarteKurz(t) {
@@ -203,11 +221,21 @@
   const archiv = document.getElementById('kilab-archiv');
   if (!aktuell && !letzte && !naechster && !archiv) return;
 
+  // Publikationen sind nur für "Aktuelles" nötig; fehlen sie, bleibt die Startseite trotzdem vollständig
+  const publikationen = aktuell
+    ? fetch('daten/publikationen.json').then(r => (r.ok ? r.json() : {})).catch(() => ({}))
+    : Promise.resolve({});
+
   fetch('daten/beitraege.json')
     .then(r => { if (!r.ok) throw new Error(); return r.json(); })
-    .then(daten => {
+    .then(async daten => {
       const termine = bestaetigteTermine(daten);
-      if (aktuell) aktuell.replaceChildren(...(daten.aktuelles || []).map(aktuellKarte));
+      if (aktuell) {
+        const karten = (daten.aktuelles || []).map(aktuellKarte);
+        const pubKarte = publikationsKarte(await publikationen);
+        if (pubKarte) karten.push(pubKarte);
+        aktuell.replaceChildren(...karten);
+      }
       if (letzte) letzte.replaceChildren(...termine.slice(0, 3).map(terminKarteKurz));
       if (naechster) naechsterTerminEinrichten(naechster, termine);
       if (archiv) archivEinrichten(archiv, termine);

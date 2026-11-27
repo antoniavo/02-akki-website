@@ -1,9 +1,10 @@
 {
-  "_hinweis": "Publikationen. Titel, Autor:innen, Journal und Jahr stammen aus Crossref (geprüft am 27.11.2026). Gruppen: akki (Publikation des AKKI), umfeld (Forschung aus dem Umfeld der AG, nicht als AKKI-Gemeinschaftspublikation bezeichnen), berichte (Verbandsmitteilungen und Berichte). Typen: Originalarbeit, Übersicht, Verbandsmitteilung, Bericht. Leere Felder (null) werden nicht angezeigt. Keine Volltexte ablegen. Neue Einträge ergänzt später der Smart Editor.",
+  "_hinweis": "Publikationen. Titel, Autor:innen, Journal und Jahr stammen aus Crossref (geprüft am 27.11.2026). Gruppen: akki (Publikation des AKKI), umfeld (Forschung aus dem Umfeld der AG, nicht als AKKI-Gemeinschaftspublikation bezeichnen), berichte (Verbandsmitteilungen und Berichte). datum = Erscheinungsdatum laut Crossref (JJJJ-MM oder JJJJ-MM-TT), danach wird sortiert. Typen: Originalarbeit, Übersicht, Verbandsmitteilung, Bericht. Leere Felder (null) werden nicht angezeigt. Keine Volltexte ablegen. Neue Einträge ergänzt später der Smart Editor.",
   "typen": ["Originalarbeit", "Übersicht", "Verbandsmitteilung", "Bericht"],
   "publikationen": [
     {
       "id": "arztbriefe-2025",
+      "datum": "2025-12-23",
       "gruppe": "akki",
       "typ": "Übersicht",
       "titel": "KI-basierte Arztbriefe – Zukunft oder Gefahr?",
@@ -22,6 +23,7 @@
     },
     {
       "id": "kreuzband-2026",
+      "datum": "2026-01",
       "gruppe": "umfeld",
       "typ": "Originalarbeit",
       "titel": "How accurately do large language models answer patient questions on anterior cruciate ligament tears? A comparative study",
@@ -40,6 +42,7 @@
     },
     {
       "id": "schulter-2024",
+      "datum": "2024-11-15",
       "gruppe": "umfeld",
       "typ": "Originalarbeit",
       "titel": "How accurately can ChatGPT 3.5 answer frequently asked questions by patients on glenohumeral osteoarthritis?",
@@ -58,6 +61,7 @@
     },
     {
       "id": "pji-2024",
+      "datum": "2024-01",
       "gruppe": "umfeld",
       "typ": "Originalarbeit",
       "titel": "Evaluating ChatGPT responses to frequently asked patient questions regarding periprosthetic joint infection after total hip and knee arthroplasty",
@@ -76,6 +80,7 @@
     },
     {
       "id": "chatbots-pathologien-2025",
+      "datum": "2025-01-19",
       "gruppe": "umfeld",
       "typ": "Originalarbeit",
       "titel": "Accuracy of Artificial Intelligence Based Chatbots in Analyzing Orthopedic Pathologies: An Experimental Multi-Observer Analysis",
@@ -94,6 +99,7 @@
     },
     {
       "id": "neue-fuehrung-2026",
+      "datum": "2026-10-02",
       "gruppe": "berichte",
       "typ": "Verbandsmitteilung",
       "titel": "Neue Führung – next Level Digitalisierung und KI",

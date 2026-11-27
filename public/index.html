@@ -17,47 +17,53 @@
 </div>
 
 <header class="hero">
-  <div class="container">
-    <!-- Lebendes AKKI-Logo, Einbau wie oben in public/logo/logo-animiert.js beschrieben -->
-    <canvas data-akki-logo></canvas>
+  <div class="container hero__innen">
     <div class="hero__text">
-      <h1>Künstliche Intelligenz. Medizinische Expertise. Gemeinsam Zukunft gestalten.</h1>
-      <p>Wir verbinden Wissenschaft, klinische Praxis und technologische Innovation in Orthopädie und Unfallchirurgie.</p>
+      <p class="hero__ueber">Arbeitskreis der AG Digitalisierung · DGOU</p>
+      <h1>Künstliche Intelligenz trifft medizinische Expertise.</h1>
+      <p class="hero__unter">Gemeinsam gestalten wir die Zukunft der Orthopädie und Unfallchirurgie – durch Forschung, Wissen und Innovation.</p>
       <div class="knopfreihe">
         <a class="knopf" href="treffen.html">KI Lab entdecken</a>
-        <a class="knopf knopf--hell" href="mitmachen.html">Mitmachen</a>
+        <a class="knopf knopf--sekundaer" href="mitmachen.html">Mitmachen</a>
       </div>
+    </div>
+    <div class="logo-kachel" role="img" aria-label="AKKI – Arbeitskreis Künstliche Intelligenz, AG Digitalisierung, DGOU">
+      <!-- Lebendes AKKI-Logo, Einbau wie in public/logo/logo-animiert.js beschrieben -->
+      <canvas data-akki-logo aria-hidden="true"></canvas>
     </div>
   </div>
 </header>
 
-<main>
+<main id="inhalt">
   <section class="einstieg" aria-labelledby="willkommen-titel">
     <div class="container">
       <h2 id="willkommen-titel">Willkommen beim AKKI</h2>
-      <p>Wir sind der Arbeitskreis KI der AG Digitalisierung der DGOU. Wir bringen Wissenschaft, Klinik und Technologie zusammen – für einen verantwortungsvollen Einsatz von KI in der Medizin.</p>
-      <p class="einstieg__zielgruppe"><strong>Für wen?</strong> Für Ärztinnen und Ärzte, Forschende, Studierende und alle, die digitale Medizin mitgestalten wollen.</p>
+      <p>Der Arbeitskreis Künstliche Intelligenz (AKKI) der AG Digitalisierung der DGOU beschäftigt sich mit der Anwendung und wissenschaftlichen Bewertung von KI in der Medizin. Wir verbinden klinische Expertise, Forschung und technologische Entwicklung – mit Schwerpunkt Orthopädie und Unfallchirurgie und offen für den interdisziplinären Austausch.</p>
+      <p class="einstieg__zielgruppe"><strong>Für wen?</strong> Für Ärztinnen und Ärzte, Forschende, Studierende, medizinisches Fachpersonal und alle, die sich mit KI im Gesundheitswesen beschäftigen.</p>
     </div>
   </section>
 
-  <section class="schwerpunkte" aria-labelledby="schwerpunkte-titel">
+  <section class="abschnitt--hell" aria-labelledby="schwerpunkte-titel">
     <div class="container">
       <h2 id="schwerpunkte-titel">Unsere Schwerpunkte</h2>
       <div class="kacheln">
-        <article class="kachel kachel--link">
+        <article class="kachel kachel--aktion">
           <svg class="kachel__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5.2 9.2A2 2 0 0 0 6.5 21h11a2 2 0 0 0 1.7-2.8L14 9V3M7.2 15h9.6"/></svg>
-          <h3><a href="projekte.html">Forschung &amp; Evidenz</a></h3>
-          <p>Wir entwickeln und prüfen KI-Anwendungen wissenschaftlich.</p>
+          <h3>Forschung &amp; Evidenz</h3>
+          <p>Wir untersuchen und bewerten KI-Anwendungen wissenschaftlich – mit Blick auf Validität, klinischen Nutzen und Patientensicherheit.</p>
+          <a class="knopf knopf--sekundaer" href="projekte.html">Forschungsprojekte</a>
         </article>
-        <article class="kachel kachel--link">
+        <article class="kachel kachel--aktion">
           <svg class="kachel__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h6a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H3zM21 5h-6a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5H21z"/></svg>
-          <h3><a href="treffen.html">Wissen &amp; Fortbildung</a></h3>
-          <p>Praxisnahe KI-Kompetenz im monatlichen KI Lab.</p>
+          <h3>Wissen &amp; Fortbildung</h3>
+          <p>Im DGOU KI Lab stellen wir aktuelle Werkzeuge vor, teilen Praxiserfahrungen und diskutieren neue Entwicklungen.</p>
+          <a class="knopf knopf--sekundaer" href="treffen.html">Zum KI Lab</a>
         </article>
-        <article class="kachel kachel--link">
+        <article class="kachel kachel--aktion">
           <svg class="kachel__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.1V16h5v-.1c0-.8.4-1.6 1.1-2.1A6 6 0 0 0 12 3z"/></svg>
-          <h3><a href="projekte.html">Innovation &amp; Transfer</a></h3>
-          <p>Gemeinsam bauen: vom Hackathon bis zum Open-Source-Projekt.</p>
+          <h3>Innovation &amp; Transfer</h3>
+          <p>Von der Projektidee über den Hackathon bis zum Open-Source-Prototyp: Wir entwickeln gemeinsam.</p>
+          <a class="knopf knopf--sekundaer" href="projekte.html">Projekte entdecken</a>
         </article>
       </div>
     </div>
@@ -66,15 +72,15 @@
   <section aria-labelledby="aktuelles-titel">
     <div class="container">
       <h2 id="aktuelles-titel">Aktuelles</h2>
-      <div class="kacheln kacheln--zwei" id="aktuelles-liste"></div>
+      <div class="kacheln kacheln--aktuell" id="aktuelles-liste"></div>
     </div>
   </section>
 
-  <section aria-labelledby="kilab-titel">
+  <section class="abschnitt--hell" aria-labelledby="kilab-titel">
     <div class="container">
       <div class="abschnitt-kopf">
         <h2 id="kilab-titel">Aus dem KI Lab</h2>
-        <a class="pfeil-link" href="treffen.html">Alle Termine im Archiv</a>
+        <a class="pfeil-link" href="treffen.html">Zum Archiv</a>
       </div>
       <div class="termin-karten" id="kilab-letzte"></div>
     </div>
@@ -85,11 +91,12 @@
       <div class="mitmachen-kasten">
         <div>
           <h2 id="mitmachen-titel">Mitmachen</h2>
-          <p>Das DGOU KI Lab ist offen für alle Interessierten – online und kostenlos.</p>
+          <p>Sie interessieren sich für KI in der Medizin? Ob Forschungsprojekt, eigener Praxisbericht, technische Entwicklung oder fachlicher Austausch – wir freuen uns über neue Impulse.</p>
         </div>
         <div class="knopfreihe">
-          <a class="knopf" data-kontakt-mailto="Newsletter KI Lab">Newsletter abonnieren</a>
-          <a class="pfeil-link" href="mitmachen.html">Mehr zum Mitmachen</a>
+          <a class="knopf" data-kontakt-mailto="Anfrage an den AKKI" href="mitmachen.html">Kontakt aufnehmen</a>
+          <a class="knopf knopf--sekundaer" data-kontakt-mailto="Themenvorschlag KI Lab" href="treffen.html">Thema für das KI Lab vorschlagen</a>
+          <a class="knopf knopf--sekundaer" data-kontakt-mailto="Newsletter KI Lab" href="treffen.html">Newsletter abonnieren</a>
         </div>
       </div>
     </div>

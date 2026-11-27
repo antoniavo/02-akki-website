@@ -51,9 +51,17 @@
   .vorschau__kopf dd { margin: 0; }
   .vorschau__text { margin: 0; white-space: pre-wrap; word-break: break-word; font: 400 1rem/1.6 var(--font-body); color: var(--dunkel); }
   .knopfreihe { display: flex; flex-wrap: wrap; gap: 10px; }
+  .zeile3b { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 0 16px; }
+  .auswahl { border: 0; padding: 0; }
+  .auswahl legend { font-weight: 700; padding: 0; margin-bottom: 6px; }
+  .auswahl div { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+  .haken, .auswahl label { display: inline-flex; align-items: center; gap: 8px; font-weight: 400; margin: 0; }
+  .haken input, .auswahl input { width: auto; }
+  .feld select { font: 400 1rem var(--font-body); color: var(--dunkel); background: var(--kachel); border: 1px solid var(--border); border-radius: var(--radius-klein); padding: 10px 12px; }
+  .ohne-ki { background: var(--mint-hell); border-left: 4px solid var(--akzent); padding: 8px 12px; margin-top: 8px; color: var(--dunkel); }
   @media (max-width: 760px) {
     .reiter button { padding: 10px 12px; }
-    .zeile, .zeile3 { grid-template-columns: 1fr; }
+    .zeile, .zeile3, .zeile3b { grid-template-columns: 1fr; }
     .vorschau__kopf { grid-template-columns: 1fr; }
     .crossref dl { grid-template-columns: 1fr; }
   }
@@ -66,7 +74,8 @@
 <header class="seitenkopf">
   <div class="container">
     <h1>AKKI Smart Editor</h1>
-    <p>Nur auf diesem Laptop erreichbar. Eingaben werden nicht gespeichert: Beim Neuladen der Seite sind sie weg.</p>
+    <p>Nur auf diesem Laptop erreichbar. Gespeichert wird nur, was Sie ausdrücklich freigeben. Alles andere ist beim Neuladen weg.</p>
+    <p class="ohne-ki" id="ohne-ki" hidden><strong>Demonstration ohne KI-Anbindung:</strong> Es ist kein API-Schlüssel hinterlegt. Alle Felder werden von Hand ausgefüllt, Entwürfe schreibt keine KI.</p>
   </div>
 </header>
 
@@ -83,46 +92,59 @@
       <!-- Reiter 1: Publikation -->
       <div role="tabpanel" id="panel-publikation" aria-labelledby="tab-publikation">
         <div class="karte">
-          <h2>1. DOI eingeben</h2>
+          <h2>1. DOI oder PubMed-ID eingeben</h2>
           <form id="doi-form" class="feld" novalidate>
-            <label for="doi">DOI der Publikation</label>
-            <small>Zum Beispiel 10.1371/journal.pmed.1002686 oder https://doi.org/…</small>
+            <label for="doi">DOI oder PubMed-ID</label>
+            <small>Zum Beispiel 10.1371/journal.pmed.1002686, https://doi.org/… oder 29799845</small>
             <div class="doi-zeile">
               <input id="doi" name="doi" type="text" autocomplete="off" spellcheck="false">
               <button class="knopf" id="doi-knopf" type="submit">Daten holen</button>
             </div>
             <p class="meldung" id="doi-meldung" role="status" aria-live="polite"></p>
           </form>
+          <p class="meldung meldung--fehler" id="dublette" role="alert" hidden></p>
         </div>
 
         <div class="karte crossref" id="crossref" hidden>
-          <h2>2. Daten von Crossref</h2>
-          <dl>
-            <dt>Titel</dt><dd id="cr-titel"></dd>
-            <dt>Autoren</dt><dd id="cr-autoren"></dd>
-            <dt>Journal</dt><dd id="cr-journal"></dd>
-            <dt>Jahr</dt><dd id="cr-jahr"></dd>
-            <dt>Abstract</dt><dd id="cr-abstract"></dd>
-          </dl>
+          <h2>2. Abstract (zum Lesen)</h2>
+          <p id="cr-abstract" style="white-space:pre-line;margin:0"></p>
         </div>
 
-        <h2 class="abschnitt-titel">3. Beitrag</h2>
+        <h2 class="abschnitt-titel">3. Eintrag für die Publikationsliste</h2>
         <div class="karte">
-          <div class="feld"><label for="p-titel">Titel (deutsch)</label><input id="p-titel" type="text"></div>
-          <div class="feld"><label for="p-originaltitel">Originaltitel</label><input id="p-originaltitel" type="text"></div>
-          <div class="feld"><label for="p-autoren">Autoren</label><input id="p-autoren" type="text"></div>
+          <div class="feld"><label for="p-titel">Titel</label><small>Unverändert wie in der Veröffentlichung.</small><input id="p-titel" type="text"></div>
+          <div class="feld"><label for="p-autoren">Autor:innen</label><small>Schreibweise wie in der Liste: Nachname und Initialen, getrennt durch Komma.</small><input id="p-autoren" type="text"></div>
           <div class="zeile">
             <div class="feld"><label for="p-journal">Journal</label><input id="p-journal" type="text"></div>
-            <div class="feld"><label for="p-jahr">Jahr</label><input id="p-jahr" type="text" inputmode="numeric"></div>
+            <div class="feld"><label for="p-jahr">Jahr</label><input id="p-jahr" type="text" inputmode="numeric" maxlength="4"></div>
           </div>
-          <div class="feld"><label for="p-doi">DOI</label><input id="p-doi" type="text" spellcheck="false"></div>
-          <div class="feld"><label for="p-kurzfassung">Kurzfassung</label><textarea id="p-kurzfassung"></textarea></div>
-          <div class="feld"><label for="p-ergebnisse">Ergebnisse</label><textarea id="p-ergebnisse"></textarea></div>
-          <div class="feld"><label for="p-einordnung">Einordnung</label><textarea id="p-einordnung"></textarea></div>
+          <div class="zeile3b">
+            <div class="feld"><label for="p-band">Band</label><input id="p-band" type="text"></div>
+            <div class="feld"><label for="p-heft">Heft</label><input id="p-heft" type="text"></div>
+            <div class="feld"><label for="p-seiten">Seiten</label><input id="p-seiten" type="text"></div>
+          </div>
+          <div class="zeile">
+            <div class="feld"><label for="p-doi">DOI</label><input id="p-doi" type="text" spellcheck="false"></div>
+            <div class="feld"><label for="p-pubmed">PubMed-ID</label><input id="p-pubmed" type="text" inputmode="numeric" spellcheck="false"></div>
+          </div>
+          <fieldset class="feld auswahl">
+            <legend>Themen</legend>
+            <div id="p-themen"></div>
+          </fieldset>
+          <div class="feld">
+            <label for="p-kennzeichen">Kennzeichen</label>
+            <small>„AKKI-Publikation“, wenn der Arbeitskreis Künstliche Intelligenz in der Autorenzeile steht, „AG-Publikation“ bei AG Digitalisierung.</small>
+            <select id="p-kennzeichen">
+              <option value="">keines</option>
+              <option>AKKI-Publikation</option>
+              <option>AG-Publikation</option>
+            </select>
+          </div>
         </div>
 
-        <h2 class="abschnitt-titel">4. Evidence Check</h2>
+        <h2 class="abschnitt-titel">4. Prüfnotizen</h2>
         <div class="karte evidence">
+          <p class="hinweis">Nur zur eigenen Prüfung. Diese Angaben werden nicht gespeichert und nicht auf die Website übernommen.</p>
           <div class="zeile">
             <div class="feld"><label for="e-studientyp">Studientyp</label><input id="e-studientyp" type="text"></div>
             <div class="feld"><label for="e-anwendungsbereich">Anwendungsbereich</label><input id="e-anwendungsbereich" type="text"></div>
@@ -136,38 +158,59 @@
 
         <p style="margin-top:20px">
           <button class="knopf knopf--leise" type="button" disabled>KI-Entwurf erzeugen</button>
-          <span class="hinweis">folgt im nächsten Schritt</span>
+          <span class="hinweis">folgt im nächsten Schritt (braucht API-Schlüssel und Freigabe der Regeln)</span>
         </p>
+
+        <h2 class="abschnitt-titel">5. Freigabe und Speichern</h2>
+        <div class="karte">
+          <div class="feld">
+            <label for="p-freigabe">Freigegeben von</label>
+            <small>Erst nach der Freigabe lässt sich der Eintrag speichern. Er erscheint dann sofort auf der Seite „Publikationen“ (lokal). Auf GitHub und Vercel gelangt er erst nach dem Push durch das Team.</small>
+            <input id="p-freigabe" type="text" autocomplete="off">
+          </div>
+          <p class="meldung" id="p-fehlt" aria-live="polite"></p>
+          <div class="knopfreihe"><button class="knopf" id="p-speichern" type="button" disabled>Freigeben und speichern</button></div>
+          <p class="meldung" id="p-meldung" role="status" aria-live="polite"></p>
+        </div>
       </div>
 
-      <!-- Reiter 2: Veranstaltung -->
+      <!-- Reiter 2: Veranstaltung (KI-Lab-Termin) -->
       <div role="tabpanel" id="panel-veranstaltung" aria-labelledby="tab-veranstaltung" hidden>
         <div class="karte">
-          <h2>1. Einladung einfügen</h2>
-          <div class="feld">
-            <label for="einladung">Text der KI-Lab-Einladung</label>
-            <small>Zum Beispiel aus der Einladungs-Mail kopieren und hier einfügen.</small>
-            <textarea id="einladung" class="gross"></textarea>
+          <h2>1. Termin</h2>
+          <div class="zeile3">
+            <div class="feld"><label for="v-datum">Datum</label><input id="v-datum" type="date"></div>
+            <div class="feld"><label for="v-beginn">Beginn</label><input id="v-beginn" type="time"></div>
+            <div class="feld"><label for="v-ende">Ende</label><input id="v-ende" type="time"></div>
           </div>
+          <label class="haken"><input id="v-bestaetigt" type="checkbox"> Termin ist bestätigt</label>
+          <small class="hinweis">Nur ankreuzen, wenn Datum und Uhrzeit sicher feststehen. Nur bestätigte Termine erscheinen als „Nächster Termin“ mit Kalenderdatei.</small>
         </div>
 
-        <h2 class="abschnitt-titel">2. Beitrag</h2>
+        <h2 class="abschnitt-titel">2. Inhalt</h2>
         <div class="karte">
-          <div class="zeile">
-            <div class="feld"><label for="v-datum">Datum</label><input id="v-datum" type="text" placeholder="TT.MM.JJJJ"></div>
-            <div class="feld"><label for="v-uhrzeit">Uhrzeit</label><input id="v-uhrzeit" type="text"></div>
-          </div>
-          <div class="feld"><label for="v-titel">Titel</label><input id="v-titel" type="text"></div>
-          <div class="feld"><label for="v-kurzbeschreibung">Kurzbeschreibung</label><textarea id="v-kurzbeschreibung"></textarea></div>
-          <div class="feld"><label for="v-referent">Referent:in</label><input id="v-referent" type="text"></div>
+          <div class="feld"><label for="v-titel">Titel</label><input id="v-titel" type="text" maxlength="200"></div>
+          <div class="feld"><label for="v-kurzbeschreibung">Kurzbeschreibung</label><small>Höchstens 500 Zeichen.</small><textarea id="v-kurzbeschreibung" maxlength="500"></textarea></div>
+          <div class="feld"><label for="v-referent">Referent:in</label><small>Nur eintragen, wenn bestätigt.</small><input id="v-referent" type="text"></div>
+          <fieldset class="feld auswahl">
+            <legend>Kategorien</legend>
+            <div id="v-kategorien"></div>
+          </fieldset>
+          <p class="hinweis">Der Teams-Link wird hier nie gespeichert. Er gehört nur in die Einladung (Reiter Newsletter).</p>
         </div>
 
-        <p style="margin-top:20px">
-          <button class="knopf knopf--leise" type="button" disabled>KI-Entwurf erzeugen</button>
-          <span class="hinweis">folgt im nächsten Schritt</span>
-        </p>
+        <h2 class="abschnitt-titel">3. Freigabe und Speichern</h2>
+        <div class="karte">
+          <div class="feld">
+            <label for="v-freigabe">Freigegeben von</label>
+            <small>Der Termin erscheint danach im KI-Lab-Archiv bzw. als nächster Termin (lokal). Auf GitHub und Vercel gelangt er erst nach dem Push durch das Team.</small>
+            <input id="v-freigabe" type="text" autocomplete="off">
+          </div>
+          <p class="meldung" id="v-fehlt" aria-live="polite"></p>
+          <div class="knopfreihe"><button class="knopf" id="v-speichern" type="button" disabled>Freigeben und speichern</button></div>
+          <p class="meldung" id="v-meldung" role="status" aria-live="polite"></p>
+        </div>
       </div>
-
       <!-- Reiter 3: Newsletter (Einladung zum KI Lab) -->
       <div role="tabpanel" id="panel-newsletter" aria-labelledby="tab-newsletter" hidden>
         <div class="karte">

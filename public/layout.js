@@ -4,6 +4,8 @@
 //   <div id="seitenfuss"></div>
 // Nur die Startseite hat zusätzlich <div id="hauptnav"></div> im blauen Kopf (unter dem Untertitel); die anderen Seiten bekommen das Band automatisch.
 // Menüpunkte ändern: Liste SEITEN unten. Der aktive Punkt wird automatisch aus dem Dateinamen erkannt.
+// Die Seite Mitmachen & Kontakt steht bewusst nicht in der Button-Navigation: Sie erreicht man über den runden Mitmachen-Button
+// (Startseite) und über den Link "Kontakt" im Footer.
 (function () {
   const SEITEN = [
     ['index.html', 'Start'],
@@ -11,7 +13,6 @@
     ['projekte.html', 'Projekte'],
     ['publikationen.html', 'Publikationen'],
     ['treffen.html', 'KI Lab'],
-    ['mitmachen.html', 'Mitmachen &amp; Kontakt'],
   ];
   const aktuell = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   const istAktuell = datei => (datei === aktuell ? ' aria-current="page"' : '');

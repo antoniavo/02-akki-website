@@ -3,8 +3,7 @@
 //   1) Pop-up am Button mit id="mitmachen-knopf" (Startseite: runder Button unten rechts in der blauen Kopffläche; das ist das einzige Pop-up)
 //      - Maus: öffnet beim Überfahren, bleibt offen, solange die Maus auf Button oder Terminal ist, schließt ca. 400 ms nach dem Verlassen
 //      - Tastatur: öffnet beim Fokus per Tab, Escape schließt und setzt den Fokus zurück auf den Button
-//      - Touch: Antippen öffnet, erneutes Antippen oder "×" schließt
-//      - Klick mit der Maus oder Enter führt weiterhin zu mitmachen.html; ohne JavaScript ist der Button ein normaler Link
+//      - Klick, Antippen (auch Handy) und Enter führen direkt zu mitmachen.html; ohne JavaScript ist der Button ein normaler Link
 //   2) Fest eingebaut in <div id="mitmach-terminal"></div> (Seite mitmachen.html)
 // Adresse und Betreffzeilen kommen aus public/daten/kontakt.json (über kontakt.js). Es wird nichts gesendet oder gespeichert,
 // die Links öffnen nur das E-Mail-Programm (mailto). Alle Texte werden als reiner Text eingefügt.
@@ -189,13 +188,7 @@
     });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && offen) { e.preventDefault(); schliessen(true); } });
 
-    // Touch: Antippen öffnet bzw. schließt. Maus-Klick und Enter folgen dem Link zu mitmachen.html.
-    knopf.addEventListener('click', e => {
-      const touch = e.pointerType === 'touch' || (window.matchMedia('(hover: none)').matches && e.detail !== 0);
-      if (!touch) return;
-      e.preventDefault();
-      if (offen) schliessen(false); else oeffnen();
-    });
+    // Klick, Antippen (auch auf dem Handy) und Enter führen direkt zu mitmachen.html; das Pop-up gibt es nur bei Maus-Überfahren und Tastaturfokus.
     t.querySelector('.terminal__zu').addEventListener('click', () => schliessen(true));
 
     // Tippen oder Klicken außerhalb schließt

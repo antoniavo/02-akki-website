@@ -29,6 +29,10 @@
   --folgt-rahmen: #9AAFC0;
   --fehler: #A3262A;               /* Fehlermeldungen */
 
+  /* Tastatur-Fokus (mind. 3:1 Kontrast zum Hintergrund) */
+  --fokus: #0B7A74;                /* auf hellem Grund */
+  --fokus-auf-dunkel: #45E9DA;     /* auf Navy */
+
   /* Form */
   --radius: 14px;
   --radius-klein: 6px;
@@ -48,7 +52,8 @@ body {
 }
 h1, h2, h3 { font-family: var(--font-heading); color: var(--navy); line-height: 1.2; margin: 0 0 .5em; }
 a { color: var(--tuerkis-text); }
-a:focus-visible, button:focus-visible { outline: 3px solid var(--tuerkis); outline-offset: 2px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--fokus); outline-offset: 2px; }
+.nav :focus-visible, .hero :focus-visible, .seitenkopf :focus-visible, .footer :focus-visible { outline-color: var(--fokus-auf-dunkel); }
 .container { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
 
 /* Pflicht-Hinweis, immer sichtbar */
@@ -67,7 +72,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--tuerkis); outli
 .nav__brand { display: flex; align-items: center; }
 .nav__brand img { height: 48px; width: auto; display: block; }
 .nav__zugehoerigkeit { margin: 0; font-size: .78rem; line-height: 1.35; color: var(--text-auf-dunkel-leise); max-width: 190px; }
-.nav__zugehoerigkeit a { color: var(--tuerkis-hell); }
+.nav__zugehoerigkeit a { color: var(--tuerkis-hell); display: inline-block; padding: 4px 0; }
 .nav__toggle { display: none; background: none; border: 1px solid var(--rahmen-knopf); color: var(--text-auf-dunkel); border-radius: 8px; font-size: 1.2rem; padding: 4px 10px; cursor: pointer; }
 .nav__links { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; }
 .nav__links a { color: var(--text-auf-dunkel); text-decoration: none; font-weight: 600; font-size: .95rem; padding: 6px 0; border-bottom: 2px solid transparent; }
@@ -124,7 +129,7 @@ main section + section { padding-top: 0; }
 .footer { background: var(--navy); color: var(--text-fusszeile); padding: 36px 0; margin-top: 24px; }
 .footer .container { display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; }
 .footer strong { font-family: var(--font-heading); color: var(--tuerkis-hell); }
-.footer a { color: var(--tuerkis-hell); }
+.footer a { color: var(--tuerkis-hell); display: inline-block; padding: 6px 0; }
 .footer ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 18px; flex-wrap: wrap; }
 .footer p { margin: 4px 0; }
 .footer__pfad { font-weight: 600; }

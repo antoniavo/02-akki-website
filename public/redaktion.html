@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/style.css">
 <style>
   /* Nur für den Editor. Farben kommen aus den Variablen in style.css. */
-  .reiter { display: flex; gap: 8px; border-bottom: 2px solid var(--border); margin-bottom: 24px; }
+  .reiter { display: flex; flex-wrap: wrap; gap: 0 4px; border-bottom: 2px solid var(--border); margin-bottom: 24px; }
   .reiter button {
     font: 600 1rem var(--font-body); color: var(--navy); background: none; border: 0;
     padding: 10px 18px; border-bottom: 3px solid transparent; margin-bottom: -2px; cursor: pointer;
@@ -25,7 +25,8 @@
     width: 100%; font: 400 1rem var(--font-body); color: var(--navy); background: var(--card);
     border: 1px solid var(--border); border-radius: var(--radius-klein); padding: 10px 12px;
   }
-  .feld input:focus, .feld textarea:focus { outline: 3px solid var(--tuerkis); outline-offset: 1px; border-color: var(--tuerkis-text); }
+  .feld input:focus, .feld textarea:focus { outline: 3px solid var(--fokus); outline-offset: 1px; border-color: var(--tuerkis-text); }
+  .reiter button:focus-visible { outline: 3px solid var(--fokus); outline-offset: -3px; }
   .feld textarea { min-height: 96px; resize: vertical; }
   .feld textarea.gross { min-height: 260px; }
   .zeile { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
@@ -54,6 +55,7 @@
   .vorschau__text { margin: 0; white-space: pre-wrap; word-break: break-word; font: 400 1rem/1.6 var(--font-body); color: var(--navy); }
   .knopfreihe { display: flex; flex-wrap: wrap; gap: 10px; }
   @media (max-width: 760px) {
+    .reiter button { padding: 10px 12px; }
     .zeile, .zeile3 { grid-template-columns: 1fr; }
     .vorschau__kopf { grid-template-columns: 1fr; }
     .crossref dl { grid-template-columns: 1fr; }

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mitmachen und Kontakt – AKKI</title>
-<meta name="description" content="Beim AKKI mitmachen und Kontakt aufnehmen: am KI Lab teilnehmen, ein Thema vorstellen, Forschung mitgestalten oder Technologie entwickeln.">
+<meta name="description" content="Beim AKKI mitmachen: KI Lab besuchen, ein Thema vorstellen, mitforschen oder mitbauen. Kontakt per E-Mail.">
 <!-- Vorerst fuer Suchmaschinen gesperrt, bis die DGOU die Seite freigibt (siehe inhalte.md) -->
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="logo/logo-hell.svg">
@@ -18,86 +18,50 @@
 
 <header class="seitenkopf">
   <div class="container">
-    <h1>Mitmachen und Kontakt</h1>
-    <p>KI in der Medizin lebt von unterschiedlichen Perspektiven.</p>
+    <h1>Mitmachen</h1>
+    <p>Wie möchten Sie dabei sein?</p>
   </div>
 </header>
 
 <main>
-  <section aria-labelledby="wege-titel">
+  <!-- Vier kompakte Karten: die ganze Karte ist der Link. Betreffzeilen und Adresse kommen aus daten/kontakt.json (über kontakt.js). -->
+  <section aria-label="Wege, sich zu beteiligen">
     <div class="container">
-      <h2 id="wege-titel">Vier Wege, sich zu beteiligen</h2>
-      <p class="prosa">Der AKKI bietet einen Rahmen für wissenschaftlichen Austausch und die gemeinsame Arbeit an neuen Technologien. Wir freuen uns über Ihr Interesse an Forschung, Fortbildung und der Entwicklung digitaler Anwendungen.</p>
-      <div class="kacheln kacheln--vier">
-        <article class="kachel kachel--aktion">
-          <svg class="kachel__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v11H3zM8 20h8M12 16v4"/></svg>
-          <h3>Am KI Lab teilnehmen</h3>
-          <p>Aktuelle KI-Themen kennenlernen, Fragen stellen, Erfahrungen austauschen.</p>
-          <div class="knopfreihe">
-            <a class="knopf knopf--sekundaer" href="treffen.html">Zum KI Lab</a>
-            <a class="knopf knopf--sekundaer" data-kontakt-betreff="newsletter" href="#kontakt">Newsletter</a>
-          </div>
-        </article>
-        <article class="kachel kachel--aktion">
-          <svg class="kachel__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v12H9l-5 4z"/></svg>
-          <h3>Ein eigenes Thema vorstellen</h3>
-          <p>Praxisbericht, Studie oder spannendes Tool? Schlagen Sie ein Thema vor.</p>
-          <div class="knopfreihe">
-            <a class="knopf knopf--sekundaer" data-kontakt-betreff="themenvorschlag" href="#kontakt">Thema vorschlagen</a>
-          </div>
-        </article>
-        <article class="kachel kachel--aktion">
-          <svg class="kachel__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5.2 9.2A2 2 0 0 0 6.5 21h11a2 2 0 0 0 1.7-2.8L14 9V3M7.2 15h9.6"/></svg>
-          <h3>Forschung mitgestalten</h3>
-          <p>Forschungsfragen diskutieren und Kooperationen anregen.</p>
-          <div class="knopfreihe">
-            <a class="knopf knopf--sekundaer" data-kontakt-betreff="forschung" href="#kontakt">Kooperation anfragen</a>
-          </div>
-        </article>
-        <article class="kachel kachel--aktion">
-          <svg class="kachel__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>
-          <h3>Technologie entwickeln</h3>
-          <p>Projektideen einbringen und an Open-Source-Prototypen mitarbeiten.</p>
-          <div class="knopfreihe">
-            <a class="knopf knopf--sekundaer" data-kontakt-betreff="opensource" href="#kontakt">Idee einbringen</a>
-            <a class="knopf knopf--sekundaer" href="https://github.com/akkidgou-opensource" target="_blank" rel="noopener">GitHub</a>
-          </div>
-        </article>
+      <div class="mitmach-karten">
+        <a class="mitmach-karte" href="treffen.html">
+          <span class="mitmach-karte__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v11H3zM8 20h8M12 16v4"/></svg></span>
+          <span class="mitmach-karte__titel">KI Lab besuchen</span>
+          <span class="mitmach-karte__sub">monatlich, online <span class="mitmach-karte__pfeil" aria-hidden="true">→</span></span>
+        </a>
+        <a class="mitmach-karte" href="#kontakt" data-kontakt-betreff="themenvorschlag">
+          <span class="mitmach-karte__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v12H9l-5 4z"/></svg></span>
+          <span class="mitmach-karte__titel">Thema vorstellen</span>
+          <span class="mitmach-karte__sub">Ihre Erfahrungen <span class="mitmach-karte__pfeil" aria-hidden="true">→</span></span>
+        </a>
+        <a class="mitmach-karte" href="#kontakt" data-kontakt-betreff="forschung">
+          <span class="mitmach-karte__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5.2 9.2A2 2 0 0 0 6.5 21h11a2 2 0 0 0 1.7-2.8L14 9V3M7.2 15h9.6"/></svg></span>
+          <span class="mitmach-karte__titel">Mitforschen</span>
+          <span class="mitmach-karte__sub">Kooperation <span class="mitmach-karte__pfeil" aria-hidden="true">→</span></span>
+        </a>
+        <a class="mitmach-karte" href="https://github.com/akkidgou-opensource" target="_blank" rel="noopener">
+          <span class="mitmach-karte__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></span>
+          <span class="mitmach-karte__titel">Mitbauen</span>
+          <span class="mitmach-karte__sub">Open Source <span class="mitmach-karte__pfeil" aria-hidden="true">→</span><span class="sr-only"> (öffnet GitHub in neuem Tab)</span></span>
+        </a>
       </div>
+
+      <!-- Kein Formular: Es wird nichts über diese Seite gesendet oder gespeichert, es gibt nur mailto-Links. -->
+      <p class="kontakt-zeile" id="kontakt">Oder schreiben Sie uns: <a data-kontakt-email></a><a class="kontakt-zeile__news" data-kontakt-betreff="newsletter" href="#kontakt">Newsletter abonnieren</a></p>
     </div>
   </section>
 
-  <section aria-labelledby="terminal-titel">
+  <section class="abschnitt--hell" aria-label="Mitarbeit">
     <div class="container">
-      <h2 id="terminal-titel">Auf einen Blick</h2>
-      <div id="mitmach-terminal"></div>
+      <p class="prosa">Mitglied der DGOU? Dann können Sie sich auch direkt in die AG Digitalisierung einbringen.</p>
     </div>
   </section>
 
-  <section class="abschnitt--hell" aria-labelledby="mitglied-titel">
-    <div class="container">
-      <h2 id="mitglied-titel">Mitarbeit im AKKI</h2>
-      <p class="prosa">Mitglieder der DGOU, DGOOC und DGU können sich in die AG Digitalisierung einbringen. Bei Interesse an einer Mitarbeit im AKKI nehmen Sie bitte Kontakt mit uns auf.</p>
-      <p class="prosa hinweis">Das KI Lab können Sie unabhängig davon besuchen: kostenlos und online.</p>
-    </div>
-  </section>
-
-  <section id="kontakt" aria-labelledby="kontakt-titel">
-    <div class="container">
-      <h2 id="kontakt-titel">Kontakt</h2>
-      <p class="prosa">Schreiben Sie uns an <a data-kontakt-email></a>. Wählen Sie einen Betreff, dann öffnet sich Ihr E-Mail-Programm mit einer vorbereiteten Nachricht.</p>
-      <!-- Kein Formular: Es wird nichts über diese Seite gesendet oder gespeichert, nur ein mailto-Link zusammengesetzt. -->
-      <div class="kontakt-wahl">
-        <div class="kontakt-wahl__feld">
-          <label for="betreff-wahl">Betreff</label>
-          <select id="betreff-wahl"></select>
-        </div>
-        <a class="knopf" id="betreff-link" hidden>E-Mail schreiben</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="abschnitt--hell" aria-labelledby="faq-titel">
+  <section aria-labelledby="faq-titel">
     <div class="container">
       <h2 id="faq-titel">Häufige Fragen</h2>
       <div class="faq">
@@ -106,56 +70,16 @@
           <p>Der AKKI ist der Arbeitskreis Künstliche Intelligenz der AG Digitalisierung der DGOU. Mehr dazu unter <a href="wer-wir-sind.html">Wer wir sind</a>.</p>
         </details>
         <details>
-          <summary>Was ist das DGOU KI Lab?</summary>
-          <p>Das digitale Fortbildungs- und Austauschformat des AKKI, jeden ersten Dienstag im Monat und online. Die Termine stehen auf der Seite <a href="treffen.html">KI Lab</a>.</p>
-        </details>
-        <details>
-          <summary>Wie kann ich mich beteiligen?</summary>
-          <p>Über die vier Wege oben oder per E-Mail an <a data-kontakt-email></a>.</p>
-        </details>
-        <details>
-          <summary>Kann ich eigene Forschungsideen einbringen?</summary>
-          <p>Ja, schreiben Sie uns. Wählen Sie oben den Betreff „Forschungskooperation“.</p>
-        </details>
-        <details>
           <summary>Brauche ich Programmierkenntnisse?</summary>
           <p>Nein. Beim <a href="projekte.html#hackathon">Hackathon</a> sind sie zum Beispiel ausdrücklich nicht erforderlich.</p>
-        </details>
-        <details>
-          <summary>Wo finde ich vergangene Vorträge?</summary>
-          <p>Im Archiv auf der Seite <a href="treffen.html">KI Lab</a>.</p>
         </details>
       </div>
     </div>
   </section>
 </main>
-
 <div id="seitenfuss"></div>
 
 <script src="layout.js"></script>
 <script src="kontakt.js"></script>
-<script src="terminal.js"></script>
-<script>
-  // Betreff-Auswahl: Adresse und Betreffzeilen kommen aus public/daten/kontakt.json (über kontakt.js).
-  // Es wird nur ein mailto-Link zusammengesetzt, nichts wird gesendet oder gespeichert.
-  window.akkiKontakt.then(kontakt => {
-    const auswahl = document.getElementById('betreff-wahl');
-    const link = document.getElementById('betreff-link');
-    const schluessel = kontakt.betreffAuswahl || Object.keys(kontakt.betreff || {});
-    if (!kontakt.email || !schluessel.length) { auswahl.closest('.kontakt-wahl').hidden = true; return; }
-    schluessel.forEach(k => {
-      if (!kontakt.betreff[k]) return;
-      const o = document.createElement('option');
-      o.value = k; o.textContent = kontakt.betreff[k];
-      auswahl.appendChild(o);
-    });
-    function aktualisieren() {
-      link.href = 'mailto:' + kontakt.email + '?subject=' + encodeURIComponent(kontakt.betreff[auswahl.value]);
-    }
-    auswahl.addEventListener('change', aktualisieren);
-    aktualisieren();
-    link.hidden = false;
-  });
-</script>
 </body>
 </html>

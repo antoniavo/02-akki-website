@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Projekte – AKKI</title>
-<meta name="description" content="Projekte des AKKI: KI-basierter Leitliniensupport, erleichterter KI-Zugang in O&amp;U, Decision-Support-Systeme, DGOU KI Lab und AKKI Hackathon 2026.">
+<meta name="description" content="Projekte des AKKI: KI-basierter Leitliniensupport, erleichterter KI-Zugang in O&amp;U, Clinical Decision Support, Forschungsprojekte, DGOU KI Lab und AKKI Hackathon 2026.">
 <!-- Vorerst fuer Suchmaschinen gesperrt, bis die DGOU die Seite freigibt (siehe inhalte.md) -->
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="logo/logo-hell.svg">
@@ -19,56 +19,60 @@
 <header class="seitenkopf">
   <div class="container">
     <h1>Projekte</h1>
+    <p>Woran wir arbeiten – von der Forschung bis zum Wissenstransfer.</p>
   </div>
 </header>
 
 <main>
-  <section>
+  <section aria-labelledby="schwerpunkte-titel">
     <div class="container">
-      <div class="kacheln kacheln--zwei">
-        <article class="kachel">
-          <h2>KI-basierter Leitliniensupport</h2>
-          <p><span class="text-folgt">Text folgt</span></p>
-        </article>
-        <article class="kachel">
-          <h2>Erleichterter KI-Zugang in O&amp;U</h2>
-          <p><span class="text-folgt">Text folgt</span></p>
-        </article>
-        <article class="kachel">
-          <h2>Decision-Support-Systeme</h2>
-          <p><span class="text-folgt">Text folgt</span></p>
-        </article>
-        <article class="kachel">
-          <h2>DGOU KI Lab</h2>
-          <p><span class="text-folgt">Text folgt</span></p>
-          <p><a href="treffen.html">Zu den Terminen</a></p>
-        </article>
-      </div>
+      <h2 id="schwerpunkte-titel">Thematische Schwerpunkte</h2>
+      <div class="kacheln" id="schwerpunkte"></div>
     </div>
   </section>
 
-  <section>
+  <section class="abschnitt--hell" aria-labelledby="forschung-titel">
     <div class="container">
-      <div class="karte">
-        <h2>AKKI Hackathon 2026</h2>
-        <p>27.–28.11.2026, Kesselhaus des BG Klinikums Unfallkrankenhaus Berlin. Ärzt:innen und technikaffine Kolleg:innen bauen in zwei Tagen Prototypen zu neun KI-Use-Cases.</p>
-        <ul class="liste">
-          <li>Veranstalter: BG Klinikum Unfallkrankenhaus Berlin und Helliwood media &amp; education</li>
-          <li>Link: <a href="https://akki-hackathon-2026.vercel.app" target="_blank" rel="noopener">akki-hackathon-2026.vercel.app</a></li>
-        </ul>
+      <h2 id="forschung-titel">Forschungsprojekte</h2>
+      <div class="archiv-werkzeuge" role="group" aria-label="Projekte filtern">
+        <div class="filter" id="filter-thema" role="group" aria-label="Nach Thema filtern"><span class="filter-label">Thema</span></div>
+        <div class="filter" id="filter-status" role="group" aria-label="Nach Status filtern"><span class="filter-label">Status</span></div>
+        <span class="hinweis" id="projekte-anzahl" aria-live="polite"></span>
+      </div>
+      <div class="kacheln" id="projekte"></div>
+    </div>
+  </section>
 
-        <h3 style="margin-top:20px">Die neun Use Cases</h3>
-        <ul class="liste">
-          <li>Wund-AI – Link: <span class="text-folgt">folgt</span></li>
-          <li>AKKI-Website – Link: <span class="text-folgt">folgt</span></li>
-          <li>EKG-AI – Link: <span class="text-folgt">folgt</span></li>
-          <li>Medizinischer Avatar-Übersetzer – Link: <span class="text-folgt">folgt</span></li>
-          <li>Reanimations-Co-Pilot – Link: <span class="text-folgt">folgt</span></li>
-          <li>Pflege-Zusammenfassung – Link: <span class="text-folgt">folgt</span></li>
-          <li>Entlassungsassistent – Link: <span class="text-folgt">folgt</span></li>
-          <li>Implantat-Check – Link: <span class="text-folgt">folgt</span></li>
-          <li>OP-Bericht-Assistent – Link: <span class="text-folgt">folgt</span></li>
-        </ul>
+  <section aria-labelledby="transfer-titel">
+    <div class="container">
+      <h2 id="transfer-titel">Wissenstransfer und Innovation</h2>
+      <div class="kacheln" id="transfer"></div>
+    </div>
+  </section>
+
+  <section class="abschnitt--hell" id="hackathon" aria-labelledby="hackathon-titel">
+    <div class="container">
+      <h2 id="hackathon-titel">AKKI Hackathon 2026</h2>
+      <p class="prosa" id="hackathon-text"></p>
+      <ul class="liste" id="hackathon-fakten"></ul>
+      <p><a class="knopf" id="hackathon-link" hidden target="_blank" rel="noopener">Zur Hackathon-Website</a></p>
+
+      <h3 class="unterabschnitt">Die neun Use Cases</h3>
+      <p class="hinweis" id="usecase-hinweis"></p>
+      <div class="kacheln" id="usecases"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="idee-titel">
+    <div class="container">
+      <div class="mitmachen-kasten">
+        <div>
+          <h2 id="idee-titel">Forschungsidee einbringen?</h2>
+          <p>Sie haben eine Idee für ein Forschungsprojekt oder möchten kooperieren? Schreiben Sie uns.</p>
+        </div>
+        <div class="knopfreihe">
+          <a class="knopf" data-kontakt-mailto="Forschungskooperation" href="mitmachen.html">Forschungsidee senden</a>
+        </div>
       </div>
     </div>
   </section>
@@ -78,5 +82,147 @@
 
 <script src="layout.js"></script>
 <script src="kontakt.js"></script>
+<script>
+  // Alle Inhalte kommen aus public/daten/projekte.json, usecases.json und personen.json.
+  // Texte werden nur als reiner Text eingefügt. Leere Felder (null) werden nicht angezeigt.
+  const SVG = 'http://www.w3.org/2000/svg';
+  const ICONS = {
+    buch: 'M3 5h6a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H3zM21 5h-6a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5H21z',
+    schluessel: 'M15 3a6 6 0 1 0 1 11.9L19 18h2v-2h-2v-2h-2l-1.1-1.1A6 6 0 0 0 15 3zM15 7.5h.01',
+    kompass: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM15.5 8.5l-2 5-5 2 2-5z',
+  };
+  const STATUS_KLASSE = { 'Projektidee': 'idee', 'In Planung': 'planung', 'Laufend': 'laufend', 'Abgeschlossen': 'abgeschlossen', 'Publiziert': 'publiziert' };
+
+  function el(tag, klasse, text) {
+    const e = document.createElement(tag);
+    if (klasse) e.className = klasse;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function link(text, href, klasse) {
+    const a = el('a', klasse, text);
+    a.href = href;
+    if (/^https?:/.test(href)) { a.target = '_blank'; a.rel = 'noopener'; }
+    return a;
+  }
+  function icon(name) {
+    const s = document.createElementNS(SVG, 'svg');
+    s.setAttribute('viewBox', '0 0 24 24');
+    s.setAttribute('class', 'kachel__icon');
+    s.setAttribute('aria-hidden', 'true');
+    const p = document.createElementNS(SVG, 'path');
+    p.setAttribute('d', ICONS[name] || ICONS.kompass);
+    s.appendChild(p);
+    return s;
+  }
+  const holen = datei => fetch(datei).then(r => { if (!r.ok) throw new Error(datei); return r.json(); });
+  const namenListe = (ids, personen) => (ids || []).map(id => personen[id] && personen[id].name).filter(Boolean);
+
+  function schwerpunktKarte(s, personen) {
+    const k = el('article', 'kachel');
+    k.appendChild(icon(s.icon));
+    k.appendChild(el('h3', null, s.titel));
+    k.appendChild(el('p', null, s.text));
+    const namen = namenListe(s.ansprechpersonen, personen);
+    if (namen.length) k.appendChild(el('p', 'projekt-karte__meta', 'Ansprechpartner: ' + namen.join(', ')));
+    return k;
+  }
+
+  function projektKarte(p, personen) {
+    const k = el('article', 'projekt-karte');
+    k.appendChild(el('p', 'projekt-karte__kategorie', p.thema));
+    k.appendChild(el('h3', null, p.titel));
+    k.appendChild(el('span', 'badge badge--' + (STATUS_KLASSE[p.projektStatus] || 'idee'), p.projektStatus));
+    if (p.text) k.appendChild(el('p', null, p.text));
+    if (p.umfeld && p.umfeldHinweis) k.appendChild(el('p', 'projekt-karte__meta', p.umfeldHinweis));
+    const namen = namenListe(p.ansprechpersonen, personen);
+    if (namen.length) k.appendChild(el('p', 'projekt-karte__meta', 'Ansprechpartner: ' + namen.join(', ')));
+    if (p.publikation) k.appendChild(link('Zur Publikation', 'publikationen.html#' + encodeURIComponent(p.publikation), 'pfeil-link'));
+    else if (p.link) k.appendChild(link('Mehr erfahren', p.link, 'pfeil-link'));
+    return k;
+  }
+
+  function transferKarte(t) {
+    const k = el('article', 'kachel');
+    k.appendChild(el('h3', null, t.titel));
+    k.appendChild(el('p', null, t.text));
+    if (t.link) k.appendChild(link(t.linkText || 'Mehr erfahren', t.link, 'pfeil-link'));
+    return k;
+  }
+
+  function useCaseKarte(u) {
+    const k = el('article', 'kachel');
+    k.appendChild(el('span', 'kachel__nr', 'Use Case ' + u.nr));
+    k.appendChild(el('h3', null, u.titel));
+    k.appendChild(el('p', null, u.text));
+    // Felder für später: bleiben unsichtbar, solange sie leer sind
+    if (u.team) k.appendChild(el('p', 'projekt-karte__meta', 'Team: ' + u.team));
+    if (u.ergebnis) k.appendChild(el('p', null, u.ergebnis));
+    const zeile = el('p');
+    if (u.repository) zeile.appendChild(link('Repository', u.repository, 'pfeil-link'));
+    if (u.demo) { zeile.appendChild(document.createTextNode(' ')); zeile.appendChild(link('Demo', u.demo, 'pfeil-link')); }
+    if (zeile.childNodes.length) k.appendChild(zeile);
+    return k;
+  }
+
+  // Filter nach Thema und Status für die Forschungsprojekte
+  function projekteEinrichten(liste, personen) {
+    const ziel = document.getElementById('projekte');
+    const anzahl = document.getElementById('projekte-anzahl');
+    const auswahl = { thema: 'Alle', status: 'Alle' };
+
+    function filterKnoepfe(boxId, feld, werte) {
+      const box = document.getElementById(boxId);
+      ['Alle', ...werte].forEach(w => {
+        const b = el('button', 'filter-knopf', w);
+        b.type = 'button';
+        b.setAttribute('aria-pressed', w === 'Alle' ? 'true' : 'false');
+        b.addEventListener('click', () => {
+          auswahl[feld] = w;
+          box.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+          zeigen();
+        });
+        box.appendChild(b);
+      });
+    }
+    const themen = [...new Set(liste.map(p => p.thema))];
+    const stati = [...new Set(liste.map(p => p.projektStatus))];
+    filterKnoepfe('filter-thema', 'thema', themen);
+    filterKnoepfe('filter-status', 'status', stati);
+
+    function zeigen() {
+      const treffer = liste.filter(p =>
+        (auswahl.thema === 'Alle' || p.thema === auswahl.thema) &&
+        (auswahl.status === 'Alle' || p.projektStatus === auswahl.status));
+      ziel.replaceChildren(...(treffer.length ? treffer.map(p => projektKarte(p, personen)) : [el('p', 'hinweis', 'Keine passenden Projekte gefunden.')]));
+      anzahl.textContent = treffer.length === 1 ? '1 Projekt' : treffer.length + ' Projekte';
+    }
+    zeigen();
+  }
+
+  Promise.all([holen('daten/projekte.json'), holen('daten/usecases.json'), holen('daten/personen.json')]).then(([pj, uc, pd]) => {
+    const personen = Object.fromEntries(pd.personen.map(p => [p.id, p]));
+    document.getElementById('schwerpunkte').replaceChildren(...(pj.schwerpunkte || []).map(s => schwerpunktKarte(s, personen)));
+    projekteEinrichten(pj.projekte || [], personen);
+    document.getElementById('transfer').replaceChildren(...(pj.transfer || []).map(transferKarte));
+
+    const h = uc.hackathon;
+    if (h) {
+      document.getElementById('hackathon-text').textContent = h.text;
+      const fakten = [['Termin', h.zeitraum], ['Ort', h.ort], ['Veranstalter', h.veranstalter]].filter(f => f[1]);
+      document.getElementById('hackathon-fakten').replaceChildren(...fakten.map(([name, wert]) => {
+        const li = el('li');
+        li.appendChild(el('strong', null, name + ': '));
+        li.appendChild(document.createTextNode(wert));
+        return li;
+      }));
+      if (h.website) { const a = document.getElementById('hackathon-link'); a.href = h.website; a.hidden = false; }
+      document.getElementById('usecase-hinweis').textContent = h.hinweis || '';
+    }
+    document.getElementById('usecases').replaceChildren(...(uc.usecases || []).map(useCaseKarte));
+  }).catch(() => {
+    document.querySelector('main').appendChild(el('p', 'hinweis container', 'Die Inhalte konnten gerade nicht geladen werden.'));
+  });
+</script>
 </body>
 </html>

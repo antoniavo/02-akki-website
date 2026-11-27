@@ -65,13 +65,25 @@
   function terminKarteKurz(t) {
     const a = el('a', 'termin-karte');
     a.href = 'treffen.html';
+    // Datumsblock links (Tag groß, Monat und Jahr klein), wenn ein voller Tag bekannt ist
+    const [jahr, monat, tag] = String(t.datum).split('-');
+    const inhalt = el('span', 'termin-karte__inhalt');
+    if (tag) {
+      a.classList.add('termin-karte--block');
+      const block = el('span', 'datumsblock');
+      block.appendChild(el('span', 'datumsblock__tag', String(Number(tag))));
+      block.appendChild(el('span', 'datumsblock__monat', MONATE[Number(monat) - 1].slice(0, 3)));
+      block.appendChild(el('span', 'datumsblock__jahr', jahr));
+      a.appendChild(block);
+    }
     const kopf = el('span', 'termin-karte__kopf');
-    kopf.appendChild(el('span', 'termin-karte__datum', datumText(t.datum)));
+    if (!tag) kopf.appendChild(el('span', 'termin-karte__datum', datumText(t.datum)));
     kategorienVon(t).forEach(k => kopf.appendChild(el('span', 'kategorie', k)));
-    a.appendChild(kopf);
-    a.appendChild(el('span', 'termin-karte__titel', t.titel));
+    if (kopf.childNodes.length) inhalt.appendChild(kopf);
+    inhalt.appendChild(el('span', 'termin-karte__titel', t.titel));
     const zeile = [t.beschreibung, t.referent].filter(Boolean).join(' · ');
-    if (zeile) a.appendChild(el('span', 'termin-karte__text', zeile));
+    if (zeile) inhalt.appendChild(el('span', 'termin-karte__text', zeile));
+    a.appendChild(inhalt);
     return a;
   }
 

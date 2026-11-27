@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AKKI – Arbeitskreis Künstliche Intelligenz · AG Digitalisierung · DGOU</title>
-<meta name="description" content="Der AKKI ist der Arbeitskreis Künstliche Intelligenz der AG Digitalisierung der DGOU: Projekte, Publikationen und das monatliche DGOU KI Lab.">
+<meta name="description" content="Der AKKI ist der Arbeitskreis Künstliche Intelligenz der AG Digitalisierung der DGOU: KI Lab, Forschung, Publikationen und Hackathon.">
 <!-- Vorerst fuer Suchmaschinen gesperrt, bis die DGOU die Seite freigibt (siehe inhalte.md) -->
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="logo/logo-hell.svg">
@@ -16,83 +16,90 @@
   <div class="prototyp-hinweis" role="note">Prototyp – nur Testdaten. Kein Ersatz für ärztliche Beurteilung.</div>
 </div>
 
-<header class="hero">
+<header class="hero hero--kompakt">
   <div class="container">
     <!-- Die Hauptüberschrift (h1) ist nur für Screenreader sichtbar; sichtbar ist das lebende Logo -->
     <h1 class="sr-only">AKKI – Arbeitskreis Künstliche Intelligenz der AG Digitalisierung der DGOU</h1>
-    <!-- Lebendes AKKI-Logo, Einbau wie oben in public/logo/logo-animiert.js beschrieben -->
+    <!-- Lebendes AKKI-Logo, Einbau wie in public/logo/logo-animiert.js beschrieben -->
     <canvas data-akki-logo aria-hidden="true"></canvas>
     <p class="hero__zugehoerig">Ein Arbeitskreis der <a href="https://www.digitalisierung-dgou.de/" target="_blank" rel="noopener">AG Digitalisierung</a> der <a href="https://dgou.de/" target="_blank" rel="noopener">DGOU</a></p>
-    <div class="hero__text">
-      <div class="knopfreihe">
-        <a class="knopf" href="treffen.html">KI Lab entdecken</a>
-        <a class="knopf knopf--hell" href="mitmachen.html" id="mitmachen-knopf">Mitmachen</a>
-      </div>
-    </div>
   </div>
 </header>
 
 <main>
-  <section aria-labelledby="aktuelles-titel">
+  <!-- Vier Einstiege direkt unter dem Logo -->
+  <section class="einstiege" aria-label="Einstiege">
     <div class="container">
-      <h2 id="aktuelles-titel">Aktuelles</h2>
-      <div class="kacheln kacheln--zwei" id="aktuelles-liste"></div>
-    </div>
-  </section>
-
-  <section class="einstieg" aria-labelledby="willkommen-titel">
-    <div class="container">
-      <h2 id="willkommen-titel">Willkommen beim AKKI</h2>
-      <p>Wir sind der Arbeitskreis KI der AG Digitalisierung der DGOU. Wir bringen Wissenschaft, Klinik und Technologie zusammen – für einen verantwortungsvollen Einsatz von KI in der Medizin.</p>
-      <p class="einstieg__zielgruppe"><strong>Für wen?</strong> Für Ärztinnen und Ärzte, Forschende, Studierende und alle, die digitale Medizin mitgestalten wollen.</p>
-    </div>
-  </section>
-
-  <section class="schwerpunkte" aria-labelledby="schwerpunkte-titel">
-    <div class="container">
-      <h2 id="schwerpunkte-titel">Unsere Schwerpunkte</h2>
-      <div class="kacheln">
-        <article class="kachel kachel--link">
-          <svg class="kachel__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5.2 9.2A2 2 0 0 0 6.5 21h11a2 2 0 0 0 1.7-2.8L14 9V3M7.2 15h9.6"/></svg>
-          <h3><a href="projekte.html">Forschung &amp; Evidenz</a></h3>
-          <p>Wir entwickeln und prüfen KI-Anwendungen wissenschaftlich.</p>
-        </article>
-        <article class="kachel kachel--link">
-          <svg class="kachel__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h6a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H3zM21 5h-6a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5H21z"/></svg>
-          <h3><a href="treffen.html">Wissen &amp; Fortbildung</a></h3>
-          <p>Praxisnahe KI-Kompetenz im monatlichen KI Lab.</p>
-        </article>
-        <article class="kachel kachel--link">
-          <svg class="kachel__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.1V16h5v-.1c0-.8.4-1.6 1.1-2.1A6 6 0 0 0 12 3z"/></svg>
-          <h3><a href="projekte.html">Innovation &amp; Transfer</a></h3>
-          <p>Gemeinsam bauen: vom Hackathon bis zum Open-Source-Projekt.</p>
-        </article>
+      <div class="einstiege__raster">
+        <a class="einstieg-kachel" href="treffen.html">
+          <span class="einstieg-kachel__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v11H3zM8 20h8M12 16v4"/></svg></span>
+          <span class="einstieg-kachel__titel">KI Lab</span>
+          <span class="einstieg-kachel__sub">Termine · Archiv</span>
+          <span class="einstieg-kachel__pfeil" aria-hidden="true">→</span>
+        </a>
+        <a class="einstieg-kachel" href="projekte.html">
+          <span class="einstieg-kachel__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5.2 9.2A2 2 0 0 0 6.5 21h11a2 2 0 0 0 1.7-2.8L14 9V3M7.2 15h9.6"/></svg></span>
+          <span class="einstieg-kachel__titel">Forschung</span>
+          <span class="einstieg-kachel__sub">Projekte · Hackathon</span>
+          <span class="einstieg-kachel__pfeil" aria-hidden="true">→</span>
+        </a>
+        <a class="einstieg-kachel" href="publikationen.html">
+          <span class="einstieg-kachel__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h6a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H3zM21 5h-6a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5H21z"/></svg></span>
+          <span class="einstieg-kachel__titel">Publikationen</span>
+          <span class="einstieg-kachel__sub">Veröffentlichungen</span>
+          <span class="einstieg-kachel__pfeil" aria-hidden="true">→</span>
+        </a>
+        <!-- Am Mitwirken-Einstieg hängt das Mitmach-Terminal als Pop-up (terminal.js) -->
+        <a class="einstieg-kachel" href="mitmachen.html" id="mitmachen-knopf" data-terminal-block>
+          <span class="einstieg-kachel__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0"/></svg></span>
+          <span class="einstieg-kachel__titel">Mitwirken</span>
+          <span class="einstieg-kachel__sub">Mitmachen · Kontakt</span>
+          <span class="einstieg-kachel__pfeil" aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <section aria-labelledby="kilab-titel">
+  <!-- Hackathon (aus daten/usecases.json) -->
+  <section aria-labelledby="hackathon-titel">
+    <div class="container">
+      <div class="hackathon-karte" id="hackathon-karte" hidden>
+        <div class="hackathon-karte__text">
+          <p class="eyebrow">Aktuell</p>
+          <h2 id="hackathon-titel"></h2>
+          <p class="hackathon-karte__fakten" id="hackathon-fakten"></p>
+          <div class="knopfreihe">
+            <a class="knopf knopf--hell" id="hackathon-website" target="_blank" rel="noopener" hidden>Zur Hackathon-Website</a>
+            <a class="knopf knopf--auf-dunkel" href="projekte.html#hackathon">Use Cases ansehen</a>
+          </div>
+        </div>
+        <div class="hackathon-karte__cases">
+          <p class="hackathon-karte__zahl"><strong id="hackathon-anzahl"></strong> Use Cases</p>
+          <ul class="chips" id="hackathon-chips"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Neueste KI-Lab-Termine (über beitraege.js aus daten/beitraege.json) -->
+  <section class="abschnitt--hell" aria-labelledby="kilab-titel">
     <div class="container">
       <div class="abschnitt-kopf">
         <h2 id="kilab-titel">Aus dem KI Lab</h2>
-        <a class="pfeil-link" href="treffen.html">Alle Termine im Archiv</a>
+        <a class="pfeil-link" href="treffen.html">Alle Termine</a>
       </div>
       <div class="termin-karten" id="kilab-letzte"></div>
     </div>
   </section>
 
-  <section aria-labelledby="mitmachen-titel">
+  <!-- Neueste Publikationen (aus daten/publikationen.json) -->
+  <section aria-labelledby="pub-titel">
     <div class="container">
-      <div class="mitmachen-kasten">
-        <div>
-          <h2 id="mitmachen-titel">Mitmachen</h2>
-          <p>Das DGOU KI Lab ist offen für alle Interessierten – online und kostenlos.</p>
-        </div>
-        <div class="knopfreihe">
-          <a class="knopf" data-kontakt-mailto="Newsletter KI Lab">Newsletter abonnieren</a>
-          <a class="pfeil-link" href="mitmachen.html">Mehr zum Mitmachen</a>
-        </div>
+      <div class="abschnitt-kopf">
+        <h2 id="pub-titel">Neue Publikationen</h2>
+        <a class="pfeil-link" href="publikationen.html">Alle Publikationen</a>
       </div>
+      <ul class="neu-pubs" id="pub-neu"></ul>
     </div>
   </section>
 </main>
@@ -103,6 +110,7 @@
 <script src="layout.js"></script>
 <script src="kontakt.js"></script>
 <script src="beitraege.js"></script>
+<script src="startseite.js"></script>
 <script src="terminal.js"></script>
 </body>
 </html>

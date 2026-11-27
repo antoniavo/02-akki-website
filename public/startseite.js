@@ -1,0 +1,60 @@
+// Startseite: Hackathon-Karte (aus daten/usecases.json) und neueste Publikationen (aus daten/publikationen.json).
+// Die neuesten KI-Lab-Termine zeigt beitraege.js. Alle Texte werden als reiner Text eingefügt; leere Felder werden ausgelassen.
+(function () {
+  function el(tag, klasse, text) {
+    const e = document.createElement(tag);
+    if (klasse) e.className = klasse;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  const holen = datei => fetch(datei).then(r => { if (!r.ok) throw new Error(datei); return r.json(); });
+
+  // ---------- Hackathon ----------
+  const karte = document.getElementById('hackathon-karte');
+  if (karte) {
+    holen('daten/usecases.json').then(d => {
+      const h = d.hackathon;
+      if (!h) return;
+      document.getElementById('hackathon-titel').textContent = h.titel;
+      document.getElementById('hackathon-fakten').textContent = [h.zeitraum, h.ort].filter(Boolean).join(' · ');
+      if (h.website) {
+        const a = document.getElementById('hackathon-website');
+        a.href = h.website; a.hidden = false;
+      }
+      const cases = d.usecases || [];
+      document.getElementById('hackathon-anzahl').textContent = cases.length;
+      document.getElementById('hackathon-chips').replaceChildren(...cases.map(u => {
+        const li = el('li');
+        const a = el('a', 'chip', u.titel);
+        a.href = 'projekte.html#hackathon';
+        li.appendChild(a);
+        return li;
+      }));
+      karte.hidden = false;
+    }).catch(() => { /* Karte bleibt ausgeblendet */ });
+  }
+
+  // ---------- Neueste Publikationen ----------
+  const liste = document.getElementById('pub-neu');
+  if (liste) {
+    holen('daten/publikationen.json').then(d => {
+      const neu = (d.publikationen || [])
+        .filter(p => p.gruppe !== 'berichte' && p.titel && p.datum)
+        .sort((a, b) => String(b.datum).localeCompare(String(a.datum)))
+        .slice(0, 3);
+      liste.replaceChildren(...neu.map(p => {
+        const li = el('li');
+        const a = el('a', 'neu-pub');
+        a.href = 'publikationen.html#' + encodeURIComponent(p.id);
+        const text = el('span', 'neu-pub__text');
+        text.appendChild(el('span', 'neu-pub__titel', p.titel));
+        text.appendChild(el('span', 'neu-pub__meta', [p.journal, p.jahr].filter(Boolean).join(' · ')));
+        a.appendChild(text);
+        if (p.typ) a.appendChild(el('span', 'kategorie', p.typ));
+        a.appendChild(el('span', 'neu-pub__pfeil', '→')).setAttribute('aria-hidden', 'true');
+        li.appendChild(a);
+        return li;
+      }));
+    }).catch(() => { liste.replaceChildren(el('li', 'hinweis', 'Die Publikationen konnten gerade nicht geladen werden.')); });
+  }
+})();

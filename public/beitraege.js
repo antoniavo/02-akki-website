@@ -101,8 +101,7 @@
     // Keine Kategorie-Schilder auf den Karten (die Kategorien bleiben in den Daten für die Filter auf der KI-Lab-Seite)
     if (!tag) inhalt.appendChild(el('span', 'termin-karte__datum', datumText(t.datum)));
     inhalt.appendChild(el('span', 'termin-karte__titel', t.titel));
-    // Referent:in als eigene kleine Zeile unter dem Titel, nur wenn eingetragen (= bestätigt)
-    if (t.referent) inhalt.appendChild(el('span', 'termin-karte__referent', t.referent));
+    // Namen von Referent:innen werden hier nicht angezeigt (das Feld referent bleibt in den Daten)
     if (t.beschreibung) inhalt.appendChild(el('span', 'termin-karte__text', t.beschreibung));
     a.appendChild(inhalt);
     return a;
@@ -173,7 +172,7 @@
     inhalt.appendChild(el('span', 'kl-zeile__datum', datumText(t.datum)));
     const text = el('span', 'kl-zeile__text');
     text.appendChild(el('span', 'kl-zeile__titel', t.titel));
-    if (t.referent) text.appendChild(el('span', 'kl-zeile__referent', ' · ' + t.referent));
+    // Namen von Referent:innen werden in der Liste nicht angezeigt: nur Datum und Titel (das Feld referent bleibt in den Daten)
     inhalt.appendChild(text);
 
     if (!hatDetails) {

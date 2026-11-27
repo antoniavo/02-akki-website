@@ -9,7 +9,7 @@ Alles mit ⚠️ ist aus öffentlichen Quellen zusammengetragen und muss vor Ort
 - Prüft Inhalte fachlich/ärztlich: ___
 
 ## Seitenstruktur
-- **Menü oben:** Start · Wer wir sind · Projekte · Publikationen · Treffen · Kontakt
+- **Menü oben:** Start · Wer wir sind · Projekte · Publikationen · Treffen · Mitmachen/Kontakt
 - **Fußzeile:** Impressum · Datenschutz
 - **Pflicht, falls die Zeit knapp wird:** Start, Wer wir sind, Treffen
 

@@ -129,7 +129,8 @@ a:hover { text-decoration-color: var(--petrol); text-decoration-thickness: 2px; 
 }
 .nav { background: var(--weiss); border-bottom: 1px solid var(--rahmen); }
 .nav__innen { display: flex; align-items: center; justify-content: space-between; gap: var(--a2); min-height: 64px; flex-wrap: wrap; padding-top: 6px; padding-bottom: 6px; }
-.nav__toggle { display: none; background: var(--weiss); border: 1px solid var(--blau); color: var(--blau); border-radius: var(--radius-klein); font-size: 1.3rem; line-height: 1; width: 44px; height: 44px; cursor: pointer; }
+.nav__toggle { display: none; align-items: center; gap: 10px; background: var(--weiss); border: 1px solid var(--blau); color: var(--blau); border-radius: var(--radius-klein); font: 700 1rem/1 var(--font-body); padding: 0 16px; height: 44px; cursor: pointer; }
+.nav__toggle span:first-child { font-size: 1.3rem; }
 .nav__links { list-style: none; display: flex; gap: var(--a3); margin: 0; padding: 0; }
 .nav__links a { color: var(--text); text-decoration: none; font-weight: 600; font-size: .95rem; padding: 8px 0; border-bottom: 3px solid transparent; display: inline-block; }
 .nav__links a:hover { color: var(--blau); border-bottom-color: var(--petrol); }
@@ -192,8 +193,9 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 .liste { margin: 0; padding-left: 1.2em; }
 .liste li { margin: 4px 0; }
 
-.kacheln { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--a3); margin-top: var(--a3); }
-.kacheln--zwei { grid-template-columns: repeat(2, 1fr); }
+.kacheln { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--a3); margin-top: var(--a3); }
+.kacheln--zwei { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.kachel h3, .projekt-karte h3, .termin-karte__titel, .archiv-karte__titel { overflow-wrap: break-word; hyphens: auto; } /* lange Wörter (z. B. Pflege-Zusammenfassung) dürfen getrennt werden, nichts sprengt die Spalte */
 .kachel { border-top: 4px solid var(--petrol); }
 .kachel h3 { font-size: 1.15rem; }
 .kachel__nr { display: inline-block; font-family: var(--font-heading); font-weight: 700; color: var(--blau); font-size: .9rem; margin-bottom: var(--a1); }
@@ -249,7 +251,7 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 .aktuell-karte__art { display: inline-block; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--petrol-text); margin-bottom: 6px; }
 .aktuell-karte__wann { font-weight: 600; margin: 0 0 var(--a1); }
 
-.termin-karten { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--a2); margin-top: var(--a2); }
+.termin-karten { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--a2); margin-top: var(--a2); }
 .termin-karte { display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: var(--text); background: var(--weiss); border: 1px solid var(--rahmen); border-top: 4px solid var(--petrol); border-radius: var(--radius); padding: 18px 20px; transition: box-shadow .15s; }
 .termin-karte:hover { box-shadow: 0 4px 16px var(--schatten); }
 .termin-karte:hover .termin-karte__titel { text-decoration: underline; text-decoration-color: var(--petrol); }
@@ -272,7 +274,7 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 .filter-knopf { font: 600 .95rem var(--font-body); color: var(--blau); background: var(--weiss); border: 1px solid var(--blau); border-radius: 999px; padding: 6px 14px; cursor: pointer; min-height: 36px; }
 .filter-knopf:hover { border-color: var(--petrol); background: var(--mint-hell); }
 .filter-knopf[aria-pressed="true"] { background: var(--blau); color: var(--text-auf-dunkel); }
-.archiv-karten { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--a2); }
+.archiv-karten { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--a2); }
 .archiv-karte { border-top: 4px solid var(--petrol); padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }
 .archiv-karte__titel { font-size: 1.1rem; margin: 2px 0 0; }
 .archiv-karte__referent { margin: 0; font-weight: 600; }
@@ -308,7 +310,7 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 .unterabschnitt { margin-top: var(--a4); }
 .pub-eintrag:target { background: var(--mint-hell); box-shadow: -12px 0 0 var(--mint-hell), 12px 0 0 var(--mint-hell); border-radius: var(--radius-klein); }
 .pub-eintrag__titel { margin-top: 0; }
-.kacheln--vier { grid-template-columns: repeat(4, 1fr); }
+.kacheln--vier { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .kachel--aktion { display: flex; flex-direction: column; align-items: flex-start; }
 .kachel--aktion p { flex: 1; }
 .kachel--aktion .knopfreihe { margin-top: var(--a1); }
@@ -325,7 +327,7 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 .filter-label { align-self: center; font-size: .85rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-2); margin-right: 2px; }
 .ziele-liste { max-width: var(--zeile); }
 .ziele-liste li { margin: 8px 0; }
-.zeitleiste { list-style: none; margin: var(--a3) 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--a2); }
+.zeitleiste { list-style: none; margin: var(--a3) 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--a2); }
 .zeitleiste__punkt { position: relative; padding-top: var(--a3); display: flex; flex-direction: column; gap: 2px; }
 .zeitleiste__punkt::before { content: ""; position: absolute; top: 7px; left: 0; right: calc(-1 * var(--a2)); height: 2px; background: var(--petrol); }
 .zeitleiste__punkt:last-child::before { right: 0; background: linear-gradient(90deg, var(--petrol), var(--rahmen)); }
@@ -388,15 +390,15 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 
 /* =============== Mobil =============== */
 @media (max-width: 1000px) {
-  .archiv-karten, .termin-karten, .kacheln--vier { grid-template-columns: repeat(2, 1fr); }
+  .archiv-karten, .termin-karten, .kacheln--vier { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .footer__innen { grid-template-columns: 1fr 1fr; }
   .footer__spalte--marke { grid-column: 1 / -1; }
 }
 @media (max-width: 560px) {
   .footer__innen { grid-template-columns: 1fr; }
 }
-@media (max-width: 960px) {
-  .nav__toggle { display: block; margin-left: auto; }
+@media (max-width: 760px) {
+  .nav__toggle { display: flex; }
   .nav__links { display: none; width: 100%; flex-direction: column; gap: 0; padding-bottom: var(--a1); max-height: calc(100vh - 150px); overflow-y: auto; }
   .nav__links.nav__links--offen { display: flex; }
   .nav__links a { display: block; padding: 12px 0; border-bottom: 1px solid var(--rahmen); }

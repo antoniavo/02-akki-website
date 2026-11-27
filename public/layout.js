@@ -22,7 +22,7 @@
     kopf.insertAdjacentHTML('beforeend', `
 <nav class="nav" aria-label="Hauptnavigation">
   <div class="container nav__innen">
-    <button class="nav__toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menü öffnen"><span aria-hidden="true">☰</span></button>
+    <button class="nav__toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menü öffnen"><span aria-hidden="true">☰</span><span class="nav__toggle-text">Menü</span></button>
     <ul class="nav__links" id="nav-links">${links}</ul>
   </div>
 </nav>`);

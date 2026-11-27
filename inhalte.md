@@ -129,9 +129,10 @@ Hinweis: „Liste wird laufend ergänzt.“
 - Hinweis: Diese Angaben müssen vom Team bzw. von der DGOU kommen, nicht von der KI.
 - Stand: Impressum und Datenschutzerklärung liegen als ENTWURF auf der Website (Banner „Entwurf – rechtliche Freigabe durch die DGOU ausstehend“).
 - Die DGOU hat zugestimmt, als Betreiberin genannt zu werden (Stand 27.11.2026). Impressum-Wortlaut: „Die AKKI-Website ist ein Angebot des Arbeitskreises Künstliche Intelligenz der AG Digitalisierung der Deutschen Gesellschaft für Orthopädie und Unfallchirurgie e. V. (DGOU) …“
+- Erledigt (27.11.2026):
+  - Impressum: Inhaltlich verantwortlich nach § 18 Abs. 2 MStV: Prof. Dr. Benedikt Braun und Dr. David Baur, Leitung der AG Digitalisierung der DGOU, c/o DGOU, Straße des 17. Juni 106–108, 10623 Berlin
+  - Datenschutz: Datenschutzbeauftragter der DGOU, Straße des 17. Juni 106–108, 10623 Berlin, datenschutz@dgou.de
 - Offene Punkte [OFFEN], von der DGOU zu klären:
-  - Impressum: Inhaltlich verantwortlich nach § 18 Abs. 2 MStV (Name, Anschrift)
-  - Datenschutz: Name und Kontaktdaten des Datenschutzbeauftragten
   - Datenschutz: Hosting-Anbieter bestätigen (voraussichtlich Vercel Inc., USA)
   - Datenschutz: Genaue Liste der Server-Logfile-Daten und Speicherdauer beim Hosting-Anbieter
   - Datenschutz: Grundlage der Übermittlung in die USA (z. B. Angemessenheitsbeschluss oder Standardvertragsklauseln) und Auftragsverarbeitungsvertrag

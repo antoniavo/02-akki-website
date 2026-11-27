@@ -132,10 +132,9 @@ Hinweis: „Liste wird laufend ergänzt.“
 - Erledigt (27.11.2026):
   - Impressum: Inhaltlich verantwortlich nach § 18 Abs. 2 MStV: Prof. Dr. Benedikt Braun und Dr. David Baur, Leitung der AG Digitalisierung der DGOU, c/o DGOU, Straße des 17. Juni 106–108, 10623 Berlin
   - Datenschutz: Datenschutzbeauftragter der DGOU, Straße des 17. Juni 106–108, 10623 Berlin, datenschutz@dgou.de
+  - Datenschutz: Hosting bei Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA (freigegeben); Logfiles (IP-Adresse, Zeitpunkt, aufgerufene Seite, Browser), Zweck sicherer Betrieb, Art. 6 Abs. 1 lit. f DSGVO, Übermittlung USA auf Grundlage EU-US Data Privacy Framework bzw. Standardvertragsklauseln
 - Offene Punkte [OFFEN], von der DGOU zu klären:
-  - Datenschutz: Hosting-Anbieter bestätigen (voraussichtlich Vercel Inc., USA)
-  - Datenschutz: Genaue Liste der Server-Logfile-Daten und Speicherdauer beim Hosting-Anbieter
-  - Datenschutz: Grundlage der Übermittlung in die USA (z. B. Angemessenheitsbeschluss oder Standardvertragsklauseln) und Auftragsverarbeitungsvertrag
+  - Datenschutz, Hosting (nicht auf der Website markiert, aber von Art. 13 DSGVO verlangt bzw. üblich): Speicherdauer der Server-Logfiles bei Vercel; Auftragsverarbeitungsvertrag mit Vercel
   - Datenschutz: Rechtsgrundlage für Kontakt per E-Mail bestätigen (Entwurf: Art. 6 Abs. 1 lit. f DSGVO)
   - Datenschutz: Speicherdauer von E-Mail-Anfragen
   - Datenschutz: Zuständige Datenschutz-Aufsichtsbehörde

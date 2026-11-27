@@ -580,7 +580,7 @@ body.startseite { --verlauf: 200px; background: #F4F7F9; }
     #D3E0E9 calc(100% - var(--verlauf) * .2 - 12px),
     #F4F7F9 100%);
 }
-.startseite main > section:first-child { margin-top: calc(var(--verlauf) * -0.7 - 12px); position: relative; z-index: 2; }
+.startseite main > section:first-child { margin-top: calc(var(--verlauf) * -0.8 - 12px); position: relative; z-index: 2; }
 .startseite main section.abschnitt--hell { background: #F4F7F9; }
 @media (max-width: 760px) {
   body.startseite { --verlauf: 120px; }

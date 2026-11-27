@@ -587,3 +587,39 @@ body.startseite { --verlauf: 200px; background: #F4F7F9; }
   body.startseite { --verlauf: 120px; }
   .startseite .hero--kompakt { padding-bottom: calc(var(--verlauf) + 12px); }
 }
+
+/* Use-Case-Wendekarten (projekte.html): 3D-Flip, Rückseite "Projektidee" in hellem Mint */
+.wendekarte { perspective: 1200px; display: grid; }
+.wendekarte__innen { display: grid; transform-style: preserve-3d; transition: transform .6s ease; }
+.wendekarte__seite { grid-area: 1 / 1; backface-visibility: hidden; -webkit-backface-visibility: hidden; position: relative; }
+.wendekarte__hinten { transform: rotateY(180deg); background: #E6F5F1; color: #00508A; border: 1px solid #BFE3DA; border-top: 4px solid var(--petrol); border-radius: var(--radius); padding: var(--a3); visibility: hidden; transition: visibility 0s .3s; }
+.wendekarte__hinten h4 { margin: 0 0 var(--a1); color: #00508A; font: 800 1.15rem/1.3 var(--font-heading); padding-right: 40px; }
+.wendekarte__hinten p { margin: 0 0 var(--a2); color: #00508A; font-size: .95rem; }
+.wendekarte__hinten a { color: #00508A; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.wendekarte__hinten a:hover { color: #00395F; }
+.wendekarte__hinten a:focus-visible, .wendekarte__zurueck:focus-visible { outline: 3px solid #00508A; outline-offset: 2px; }
+.wendekarte__zurueck { position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid #00508A; background: transparent; color: #00508A; font: 700 1.1rem/1 var(--font-body); cursor: pointer; }
+.wendekarte__zurueck:hover { background: rgba(0, 80, 138, .1); }
+.wendekarte__vorne { transition: visibility 0s .3s; cursor: pointer; }
+.wendekarte__vorne a { position: relative; z-index: 2; }
+.wendekarte__dreh { position: absolute; inset: 0; z-index: 1; width: 100%; background: none; border: 0; border-radius: var(--radius); cursor: pointer; }
+.wendekarte__dreh:focus-visible { outline: 3px solid var(--fokus); outline-offset: -3px; }
+.wendekarte__dreh::after { content: "↻"; position: absolute; right: 14px; bottom: 10px; font: 700 1.1rem/1 var(--font-body); color: var(--petrol-text); opacity: .75; }
+.wendekarte.gedreht .wendekarte__innen { transform: rotateY(180deg); }
+.wendekarte.gedreht .wendekarte__hinten { visibility: visible; transition-delay: 0s; }
+.wendekarte.gedreht .wendekarte__vorne { visibility: hidden; }
+@media (hover: hover) and (pointer: fine) {
+  .wendekarte:hover .wendekarte__innen { transform: rotateY(180deg); }
+  .wendekarte:hover .wendekarte__hinten { visibility: visible; transition-delay: 0s; }
+  .wendekarte:hover .wendekarte__vorne { visibility: hidden; }
+}
+/* Bewegung reduzieren: kein Drehen, stattdessen sanftes Überblenden */
+@media (prefers-reduced-motion: reduce) {
+  .wendekarte { perspective: none; }
+  .wendekarte__innen, .wendekarte.gedreht .wendekarte__innen { transform: none !important; transition: none; }
+  .wendekarte__seite { backface-visibility: visible; -webkit-backface-visibility: visible; transition: opacity .35s ease, visibility 0s; }
+  .wendekarte__hinten { transform: none; opacity: 0; }
+  .wendekarte__vorne { opacity: 1; }
+  .wendekarte.gedreht .wendekarte__hinten, .wendekarte:hover .wendekarte__hinten { opacity: 1; }
+  .wendekarte.gedreht .wendekarte__vorne, .wendekarte:hover .wendekarte__vorne { opacity: 0; }
+}

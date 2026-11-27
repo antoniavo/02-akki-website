@@ -179,9 +179,41 @@
     if (u.repository) zeile.appendChild(link('Repository', u.repository, 'pfeil-link'));
     if (u.demo) { zeile.appendChild(document.createTextNode(' ')); zeile.appendChild(link('Demo', u.demo, 'pfeil-link')); }
     if (zeile.childNodes.length) k.appendChild(zeile);
-    return k;
+    return u.idee ? wendekarte(u, k) : k; // ohne Projektidee dreht sich die Karte nicht
   }
 
+  // Wendekarte: Vorderseite wie bisher, Rückseite "Projektidee" mit Link zum Repository.
+  // Drehen: Hover am Computer (nur per CSS), Antippen auf dem Handy, Enter/Leertaste am Knopf über der Vorderseite.
+  function wendekarte(u, vorne) {
+    const huelle = el('div', 'wendekarte');
+    const innen = el('div', 'wendekarte__innen');
+    vorne.classList.add('wendekarte__seite', 'wendekarte__vorne');
+    const dreh = el('button', 'wendekarte__dreh');
+    dreh.type = 'button';
+    dreh.setAttribute('aria-label', 'Karte umdrehen: ' + u.titel);
+    dreh.setAttribute('aria-pressed', 'false');
+    vorne.appendChild(dreh);
+
+    const hinten = el('div', 'wendekarte__seite wendekarte__hinten');
+    const zurueck = el('button', 'wendekarte__zurueck', '↺');
+    zurueck.type = 'button';
+    zurueck.setAttribute('aria-label', 'Karte zurückdrehen');
+    hinten.appendChild(zurueck);
+    hinten.appendChild(el('h4', null, 'Projektidee'));
+    hinten.appendChild(el('p', null, u.idee));
+    if (u.repo) hinten.appendChild(link('Zum Repository', u.repo, 'pfeil-link'));
+
+    innen.append(vorne, hinten);
+    huelle.appendChild(innen);
+
+    const setze = auf => { huelle.classList.toggle('gedreht', auf); dreh.setAttribute('aria-pressed', String(auf)); };
+    dreh.addEventListener('click', () => { setze(true); zurueck.focus({ preventScroll: true }); });
+    zurueck.addEventListener('click', () => { setze(false); dreh.focus({ preventScroll: true }); });
+    // Antippen der Rückseite (außerhalb des Links) dreht zurück; Escape ebenfalls
+    hinten.addEventListener('click', e => { if (!e.target.closest('a, button')) setze(false); });
+    huelle.addEventListener('keydown', e => { if (e.key === 'Escape' && huelle.classList.contains('gedreht')) { setze(false); dreh.focus({ preventScroll: true }); } });
+    return huelle;
+  }
   // Filter nach Thema und Status für die Forschungsprojekte
   function projekteEinrichten(liste, personen) {
     const ziel = document.getElementById('projekte');

@@ -26,7 +26,10 @@ Alles mit ⚠️ ist aus öffentlichen Quellen zusammengetragen und muss vor Ort
 
 ## Wer wir sind
 - Seit wann gibt es den AKKI? ___
-- Ziele: ___
+- Ziele:
+  - Alle Mitglieder zum Thema KI in Orthopädie und Unfallchirurgie auf dem neuesten Stand halten
+  - Arbeit als Arbeitskreis innerhalb der AG Digitalisierung der DGOU
+- Rahmen: Die Satzung der DGOU legt fest, was Arbeitsgemeinschaften und Arbeitskreise tun. Den genauen Wortlaut bzw. Link liefert das Team: ___ (nur wörtlich übernehmen, nicht von der KI umformulieren lassen)
 - Leitung des AKKI (nur mit Einverständnis): ___
 - Wie kann man mitmachen? ___
 
@@ -68,7 +71,8 @@ Alles mit ⚠️ ist aus öffentlichen Quellen zusammengetragen und muss vor Ort
   - ___
 
 ## Treffen
-- Wie oft und wann trefft ihr euch? ___ (monatlich, Wochentag/Uhrzeit)
+- Wie oft: bisher einmal im Monat
+- Wann (Wochentag/Uhrzeit): ___
 - Online oder vor Ort? ___
 - Nächster Termin und Thema: ___
 

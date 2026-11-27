@@ -60,7 +60,7 @@
       "projektStatus": "Publiziert",
       "umfeld": false,
       "ansprechpersonen": [],
-      "publikation": "arztbriefe-2025",
+      "publikation": "vogel-2026-basierte",
       "link": null,
       "quelle": "DGOU-Gremienbericht 2026; Crossref (DOI 10.1007/s00132-025-04749-x)",
       "stand": "2026-11-27",
@@ -75,9 +75,9 @@
       "umfeld": true,
       "umfeldHinweis": "Forschung aus dem Umfeld der AG Digitalisierung, kein offizielles AKKI-Projekt",
       "ansprechpersonen": [],
-      "publikation": "kreuzband-2026",
+      "publikation": "hu-2024-evaluating",
       "link": null,
-      "quelle": "Crossref (DOI 10.1016/j.knee.2025.11.002); PubMed 41253635",
+      "quelle": "Publikationsliste der AG Digitalisierung (Hu et al. 2024, Digit Health, DOI 10.1177/20552076241272620); PubMed 39130521",
       "stand": "2026-11-27",
       "status": "entwurf"
     }

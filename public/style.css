@@ -342,7 +342,7 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 .archiv-karten { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--a2); }
 .archiv-karte { border-top: 4px solid var(--petrol); padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }
 .archiv-karte__titel { font-size: 1.1rem; margin: 2px 0 0; }
-.archiv-karte__referent { margin: 0; font-weight: 600; }
+.archiv-karte__referent, .termin-karte__referent { margin: 0; font-weight: 500; font-size: .92rem; color: var(--text-2); }
 .archiv-karte__text { margin: 0; color: var(--text-2); }
 
 /* Mitmachen-Band: der eine hervorgehobene Bereich pro Seite (Mint-hell) */
@@ -375,6 +375,10 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 .unterabschnitt { margin-top: var(--a4); }
 .pub-eintrag:target { background: var(--mint-hell); box-shadow: -12px 0 0 var(--mint-hell), 12px 0 0 var(--mint-hell); border-radius: var(--radius-klein); }
 .pub-eintrag__titel { margin-top: 0; }
+.pub-eintrag { padding: 14px 0; }
+.pub-eintrag__kennzeichen { color: var(--text-2); }
+.pub-eintrag__kennzeichen--akki { color: var(--petrol-text); font-weight: 700; }
+.pub-liste--akki .pub-eintrag--akki { background: var(--mint-hell); border: 1px solid var(--mint); border-left: 6px solid var(--petrol); border-radius: var(--radius); padding: var(--a3); margin-top: var(--a2); }
 .kacheln--vier { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .kachel--aktion { display: flex; flex-direction: column; align-items: flex-start; }
 .kachel--aktion p { flex: 1; }
@@ -437,32 +441,26 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 .terminal :focus-visible { outline-color: var(--fokus-auf-dunkel); }
 
 /* =============== Footer (eine Komponente, layout.js) =============== */
-.footer { background: var(--navy); color: var(--text-auf-dunkel); padding: var(--a4) 0; margin-top: var(--a3); }
-.footer__innen { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--a4) var(--a3); }
-.footer__spalte ul { flex-direction: column; gap: 0; }
-.footer__marke { display: inline-block; padding: 0; }
-.footer__marke img { height: 40px; width: auto; display: block; }
-.footer__titel { font-family: var(--font-heading); font-weight: 700; margin: 0 0 var(--a1); }
-.footer__unten { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--a1) var(--a3); margin-top: var(--a3); padding-top: var(--a2); border-top: 1px solid var(--linie-auf-dunkel); }
-.footer__unten p { margin: 0; }
-.footer__unten ul { gap: var(--a3); }
-.footer__hinweis { flex-basis: 100%; color: var(--text-auf-dunkel-leise); font-size: .95rem; }
-.footer strong { font-family: var(--font-heading); color: var(--text-auf-dunkel); }
-.footer a { color: var(--text-auf-dunkel); text-decoration: underline; display: inline-block; padding: 6px 0; }
-.footer ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 18px; flex-wrap: wrap; }
-.footer p { margin: 4px 0; }
-.footer__pfad { font-weight: 600; }
+.footer { background: var(--navy); color: var(--text-auf-dunkel); padding: 24px 0; margin-top: var(--a3); font-size: 14px; line-height: 1.6; }
+.footer p { margin: 0; }
+.footer__zeile { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2px var(--a3); }
+.footer__zeile--2 { margin-top: 4px; font-size: 13px; color: var(--text-auf-dunkel-leise); }
+.footer__ueber { display: flex; align-items: center; gap: 12px; }
+.footer__marke { display: inline-flex; align-items: center; padding: 0; }
+.footer__marke img { height: 22px; width: auto; display: block; }
+.footer__trenner { opacity: .6; }
+.footer a { color: #E6F5F1; text-decoration: none; display: inline-block; padding: 2px 0; border-radius: 3px; }
+.footer a:hover, .footer a:focus-visible { text-decoration: underline; text-underline-offset: 3px; color: #fff; }
+.footer a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.footer__hinweis { color: var(--text-auf-dunkel-leise); }
 
 /* =============== Mobil =============== */
 @media (max-width: 1000px) {
   .archiv-karten, .termin-karten, .kacheln--vier { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .einstiege__raster { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hackathon-karte { grid-template-columns: 1fr; gap: var(--a3); padding: var(--a3); }
-  .footer__innen { grid-template-columns: 1fr 1fr; }
-  .footer__spalte--marke { grid-column: 1 / -1; }
 }
 @media (max-width: 560px) {
-  .footer__innen { grid-template-columns: 1fr; }
 }
 @media (max-width: 760px) {
   .nav__toggle { display: flex; }
@@ -483,6 +481,7 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 @media (max-width: 760px) {
   .kacheln, .kacheln--zwei, .kacheln--vier, .termin-karten, .archiv-karten { grid-template-columns: 1fr; }
   .hero--kompakt { padding-bottom: 64px; }
+  .footer__zeile { flex-direction: column; align-items: flex-start; gap: 4px; }
   .mitmach-rund { width: 96px; height: 96px; }
   .hero__fuss { grid-template-columns: 1fr; justify-items: center; gap: var(--a2); min-height: 0; }
   .hero__untertitel { grid-column: 1; }

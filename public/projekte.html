@@ -57,7 +57,7 @@
       <ul class="liste" id="hackathon-fakten"></ul>
       <p><a class="knopf" id="hackathon-link" hidden target="_blank" rel="noopener">Zur Hackathon-Website</a></p>
 
-      <h3 class="unterabschnitt">Die neun Use Cases</h3>
+      <h3 class="unterabschnitt">Die zehn Use Cases</h3>
       <p class="hinweis" id="usecase-hinweis"></p>
       <div class="kacheln" id="usecases"></div>
     </div>
@@ -130,7 +130,7 @@
 
   function projektKarte(p, personen) {
     const k = el('article', 'projekt-karte');
-    k.appendChild(el('p', 'projekt-karte__kategorie', p.thema));
+    // Kein Kategorie-Schild auf der Karte; das Thema bleibt in den Daten für den Filter
     k.appendChild(el('h3', null, p.titel));
     k.appendChild(el('span', 'badge badge--' + (STATUS_KLASSE[p.projektStatus] || 'idee'), p.projektStatus));
     if (p.text) k.appendChild(el('p', null, p.text));
@@ -152,7 +152,7 @@
 
   function useCaseKarte(u) {
     const k = el('article', 'kachel');
-    k.appendChild(el('span', 'kachel__nr', 'Use Case ' + u.nr));
+    k.appendChild(el('span', 'kachel__nr', 'Use Case ' + u.nr + (u.kennzeichnung ? ' · ' + u.kennzeichnung : '')));
     k.appendChild(el('h3', null, u.titel));
     k.appendChild(el('p', null, u.text));
     // Felder für später: bleiben unsichtbar, solange sie leer sind

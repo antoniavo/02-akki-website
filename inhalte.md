@@ -63,7 +63,7 @@ Alles mit ⚠️ ist aus öffentlichen Quellen zusammengetragen und muss vor Ort
 - Erleichterter KI-Zugang in O&U
 - Decision-Support-Systeme
 - DGOU KI Lab
-- AKKI Hackathon 2026, 27.–28.11.2026, Kesselhaus des BG Klinikums Unfallkrankenhaus Berlin. Ärzt:innen und technikaffine Kolleg:innen bauen in zwei Tagen Prototypen zu neun KI-Use-Cases. Veranstalter: BG Klinikum Unfallkrankenhaus Berlin und Helliwood media & education. Link: https://akki-hackathon-2026.vercel.app
+- AKKI Hackathon 2026, 27.–28.11.2026, Kesselhaus des BG Klinikums Unfallkrankenhaus Berlin. Ärzt:innen und technikaffine Kolleg:innen bauen in zwei Tagen Prototypen zu zehn KI-Use-Cases. Veranstalter: BG Klinikum Unfallkrankenhaus Berlin und Helliwood media & education. Link: https://akki-hackathon-2026.vercel.app
   - Wund-AI – Link: folgt
   - AKKI-Website – Link: folgt
   - EKG-AI – Link: folgt
@@ -160,7 +160,7 @@ Hinweis: „Liste wird laufend ergänzt.“
 
 **Redaktionelle Entwürfe ✍️ (auf der Website sichtbar, `status: "entwurf"`, vom Team freizugeben):**
 - „Wer wir sind“: Selbstverständnis, sieben Ziele, Zeitleiste, Leitung des AKKI und KI-Lab-Moderation (Stand 08.06.2026), Leitung der AG Digitalisierung (Stand Oktober 2026, Fachartikel)
-- „Projekte“: Schwerpunkt-Texte, Projektbeschreibungen, Kurzbeschreibungen der neun Hackathon-Use-Cases, Einordnung „Forschung aus dem Umfeld der AG“
+- „Projekte“: Schwerpunkt-Texte, Projektbeschreibungen, Kurzbeschreibungen der zehn Hackathon-Use-Cases, Einordnung „Forschung aus dem Umfeld der AG“
 - „Publikationen“: Kurzfassungen und Gruppierung (AKKI, Umfeld, Berichte)
 - „KI Lab“: Einleitung, Titel und Beschreibungen der neun Termine, Kategorien
 - „Mitmachen“: Texte der vier Karten, Abschnitt Mitarbeit, FAQ
@@ -169,7 +169,9 @@ Hinweis: „Liste wird laufend ergänzt.“
 **Technische Hinweise:**
 - Startseite (Kopf mit lebendem Logo bewusst unverändert): Der Text spricht noch vom „monatlichen KI Lab“ und „offen für alle“ (siehe Punkt 5). Block C (heller Kopf) wurde zurückgestellt.
 - Smart Editor (`redaktion/`, `server.js`): rechnet noch mit „erstem Dienstag, 18–19 Uhr“ und kennt `bestaetigt`, `kategorien`, `beginn`, `ende` nicht (Block K).
-- Teamliste `daten/publikationen-ag-2020-2022.md` (26 ältere Titel ohne DOI): nicht auf der Website; vor dem Einbau DOIs per Crossref suchen und prüfen.
+- Publikationen: `publikationen.json` stammt aus der Teamliste `daten/publikationen-ag.md` (53 Einträge 2020–2026; Titel und Autor:innen unverändert, Jahr und Heft/Seiten wie in der Liste). DOIs per Crossref nur bei eindeutiger Übereinstimmung von Titel, Jahr und Erstautor (49 von 53; Vorabdrucke und Berichtigungen ausgeschlossen). **Ohne DOI, bitte prüfen oder nachtragen:** Car J et al. 2025 (JAMA Netw Open, Digital health competencies framework); Youssef Y et al. 2024 (Z Orthop Unfall, Joint and functional examinations … video consultation); Tjardes T et al. 2020 (Chirurg, Künstliche Intelligenz in der Orthopädie und Unfallchirurgie) und Osterhoff G et al. 2020 (Unfallchirurg, Computerassistierte Entscheidungsfindung beim Traumapatienten): bei den beiden letzten führt Crossref keinen Erstautor, deshalb nicht eindeutig prüfbar.
+- Publikationen: Themen (KI, Telemedizin, Lehre, Apps/DiGA, Social Media, Sportmedizin, VR/Simulation, Digitalisierung allgemein) und Kennzeichen („AKKI-Publikation“: 1 Eintrag, „AG-Publikation“: 12 Einträge) wurden automatisch nach Stichworten in Autorenzeile, Titel und Journal vergeben. Bitte Stichprobe prüfen.
+- Publikationen: Nicht mehr auf der Website, weil nicht in der Teamliste: Kreuzband-Studie (The Knee 2026, DOI 10.1016/j.knee.2025.11.002), ChatGPT-Studie zur Schulterarthrose (Obere Extremität 2024, DOI 10.1007/s11678-024-00836-1), Fachartikel „Neue Führung – next Level Digitalisierung und KI“ (Orthopädie und Unfallchirurgie 5/2026, DOI 10.1007/s41785-026-4929-z), DGOU-Gremienbericht 2026 und Publikationsübersicht der AG. Bei Bedarf wieder ergänzen. Das Projekt „Sprachmodelle und Patienteninformation“ verweist jetzt auf Hu et al. 2024 (Digit Health).
 - Die DOI-Links zu Digital Health (SAGE) und Diagnostics (MDPI) antworten auf automatische Abfragen mit „403“ (Schutz der Verlage). Die DOIs selbst wurden bei Crossref bestätigt; im Browser öffnen sie normal.
 - Teams-Link des KI Labs: nie öffentlich.
 

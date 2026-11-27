@@ -1,5 +1,5 @@
 {
-  "_hinweis": "Hackathon 2026: Rahmendaten und neun Use Cases. Titel bestätigt, Kurzbeschreibungen redaktioneller Entwurf. Felder team, repository, demo, ergebnis bleiben ausgeblendet, solange sie null sind.",
+  "_hinweis": "Hackathon 2026: Rahmendaten und zehn Use Cases (Nr. 10 mit Kennzeichnung „Freie Themenwahl“). Titel bestätigt, Kurzbeschreibungen redaktioneller Entwurf. Felder team, repository, demo, ergebnis bleiben ausgeblendet, solange sie null sind.",
   "hackathon": {
     "titel": "AKKI Hackathon 2026",
     "text": "Beim ersten KI-Hackathon des AKKI entwickeln Ärztinnen, Ärzte und technikinteressierte Teilnehmende in interdisziplinären Teams Prototypen für Orthopädie und Unfallchirurgie. Programmierkenntnisse sind keine Voraussetzung.",
@@ -104,6 +104,17 @@
       "quelle": "Hackathon-Website (Titel); Kurzbeschreibung redaktionell",
       "stand": "2026-11-27",
       "status": "entwurf"
+    },
+    {
+      "id": "lokale-ki-gutachten",
+      "nr": 10,
+      "titel": "Lokale KI zur Gutachtenerstellung",
+      "kennzeichnung": "Freie Themenwahl",
+      "text": "Unterstützung bei der Erstellung medizinischer Gutachten mit einer lokal betriebenen KI – die Daten verlassen den eigenen Rechner nicht.",
+      "team": null, "repository": null, "demo": null, "ergebnis": null,
+      "quelle": "Teamangabe, 27.11.2026",
+      "stand": "2026-11-27",
+      "status": "bestaetigt"
     }
   ]
 }

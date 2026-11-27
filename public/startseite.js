@@ -57,9 +57,10 @@
   const liste = document.getElementById('pub-neu');
   if (liste) {
     holen('daten/publikationen.json').then(d => {
+      // Neueste zuerst: Jahr absteigend, innerhalb eines Jahres wie in der Liste (nr aufsteigend)
       const neu = (d.publikationen || [])
-        .filter(p => p.gruppe !== 'berichte' && p.titel && p.datum)
-        .sort((a, b) => String(b.datum).localeCompare(String(a.datum)))
+        .filter(p => p.titel && p.jahr)
+        .sort((a, b) => (b.jahr - a.jahr) || ((a.nr || 0) - (b.nr || 0)))
         .slice(0, 3);
       liste.replaceChildren(...neu.map(p => {
         const li = el('li');
@@ -67,9 +68,9 @@
         a.href = 'publikationen.html#' + encodeURIComponent(p.id);
         const text = el('span', 'neu-pub__text');
         text.appendChild(el('span', 'neu-pub__titel', p.titel));
-        text.appendChild(el('span', 'neu-pub__meta', [p.journal, p.jahr].filter(Boolean).join(' · ')));
+        // Kein farbiges Kategorie-Schild; das Kennzeichen steht nur als dezenter Text in der Zeile darunter
+        text.appendChild(el('span', 'neu-pub__meta', [p.journal, p.jahr, p.kennzeichen].filter(Boolean).join(' · ')));
         a.appendChild(text);
-        if (p.typ) a.appendChild(el('span', 'kategorie', p.typ));
         a.appendChild(el('span', 'neu-pub__pfeil', '→')).setAttribute('aria-hidden', 'true');
         li.appendChild(a);
         return li;

@@ -76,13 +76,12 @@
       block.appendChild(el('span', 'datumsblock__jahr', jahr));
       a.appendChild(block);
     }
-    const kopf = el('span', 'termin-karte__kopf');
-    if (!tag) kopf.appendChild(el('span', 'termin-karte__datum', datumText(t.datum)));
-    kategorienVon(t).forEach(k => kopf.appendChild(el('span', 'kategorie', k)));
-    if (kopf.childNodes.length) inhalt.appendChild(kopf);
+    // Keine Kategorie-Schilder auf den Karten (die Kategorien bleiben in den Daten für die Filter auf der KI-Lab-Seite)
+    if (!tag) inhalt.appendChild(el('span', 'termin-karte__datum', datumText(t.datum)));
     inhalt.appendChild(el('span', 'termin-karte__titel', t.titel));
-    const zeile = [t.beschreibung, t.referent].filter(Boolean).join(' · ');
-    if (zeile) inhalt.appendChild(el('span', 'termin-karte__text', zeile));
+    // Referent:in als eigene kleine Zeile unter dem Titel, nur wenn eingetragen (= bestätigt)
+    if (t.referent) inhalt.appendChild(el('span', 'termin-karte__referent', t.referent));
+    if (t.beschreibung) inhalt.appendChild(el('span', 'termin-karte__text', t.beschreibung));
     a.appendChild(inhalt);
     return a;
   }
@@ -90,10 +89,8 @@
   // ---------- Seite "KI Lab": Archiv mit Suche und Filter ----------
   function archivKarte(t) {
     const art = el('article', 'archiv-karte');
-    const kopf = el('div', 'termin-karte__kopf');
-    kopf.appendChild(el('span', 'termin-karte__datum', datumText(t.datum)));
-    kategorienVon(t).forEach(k => kopf.appendChild(el('span', 'kategorie', k)));
-    art.appendChild(kopf);
+    // Kein Kategorie-Schild auf der Karte: nur das Datum (Kategorien dienen weiter dem Filter oben)
+    art.appendChild(el('div', 'termin-karte__datum', datumText(t.datum)));
     art.appendChild(el('h3', 'archiv-karte__titel', t.titel));
     if (t.referent) art.appendChild(el('p', 'archiv-karte__referent', t.referent));
     if (t.beschreibung) art.appendChild(el('p', 'archiv-karte__text', t.beschreibung));

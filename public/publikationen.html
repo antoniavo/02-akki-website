@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Publikationen – AKKI</title>
-<meta name="description" content="Wissenschaftliche Veröffentlichungen des AKKI und ausgewählte Arbeiten aus dem Umfeld der AG Digitalisierung der DGOU.">
+<meta name="description" content="Wissenschaftliche Veröffentlichungen der AG Digitalisierung der DGOU und des AKKI, 2020 bis 2026, mit Suche, Jahres- und Themenfilter.">
 <!-- Vorerst fuer Suchmaschinen gesperrt, bis die DGOU die Seite freigibt (siehe inhalte.md) -->
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="logo/logo-hell.svg">
@@ -19,7 +19,7 @@
 <header class="seitenkopf">
   <div class="container">
     <h1>Publikationen</h1>
-    <p>Wissenschaftliche Veröffentlichungen des AKKI und ausgewählte Arbeiten aus dem Umfeld der AG Digitalisierung.</p>
+    <p>Wissenschaftliche Veröffentlichungen der AG Digitalisierung der DGOU und des AKKI, 2020 bis 2026.</p>
   </div>
 </header>
 
@@ -35,39 +35,30 @@
         <span class="hinweis" id="pub-anzahl" aria-live="polite"></span>
       </div>
       <div class="archiv-werkzeuge">
+        <div class="filter" id="filter-thema" role="group" aria-label="Nach Thema filtern"><span class="filter-label">Thema</span></div>
+      </div>
+      <div class="archiv-werkzeuge">
         <div class="filter" id="filter-jahr" role="group" aria-label="Nach Jahr filtern"><span class="filter-label">Jahr</span></div>
-        <div class="filter" id="filter-typ" role="group" aria-label="Nach Typ filtern"><span class="filter-label">Typ</span></div>
       </div>
       <p class="sr-only" id="kopiert-status" role="status"></p>
     </div>
   </section>
 
-  <section id="gruppe-akki" aria-labelledby="akki-titel">
+  <!-- AKKI-Publikationen stehen ganz oben und sind hervorgehoben -->
+  <section id="gruppe-akki" aria-labelledby="akki-titel" hidden>
     <div class="container">
-      <h2 id="akki-titel">Publikation des AKKI</h2>
-      <ul class="pub-liste" id="liste-akki"></ul>
+      <h2 id="akki-titel">AKKI-Publikation</h2>
+      <ul class="pub-liste pub-liste--akki" id="liste-akki"></ul>
     </div>
   </section>
 
-  <section id="gruppe-umfeld" class="abschnitt--hell" aria-labelledby="umfeld-titel">
-    <div class="container">
-      <h2 id="umfeld-titel">Ausgewählte Forschung aus dem Umfeld der AG Digitalisierung</h2>
-      <p class="hinweis">Arbeiten von Mitgliedern und Partnern aus dem Umfeld der AG, keine AKKI-Gemeinschaftspublikationen.</p>
-      <ul class="pub-liste" id="liste-umfeld"></ul>
-    </div>
-  </section>
-
-  <section id="gruppe-berichte" aria-labelledby="berichte-titel">
-    <div class="container">
-      <h2 id="berichte-titel">Verbandsmitteilungen und Berichte</h2>
-      <ul class="pub-liste" id="liste-berichte"></ul>
-    </div>
-  </section>
+  <!-- Danach kompakte Liste nach Jahr, neueste zuerst (Abschnitte werden aus den Daten erzeugt) -->
+  <div id="jahre"></div>
 
   <section aria-label="Hinweis">
     <div class="container">
       <p class="hinweis" id="pub-leer" hidden>Keine passenden Publikationen gefunden.</p>
-      <p class="hinweis">Neue Publikationen werden über den AKKI Smart Editor ergänzt.</p>
+      <p class="hinweis">Quelle: Publikationsliste der AG Digitalisierung. Neue Publikationen werden über den AKKI Smart Editor ergänzt.</p>
     </div>
   </section>
 </main>
@@ -77,10 +68,8 @@
 <script src="layout.js"></script>
 <script src="kontakt.js"></script>
 <script>
-  // Alle Publikationen kommen aus public/daten/publikationen.json (Metadaten aus Crossref geprüft).
+  // Alle Publikationen kommen aus public/daten/publikationen.json.
   // Texte werden nur als reiner Text eingefügt. Leere Felder (null) werden nicht angezeigt.
-  const GRUPPEN = ['akki', 'umfeld', 'berichte'];
-
   function el(tag, klasse, text) {
     const e = document.createElement(tag);
     if (klasse) e.className = klasse;
@@ -95,13 +84,13 @@
 
   // Zitation im Vancouver-Stil: Autoren. Titel. Journal. Jahr;Angabe. doi:...
   function zitation(p) {
+    const mitPunkt = s => (/[.?!]$/.test(s) ? s : s + '.');
     const teile = [];
-    if (p.autoren) teile.push(p.autoren + '.');
-    teile.push(p.titel + (/[.?!]$/.test(p.titel) ? '' : '.'));
+    if (p.autoren) teile.push(mitPunkt(p.autoren));
+    teile.push(mitPunkt(p.titel));
     if (p.journal) teile.push(p.journal + '.');
     if (p.jahr) teile.push(p.jahr + (p.angabe ? ';' + p.angabe : '') + '.');
     if (p.doi) teile.push('doi:' + p.doi);
-    else if (p.link) teile.push(p.link);
     return teile.join(' ');
   }
 
@@ -116,40 +105,38 @@
   }
 
   function eintrag(p) {
-    const li = el('li', 'pub-eintrag');
+    const li = el('li', 'pub-eintrag' + (p.kennzeichen === 'AKKI-Publikation' ? ' pub-eintrag--akki' : ''));
     li.id = p.id;
     li.appendChild(el('h3', 'pub-eintrag__titel', p.titel));
     if (p.autoren) li.appendChild(el('p', 'pub-eintrag__autoren', p.autoren));
-    const meta = [p.journal, p.jahr, p.angabe, p.erschienen].filter(Boolean).join(' · ');
-    if (meta) li.appendChild(el('p', 'pub-eintrag__meta', meta));
-    if (p.kurzfassung) li.appendChild(el('p', null, p.kurzfassung));
+    const meta = el('p', 'pub-eintrag__meta', [p.journal, p.jahr, p.angabe].filter(Boolean).join(' · '));
+    // Kennzeichen nur als dezenter Text, kein farbiges Schild
+    if (p.kennzeichen) meta.appendChild(el('span', 'pub-eintrag__kennzeichen' + (p.kennzeichen === 'AKKI-Publikation' ? ' pub-eintrag__kennzeichen--akki' : ''), ' · ' + p.kennzeichen));
+    li.appendChild(meta);
 
     const aktionen = el('div', 'pub-eintrag__aktionen');
     if (p.doi) aktionen.appendChild(link('DOI', 'https://doi.org/' + p.doi));
     if (p.pubmed) aktionen.appendChild(link('PubMed', 'https://pubmed.ncbi.nlm.nih.gov/' + p.pubmed + '/'));
-    if (p.link) aktionen.appendChild(link(p.doi ? 'Zur Quelle' : 'Zum Dokument', p.link));
-    if (p.autoren || p.doi) {
-      const b = el('button', null, 'Zitation kopieren');
-      b.type = 'button';
-      b.addEventListener('click', async () => {
-        const ok = await kopieren(zitation(p));
-        b.textContent = ok ? 'Kopiert ✓' : 'Kopieren nicht möglich';
-        document.getElementById('kopiert-status').textContent = ok ? 'Zitation in die Zwischenablage kopiert.' : 'Kopieren nicht möglich.';
-        setTimeout(() => { b.textContent = 'Zitation kopieren'; }, 2000);
-      });
-      aktionen.appendChild(b);
-    }
-    if (aktionen.childNodes.length) li.appendChild(aktionen);
+    const b = el('button', null, 'Zitation kopieren');
+    b.type = 'button';
+    b.addEventListener('click', async () => {
+      const ok = await kopieren(zitation(p));
+      b.textContent = ok ? 'Kopiert ✓' : 'Kopieren nicht möglich';
+      document.getElementById('kopiert-status').textContent = ok ? 'Zitation in die Zwischenablage kopiert.' : 'Kopieren nicht möglich.';
+      setTimeout(() => { b.textContent = 'Zitation kopieren'; }, 2000);
+    });
+    aktionen.appendChild(b);
+    li.appendChild(aktionen);
     return li;
   }
 
   fetch('daten/publikationen.json')
     .then(r => { if (!r.ok) throw new Error(); return r.json(); })
     .then(daten => {
-      // Neueste zuerst, Einträge ohne Datum zuletzt
+      // Neueste zuerst: Jahr absteigend, innerhalb eines Jahres wie in der Liste (nr aufsteigend)
       const alle = (daten.publikationen || []).filter(p => p.titel)
-        .sort((a, b) => String(b.datum || '').localeCompare(String(a.datum || '')));
-      const auswahl = { jahr: 'Alle', typ: 'Alle' };
+        .sort((a, b) => (b.jahr - a.jahr) || ((a.nr || 0) - (b.nr || 0)));
+      const auswahl = { jahr: 'Alle', thema: 'Alle' };
       const suche = document.getElementById('pub-suche');
 
       function filterKnoepfe(boxId, feld, werte) {
@@ -166,29 +153,45 @@
           box.appendChild(b);
         });
       }
+      // Themen: "KI" steht an erster Stelle (Reihenfolge aus der Datei), Jahre neueste zuerst
+      const themen = (daten.themen || []).filter(t => alle.some(p => (p.themen || []).includes(t)));
       const jahre = [...new Set(alle.map(p => p.jahr).filter(Boolean))].sort((a, b) => b - a);
-      const typen = (daten.typen || []).filter(t => alle.some(p => p.typ === t));
+      filterKnoepfe('filter-thema', 'thema', themen);
       filterKnoepfe('filter-jahr', 'jahr', jahre);
-      filterKnoepfe('filter-typ', 'typ', typen);
 
       function zeigen() {
         const begriff = suche.value.trim().toLowerCase();
         const treffer = alle.filter(p =>
           (auswahl.jahr === 'Alle' || p.jahr === auswahl.jahr) &&
-          (auswahl.typ === 'Alle' || p.typ === auswahl.typ) &&
-          (!begriff || [p.titel, p.autoren, p.journal, p.jahr, p.kurzfassung, p.doi, p.typ].filter(Boolean).join(' ').toLowerCase().includes(begriff)));
-        GRUPPEN.forEach(g => {
-          const liste = treffer.filter(p => p.gruppe === g);
-          document.getElementById('liste-' + g).replaceChildren(...liste.map(eintrag));
-          document.getElementById('gruppe-' + g).hidden = liste.length === 0;
+          (auswahl.thema === 'Alle' || (p.themen || []).includes(auswahl.thema)) &&
+          (!begriff || [p.titel, p.autoren, p.journal, p.jahr, p.doi].filter(Boolean).join(' ').toLowerCase().includes(begriff)));
+
+        // AKKI-Publikationen ganz oben, nur dort (nicht noch einmal in der Jahresliste)
+        const akki = treffer.filter(p => p.kennzeichen === 'AKKI-Publikation');
+        document.getElementById('liste-akki').replaceChildren(...akki.map(eintrag));
+        document.getElementById('gruppe-akki').hidden = akki.length === 0;
+
+        const rest = treffer.filter(p => p.kennzeichen !== 'AKKI-Publikation');
+        const proJahr = new Map();
+        rest.forEach(p => { if (!proJahr.has(p.jahr)) proJahr.set(p.jahr, []); proJahr.get(p.jahr).push(p); });
+        const abschnitte = [...proJahr.entries()].map(([jahr, liste], i) => {
+          const s = el('section', i % 2 ? 'abschnitt--hell' : '');
+          s.setAttribute('aria-labelledby', 'jahr-' + jahr);
+          const c = el('div', 'container');
+          const h = el('h2', null, String(jahr)); h.id = 'jahr-' + jahr;
+          const ul = el('ul', 'pub-liste');
+          ul.append(...liste.map(eintrag));
+          c.append(h, ul); s.appendChild(c);
+          return s;
         });
+        document.getElementById('jahre').replaceChildren(...abschnitte);
         document.getElementById('pub-leer').hidden = treffer.length > 0;
         document.getElementById('pub-anzahl').textContent = treffer.length === 1 ? '1 Publikation' : treffer.length + ' Publikationen';
       }
       suche.addEventListener('input', zeigen);
       zeigen();
 
-      // Sprung von einer Projektkarte (publikationen.html#<id>): erst nach dem Aufbau der Liste
+      // Sprung von einer Projektkarte oder der Startseite (publikationen.html#<id>): erst nach dem Aufbau der Liste
       const ziel = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
       if (ziel) ziel.scrollIntoView();
     })

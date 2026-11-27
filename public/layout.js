@@ -42,41 +42,33 @@
   const haupt = document.querySelector('main');
   if (haupt && !haupt.id) { haupt.id = 'inhalt'; haupt.setAttribute('tabindex', '-1'); }
 
-  // ---------- Fußzeile ----------
+  // ---------- Fußzeile: zwei kompakte Zeilen ----------
   const fuss = document.getElementById('seitenfuss');
   if (fuss) {
-    // Die Hauptlinks stammen aus derselben Liste SEITEN wie die Navigation (Start, KI Lab, Projekte, Publikationen)
-    const fussLinks = ['index.html', 'treffen.html', 'projekte.html', 'publikationen.html']
-      .map(d => `<li><a href="${d}"${istAktuell(d)}>${SEITEN.find(s => s[0] === d)[1]}</a></li>`).join('');
+    const extern = (href, text) => `<a href="${href}" target="_blank" rel="noopener">${text}</a>`;
+    const intern = (datei, text) => `<a href="${datei}"${istAktuell(datei)}>${text}</a>`;
+    const trenner = ' <span class="footer__trenner" aria-hidden="true">·</span> ';
+    const verbinde = teile => teile.join(trenner);
+    // Zeile 1 rechts: KI Lab · Projekte · Publikationen · Kontakt · GitHub (Namen aus der Liste SEITEN der Navigation)
+    const seitenName = datei => SEITEN.find(s => s[0] === datei)[1];
+    const navLinks = verbinde([
+      intern('treffen.html', seitenName('treffen.html')),
+      intern('projekte.html', seitenName('projekte.html')),
+      intern('publikationen.html', seitenName('publikationen.html')),
+      intern('mitmachen.html', 'Kontakt'),
+      extern('https://github.com/akkidgou-opensource', 'GitHub'),
+    ]);
     fuss.outerHTML = `
 <footer class="footer">
-  <div class="container footer__innen">
-    <div class="footer__spalte footer__spalte--marke">
-      <a class="footer__marke" href="index.html"><img src="logo/logo-nav-hell.svg" alt="AKKI – zur Startseite" width="99" height="40"></a>
-      <p>Arbeitskreis Künstliche Intelligenz · AG Digitalisierung · DGOU</p>
-      <p class="footer__pfad"><a href="https://dgou.de/" target="_blank" rel="noopener">DGOU</a> › <a href="https://www.digitalisierung-dgou.de/" target="_blank" rel="noopener">AG Digitalisierung</a> › <a href="index.html">AKKI</a></p>
+  <div class="container">
+    <div class="footer__zeile footer__zeile--1">
+      <p class="footer__ueber"><a class="footer__marke" href="index.html"><img src="logo/logo-nav-hell.svg" alt="AKKI – zur Startseite" width="55" height="22"></a><span>Arbeitskreis Künstliche Intelligenz der ${extern('https://www.digitalisierung-dgou.de/', 'AG Digitalisierung')} der ${extern('https://dgou.de/', 'DGOU')}</span></p>
+      <nav class="footer__nav" aria-label="Weitere Seiten">${navLinks}</nav>
     </div>
-    <nav class="footer__spalte" aria-label="Seiten">
-      <p class="footer__titel">Seiten</p>
-      <ul>${fussLinks}</ul>
-    </nav>
-    <div class="footer__spalte">
-      <p class="footer__titel">Kontakt und Links</p>
-      <ul>
-        <li><a data-kontakt-email></a></li>
-        <li><a href="https://github.com/akkidgou-opensource" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="https://dgou.de/" target="_blank" rel="noopener">DGOU</a></li>
-        <li><a href="https://www.digitalisierung-dgou.de/" target="_blank" rel="noopener">AG Digitalisierung</a></li>
-      </ul>
+    <div class="footer__zeile footer__zeile--2">
+      <p>Partner: AK Medien und digitale Systeme${trenner}<a data-kontakt-email></a>${trenner}${intern('impressum.html', 'Impressum')}${trenner}${intern('datenschutz.html', 'Datenschutz')}</p>
+      <p class="footer__hinweis">Prototyp – nur Testdaten. Kein Ersatz für ärztliche Beurteilung.</p>
     </div>
-  </div>
-  <div class="container footer__unten">
-    <p>Partner: AK Medien und digitale Systeme</p>
-    <ul>
-      <li><a href="impressum.html"${istAktuell('impressum.html')}>Impressum</a></li>
-      <li><a href="datenschutz.html"${istAktuell('datenschutz.html')}>Datenschutz</a></li>
-    </ul>
-    <p class="footer__hinweis">Prototyp – nur Testdaten. Kein Ersatz für ärztliche Beurteilung.</p>
   </div>
 </footer>`;
   }

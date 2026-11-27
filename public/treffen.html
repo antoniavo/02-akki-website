@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KI Lab – AKKI</title>
-<meta name="description" content="Das DGOU KI Lab: offenes Online-Format zu KI in der Medizin, einmal im Monat, kostenlos, für alle Interessierten. Nächster Termin und Archiv aller Termine.">
+<meta name="description" content="Das DGOU KI Lab: das digitale Fortbildungs- und Austauschformat des AKKI zu KI in der Medizin, in der Regel einmal im Monat, online und kostenlos. Nächster Termin und Archiv.">
 <!-- Vorerst fuer Suchmaschinen gesperrt, bis die DGOU die Seite freigibt (siehe inhalte.md) -->
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="logo/logo-hell.svg">
@@ -19,7 +19,7 @@
 <header class="seitenkopf">
   <div class="container">
     <h1>DGOU KI Lab</h1>
-    <p>Unser offenes Online-Format zu KI in der Medizin: praxisnahe Einblicke, Diskussion und Austausch – einmal im Monat, kostenlos, für alle Interessierten.</p>
+    <p>Das DGOU KI Lab ist das digitale Fortbildungs- und Austauschformat des AKKI. Seit Dezember 2025 stellen wir aktuelle KI-Anwendungen vor, teilen Praxiserfahrungen und ordnen wissenschaftliche Entwicklungen ein – für Klinik, Praxis, Forschung und Lehre.</p>
   </div>
 </header>
 
@@ -27,26 +27,29 @@
   <section aria-labelledby="naechster-titel">
     <div class="container">
       <div class="kacheln kacheln--zwei">
-        <!-- Datum wird automatisch berechnet (erster Dienstag im Monat), Thema aus daten/beitraege.json -->
+        <!-- Es erscheint nur ein BESTÄTIGTER Termin aus daten/beitraege.json (bestaetigt: true); sonst der Hinweis darunter -->
         <article class="kachel naechster-termin" id="naechster-termin">
           <h2 id="naechster-titel">Nächster Termin</h2>
-          <p class="naechster-termin__datum" data-feld="datum">wird berechnet …</p>
-          <p class="naechster-termin__zeit">18–19 Uhr · online</p>
-          <p class="naechster-termin__thema" data-feld="thema"></p>
-          <p class="naechster-termin__referent" data-feld="referent" hidden></p>
+          <div data-feld="mit-termin" hidden>
+            <p class="naechster-termin__datum" data-feld="datum"></p>
+            <p class="naechster-termin__zeit" data-feld="zeit"></p>
+            <p class="naechster-termin__thema" data-feld="thema"></p>
+            <p class="naechster-termin__referent" data-feld="referent" hidden></p>
+          </div>
+          <p data-feld="ohne-termin">Den nächsten Termin kündigen wir hier und im Newsletter an.</p>
           <div class="knopfreihe">
-            <button class="knopf" type="button" id="ics-knopf">In den Kalender (.ics)</button>
-            <a class="knopf knopf--rand" data-kontakt-mailto="Newsletter KI Lab">Newsletter abonnieren</a>
+            <button class="knopf" type="button" id="ics-knopf" hidden>In den Kalender (.ics)</button>
+            <a class="knopf knopf--rand" data-kontakt-mailto="Newsletter KI Lab" href="mitmachen.html">Newsletter abonnieren</a>
           </div>
         </article>
         <article class="kachel">
           <h2>So läuft es ab</h2>
           <ul class="liste">
-            <li>Seit Januar 2026</li>
-            <li>Online über Microsoft Teams, kostenlos</li>
-            <li>Jeden ersten Dienstag im Monat, 18–19 Uhr</li>
-            <li>20 Min. Vortrag, 20 Min. Diskussion, 20 Min. AK-Meeting</li>
-            <li>Leitung: Dr. David Baur, Dr. Yasmin Youssef</li>
+            <li>Seit Dezember 2025</li>
+            <li>In der Regel einmal im Monat, abends</li>
+            <li>Online über Microsoft Teams</li>
+            <li>Kostenlos</li>
+            <li id="moderation" hidden></li>
           </ul>
         </article>
       </div>
@@ -89,5 +92,16 @@
 <script src="layout.js"></script>
 <script src="kontakt.js"></script>
 <script src="beitraege.js"></script>
+<script>
+  // Moderation aus public/daten/personen.json (Rolle "KI-Lab-Moderation"), damit die Namen nur an einer Stelle stehen
+  fetch('daten/personen.json').then(r => r.ok ? r.json() : null).then(d => {
+    if (!d) return;
+    const namen = d.personen.filter(p => (p.rollen || []).includes('KI-Lab-Moderation')).map(p => p.name);
+    if (!namen.length) return;
+    const li = document.getElementById('moderation');
+    li.textContent = 'Moderation: ' + namen.join(', ');
+    li.hidden = false;
+  }).catch(() => {});
+</script>
 </body>
 </html>

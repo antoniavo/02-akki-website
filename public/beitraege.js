@@ -138,22 +138,6 @@
     }).formatToParts(new Date()).map(p => [p.type, Number(p.value)]));
     return { jahr: t.year, monat: t.month, tag: t.day, stunde: t.hour };
   }
-  function ersterDienstag(jahr, monat) {
-    const wt = new Date(Date.UTC(jahr, monat - 1, 1)).getUTCDay();
-    return 1 + ((2 - wt + 7) % 7);
-  }
-  // Erster Dienstag im Monat, 18–19 Uhr; nach 19 Uhr am Termintag zählt der nächste Monat
-  function naechsterTermin() {
-    const j = berlinJetzt();
-    let jahr = j.jahr, monat = j.monat, tag = ersterDienstag(jahr, monat);
-    if (j.tag > tag || (j.tag === tag && j.stunde >= 19)) {
-      monat += 1;
-      if (monat > 12) { monat = 1; jahr += 1; }
-      tag = ersterDienstag(jahr, monat);
-    }
-    return `${jahr}-${zwei(monat)}-${zwei(tag)}`;
-  }
-
   function icsText(t) {
     return String(t).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
   }
@@ -169,12 +153,14 @@
     teile.push(aktuell);
     return teile.join('\r\n');
   }
-  function kalenderdatei(datum, thema, email) {
+  // beginn und ende kommen aus dem bestätigten Termin ("18:00"), es wird keine Uhrzeit angenommen
+  function kalenderdatei(datum, thema, email, beginn, ende) {
     const tag = datum.replace(/-/g, '');
+    const uhr = z => z.replace(':', '') + '00';
     const jetzt = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
     const beschreibung = [
       thema ? `Thema: ${thema}` : 'Thema wird bekannt gegeben',
-      'Online über Microsoft Teams, offen für alle Interessierten, kostenlos.',
+      'Online über Microsoft Teams, kostenlos.',
       email ? `Kontakt: ${email}` : '',
     ].filter(Boolean).join('\n');
     const zeilen = [
@@ -186,8 +172,8 @@
       'BEGIN:VEVENT',
       `UID:ki-lab-${datum}@akki`,
       'DTSTAMP:' + jetzt,
-      `DTSTART;TZID=Europe/Berlin:${tag}T180000`,
-      `DTEND;TZID=Europe/Berlin:${tag}T190000`,
+      `DTSTART;TZID=Europe/Berlin:${tag}T${uhr(beginn)}`,
+      `DTEND;TZID=Europe/Berlin:${tag}T${uhr(ende)}`,
       'SUMMARY:' + icsText('DGOU KI Lab' + (thema ? ': ' + thema : '')),
       'DESCRIPTION:' + icsText(beschreibung),
       'LOCATION:' + icsText('Online (Microsoft Teams)'),
@@ -196,22 +182,36 @@
     return zeilen.map(icsFalten).join('\r\n') + '\r\n';
   }
 
-  function naechsterTerminEinrichten(ziel, termine) {
-    const datum = naechsterTermin();
-    const eintrag = termine.find(t => t.datum === datum);
-    const thema = eintrag ? eintrag.titel : null;
+  // Zeigt NUR einen bestätigten Termin. Ohne ihn bleibt der Hinweis "Den nächsten Termin kündigen wir ... an" stehen.
+  function naechsterTerminEinrichten(ziel, eintrag) {
+    const mitTermin = ziel.querySelector('[data-feld="mit-termin"]');
+    const ohneTermin = ziel.querySelector('[data-feld="ohne-termin"]');
+    const knopf = document.getElementById('ics-knopf');
+    const hatTermin = !!eintrag;
+    if (mitTermin) mitTermin.hidden = !hatTermin;
+    if (ohneTermin) ohneTermin.hidden = hatTermin;
+    if (knopf) knopf.hidden = true;
+    if (!hatTermin) return;
+
+    const datum = eintrag.datum;
+    const thema = eintrag.titel || null;
     const [j, m, t] = datum.split('-').map(Number);
     const wochentag = WOCHENTAGE[new Date(Date.UTC(j, m - 1, t)).getUTCDay()];
+    const hatZeit = /^\d{2}:\d{2}$/.test(String(eintrag.beginn)) && /^\d{2}:\d{2}$/.test(String(eintrag.ende));
 
     ziel.querySelector('[data-feld="datum"]').textContent = `${wochentag}, ${datumText(datum)}`;
+    const zeit = ziel.querySelector('[data-feld="zeit"]');
+    if (zeit) { zeit.textContent = hatZeit ? `${eintrag.beginn}–${eintrag.ende} Uhr · online` : 'Online'; }
     ziel.querySelector('[data-feld="thema"]').textContent = thema || 'Thema wird bekannt gegeben';
     const ref = ziel.querySelector('[data-feld="referent"]');
-    if (ref) { ref.textContent = eintrag && eintrag.referent ? eintrag.referent : ''; ref.hidden = !(eintrag && eintrag.referent); }
+    if (ref) { ref.textContent = eintrag.referent || ''; ref.hidden = !eintrag.referent; }
 
-    const knopf = document.getElementById('ics-knopf');
-    if (knopf) knopf.addEventListener('click', async () => {
+    // Kalenderdatei nur für bestätigte Termine mit Beginn und Ende
+    if (!knopf || !hatZeit) return;
+    knopf.hidden = false;
+    knopf.addEventListener('click', async () => {
       const kontakt = window.akkiKontakt ? await window.akkiKontakt : {};
-      const blob = new Blob([kalenderdatei(datum, thema, kontakt.email)], { type: 'text/calendar;charset=utf-8' });
+      const blob = new Blob([kalenderdatei(datum, thema, kontakt.email, eintrag.beginn, eintrag.ende)], { type: 'text/calendar;charset=utf-8' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = `DGOU-KI-Lab-${datum}.ics`;
@@ -233,11 +233,11 @@
       const termine = bestaetigteTermine(daten);
       if (aktuell) aktuell.replaceChildren(...(daten.aktuelles || []).map(aktuellKarte));
       if (letzte) letzte.replaceChildren(...termine.slice(0, 3).map(terminKarteKurz));
-      if (naechster) naechsterTerminEinrichten(naechster, termine);
+      if (naechster) naechsterTerminEinrichten(naechster, naechsterBestaetigterTermin(daten));
       if (archiv) archivEinrichten(archiv, termine);
     })
     .catch(() => {
       [aktuell, letzte, archiv].filter(Boolean).forEach(z => z.replaceChildren(el('p', 'hinweis', 'Die Inhalte konnten gerade nicht geladen werden.')));
-      if (naechster) naechsterTerminEinrichten(naechster, []);
+      if (naechster) naechsterTerminEinrichten(naechster, null);
     });
 })();

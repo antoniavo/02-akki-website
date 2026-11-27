@@ -143,6 +143,38 @@ Hinweis: „Liste wird laufend ergänzt.“
 
 ---
 
+## Offene Punkte – Gesamtliste (Stand Qualitätskontrolle, 27.11.2026)
+
+**Ungeklärt ❓ (nicht öffentlich angezeigt oder neutral formuliert, bitte beim Team bzw. bei David klären):**
+1. AKKI-Leitung bestätigen (Dr. David Baur, Prof. Dr. Georg Osterhoff) inkl. Titel und Schreibweisen (Braun, Baur, Osterhoff, Lindhorst, Gruener), Einverständnis zur Nennung
+2. Aktuelle Arbeitskreise der AG und ihre Leitungen (Team: drei AKs; recherchiert: Medien und digitale Systeme, Weißbuch, S3-Leitlinie Coxarthrose; Kompetenzbereiche). Auf der Website steht nur der AK Medien und digitale Systeme.
+3. Gründung des AKKI im Januar 2021 bestätigen
+4. `akki@dgou.de` bei der DGOU einrichten lassen (bis dahin nicht zustellbar)
+5. KI Lab: aktueller Rhythmus, Ablauf, Teilnahmebedingungen („offen für alle“?), nächster bestätigter Termin (Eintrag mit `bestaetigt: true`, Datum, `beginn`, `ende` in `beitraege.json`), Auftakt Dezember 2025 oder Januar 2026, Themen Juni und Oktober 2026
+6. Referentin KI Lab 15.09.2026 (Anna Klempert oder Anna Völker?), bis dahin weggelassen
+7. Status der Forschungsprojekte (Wunddokumentation: Ergebnisse dürfen nicht behauptet werden)
+8. Freigabe von Personen- und Veranstaltungsfotos (bis dahin Initialen-Kreise, keine Bildplätze)
+9. Rechtliches: Vereinsregisternummer (VR 3956 oder VR 3953), Speicherdauer E-Mail-Anfragen, Rechtsgrundlage E-Mail-Kontakt, Aufsichtsbehörde, Logfile-Speicherdauer und Auftragsverarbeitungsvertrag bei Vercel (siehe oben)
+10. Logo-Freigabe durch die AG; ob die drei Schwerpunkte so offiziell sind
+11. API-Schlüssel für die KI-Funktionen des Smart Editors
+
+**Redaktionelle Entwürfe ✍️ (auf der Website sichtbar, `status: "entwurf"`, vom Team freizugeben):**
+- „Wer wir sind“: Selbstverständnis, sieben Ziele, Zeitleiste, Leitung des AKKI und KI-Lab-Moderation (Stand 08.06.2026), Leitung der AG Digitalisierung (Stand Oktober 2026, Fachartikel)
+- „Projekte“: Schwerpunkt-Texte, Projektbeschreibungen, Kurzbeschreibungen der neun Hackathon-Use-Cases, Einordnung „Forschung aus dem Umfeld der AG“
+- „Publikationen“: Kurzfassungen und Gruppierung (AKKI, Umfeld, Berichte)
+- „KI Lab“: Einleitung, Titel und Beschreibungen der neun Termine, Kategorien
+- „Mitmachen“: Texte der vier Karten, Abschnitt Mitarbeit, FAQ
+- Impressum und Datenschutz: gesamter Text (Entwurf-Banner bleibt bis zur DGOU-Freigabe)
+
+**Technische Hinweise:**
+- Startseite (Kopf mit lebendem Logo bewusst unverändert): Der Text spricht noch vom „monatlichen KI Lab“ und „offen für alle“ (siehe Punkt 5). Block C (heller Kopf) wurde zurückgestellt.
+- Smart Editor (`redaktion/`, `server.js`): rechnet noch mit „erstem Dienstag, 18–19 Uhr“ und kennt `bestaetigt`, `kategorien`, `beginn`, `ende` nicht (Block K).
+- Teamliste `daten/publikationen-ag-2020-2022.md` (26 ältere Titel ohne DOI): nicht auf der Website; vor dem Einbau DOIs per Crossref suchen und prüfen.
+- Die DOI-Links zu Digital Health (SAGE) und Diagnostics (MDPI) antworten auf automatische Abfragen mit „403“ (Schutz der Verlage). Die DOIs selbst wurden bei Crossref bestätigt; im Browser öffnen sie normal.
+- Teams-Link des KI Labs: nie öffentlich.
+
+---
+
 ## Schon festgelegt
 - **Farbpalette** (zentral in public/style.css, Stand 27.11.2026, Namen wie in ARBEITSAUFTRAG.md A1):
   - Blau `#00508A`: Überschriften, Links

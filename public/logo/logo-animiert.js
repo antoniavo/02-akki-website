@@ -59,10 +59,14 @@
       if (auto) {
         // Schriftzug ca. 70 % der Breite (Handy bis 600 px: 90 %, dazwischen gleitend), höchstens 900 px
         const anteil = Math.max(0.7, Math.min(0.9, 0.9 - (W - 600) / 400 * 0.2));
-        sc = Math.min(W * anteil, 900) / tot;
-        fs = Math.max(13, Math.min(22, sc * 6.6));   // Untertitel 1: 22 px bei voller Größe, mindestens 13 px
-        fs2 = Math.max(11, fs * 0.68);               // Untertitel 2: 15 px bei voller Größe, mindestens 11 px
-        let rand = Math.max(24, Math.min(40, W * 0.035));
+        const scVoll = Math.min(W * anteil, 900) / tot;
+        // Kompakter Kopf: Logo ca. 30 % kleiner (auf schmalen Handys nur ca. 20 %, damit es nicht winzig wird).
+        // Alle Maße des Logos (Punktabstand, Punktgröße, Linien) hängen an sc und schrumpfen im gleichen Verhältnis:
+        // die Punkte bleiben gleich fein und überlagern sich nicht.
+        sc = scVoll * (W < 600 ? 0.8 : 0.7);
+        fs = Math.max(13, Math.min(22, scVoll * 6.6)); // Untertitel 1: wie bisher (22 px bei voller Größe, mindestens 13 px)
+        fs2 = Math.max(11, fs * 0.68);                 // Untertitel 2: wie bisher (15 px bei voller Größe, mindestens 11 px)
+        let rand = Math.max(14, Math.min(22, W * 0.02)); // weniger Leerraum über dem Logo
         H = Math.round(100 * sc + (ohneText ? fs * 0.9 + rand : fs * 3.4 + 2 * rand));
         // Startseite: der ganze Kopfbereich (Logo, Untertitelzeile, Abstand unten) höchstens ca. 70 % der Bildschirmhöhe.
         // Zuerst weniger Leerraum über dem Logo, nur wenn das nicht reicht, wird das Logo kleiner.
@@ -71,7 +75,7 @@
           const fuss = kopf.querySelector('.hero__fuss');
           const platz = 0.7 * document.documentElement.clientHeight - (fuss ? fuss.offsetHeight : 0) - parseFloat(getComputedStyle(kopf).paddingBottom || 0);
           if (H > platz) {
-            rand = Math.min(rand, 18);
+            rand = Math.min(rand, 14);
             H = Math.round(100 * sc + fs * 0.9 + rand);
             if (H > platz) { sc = Math.max(1.4, (platz - fs * 0.9 - rand) / 100); H = Math.round(100 * sc + fs * 0.9 + rand); }
           }

@@ -140,9 +140,9 @@ a:hover { text-decoration-color: var(--petrol); text-decoration-thickness: 2px; 
 
 /* =============== Startseite: kompakter Kopf, vier Einstiege, Hackathon-Karte, neue Publikationen =============== */
 .eyebrow { margin: 0 0 var(--a1); font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--petrol-text); }
-.hero--kompakt { padding-bottom: 80px; overflow-x: clip; } /* der pulsierende Ring darf die Seite nie verbreitern; nach unten bleibt das Terminal-Pop-up frei sichtbar */
+.hero--kompakt { padding-bottom: 36px; overflow-x: clip; } /* der pulsierende Ring darf die Seite nie verbreitern; nach unten bleibt das Terminal-Pop-up frei sichtbar */
 .hero--kompakt canvas { height: 190px; }
-.hero__fuss { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--a2); min-height: 116px; }
+.hero__fuss { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--a2); min-height: 84px; }
 .hero__mitte { grid-column: 2; display: flex; flex-direction: column; align-items: center; gap: 14px; min-width: 0; }
 .hero__fuss .mitmach-rund, .hero__fuss .terminal-wrap { grid-column: 3; justify-self: end; }
 .hero__untertitel { margin: 0; text-align: center; color: var(--text-auf-dunkel); line-height: calc(var(--logo-fs1, 18px) * 1.35); }
@@ -152,14 +152,14 @@ a:hover { text-decoration-color: var(--petrol); text-decoration-thickness: 2px; 
 .hero__untertitel-2 a { display: inline-block; padding: 4px 1px; border-radius: 3px; color: #8FDCCB; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; text-decoration-color: rgba(143, 220, 203, .6); transition: color .15s ease, text-decoration-color .15s ease; }
 .hero__untertitel-2 a:hover { color: #fff; text-decoration-thickness: 1px; text-decoration-color: #fff; }
 .hero__untertitel-2 a:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
-.mitmach-rund { position: relative; display: grid; place-items: center; flex: none; width: 116px; height: 116px; border-radius: 50%; background: #007F75; color: #fff; text-decoration: none; box-shadow: 0 0 0 3px rgba(120, 203, 185, .5), 0 8px 22px rgba(0, 0, 0, .3); transition: transform .2s ease, background-color .2s ease; }
+.mitmach-rund { position: relative; display: grid; place-items: center; flex: none; width: 84px; height: 84px; border-radius: 50%; background: #007F75; color: #fff; text-decoration: none; box-shadow: 0 0 0 3px rgba(120, 203, 185, .5), 0 8px 22px rgba(0, 0, 0, .3); transition: transform .2s ease, background-color .2s ease; }
 .mitmach-rund:hover, .mitmach-rund:focus-visible { background: #008F83; transform: scale(1.06); }
 .mitmach-rund::before { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid var(--mint); pointer-events: none; animation: mitmach-puls 2.4s ease-out infinite; } /* bei "Bewegung reduzieren" greift die globale Regel animation: none: kein Pulsieren, kein Drehen */
 @keyframes mitmach-puls { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.5); opacity: 0; } }
 .mitmach-rund__ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; animation: mitmach-dreh 16s linear infinite; } /* Tempo bei Hover/Fokus regelt startseite.js (ca. 5 s pro Umdrehung) */
 .mitmach-rund__ring text { fill: #fff; font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-weight: 700; font-size: 10.5px; white-space: pre; }
 @keyframes mitmach-dreh { to { transform: rotate(360deg); } }
-.mitmach-rund__pfeil { position: relative; font: 800 24px/1 var(--font-body); }
+.mitmach-rund__pfeil { position: relative; font: 800 18px/1 var(--font-body); }
 .mitmach-rund__label { position: absolute; right: calc(100% + 16px); top: 50%; transform: translate(6px, -50%); padding: 6px 14px; border-radius: 999px; background: var(--weiss); color: var(--blau); font: 700 .9rem/1.2 var(--font-body); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s ease, transform .15s ease; }
 .mitmach-rund:hover .mitmach-rund__label, .mitmach-rund:focus-visible .mitmach-rund__label { opacity: 1; transform: translate(0, -50%); }
 
@@ -446,9 +446,9 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 }
 @media (max-width: 760px) {
   .kacheln, .kacheln--zwei, .kacheln--vier, .termin-karten, .archiv-karten { grid-template-columns: 1fr; }
-  .hero--kompakt { padding-bottom: 64px; }
+  .hero--kompakt { padding-bottom: 28px; }
   .footer__zeile { flex-direction: column; align-items: flex-start; gap: 4px; }
-  .mitmach-rund { width: 96px; height: 96px; }
+  .mitmach-rund { width: 72px; height: 72px; }
   .hero__fuss { grid-template-columns: 1fr; justify-items: center; gap: var(--a2); min-height: 0; }
   .hero__mitte { grid-column: 1; }
   .hero__fuss .mitmach-rund, .hero__fuss .terminal-wrap { grid-column: 1; justify-self: end; }
@@ -550,12 +550,12 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 .hauptnav__knopf[aria-current="page"] { background: #fff; color: #007F75; box-shadow: none; }
 .hauptnav__knopf:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
 /* Band auf allen Seiten außer der Startseite: Logo, Untertitel, Buttons */
-.kopfband { background: var(--navy); color: var(--text-auf-dunkel); padding: 18px 0; }
+.kopfband { background: var(--navy); color: var(--text-auf-dunkel); padding: 10px 0; }
 .kopfband__innen { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px var(--a3); }
 .kopfband__marke { display: flex; align-items: center; gap: var(--a2); }
 .kopfband__logo { display: block; line-height: 0; border-radius: 4px; }
 .kopfband__logo:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
-.kopfband__logo img { display: block; height: 55px; width: auto; }
+.kopfband__logo img { display: block; height: 28px; width: auto; }
 .kopfband__untertitel { margin: 0; display: flex; flex-direction: column; gap: 2px; font-size: .95rem; font-weight: 500; letter-spacing: .06em; }
 .kopfband__untertitel-2 { font-size: .8rem; font-weight: 400; letter-spacing: 0; color: #8FDCCB; }
 .kopfband__untertitel-2 a { color: #8FDCCB; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: rgba(143, 220, 203, .6); }

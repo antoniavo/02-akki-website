@@ -33,7 +33,7 @@
 <div class="kopfband">
   <div class="container kopfband__innen">
     <div class="kopfband__marke">
-      <a class="kopfband__logo" href="index.html"><img src="logo/logo-nav-hell.svg" alt="AKKI – zur Startseite" width="136" height="55"></a>
+      <a class="kopfband__logo" href="index.html"><img src="logo/logo-nav-hell.svg" alt="AKKI – zur Startseite" width="69" height="28"></a>
       <p class="kopfband__untertitel"><span>Arbeitskreis Künstliche Intelligenz</span><span class="kopfband__untertitel-2">${extern('https://www.digitalisierung-dgou.de/', 'AG Digitalisierung')} · ${extern('https://dgou.de/', 'DGOU')}</span></p>
     </div>
     ${navHtml}

@@ -343,6 +343,32 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 .org-kind::before { content: ""; position: absolute; top: calc(-1 * var(--a3)); left: 50%; width: 2px; height: var(--a3); background: var(--petrol); }
 .org-kind .org-box { max-width: none; }
 
+/* =============== Mitmach-Terminal (terminal.js): Pop-up am Button "Mitmachen" und fest auf mitmachen.html =============== */
+.terminal-wrap { position: relative; display: inline-block; }
+.terminal { background: var(--navy); color: var(--text-auf-dunkel); border: 1px solid rgba(255, 255, 255, .28); border-radius: var(--radius); overflow: hidden; text-align: left; font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .92rem; line-height: 1.5; }
+.terminal--popup { overflow-y: auto; overscroll-behavior: contain; position: absolute; left: 0; top: calc(100% + 8px); z-index: 40; width: min(420px, calc(100vw - 32px)); box-shadow: 0 14px 36px rgba(0, 0, 0, .35); opacity: 0; transform: translateY(-6px); transition: opacity .2s ease, transform .2s ease; }
+.terminal--popup.terminal--oben { top: auto; bottom: calc(100% + 8px); transform: translateY(6px); }
+.terminal--popup.terminal--sichtbar { opacity: 1; transform: none; }
+.terminal--fest { max-width: 720px; margin-top: var(--a3); }
+.terminal__kopf { display: flex; align-items: center; gap: 12px; padding: 6px 8px 6px 14px; border-bottom: 1px solid var(--linie-auf-dunkel); min-height: 40px; }
+.terminal__punkte { display: inline-flex; gap: 6px; }
+.terminal__punkte i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, .35); }
+.terminal__titel { color: var(--text-auf-dunkel-leise); font-size: .85rem; }
+.terminal__zu { margin-left: auto; width: 36px; height: 36px; background: none; border: 0; border-radius: var(--radius-klein); color: var(--text-auf-dunkel); font: 400 1.6rem/1 var(--font-body); cursor: pointer; }
+.terminal__zu:hover { background: rgba(255, 255, 255, .14); }
+.terminal__koerper { padding: 12px var(--a2) 14px; }
+.terminal__befehl { margin: 0 0 4px; color: var(--mint); font-weight: 700; }
+.terminal__liste { list-style: none; margin: 0 0 12px; padding: 0; }
+.terminal__liste li { margin: 0 0 8px; }
+.terminal__zeile { display: block; padding-left: 2.2em; color: var(--text-auf-dunkel-leise); font-size: .85rem; line-height: 1.4; }
+.terminal--popup .terminal__zeile { display: none; } /* im Pop-up kompakt: nur Titel, die Beschreibungen stehen im festen Terminal auf mitmachen.html */
+.terminal--popup .terminal__liste li { margin-bottom: 4px; }
+.terminal__kontakt { margin: 0; }
+.terminal a { color: var(--text-auf-dunkel); text-decoration: underline; text-decoration-color: var(--mint); text-underline-offset: 3px; display: inline-block; padding: 2px 0; }
+.terminal a:hover { color: var(--mint); }
+.terminal__extra { margin-left: 10px; font-size: .88rem; }
+.terminal :focus-visible { outline-color: var(--fokus-auf-dunkel); }
+
 /* =============== Footer (eine Komponente, layout.js) =============== */
 .footer { background: var(--navy); color: var(--text-auf-dunkel); padding: var(--a4) 0; margin-top: var(--a3); }
 .footer__innen { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--a4) var(--a3); }

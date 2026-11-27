@@ -1,6 +1,6 @@
 // Mitmach-Terminal: die vier Wege zum Mitmachen und der Kontakt, in Terminal-Optik.
 // Zwei Einbauarten (beide aus dieser einen Datei):
-//   1) Pop-up am Button/Link mit id="mitmachen-knopf" (Startseite: die Kachel "Mitwirken"; data-terminal-block = Kachel füllt die Hülle)
+//   1) Pop-up am Button mit id="mitmachen-knopf" (Startseite: runder Button unten rechts in der blauen Kopffläche; das ist das einzige Pop-up)
 //      - Maus: öffnet beim Überfahren, bleibt offen, solange die Maus auf Button oder Terminal ist, schließt ca. 400 ms nach dem Verlassen
 //      - Tastatur: öffnet beim Fokus per Tab, Escape schließt und setzt den Fokus zurück auf den Button
 //      - Touch: Antippen öffnet, erneutes Antippen oder "×" schließt
@@ -112,7 +112,7 @@
 
   // ---------- 1) Pop-up am Button ----------
   function popupEinrichten(knopf) {
-    const huelle = el('span', 'terminal-wrap' + (knopf.hasAttribute('data-terminal-block') ? ' terminal-wrap--block' : ''));
+    const huelle = el('span', 'terminal-wrap');
     knopf.parentNode.insertBefore(huelle, knopf);
     huelle.appendChild(knopf);
     const t = baue('popup', 'mitmachen-terminal');

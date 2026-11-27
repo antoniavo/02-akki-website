@@ -22,7 +22,14 @@
     <h1 class="sr-only">AKKI – Arbeitskreis Künstliche Intelligenz der AG Digitalisierung der DGOU</h1>
     <!-- Lebendes AKKI-Logo, Einbau wie in public/logo/logo-animiert.js beschrieben -->
     <canvas data-akki-logo aria-hidden="true"></canvas>
-    <p class="hero__zugehoerig">Ein Arbeitskreis der <a href="https://www.digitalisierung-dgou.de/" target="_blank" rel="noopener">AG Digitalisierung</a> der <a href="https://dgou.de/" target="_blank" rel="noopener">DGOU</a></p>
+    <div class="hero__fuss">
+      <p class="hero__zugehoerig">Ein Arbeitskreis der <a href="https://www.digitalisierung-dgou.de/" target="_blank" rel="noopener">AG Digitalisierung</a> der <a href="https://dgou.de/" target="_blank" rel="noopener">DGOU</a></p>
+      <!-- Runder Mitmachen-Button unten rechts in der blauen Fläche; daran hängt das Mitmach-Terminal als Pop-up (terminal.js) -->
+      <a class="mitmach-rund" id="mitmachen-knopf" href="mitmachen.html" aria-label="Mitmachen">
+        <span class="mitmach-rund__zeichen" aria-hidden="true">&gt;_</span>
+        <span class="mitmach-rund__label" aria-hidden="true">Mitmachen</span>
+      </a>
+    </div>
   </div>
 </header>
 
@@ -49,8 +56,7 @@
           <span class="einstieg-kachel__sub">Veröffentlichungen</span>
           <span class="einstieg-kachel__pfeil" aria-hidden="true">→</span>
         </a>
-        <!-- Am Mitwirken-Einstieg hängt das Mitmach-Terminal als Pop-up (terminal.js) -->
-        <a class="einstieg-kachel" href="mitmachen.html" id="mitmachen-knopf" data-terminal-block>
+        <a class="einstieg-kachel" href="mitmachen.html">
           <span class="einstieg-kachel__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0"/></svg></span>
           <span class="einstieg-kachel__titel">Mitwirken</span>
           <span class="einstieg-kachel__sub">Mitmachen · Kontakt</span>

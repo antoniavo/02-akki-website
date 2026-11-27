@@ -155,8 +155,14 @@ a:hover { text-decoration-color: var(--petrol); text-decoration-thickness: 2px; 
 .hero--kompakt .hero__zugehoerig { margin: var(--a1) 0 0; }
 main section.einstiege { padding: 0; margin-top: -56px; position: relative; z-index: 2; }
 .einstiege__raster { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--a2); }
-.terminal-wrap--block { display: block; }
-.terminal-wrap--block > .einstieg-kachel { height: 100%; }
+.hero__fuss { display: flex; align-items: center; justify-content: space-between; gap: var(--a2); margin-top: var(--a1); min-height: 56px; }
+.hero--kompakt .hero__fuss .hero__zugehoerig { margin: 0; flex: 1; min-width: 0; }
+.mitmach-rund { position: relative; display: grid; place-items: center; flex: none; width: 56px; height: 56px; border-radius: 50%; background: var(--petrol); color: #fff; font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-weight: 800; font-size: 1.5rem; line-height: 1; text-decoration: none; box-shadow: 0 0 0 3px rgba(120, 203, 185, .5), 0 6px 18px rgba(0, 0, 0, .3); transition: transform .2s ease; }
+.mitmach-rund:hover, .mitmach-rund:focus-visible { transform: scale(1.07); }
+.mitmach-rund::before { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid var(--mint); pointer-events: none; animation: mitmach-puls 2.4s ease-out infinite; } /* bei "Bewegung reduzieren" greift die globale Regel animation: none, der Ring bleibt still stehen */
+@keyframes mitmach-puls { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.65); opacity: 0; } }
+.mitmach-rund__label { position: absolute; right: calc(100% + 16px); top: 50%; transform: translate(6px, -50%); padding: 6px 14px; border-radius: 999px; background: var(--weiss); color: var(--blau); font: 700 .9rem/1.2 var(--font-body); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s ease, transform .15s ease; }
+.mitmach-rund:hover .mitmach-rund__label, .mitmach-rund:focus-visible .mitmach-rund__label { opacity: 1; transform: translate(0, -50%); }
 .einstieg-kachel { display: flex; flex-direction: column; gap: 4px; position: relative; min-height: 176px; padding: var(--a3); background: var(--weiss); border: 1px solid var(--rahmen); border-radius: var(--radius); box-shadow: 0 10px 28px var(--schatten); text-decoration: none; color: var(--text); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
 .einstieg-kachel:hover, .einstieg-kachel:focus-visible { transform: translateY(-4px); border-color: var(--petrol); box-shadow: 0 16px 36px var(--schatten); }
 .einstieg-kachel__icon { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: var(--a1); border-radius: 50%; background: var(--mint-hell); transition: background .2s ease; }

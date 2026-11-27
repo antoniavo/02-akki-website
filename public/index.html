@@ -26,7 +26,12 @@
       <p class="hero__zugehoerig">Ein Arbeitskreis der <a href="https://www.digitalisierung-dgou.de/" target="_blank" rel="noopener">AG Digitalisierung</a> der <a href="https://dgou.de/" target="_blank" rel="noopener">DGOU</a></p>
       <!-- Runder Mitmachen-Button unten rechts in der blauen Fläche; daran hängt das Mitmach-Terminal als Pop-up (terminal.js) -->
       <a class="mitmach-rund" id="mitmachen-knopf" href="mitmachen.html" aria-label="Mitmachen">
-        <span class="mitmach-rund__zeichen" aria-hidden="true">&gt;_</span>
+        <!-- Drehender Textring innen im Kreis (Bahn: Radius 41), nur Zierde: aria-hidden -->
+        <svg class="mitmach-rund__ring" viewBox="0 0 116 116" aria-hidden="true" focusable="false">
+          <defs><path id="mitmach-bahn" d="M58,58 m-41,0 a41,41 0 1,1 82,0 a41,41 0 1,1 -82,0"/></defs>
+          <text><textPath href="#mitmach-bahn" textLength="257.6" lengthAdjust="spacing">MITMACHEN · MITDENKEN · MITBAUEN · </textPath></text>
+        </svg>
+        <span class="mitmach-rund__pfeil" aria-hidden="true">→</span>
         <span class="mitmach-rund__label" aria-hidden="true">Mitmachen</span>
       </a>
     </div>

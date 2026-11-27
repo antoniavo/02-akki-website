@@ -9,6 +9,16 @@
   }
   const holen = datei => fetch(datei).then(r => { if (!r.ok) throw new Error(datei); return r.json(); });
 
+  // ---------- Runder Mitmachen-Button: Textring dreht bei Hover und Fokus schneller (16 s -> ca. 5 s pro Umdrehung) ----------
+  // Die Drehung selbst steht in style.css (bei "Bewegung reduzieren" gibt es keine Animation, dann passiert hier nichts).
+  const rund = document.getElementById('mitmachen-knopf');
+  const ring = rund && rund.querySelector('.mitmach-rund__ring');
+  if (ring) {
+    const tempo = faktor => ring.getAnimations().forEach(a => a.updatePlaybackRate(faktor));
+    ['pointerenter', 'focus'].forEach(e => rund.addEventListener(e, () => tempo(16 / 5)));
+    ['pointerleave', 'blur'].forEach(e => rund.addEventListener(e, () => tempo(1)));
+  }
+
   // ---------- Hackathon ----------
   const karte = document.getElementById('hackathon-karte');
   if (karte) {

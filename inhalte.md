@@ -15,7 +15,7 @@ Alles mit ⚠️ ist aus öffentlichen Quellen zusammengetragen und muss vor Ort
 
 ---
 
-## Start
+## Startseite
 - **Ein Satz, wer wir sind:** Der AKKI ist der Arbeitskreis Künstliche Intelligenz der AG Digitalisierung der DGOU. ___ (ergänzen/ändern)
 - **Für wen ist die Seite?** ___ (z. B. Mitglieder der DGOU, interessierte Ärzt:innen, Presse)
 - **Drei Schwerpunkte (für die drei Kacheln):**
@@ -25,12 +25,14 @@ Alles mit ⚠️ ist aus öffentlichen Quellen zusammengetragen und muss vor Ort
 - **Hinweis auf das nächste Treffen:** kommt von der Seite „Treffen“
 
 ## Wer wir sind
+- AK KI gegründet im Januar 2021.
+- Leitung: Dr. David Baur, Prof. Georg Osterhoff (bestätigen)
 - Seit wann gibt es den AKKI? ___
-- Ziele:
+- Ziele: ___
   - Alle Mitglieder zum Thema KI in Orthopädie und Unfallchirurgie auf dem neuesten Stand halten
   - Arbeit als Arbeitskreis innerhalb der AG Digitalisierung der DGOU
-- Rahmen: Die Satzung der DGOU legt fest, was Arbeitsgemeinschaften und Arbeitskreise tun. Den genauen Wortlaut bzw. Link liefert das Team: ___ (nur wörtlich übernehmen, nicht von der KI umformulieren lassen)
-- Leitung des AKKI (nur mit Einverständnis): ___
+- Rahmen: Die Satzung der DGOU legt fest, was Arbeitsgemeinschaften und Arbeitskreise tun. Wortlaut/Link: Text folgt. (nur wörtlich übernehmen, nicht von der KI umformulieren lassen)
+- Wer leitet ihn / Ansprechpersonen (nur mit deren Einverständnis): ___
 - Wie kann man mitmachen? ___
 
 ### Einordnung (Organigramm) ⚠️ vorläufig, vor Ort bestätigen
@@ -57,28 +59,69 @@ Alles mit ⚠️ ist aus öffentlichen Quellen zusammengetragen und muss vor Ort
 **Hinweis für Claude Code:** Die Organisationsstruktur (Arbeitskreise, Kompetenzbereiche, Ansprechpersonen, Links) als eigene Datendatei anlegen, z. B. `public/daten/organisation.json`, und die Seite daraus erzeugen. So lassen sich später Gruppen und Personen ergänzen, ohne HTML zu ändern.
 
 ## Projekte
-- Projekte des AKKI (Titel, ein Satz, Link):
-  - ___
-  - ___
+- KI-basierter Leitliniensupport
+- Erleichterter KI-Zugang in O&U
+- Decision-Support-Systeme
+- DGOU KI Lab
+- AKKI Hackathon 2026, 27.–28.11.2026, Kesselhaus des BG Klinikums Unfallkrankenhaus Berlin. Ärzt:innen und technikaffine Kolleg:innen bauen in zwei Tagen Prototypen zu neun KI-Use-Cases. Veranstalter: BG Klinikum Unfallkrankenhaus Berlin und Helliwood media & education. Link: https://akki-hackathon-2026.vercel.app
+  - Wund-AI – Link: folgt
+  - AKKI-Website – Link: folgt
+  - EKG-AI – Link: folgt
+  - Medizinischer Avatar-Übersetzer – Link: folgt
+  - Reanimations-Co-Pilot – Link: folgt
+  - Pflege-Zusammenfassung – Link: folgt
+  - Entlassungsassistent – Link: folgt
+  - Implantat-Check – Link: folgt
+  - OP-Bericht-Assistent – Link: folgt
 - Aktivitäten laut DGOU-Gremienbericht 2026 ⚠️ bestätigen: KI Lab; Validierungsstudie zur KI-gestützten Wunddokumentation
-- Projekte aus diesem Hackathon (Use Cases): ___
 
 ## Publikationen
+- Publikationen werden über https://doi.org/<DOI> verlinkt.
+- Braun & Back: Neue Führung – next Level Digitalisierung und KI, Springer Medizin, 10/2026 (DOI folgt, bestätigen)
+- DGOU-Gremienbericht 2026, S. 28–31 (Link folgt)
 - Hier erscheinen später die Beiträge aus dem Redaktionsassistenten (siehe KONZEPT.md).
 - 2–3 DOIs von Publikationen aus dem Umfeld des AKKI (für die Demo):
   - ___
   - ___
   - ___
 
-## Treffen
-- Wie oft: bisher einmal im Monat
-- Wann (Wochentag/Uhrzeit): ___
+## Treffen / KI-Lab
+- DGOU KI Lab, seit Januar 2026, online über Microsoft Teams, jeden ersten Dienstag im Monat, 1 Stunde (20 Min. Vortrag, 20 Min. Diskussion, 20 Min. AK-Meeting), offen für alle Interessierten.
+- Leitung: Dr. David Baur, Dr. Yasmin Youssef
+- Bisherige Themen:
+  - Claude – Von Chatbot zu Cowork
+  - KI-Strategie in der Medizin
+  - Effizientes Arbeiten mit Microsoft Copilot
+  - Automation mit n8n
+- Themenwünsche an digitalisierung@dgou.de
+- Wie oft und wann trefft ihr euch? ___
+  - Wie oft: bisher einmal im Monat
 - Online oder vor Ort? ___
-- Nächster Termin und Thema: ___
+- Nächste Termine oder Vortragsthemen: ___
+
+### Bisherige KI-Lab-Termine
+Datum – Titel – Kurzbeschreibung
+- 07.01.2026 – Automation mit n8n – Automatisierte PubMed-Recherche und wissenschaftliche Newsletter
+- 04.02.2026 – Microsoft Copilot – Funktionen und DSGVO-Konformität
+- 04.03.2026 – KI-Strategie in der Medizin – Von der Idee zur sicheren Umsetzung in Klinik, Forschung und Verwaltung
+- 07.04.2026 – Claude – von Chatbot zu Cowork – KI-Assistenz für medizinische, wissenschaftliche und administrative Aufgaben
+- 12.05.2026 – Claude Code – KI im medizinischen Arbeitsalltag
+- Juni 2026 – folgt
+- 07.07.2026 – Conus – Klinische LLMs im Einsatz
+- 18.08.2026 – ChatGPT Work vs. Claude Cowork – Praxisvergleich
+- 15.09.2026 – Gemini – ein Praxisbericht – Referentin: folgt (bestätigen)
+- Oktober 2026 – folgt
+- 03.11.2026 – Vom Arzt zum Softwareentwickler – KI im klinischen Alltag – Philipp Michel
+
+Alle Termine 18–19 Uhr, online, kostenlos.
+Hinweis: „Liste wird laufend ergänzt.“
+
+## Mitmachen
+- Wer kann mitmachen? Text folgt.
 
 ## Kontakt
+- digitalisierung@dgou.de (bestätigen)
 - Kontakt-E-Mail-Adresse: ___
-- Wie kann man mitmachen? ___
 
 ## Impressum und Datenschutz
 - Verantwortliche Person / Stelle (Name, Anschrift): ___
@@ -87,5 +130,15 @@ Alles mit ⚠️ ist aus öffentlichen Quellen zusammengetragen und muss vor Ort
 ---
 
 ## Schon festgelegt
-- Farben: Dunkelblau `#102D46`, Petrol `#16877D`, Mint `#70D6CA`, Off-White `#F4F7FA`
-- Logo-Text: „AKKI“ · „Arbeitskreis Künstliche Intelligenz“ · „AG Digitalisierung · DGOU“
+- **Design-Vorgaben für alle Seiten** (helle Variante des AKKI Brand Kits, siehe daten/hackathon-website/styles/main.css):
+  - Hintergrund `#F4F7FA`, Karten `#FFFFFF`, Rahmen `#DCE5EC`
+  - Hauptfarbe Navy `#0D2740`: Kopfzeile, Überschriften, Text
+  - Akzent Türkis `#10CFC4` für Flächen und Hervorhebungen; für Links und Text auf Hell das dunklere `#0B7A74`
+  - Zweitakzent Hellblau `#63B4E6` sparsam
+  - Fußzeile dunkel wie die Hackathon-Seite (`#0D2740` mit Türkis `#45E9DA`)
+  - Schriften: Archivo für Überschriften, Manrope für Fließtext (Google Fonts wie in der Vorlage)
+  - Ecken 14 px
+  - Keine Stockfotos. Bildplätze vorerst als Platzhalter „Foto folgt“.
+- Seiten: Start · Wer wir sind · Projekte · Publikationen · Treffen · Mitmachen/Kontakt · Impressum · Datenschutz (Fußzeile)
+- Logo: das lebende AKKI-Logo in public/logo/ – logo-animiert.js groß im Kopf der Startseite auf #0D2740; logo-hell.svg / logo-dunkel.svg für Navigation und Browser-Icon. Das alte AKKI-Zeichen aus der Hackathon-Seite wird nicht mehr verwendet.
+- Schreibregel: kurze, ansprechende Texte, pro Abschnitt höchstens 2 Sätze oder Stichpunkte

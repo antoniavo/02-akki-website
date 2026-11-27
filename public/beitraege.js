@@ -2,14 +2,16 @@
 // und zeigt sie dort an, wo die Seite passende Plätze hat:
 //   #aktuelles-liste   – Karten "Aktuelles" (Startseite)
 //   #kilab-letzte      – die letzten drei KI-Lab-Termine (Startseite)
-//   #naechster-termin  – nächster KI-Lab-Termin, automatisch berechnet (Seite "KI Lab")
+//   #naechster-termin  – nächster BESTÄTIGTER KI-Lab-Termin (bestaetigt: true, volles Datum, Zukunft, beginn/ende); sonst Newsletter-Hinweis (Seite "KI Lab")
 //   #kilab-archiv      – Archiv mit Suche (#kilab-suche) und Filtern (#kilab-filter) (Seite "KI Lab")
 // Alle Texte werden als reiner Text eingefügt (kein HTML aus der Datei).
 // Termine ohne Titel ("folgt") werden nicht angezeigt; Referent:innen nur, wenn eingetragen (= bestätigt).
 (function () {
   const MONATE = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
   const WOCHENTAGE = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
-  const KATEGORIEN = ['KI-Tools', 'Automatisierung', 'Strategie', 'Praxisbericht'];
+  const KATEGORIEN = ['KI-Tools', 'Automatisierung', 'Strategie', 'Praxisbericht', 'Datenschutz', 'Forschung', 'Klinische KI', 'Softwareentwicklung'];
+  // Mehrfachzuordnung: "kategorien" (Liste); das alte Einzelfeld "kategorie" wird weiter verstanden
+  const kategorienVon = t => (Array.isArray(t.kategorien) ? t.kategorien : (t.kategorie ? [t.kategorie] : []));
 
   function el(tag, klasse, text) {
     const e = document.createElement(tag);
@@ -26,10 +28,23 @@
     return `${t}.${m}.${j}`;
   }
 
-  // Nur Termine mit Titel, neueste zuerst
+  // Nur Termine mit Titel, die schon stattgefunden haben, neueste zuerst.
+  // Ein Termin zählt als vergangen, wenn sein Tag vor heute (Berlin) liegt; bei JJJJ-MM zählt der Monat.
   function bestaetigteTermine(daten) {
-    return (daten.kiLab || []).filter(t => t.titel)
+    const j = berlinJetzt();
+    const heute = `${j.jahr}-${zwei(j.monat)}-${zwei(j.tag)}`;
+    const vergangen = t => (String(t.datum).length > 7 ? String(t.datum) < heute : String(t.datum) < heute.slice(0, 7));
+    return (daten.kiLab || []).filter(t => t.titel && vergangen(t))
       .sort((a, b) => String(b.datum).localeCompare(String(a.datum)));
+  }
+
+  // Nächster bestätigter Termin: bestaetigt: true, volles Datum, heute oder später. Sonst null.
+  function naechsterBestaetigterTermin(daten) {
+    const j = berlinJetzt();
+    const heute = `${j.jahr}-${zwei(j.monat)}-${zwei(j.tag)}`;
+    return (daten.kiLab || [])
+      .filter(t => t.bestaetigt === true && /^\d{4}-\d{2}-\d{2}$/.test(String(t.datum)) && String(t.datum) >= heute)
+      .sort((a, b) => String(a.datum).localeCompare(String(b.datum)))[0] || null;
   }
 
   // ---------- Startseite ----------
@@ -52,7 +67,7 @@
     a.href = 'treffen.html';
     const kopf = el('span', 'termin-karte__kopf');
     kopf.appendChild(el('span', 'termin-karte__datum', datumText(t.datum)));
-    if (t.kategorie) kopf.appendChild(el('span', 'kategorie', t.kategorie));
+    kategorienVon(t).forEach(k => kopf.appendChild(el('span', 'kategorie', k)));
     a.appendChild(kopf);
     a.appendChild(el('span', 'termin-karte__titel', t.titel));
     const zeile = [t.beschreibung, t.referent].filter(Boolean).join(' · ');
@@ -65,11 +80,20 @@
     const art = el('article', 'archiv-karte');
     const kopf = el('div', 'termin-karte__kopf');
     kopf.appendChild(el('span', 'termin-karte__datum', datumText(t.datum)));
-    if (t.kategorie) kopf.appendChild(el('span', 'kategorie', t.kategorie));
+    kategorienVon(t).forEach(k => kopf.appendChild(el('span', 'kategorie', k)));
     art.appendChild(kopf);
     art.appendChild(el('h3', 'archiv-karte__titel', t.titel));
     if (t.referent) art.appendChild(el('p', 'archiv-karte__referent', t.referent));
     if (t.beschreibung) art.appendChild(el('p', 'archiv-karte__text', t.beschreibung));
+    // Folien und Aufzeichnung nur nach Freigabe: leer = ausgeblendet
+    const material = el('p', 'archiv-karte__material');
+    [['Folien', t.folien], ['Aufzeichnung', t.aufzeichnung]].forEach(([name, url]) => {
+      if (!url) return;
+      const a = el('a', 'pfeil-link', name);
+      a.href = url; a.target = '_blank'; a.rel = 'noopener';
+      material.appendChild(a); material.appendChild(document.createTextNode(' '));
+    });
+    if (material.childNodes.length) art.appendChild(material);
     return art;
   }
 
@@ -80,7 +104,7 @@
     let kategorie = 'Alle';
 
     if (filterBox) {
-      const vorhanden = KATEGORIEN.filter(k => termine.some(t => t.kategorie === k));
+      const vorhanden = KATEGORIEN.filter(k => termine.some(t => kategorienVon(t).includes(k)));
       ['Alle', ...vorhanden].forEach(k => {
         const b = el('button', 'filter-knopf', k);
         b.type = 'button';
@@ -97,8 +121,8 @@
     function zeigen() {
       const begriff = (suche ? suche.value : '').trim().toLowerCase();
       const treffer = termine.filter(t =>
-        (kategorie === 'Alle' || t.kategorie === kategorie) &&
-        (!begriff || [t.titel, t.beschreibung, t.referent, t.kategorie, datumText(t.datum)]
+        (kategorie === 'Alle' || kategorienVon(t).includes(kategorie)) &&
+        (!begriff || [t.titel, t.beschreibung, t.referent, kategorienVon(t).join(' '), datumText(t.datum)]
           .filter(Boolean).join(' ').toLowerCase().includes(begriff)));
       ziel.replaceChildren(...(treffer.length ? treffer.map(archivKarte) : [el('p', 'hinweis', 'Keine passenden Termine gefunden.')]));
       if (anzahl) anzahl.textContent = treffer.length === 1 ? '1 Termin' : `${treffer.length} Termine`;

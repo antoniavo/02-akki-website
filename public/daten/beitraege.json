@@ -1,5 +1,5 @@
 {
-  "_hinweis": "Zentrale Datei für 'Aktuelles' und die KI-Lab-Termine. Wird von index.html und treffen.html über beitraege.js geladen. Der Smart Editor soll später hier eintragen. Datum im Format JJJJ-MM-TT (oder JJJJ-MM, wenn der Tag noch fehlt). titel: null bedeutet 'folgt' (wird auf der Website nicht angezeigt). kategorie: KI-Tools, Automatisierung, Strategie oder Praxisbericht. referent nur eintragen, wenn bestätigt.",
+  "_hinweis": "Zentrale Datei für 'Aktuelles' und die KI-Lab-Termine. Wird von index.html und treffen.html über beitraege.js geladen. Der Smart Editor soll später hier eintragen. Datum im Format JJJJ-MM-TT (oder JJJJ-MM, wenn der Tag noch fehlt). titel: null bedeutet 'folgt' (wird auf der Website nicht angezeigt). kategorien (Liste, Mehrfachzuordnung): KI-Tools, Automatisierung, Strategie, Praxisbericht, Datenschutz, Forschung, Klinische KI, Softwareentwicklung. referent nur eintragen, wenn bestätigt (Gemini 15.09.: Referentin offen, deshalb weggelassen). NÄCHSTER TERMIN: Nur ein Eintrag mit bestaetigt: true, vollem Datum (JJJJ-MM-TT) in der Zukunft sowie beginn und ende (z. B. 18:00 und 19:00) wird als nächster Termin angezeigt und bekommt eine Kalenderdatei (.ics). Ohne bestätigten Termin steht dort der Newsletter-Hinweis. Vergangene Termine erscheinen automatisch im Archiv. Optionale Felder, leer = ausgeblendet: folien, aufzeichnung (Links, nur nach Freigabe).",
   "aktuelles": [
     {
       "id": "hackathon-2026",
@@ -23,16 +23,16 @@
     }
   ],
   "kiLab": [
-    { "datum": "2026-01-07", "titel": "Automation mit n8n", "beschreibung": "Automatisierte PubMed-Recherche und wissenschaftliche Newsletter", "kategorie": "Automatisierung" },
-    { "datum": "2026-02-04", "titel": "Microsoft Copilot", "beschreibung": "Funktionen und DSGVO-Konformität", "kategorie": "KI-Tools" },
-    { "datum": "2026-03-04", "titel": "KI-Strategie in der Medizin", "beschreibung": "Von der Idee zur sicheren Umsetzung in Klinik, Forschung und Verwaltung", "kategorie": "Strategie" },
-    { "datum": "2026-04-07", "titel": "Claude – von Chatbot zu Cowork", "beschreibung": "KI-Assistenz für medizinische, wissenschaftliche und administrative Aufgaben", "kategorie": "KI-Tools" },
-    { "datum": "2026-05-12", "titel": "Claude Code", "beschreibung": "KI im medizinischen Arbeitsalltag", "kategorie": "KI-Tools" },
+    { "datum": "2026-01-07", "titel": "Automation mit n8n", "beschreibung": "Automatisierte Literaturrecherche: Workflows für PubMed-Auswertungen und wissenschaftliche Newsletter.", "kategorien": ["Automatisierung", "Forschung"], "quelle": "DGOU-Meldung „DGOU KI Lab – neues Format“, Einladungen, LinkedIn-Ankündigungen", "status": "entwurf" },
+    { "datum": "2026-02-04", "titel": "Microsoft Copilot: Features und DSGVO", "beschreibung": "Aktuelle Funktionen und die Frage der DSGVO-Konformität im medizinischen Umfeld.", "kategorien": ["KI-Tools", "Datenschutz"], "quelle": "DGOU-Meldung, Einladungen, LinkedIn-Ankündigungen", "status": "entwurf" },
+    { "datum": "2026-03-04", "titel": "KI-Strategie: Was brauchen Klinik und Praxis wirklich?", "beschreibung": "Organisatorische, technische und strategische Voraussetzungen für den KI-Einsatz.", "kategorien": ["Strategie"], "quelle": "DGOU-Meldung, Einladungen, LinkedIn-Ankündigungen", "status": "entwurf" },
+    { "datum": "2026-04-07", "titel": "Claude: Von Chatbot zu Cowork", "beschreibung": "KI-Assistenz über den Chat hinaus – für medizinische, wissenschaftliche und administrative Aufgaben.", "kategorien": ["KI-Tools", "Automatisierung"], "quelle": "DGOU-Meldung, Einladungen, LinkedIn-Ankündigungen", "status": "entwurf" },
+    { "datum": "2026-05-12", "titel": "Claude Code", "beschreibung": "KI-gestützte Programmierwerkzeuge in Klinik, Forschung und Lehre: Anwendungsfälle, Chancen, Grenzen.", "kategorien": ["KI-Tools", "Softwareentwicklung"], "quelle": "DGOU-Meldung, Einladungen, LinkedIn-Ankündigungen", "status": "entwurf" },
     { "datum": "2026-06", "titel": null },
-    { "datum": "2026-07-07", "titel": "Conus", "beschreibung": "Klinische LLMs im Einsatz", "kategorie": "Praxisbericht" },
-    { "datum": "2026-08-18", "titel": "ChatGPT Work vs. Claude Cowork", "beschreibung": "Praxisvergleich", "kategorie": "KI-Tools" },
-    { "datum": "2026-09-15", "titel": "Gemini", "beschreibung": "Ein Praxisbericht", "referent": null, "referentRolle": "Referentin", "bestaetigen": true, "kategorie": "Praxisbericht" },
+    { "datum": "2026-07-07", "titel": "Conus: Klinische LLMs im Einsatz", "beschreibung": "Klinische Anwendungsfälle medizinischer Sprachmodelle, Möglichkeiten und Grenzen.", "kategorien": ["Klinische KI", "KI-Tools"], "quelle": "DGOU-Meldung, Einladungen, LinkedIn-Ankündigungen", "status": "entwurf" },
+    { "datum": "2026-08-18", "titel": "ChatGPT Work vs. Claude Cowork", "beschreibung": "Praxisvergleich zweier KI-Arbeitsumgebungen für den medizinischen und wissenschaftlichen Alltag.", "kategorien": ["KI-Tools", "Automatisierung"], "quelle": "DGOU-Meldung, Einladungen, LinkedIn-Ankündigungen", "status": "entwurf" },
+    { "datum": "2026-09-15", "titel": "Gemini: Ein Praxisbericht", "beschreibung": "Erfahrungsbericht: Statistik, Vergleich von Sprachmodellen, Datenschutz, Live-Demonstration.", "kategorien": ["Praxisbericht", "KI-Tools", "Forschung"], "quelle": "DGOU-Meldung, Einladungen, LinkedIn-Ankündigungen", "status": "entwurf" },
     { "datum": "2026-10", "titel": null },
-    { "datum": "2026-11-03", "titel": "Vom Arzt zum Softwareentwickler", "beschreibung": "KI im klinischen Alltag", "referent": "Philipp Michel", "kategorie": "Praxisbericht" }
+    { "datum": "2026-11-03", "titel": "Vom Arzt zum Softwareentwickler", "beschreibung": "Orthopäde und Unfallchirurg: Einstieg in die KI, Anwendung im Klinikalltag und Entwicklung der Software CendovaPlan.", "referent": "Philipp Michel", "kategorien": ["Praxisbericht", "Softwareentwicklung"], "quelle": "DGOU-Meldung, Einladungen, LinkedIn-Ankündigungen", "status": "entwurf" }
   ]
 }

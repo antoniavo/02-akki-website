@@ -12,6 +12,11 @@ window.akkiKontakt = fetch('daten/kontakt.json')
     document.querySelectorAll('a[data-kontakt-mailto]').forEach(el => {
       el.href = 'mailto:' + kontakt.email + '?subject=' + encodeURIComponent(el.dataset.kontaktMailto);
     });
+    // Dasselbe, aber der Betreff kommt aus kontakt.json (data-kontakt-betreff="forschung"): eine Quelle für alle Seiten
+    document.querySelectorAll('a[data-kontakt-betreff]').forEach(el => {
+      const betreff = (kontakt.betreff || {})[el.dataset.kontaktBetreff];
+      if (betreff) el.href = 'mailto:' + kontakt.email + '?subject=' + encodeURIComponent(betreff);
+    });
     return kontakt;
   })
   .catch(() => {

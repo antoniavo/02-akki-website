@@ -2,10 +2,12 @@
   "email": "akki@dgou.de",
   "hinweis": "Bei der DGOU noch zu bestätigen. Umstellung der Adresse = diese eine Zeile.",
   "betreff": {
-    "newsletter": "Newsletter KI Lab",
+    "mitarbeit": "Interesse an Mitarbeit",
     "themenvorschlag": "Themenvorschlag KI Lab",
     "forschung": "Forschungskooperation",
-    "mitarbeit": "Mitarbeit im AKKI",
-    "allgemein": "Anfrage an den AKKI"
-  }
+    "opensource": "Open-Source-Projekt",
+    "allgemein": "Allgemeine Anfrage",
+    "newsletter": "Newsletter KI Lab"
+  },
+  "betreffAuswahl": ["mitarbeit", "themenvorschlag", "forschung", "opensource", "allgemein"]
 }

@@ -313,6 +313,20 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 .unterabschnitt { margin-top: var(--a4); }
 .pub-eintrag:target { background: var(--mint-hell); box-shadow: -12px 0 0 var(--mint-hell), 12px 0 0 var(--mint-hell); border-radius: var(--radius-klein); }
 .pub-eintrag__titel { margin-top: 0; }
+.kacheln--vier { grid-template-columns: repeat(4, 1fr); }
+.kachel--aktion { display: flex; flex-direction: column; align-items: flex-start; }
+.kachel--aktion p { flex: 1; }
+.kachel--aktion .knopfreihe { margin-top: var(--a1); }
+.kontakt-wahl { display: flex; flex-wrap: wrap; gap: var(--a2); align-items: flex-end; margin-top: var(--a2); }
+.kontakt-wahl__feld { display: flex; flex-direction: column; gap: 6px; flex: 1 1 280px; max-width: 420px; }
+.kontakt-wahl label { font-weight: 700; color: var(--blau); }
+.kontakt-wahl select { font: 400 1rem var(--font-body); color: var(--text); background: var(--weiss); border: 1px solid var(--text-2); border-radius: var(--radius-klein); padding: 10px 12px; min-height: 44px; }
+.kontakt-wahl select:focus { outline: 3px solid var(--fokus); outline-offset: 1px; }
+.faq { max-width: var(--zeile); }
+.faq details { background: var(--weiss); border: 1px solid var(--rahmen); border-radius: var(--radius-klein); margin-bottom: var(--a1); }
+.faq summary { cursor: pointer; font-weight: 700; color: var(--blau); padding: 14px var(--a2); min-height: 44px; }
+.faq details[open] summary { border-bottom: 1px solid var(--rahmen); }
+.faq details p { margin: 0; padding: var(--a2); }
 .filter-label { align-self: center; font-size: .85rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-2); margin-right: 2px; }
 .ziele-liste { max-width: var(--zeile); }
 .ziele-liste li { margin: 8px 0; }
@@ -345,7 +359,7 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 
 /* =============== Mobil =============== */
 @media (max-width: 1000px) {
-  .archiv-karten, .termin-karten { grid-template-columns: repeat(2, 1fr); }
+  .archiv-karten, .termin-karten, .kacheln--vier { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 960px) {
   .nav__toggle { display: block; }
@@ -364,7 +378,7 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
   .org-reihe::before { display: none; }
 }
 @media (max-width: 760px) {
-  .kacheln, .kacheln--zwei, .termin-karten, .archiv-karten { grid-template-columns: 1fr; }
+  .kacheln, .kacheln--zwei, .kacheln--vier, .termin-karten, .archiv-karten { grid-template-columns: 1fr; }
   .mitmachen-kasten { padding: 22px; }
   .termine li { grid-template-columns: 1fr; }
   .seitenkopf { padding: var(--a3) 0 var(--a2); }

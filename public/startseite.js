@@ -28,33 +28,6 @@
     ['pointerleave', 'blur'].forEach(e => rund.addEventListener(e, () => tempo(1)));
   }
 
-  // ---------- Unterzeilen der Einstiegskacheln: aktuelle Infos aus den Datendateien (reiner Text) ----------
-  // Der Termin für die Kachel "KI Lab" kommt aus beitraege.js. Schlägt das Laden fehl, bleibt der feste Text stehen.
-  const info = name => document.querySelector(`[data-info="${name}"]`);
-  const kuerzen = (text, max) => {
-    if (text.length <= max) return text;
-    const teil = text.slice(0, max);
-    return teil.slice(0, Math.max(teil.lastIndexOf(' '), Math.floor(max / 2))).replace(/[\s,;:–-]+$/, '') + '…';
-  };
-  const zaehlen = (n, einzahl, mehrzahl) => `${n} ${n === 1 ? einzahl : mehrzahl}`;
-
-  const forschung = info('forschung');
-  if (forschung) {
-    Promise.all([holen('daten/projekte.json'), holen('daten/usecases.json')]).then(([p, u]) => {
-      const projekte = (p.projekte || []).length, cases = (u.usecases || []).length;
-      forschung.textContent = `${zaehlen(projekte, 'Projekt', 'Projekte')} · ${zaehlen(cases, 'Hackathon-Use-Case', 'Hackathon-Use-Cases')}`;
-    }).catch(() => { /* fester Text bleibt */ });
-  }
-
-  const pubInfo = info('publikationen');
-  if (pubInfo) {
-    holen('daten/publikationen.json').then(d => {
-      const alle = (d.publikationen || []).filter(p => p.titel && p.jahr)
-        .sort((a, b) => (b.jahr - a.jahr) || ((a.nr || 0) - (b.nr || 0)));
-      if (!alle.length) return;
-      pubInfo.textContent = `${zaehlen(alle.length, 'Publikation', 'Publikationen')} · neu: ${kuerzen(alle[0].titel, 28)}`;
-    }).catch(() => { /* fester Text bleibt */ });
-  }
   // ---------- Hackathon ----------
   const karte = document.getElementById('hackathon-karte');
   if (karte) {

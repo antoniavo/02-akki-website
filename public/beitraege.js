@@ -305,15 +305,6 @@
       setTimeout(() => URL.revokeObjectURL(a.href), 1000);
     });
   }
-  // Unterzeile der Startseiten-Kachel "KI Lab": "Nächster Termin: Di, 1. Dez." (nächster erster Dienstag, automatisch)
-  const MONAT_KURZ = ['Jan.', 'Feb.', 'März', 'Apr.', 'Mai', 'Juni', 'Juli', 'Aug.', 'Sept.', 'Okt.', 'Nov.', 'Dez.'];
-  function kachelInfo(t) {
-    const ziel = document.querySelector('[data-info="kilab"]');
-    if (!ziel || !t) return;
-    const [j, m, tag] = t.datum.split('-').map(Number);
-    const wochentag = WOCHENTAGE[new Date(Date.UTC(j, m - 1, tag)).getUTCDay()].slice(0, 2);
-    ziel.textContent = `Nächster Termin: ${wochentag}, ${tag}. ${MONAT_KURZ[m - 1]}`;
-  }
   // ---------- Start ----------
   const aktuell = document.getElementById('aktuelles-liste');
   const letzte = document.getElementById('kilab-letzte');
@@ -330,7 +321,6 @@
       if (letzte) letzte.replaceChildren(...termine.slice(0, 3).map(terminKarteKurz));
       if (naechster) naechsterTerminEinrichten(naechster, naechsterTermin(daten));
       naechsterAufStartseite(naechsterStart, naechsterTermin(daten));
-      kachelInfo(naechsterTermin(daten));
       if (archiv) vortraegeEinrichten(archiv, termine);
     })
     .catch(() => {
@@ -338,6 +328,5 @@
       // Ohne die Datei gibt es kein Thema, der Termin selbst lässt sich trotzdem berechnen
       if (naechster) naechsterTerminEinrichten(naechster, naechsterTermin({}));
       naechsterAufStartseite(naechsterStart, naechsterTermin({}));
-      kachelInfo(naechsterTermin({}));
     });
 })();

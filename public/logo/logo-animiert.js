@@ -62,8 +62,20 @@
         sc = Math.min(W * anteil, 900) / tot;
         fs = Math.max(13, Math.min(22, sc * 6.6));   // Untertitel 1: 22 px bei voller Größe, mindestens 13 px
         fs2 = Math.max(11, fs * 0.68);               // Untertitel 2: 15 px bei voller Größe, mindestens 11 px
-        const rand = Math.max(24, Math.min(40, W * 0.035));
+        let rand = Math.max(24, Math.min(40, W * 0.035));
         H = Math.round(100 * sc + (ohneText ? fs * 0.9 + rand : fs * 3.4 + 2 * rand));
+        // Startseite: der ganze Kopfbereich (Logo, Untertitelzeile, Abstand unten) höchstens ca. 70 % der Bildschirmhöhe.
+        // Zuerst weniger Leerraum über dem Logo, nur wenn das nicht reicht, wird das Logo kleiner.
+        const kopf = c.closest('.hero');
+        if (kopf && ohneText) {
+          const fuss = kopf.querySelector('.hero__fuss');
+          const platz = 0.7 * document.documentElement.clientHeight - (fuss ? fuss.offsetHeight : 0) - parseFloat(getComputedStyle(kopf).paddingBottom || 0);
+          if (H > platz) {
+            rand = Math.min(rand, 18);
+            H = Math.round(100 * sc + fs * 0.9 + rand);
+            if (H > platz) { sc = Math.max(1.4, (platz - fs * 0.9 - rand) / 100); H = Math.round(100 * sc + fs * 0.9 + rand); }
+          }
+        }
         c.style.height = H + 'px';
         // Schriftgrößen für den HTML-Text unter dem Logo (nur wenn der Canvas die Zeilen nicht selbst zeichnet)
         if (ohneText && c.parentNode) {

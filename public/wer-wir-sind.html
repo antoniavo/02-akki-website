@@ -112,6 +112,7 @@
     if (p.pruefen) html += ' <span class="bestaetigen">wird geprüft</span>';
     if ('zusatz' in p) html += '<span class="zusatz">' + (p.zusatz ? schutz(p.zusatz) : 'Schwerpunkt: ' + TEXT_FOLGT) + '</span>';
     if ('leitung' in p) html += '<span class="zusatz">Leitung: ' + (p.leitung ? schutz(p.leitung) : TEXT_FOLGT) + '</span>';
+    if (p.ansprechpartner) html += '<span class="zusatz">Ansprechpartner: ' + schutz(p.ansprechpartner) + '</span>';
     if (p.unterpunkte && p.unterpunkte.length) html += '<ul>' + p.unterpunkte.map(punkt).join('') + '</ul>';
     return html + '</li>';
   }

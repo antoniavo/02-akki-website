@@ -43,7 +43,7 @@ Alles mit ⚠️ ist aus öffentlichen Quellen zusammengetragen und muss vor Ort
     - Sekretär:in: Dr. Julian Scherer (Zürich), Yasmin Youssef (Leipzig)
     - **Arbeitskreise** ⚠️ öffentliche Angaben teils veraltet – Namen und Leitungen mit David klären
       - AKKI – Künstliche Intelligenz: KI in Patientenversorgung und Forschung · Leitung: ___
-      - AK Medien und digitale Systeme · Schwerpunkt: ___ · Leitung: ___
+      - AK Medien und digitale Systeme · Schwerpunkt: ___ · Leitung: ___ · Ansprechpartner: PD Dr. Lindhorst, doc. Dr. Stephan Grüner
       - AK Weißbuch Digitalisierung (gibt es ihn noch?): Strukturierung und strategische Entwicklung der Digitalisierung in O&U · Leitung: ___
       - AK S3-Leitlinie Coxarthrose – digitale Technologien (gibt es ihn noch?) · Leitung: ___
     - **Kompetenzbereiche** (gibt es die noch?)

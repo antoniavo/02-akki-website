@@ -1,6 +1,8 @@
 # PROJEKTSTAND – AKKI-Website (Übergabe nach Clear)
 
-**Stand:** Fr 27.11.2026, ca. 15:00 Uhr · AKKI Hackathon 2026, Use Case 02 · Präsentation: Sa 28.11.2026
+**Stand:** Fr 27.11.2026, ca. 15:30 Uhr (aktualisiert nach dem Bau der KI-Lab-Seite) · AKKI Hackathon 2026, Use Case 02 · Präsentation: Sa 28.11.2026
+
+> **Neue Sitzung:** Vor dem Arbeiten `git log` ansehen und die Liste in Abschnitt 7 gegen den echten Stand prüfen. Diese Datei kann hinter dem Repo zurückliegen.
 
 > **Für Claude Code nach einem Clear:** Lies zuerst diese Datei, dann `CLAUDE.md` (Regeln der Orga), `inhalte.md` (alle Inhalte und Designvorgaben) und `KONZEPT.md` (Smart Editor). Diese Datei fasst zusammen, was entschieden, gebaut und offen ist.
 
@@ -27,6 +29,14 @@ Leitidee **„The Living Website“**: Die Seite pflegt sich mithilfe von KI wei
 - **Nichts erfinden.** Unbestätigte Angaben weglassen oder intern als offen führen; auf der öffentlichen Seite keine sichtbaren „Text folgt“-Platzhalter mehr.
 - **Schreibregel:** kurze, ansprechende Texte, pro Abschnitt höchstens 2 Sätze oder Stichpunkte.
 - Pflichthinweis der Orga bleibt während des Hackathons sichtbar: „Prototyp – nur Testdaten. Kein Ersatz für ärztliche Beurteilung.“
+
+**Stolpersteine bei der Arbeit mit Claude Code (Windows):**
+
+- **Git** ist nicht im PATH. Es liegt nur in GitHub Desktop: `%LOCALAPPDATA%\GitHubDesktop\app-*\resources\app\git\cmd\git.exe`.
+- **Hochladen (Push) kann Claude Code nicht**, weil GitHub eine Anmeldung verlangt. Es muss in GitHub Desktop auf „Push origin“ geklickt werden. Speichern (Commit) macht Claude Code selbst und ohne Rückfrage.
+- **Vorschau-Knopf der App** startet leicht die alte Kopie im Desktop-Ordner. Den Server deshalb im richtigen Ordner selbst starten: `node --env-file-if-exists=.env server.js` (Adresse `http://localhost:3000`).
+- **Seiten per Doppelklick öffnen** zeigt Kontaktadresse und Organigramm nicht (Browser lädt Datendateien nicht von der Festplatte). Immer über `http://localhost:3000` ansehen.
+- **API-Schlüssel** liegt nur lokal in `.env`. Ohne Schlüssel bleibt im Smart Editor das Feld „Einführung“ zum selbst Schreiben.
 
 ---
 
@@ -78,6 +88,7 @@ Leitidee **„The Living Website“**: Die Seite pflegt sich mithilfe von KI wei
 - Impressum und Datenschutz mit DGOU-Angaben, Vercel und Datenschutzbeauftragtem
 - Schriften lokal, Suchmaschinensperre, Vercel-Konfiguration
 - Smart Editor (lokal) mit Reitern Publikation (DOI über Crossref), Veranstaltung, Newsletter; noch ohne KI
+- KI-Lab-Seite (`treffen.html`, Menüpunkt „KI Lab“): Einführung, „Nächster Termin“ automatisch (erster Dienstag im Monat, 18–19 Uhr) mit Kalenderdatei (.ics) und Newsletter-Button, Archiv als Karten (neueste zuerst) mit Suche und Kategorie-Filter, Kasten „Selbst ein Thema vorstellen?“; Daten und Kategorien (KI-Tools, Automatisierung, Strategie, Praxisbericht) in `beitraege.json`; kein Teams-Link auf der Seite; Referentin am 15.09. bleibt weggelassen, bis der Name bestätigt ist
 
 ---
 
@@ -97,8 +108,22 @@ Alle Texte und Fakten stehen in **`inhalte.md`**. Wichtigste Quellen: AG-Präsen
    ```
    Hell die Website auf, das Dunkelblau wirkt zu schwer. Navigation weiß mit dunkelblauer Schrift und feiner Linie unten. Startseiten-Kopf auf hellem Hintergrund (#FFFFFF bzw. sehr helles Mint #F3FAF8), Headline in #00508A, Text in #4A5560. Das lebende Logo bleibt, sitzt aber in einer kleineren, abgerundeten dunklen Kachel (#002B45) rechts neben der Headline statt über die ganze Breite. Seitenköpfe der Unterseiten hell mit dunkelblauer Überschrift und Untertitel. Dunkelblau nur noch für Logo-Kachel, Buttons und Fußzeile. Headline kürzer: "Künstliche Intelligenz trifft medizinische Expertise." Kontraste prüfen, dann speichern und hochladen.
    ```
-2. **Projektseite** überarbeiten (Prompt aus dem Chat, 14:39), falls noch nicht geschehen
-3. **KI-Lab-Seite** fertigstellen: nächster Termin automatisch, .ics-Download, Archiv mit Suche und Kategorie-Filter, „Thema vorschlagen“
+2. **Projektseite und Navigations-Schriftzug** (noch NICHT gebaut, `public/daten/projekte.json` gibt es noch nicht). Auftrag im Wortlaut:
+   ```
+   Überarbeite projekte.html. Kopfbereich mit Untertitel: "Woran wir arbeiten – von der Forschung bis zum Wissenstransfer." Drei Bereiche:
+   1. "Thematische Schwerpunkte" (kurze Karten mit Icon, je 1–2 Sätze): KI-basierter Leitliniensupport; Erleichterter KI-Zugang in O&U; Clinical Decision Support.
+   2. "Forschungsprojekte und Publikationen" als Projektkarten:
+      - KI-gestützte Wunddokumentation – Validierungsstudie zur automatisierten Erstellung von Wundbefunden im Vergleich zur manuellen Dokumentation. Status: laufend. Ansprechpartner: Prof. Georg Osterhoff (bestätigen).
+      - KI-basierte Arztbriefe – Zukunft oder Gefahr? Status: publiziert. Link: https://pubmed.ncbi.nlm.nih.gov/41436785/
+      - Vergleich von Sprachmodellen bei Patientenfragen zur vorderen Kreuzbandruptur. Status: publiziert. Link: https://pubmed.ncbi.nlm.nih.gov/41253635/
+   3. "Wissenstransfer und Innovation": DGOU KI Lab (→ KI-Lab-Seite), AKKI Hackathon 2026 (→ https://akki-hackathon-2026.vercel.app), Open Source (→ https://github.com/akkidgou-opensource).
+   Projektkarten mit Feldern: Titel, Kurzbeschreibung, Kategorie, Status (Badge: geplant/laufend/publiziert), Ansprechpartner, Publikationslink. Daten zentral in public/daten/projekte.json; Filter nach Status. Fehlende Felder ausblenden, keine Platzhalter, nichts erfinden.
+   Unten Kasten "Forschungsidee einbringen?" mit Button → mailto an die zentrale Kontaktadresse.
+   Zusätzlich in der Navigation: Statt des kleinen SVG-Logos auf Dunkelblau den Schriftzug "AKKI" in Weiß mit kleinem mintfarbenen Punkt zeigen, damit er gut lesbar ist.
+   Dann speichern und hochladen.
+   ```
+   Hinweis: Wird Schritt 1 (hellere Navigation) zuerst gemacht, muss der Schriftzug „AKKI“ auf hellem Grund dunkelblau statt weiß sein. Reihenfolge mit dem Team klären.
+3. ~~KI-Lab-Seite fertigstellen~~ **Erledigt** (siehe Abschnitt 5)
 4. **Vercel-Veröffentlichung** (Antonia): vercel.com → mit GitHub anmelden → Projekt `02-akki-website` importieren → Framework „Other“, kein Build, Output `public` → Deploy. Live-URL notieren.
 5. **Smart Editor mit KI**, sobald ein API-Schlüssel vorliegt (Regeln für KI-Entwürfe in `KONZEPT.md` Abschnitt 4 vorher vom Team freigeben lassen). Evidence Check: Studientyp, Anwendungsbereich, externe Validierung, klinische Einsatzreife, Limitationen.
 6. **Block 7 Prüfung:** tote Links, Seitentitel, Handy-Ansicht (380 px), Kontraste, Rechtschreibung

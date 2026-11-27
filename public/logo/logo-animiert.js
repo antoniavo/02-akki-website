@@ -73,7 +73,9 @@
         const kopf = c.closest('.hero');
         if (kopf && ohneText) {
           const fuss = kopf.querySelector('.hero__fuss');
-          const platz = 0.7 * document.documentElement.clientHeight - (fuss ? fuss.offsetHeight : 0) - parseFloat(getComputedStyle(kopf).paddingBottom || 0);
+          // Das Polster für den auslaufenden Farbverlauf (--verlauf, nur Startseite) zählt nicht zum Kopf
+          const verlauf = parseFloat(getComputedStyle(kopf).getPropertyValue('--verlauf')) || 0;
+          const platz = 0.7 * document.documentElement.clientHeight - (fuss ? fuss.offsetHeight : 0) - (parseFloat(getComputedStyle(kopf).paddingBottom || 0) - verlauf);
           if (H > platz) {
             rand = Math.min(rand, 14);
             H = Math.round(100 * sc + fs * 0.9 + rand);

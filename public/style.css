@@ -566,3 +566,23 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
   .kopfband__innen { flex-direction: column; align-items: flex-start; }
   .kopfband .hauptnav ul { justify-content: flex-start; }
 }
+
+/* Startseite: Der blaue Kopf läuft unten in einem sanften Verlauf nach #F4F7F9 aus; die Box "Aktuell" ragt in den Verlauf hinein.
+   Der Verlauf geht über blaue Zwischentöne (kein graues Mittelstück). Unterseiten bleiben unverändert. */
+body.startseite { --verlauf: 200px; background: #F4F7F9; }
+.startseite .hero--kompakt {
+  padding-bottom: calc(var(--verlauf) + 12px);
+  background: linear-gradient(to bottom,
+    #2C4F6B 0, #2C4F6B calc(100% - var(--verlauf) - 12px),
+    #3B6482 calc(100% - var(--verlauf) * .8 - 12px),
+    #62849C calc(100% - var(--verlauf) * .6 - 12px),
+    #9DB5C6 calc(100% - var(--verlauf) * .4 - 12px),
+    #D3E0E9 calc(100% - var(--verlauf) * .2 - 12px),
+    #F4F7F9 100%);
+}
+.startseite main > section:first-child { margin-top: calc(var(--verlauf) * -0.7 - 12px); position: relative; z-index: 2; }
+.startseite main section.abschnitt--hell { background: #F4F7F9; }
+@media (max-width: 760px) {
+  body.startseite { --verlauf: 120px; }
+  .startseite .hero--kompakt { padding-bottom: calc(var(--verlauf) + 12px); }
+}

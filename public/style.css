@@ -176,13 +176,14 @@ main section.einstiege { padding: 0; margin-top: -56px; position: relative; z-in
 .hackathon-karte__fakten { margin: 0 0 var(--a3); font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .95rem; color: var(--text-auf-dunkel-leise); }
 .hackathon-karte__zahl { margin: 0 0 var(--a2); font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .9rem; letter-spacing: .08em; text-transform: uppercase; color: var(--text-auf-dunkel-leise); }
 .hackathon-karte__zahl strong { margin-right: 6px; font-family: var(--font-heading); font-size: 2.6rem; font-weight: 800; line-height: 1; letter-spacing: 0; color: var(--mint); vertical-align: -4px; }
-.knopf--auf-dunkel { background: transparent; color: var(--text-auf-dunkel); border-color: rgba(255, 255, 255, .6); }
-.knopf--auf-dunkel:hover { background: rgba(255, 255, 255, .14); border-color: var(--weiss); color: var(--text-auf-dunkel); }
+.hackathon-karte .knopf--auf-dunkel { background: transparent; color: var(--text-auf-dunkel); border-color: rgba(255, 255, 255, .6); }
+.hackathon-karte .knopf--auf-dunkel:hover { background: rgba(255, 255, 255, .14); border-color: var(--weiss); color: var(--text-auf-dunkel); }
+main section.einstiege + section { padding-top: var(--a4); }
 .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .chip { display: inline-block; padding: 5px 14px; border: 1px solid rgba(255, 255, 255, .3); border-radius: 999px; background: rgba(255, 255, 255, .07); color: var(--text-auf-dunkel); font-size: .88rem; font-weight: 600; text-decoration: none; transition: background .15s ease, color .15s ease, transform .15s ease; }
 .chip:hover { background: var(--mint); border-color: var(--mint); color: var(--navy); transform: translateY(-2px); }
 
-.termin-karte--block { flex-direction: row; align-items: flex-start; gap: var(--a2); }
+.termin-karte.termin-karte--block { flex-direction: row; align-items: flex-start; gap: var(--a2); }
 .termin-karte--block .datumsblock { flex: none; width: 68px; padding: 10px 0; }
 .termin-karte__inhalt { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .datumsblock__jahr { margin-top: 2px; font-size: .72rem; font-weight: 600; opacity: .85; }

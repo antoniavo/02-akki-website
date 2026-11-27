@@ -1,10 +1,10 @@
 // Kleiner Server zum lokalen Ansehen der Website und für den AKKI Smart Editor.
-// Liefert die Dateien aus public/ aus und bietet /api/doi (Crossref-Abfrage).
+// Liefert die Dateien aus public/ aus und bietet die Schnittstellen des Smart Editors (Crossref, PubMed, Speichern).
 // Keine Zusatzpakete nötig.
 // Start: node --env-file-if-exists=.env server.js
 //   (ohne .env läuft alles außer der KI-Einführung, die Felder bleiben dann zum selbst Schreiben)
 //
-// Datenschutz: Eingegebene DOIs, Texte und Abfrage-Ergebnisse werden weder gespeichert noch geloggt.
+// Datenschutz: Eingaben und Abfrage-Ergebnisse werden nicht geloggt. Gespeichert wird nur, was ausdrücklich freigegeben wird (public/daten).
 // Der API-Schlüssel steht nur in .env und wird nie ausgegeben.
 
 const http = require('node:http');
@@ -74,9 +74,19 @@ function abstractAlsText(roh) {
     .trim();
 }
 
+const KOPF_ABFRAGE = { 'User-Agent': 'AKKI-Smart-Editor/0.2 (Prototyp)' };
+
+// "Müller, Anna-Lena" -> "Müller AL" (Schreibweise der Publikationsliste)
+function autorKurz(a) {
+  if (!a.family) return a.name || '';
+  const kuerzel = (a.given || '').split(/[\s.-]+/).filter(Boolean).map(t => t[0].toUpperCase()).join('');
+  return [a.family, kuerzel].filter(Boolean).join(' ');
+}
+const bindestrichZuGedankenstrich = t => String(t || '').replace(/-/g, '–');
+
 async function crossrefAbfragen(doi) {
   const antwort = await fetch('https://api.crossref.org/works/' + encodeURIComponent(doi), {
-    headers: { 'User-Agent': 'AKKI-Smart-Editor/0.1 (Prototyp)' },
+    headers: KOPF_ABFRAGE,
     signal: AbortSignal.timeout(10000),
   });
   if (antwort.status === 404) return { status: 404, fehler: 'Zu dieser DOI hat Crossref keinen Eintrag gefunden.' };
@@ -85,61 +95,210 @@ async function crossrefAbfragen(doi) {
   const w = (await antwort.json()).message || {};
   const datum = w.issued || w['published-print'] || w['published-online'] || {};
   const jahr = (datum['date-parts'] && datum['date-parts'][0] && datum['date-parts'][0][0]) || '';
-  const autoren = (w.author || []).map(a => [a.given, a.family].filter(Boolean).join(' ') || a.name || '').filter(Boolean);
+  const kurzJournal = w['short-container-title'] && w['short-container-title'][0];
 
   return {
     status: 200,
     daten: {
       doi: w.DOI || doi,
-      titel: (w.title && w.title[0]) || '',
-      autoren,
-      journal: (w['container-title'] && w['container-title'][0]) || '',
+      pubmed: '',
+      titel: ((w.title && w.title[0]) || '').replace(/<[^>]+>/g, ''),
+      autoren: (w.author || []).map(autorKurz).filter(Boolean),
+      journal: kurzJournal || (w['container-title'] && w['container-title'][0]) || '',
       jahr: jahr ? String(jahr) : '',
+      band: w.volume || '',
+      heft: w.issue || '',
+      seiten: bindestrichZuGedankenstrich(w.page),
       abstract: abstractAlsText(w.abstract),
     },
   };
 }
 
-async function apiDoi(req, res, url) {
-  const doi = doiBereinigen(url.searchParams.get('doi'));
-  if (!doi) return json(res, 400, { fehler: 'Das sieht nicht wie eine DOI aus. Beispiel: 10.1371/journal.pmed.1002686' });
+// PubMed: Zusammenfassung zu einer PubMed-ID (NCBI E-Utilities)
+async function pubmedAbfragen(pmid) {
+  const antwort = await fetch(
+    'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=' + pmid,
+    { headers: KOPF_ABFRAGE, signal: AbortSignal.timeout(10000) });
+  if (!antwort.ok) return { status: 502, fehler: 'PubMed antwortet gerade nicht. Bitte später noch einmal versuchen.' };
+  const e = ((await antwort.json()).result || {})[pmid];
+  if (!e || e.error) return { status: 404, fehler: 'Zu dieser PubMed-ID gibt es keinen Eintrag.' };
+  const doi = ((e.articleids || []).find(x => x.idtype === 'doi') || {}).value || '';
+  return {
+    status: 200,
+    daten: {
+      doi, pubmed: pmid,
+      titel: String(e.title || '').replace(/\.$/, ''),
+      autoren: (e.authors || []).map(a => a.name).filter(Boolean),
+      journal: e.source || '',
+      jahr: String(e.pubdate || '').slice(0, 4),
+      band: e.volume || '', heft: e.issue || '', seiten: bindestrichZuGedankenstrich(e.pages),
+      abstract: '',
+    },
+  };
+}
+
+// --- Datendateien und Dublettenprüfung ---------------------------------------
+
+const DATEN = path.join(ROOT, 'daten');
+const PUB_DATEI = path.join(DATEN, 'publikationen.json');
+const TERMIN_DATEI = path.join(DATEN, 'beitraege.json');
+
+const dateiLesen = pfad => JSON.parse(fs.readFileSync(pfad, 'utf8'));
+function dateiSchreiben(pfad, text) {
+  fs.writeFileSync(pfad + '.tmp', text, 'utf8');
+  fs.renameSync(pfad + '.tmp', pfad); // erst ganz schreiben, dann ersetzen
+}
+const heuteIso = () => new Date().toLocaleDateString('sv-SE');
+const titelSchluessel = t => String(t || '').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]/g, '');
+
+function dublette(doi, titel) {
+  const liste = dateiLesen(PUB_DATEI).publikationen || [];
+  const d = String(doi || '').toLowerCase();
+  const t = titelSchluessel(titel);
+  return liste.find(p => (d && p.doi && p.doi.toLowerCase() === d) || (t && titelSchluessel(p.titel) === t)) || null;
+}
+
+// Nimmt DOI, PubMed-ID (nur Ziffern, auch "PMID: 123") oder doi.org-Link an
+async function apiQuelle(req, res, url) {
+  const eingabe = String(url.searchParams.get('q') || '').trim();
+  const pmidTreffer = eingabe.match(/^(?:pmid:?\s*)?(\d{1,9})$/i);
+  const doi = pmidTreffer ? null : doiBereinigen(eingabe);
+  if (!pmidTreffer && !doi) {
+    return json(res, 400, { fehler: 'Das sieht weder nach einer DOI noch nach einer PubMed-ID aus. Beispiele: 10.1371/journal.pmed.1002686 oder 29799845' });
+  }
   try {
-    const ergebnis = await crossrefAbfragen(doi);
-    if (ergebnis.fehler) return json(res, ergebnis.status, { fehler: ergebnis.fehler });
-    return json(res, 200, ergebnis.daten);
+    let ergebnis;
+    if (pmidTreffer) {
+      ergebnis = await pubmedAbfragen(pmidTreffer[1]);
+      if (ergebnis.fehler) return json(res, ergebnis.status, { fehler: ergebnis.fehler });
+      if (ergebnis.daten.doi) { // Crossref liefert meist die vollständigeren Angaben
+        const cr = await crossrefAbfragen(ergebnis.daten.doi).catch(() => null);
+        if (cr && cr.daten) { cr.daten.pubmed = pmidTreffer[1]; ergebnis = cr; }
+      }
+    } else {
+      ergebnis = await crossrefAbfragen(doi);
+      if (ergebnis.fehler) return json(res, ergebnis.status, { fehler: ergebnis.fehler });
+    }
+    const d = ergebnis.daten;
+    const treffer = dublette(d.doi, d.titel);
+    d.dublette = treffer ? { titel: treffer.titel, jahr: treffer.jahr, nr: treffer.nr } : null;
+    return json(res, 200, d);
   } catch {
-    return json(res, 502, { fehler: 'Crossref ist nicht erreichbar. Bitte Internetverbindung prüfen.' });
+    return json(res, 502, { fehler: 'Die Abfrage hat nicht geklappt. Bitte Internetverbindung prüfen.' });
   }
 }
 
-// --- Nächster KI-Lab-Termin (erster Dienstag im Monat, 18–19 Uhr, Zeitzone Berlin) ---
+// --- Freigegebene Beiträge speichern ----------------------------------------
+// Geschrieben wird nur nach Freigabe ("Freigegeben von"). Danach speichert (commit) und pusht das Team.
 
-function berlinJetzt() {
-  const teile = new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Europe/Berlin', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', hourCycle: 'h23',
-  }).formatToParts(new Date());
-  const t = Object.fromEntries(teile.map(p => [p.type, Number(p.value)]));
-  return { jahr: t.year, monat: t.month, tag: t.day, stunde: t.hour };
+const THEMEN = ['KI', 'Telemedizin', 'Lehre', 'Apps/DiGA', 'Social Media', 'Sportmedizin', 'VR/Simulation', 'Digitalisierung allgemein'];
+const KENNZEICHEN = ['AKKI-Publikation', 'AG-Publikation'];
+const KATEGORIEN = ['KI-Tools', 'Automatisierung', 'Strategie', 'Praxisbericht', 'Datenschutz', 'Forschung', 'Klinische KI', 'Softwareentwicklung'];
+
+const text = (v, max) => String(v == null ? '' : v).trim().slice(0, max);
+const nurEintraege = (obj) => Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== '' && v !== undefined));
+
+async function jsonKoerper(req, res) {
+  try { return JSON.parse(await koerperLesen(req, 60000)); } catch { json(res, 400, { fehler: 'Ungültige Anfrage.' }); return null; }
 }
 
-function ersterDienstag(jahr, monat) {
-  const wochentag = new Date(Date.UTC(jahr, monat - 1, 1)).getUTCDay(); // 0 = Sonntag, 2 = Dienstag
-  return 1 + ((2 - wochentag + 7) % 7);
+async function apiPublikationSpeichern(req, res) {
+  const e = await jsonKoerper(req, res);
+  if (!e) return;
+  const doi = text(e.doi, 200) ? doiBereinigen(e.doi) : '';
+  if (doi === null) return json(res, 400, { fehler: 'Die DOI ist nicht gültig.' });
+  const eintrag = {
+    titel: text(e.titel, 500), autoren: text(e.autoren, 1500), journal: text(e.journal, 200),
+    jahr: text(e.jahr, 4), band: text(e.band, 20), heft: text(e.heft, 20), seiten: text(e.seiten, 30),
+    pubmed: text(e.pubmed, 9), freigabe: text(e.freigegebenVon, 120),
+  };
+  const fehlt = [['titel', 'Titel'], ['autoren', 'Autoren'], ['journal', 'Journal'], ['freigabe', 'Freigegeben von']]
+    .filter(([k]) => !eintrag[k]).map(([, n]) => n);
+  if (!/^\d{4}$/.test(eintrag.jahr)) fehlt.push('Jahr (vier Ziffern)');
+  if (eintrag.pubmed && !/^\d{1,9}$/.test(eintrag.pubmed)) fehlt.push('PubMed-ID (nur Ziffern)');
+  if (fehlt.length) return json(res, 400, { fehler: 'Noch offen: ' + fehlt.join(', ') + '.' });
+  const themen = (Array.isArray(e.themen) ? e.themen : []).filter(t => THEMEN.includes(t));
+  const kennzeichen = KENNZEICHEN.includes(e.kennzeichen) ? e.kennzeichen : null;
+
+  const datei = dateiLesen(PUB_DATEI);
+  const liste = datei.publikationen || [];
+  const treffer = dublette(doi, eintrag.titel);
+  if (treffer) return json(res, 409, { fehler: `Diese Publikation steht schon auf der Seite („${treffer.titel}“, ${treffer.jahr}).` });
+
+  const ersterAutor = (eintrag.autoren.split(',')[0] || 'autor').trim().replace(/\s+\S{1,3}$/, '');
+  const wort = (eintrag.titel.toLowerCase().match(/[a-zäöüß]{4,}/g) || ['beitrag']).find(w => !['with', 'from', 'that', 'this', 'using', 'eine', 'einer', 'wird'].includes(w)) || 'beitrag';
+  const basis = [ersterAutor, eintrag.jahr, wort].join('-').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  let id = basis, i = 2;
+  while (liste.some(p => p.id === id)) id = basis + '-' + i++;
+
+  const angabe = [eintrag.band, eintrag.heft ? `(${eintrag.heft})` : '', eintrag.seiten ? ':' + eintrag.seiten : ''].join('') || null;
+  liste.unshift({
+    id,
+    nr: Math.min(0, ...liste.map(p => p.nr || 0)) - 1, // ganz nach vorn in der Liste
+    autoren: eintrag.autoren, titel: eintrag.titel, journal: eintrag.journal, jahr: Number(eintrag.jahr),
+    angabe, band: eintrag.band || null, heft: eintrag.heft || null, seiten: eintrag.seiten || null,
+    themen, kennzeichen, doi: doi || null, pubmed: eintrag.pubmed || null,
+    quelle: 'Smart Editor (' + (eintrag.pubmed && !doi ? 'PubMed' : 'Crossref') + ')',
+    freigegeben_von: eintrag.freigabe, stand: heuteIso(), status: 'bestaetigt',
+  });
+  datei.publikationen = liste;
+  datei.stand = heuteIso();
+  dateiSchreiben(PUB_DATEI, JSON.stringify(datei, null, 2) + '\n');
+  return json(res, 200, { ok: true, id });
 }
 
-function naechsterTermin() {
-  const j = berlinJetzt();
-  let jahr = j.jahr, monat = j.monat, tag = ersterDienstag(jahr, monat);
-  // Termin dieses Monats schon vorbei (nach 19 Uhr am Termintag)? Dann nächster Monat.
-  if (j.tag > tag || (j.tag === tag && j.stunde >= 19)) {
-    monat += 1;
-    if (monat > 12) { monat = 1; jahr += 1; }
-    tag = ersterDienstag(jahr, monat);
+// beitraege.json: ein KI-Lab-Termin pro Zeile (wie in der Datei bisher)
+function einzeilig(v) {
+  if (Array.isArray(v)) return '[' + v.map(einzeilig).join(', ') + ']';
+  if (v && typeof v === 'object') return '{ ' + Object.entries(v).map(([k, w]) => JSON.stringify(k) + ': ' + einzeilig(w)).join(', ') + ' }';
+  return JSON.stringify(v);
+}
+function beitraegeText(d) {
+  const teile = Object.entries(d).map(([k, v]) => {
+    if (k === 'kiLab') return `  "kiLab": [\n${v.map(t => '    ' + einzeilig(t)).join(',\n')}\n  ]`;
+    return `  ${JSON.stringify(k)}: ${JSON.stringify(v, null, 2).replace(/\n/g, '\n  ')}`;
+  });
+  return '{\n' + teile.join(',\n') + '\n}\n';
+}
+
+async function apiTerminSpeichern(req, res) {
+  const e = await jsonKoerper(req, res);
+  if (!e) return;
+  const t = {
+    datum: text(e.datum, 10), beginn: text(e.beginn, 5), ende: text(e.ende, 5),
+    titel: text(e.titel, 200), beschreibung: text(e.beschreibung, 500), referent: text(e.referent, 120),
+    freigabe: text(e.freigegebenVon, 120),
+  };
+  const bestaetigt = e.bestaetigt === true;
+  const kategorien = (Array.isArray(e.kategorien) ? e.kategorien : []).filter(k => KATEGORIEN.includes(k));
+  const fehlt = [];
+  const echtesDatum = /^\d{4}-\d{2}-\d{2}$/.test(t.datum) && !isNaN(Date.parse(t.datum));
+  if (!echtesDatum) fehlt.push('Datum');
+  if (!t.titel) fehlt.push('Titel');
+  if (!t.freigabe) fehlt.push('Freigegeben von');
+  if ((t.beginn && !/^\d{2}:\d{2}$/.test(t.beginn)) || (t.ende && !/^\d{2}:\d{2}$/.test(t.ende))) fehlt.push('Uhrzeit im Format 18:00');
+  if (bestaetigt && (!t.beginn || !t.ende)) fehlt.push('Beginn und Ende (für „bestätigt“)');
+  if (fehlt.length) return json(res, 400, { fehler: 'Noch offen: ' + fehlt.join(', ') + '.' });
+
+  const datei = dateiLesen(TERMIN_DATEI);
+  let liste = datei.kiLab || [];
+  const gleicherTag = liste.find(x => x.datum === t.datum);
+  if (gleicherTag && e.ersetzen !== true) {
+    return json(res, 409, { fehler: `Für diesen Tag gibt es schon einen Eintrag („${gleicherTag.titel || 'ohne Titel'}“).`, ersetzbar: true });
   }
-  const zwei = n => String(n).padStart(2, '0');
-  return { datum: `${jahr}-${zwei(monat)}-${zwei(tag)}`, beginn: '18:00', ende: '19:00' };
+  // Ein Monatsplatzhalter ohne Titel (z. B. "2026-10") wird durch den genauen Termin ersetzt
+  liste = liste.filter(x => x.datum !== t.datum && !(x.titel === null && x.datum === t.datum.slice(0, 7)));
+  liste.push(nurEintraege({
+    datum: t.datum, beginn: t.beginn || undefined, ende: t.ende || undefined,
+    titel: t.titel, beschreibung: t.beschreibung || undefined, referent: t.referent || undefined,
+    kategorien, bestaetigt: bestaetigt || undefined,
+    quelle: 'Smart Editor', freigegeben_von: t.freigabe, stand: heuteIso(), status: 'bestaetigt',
+  }));
+  liste.sort((a, b) => String(a.datum).localeCompare(String(b.datum)));
+  datei.kiLab = liste;
+  dateiSchreiben(TERMIN_DATEI, beitraegeText(datei));
+  return json(res, 200, { ok: true });
 }
-
 // --- KI-Einführung für den Newsletter (Claude API, Schlüssel aus .env) ---------
 
 const MAX_ZEICHEN = 500;
@@ -239,11 +398,23 @@ http.createServer((req, res) => {
 
   if ((NUR_LOKAL.has(urlPath) || urlPath.startsWith('/api/')) && !istLokal(req)) return seiteFolgt(res);
 
-  if (urlPath === '/api/doi') {
-    if (req.method !== 'GET') return json(res, 405, { fehler: 'Nur GET erlaubt.' });
-    return apiDoi(req, res, url);
+  // Schreibende Anfragen nur von der Editor-Seite selbst (schützt vor fremden Webseiten im Browser)
+  if (req.method === 'POST' && req.headers.origin && req.headers.origin !== `http://${req.headers.host}`) {
+    return json(res, 403, { fehler: 'Anfrage nicht erlaubt.' });
   }
-  if (urlPath === '/api/naechster-termin') return json(res, 200, naechsterTermin());
+
+  if (urlPath === '/api/quelle') {
+    if (req.method !== 'GET') return json(res, 405, { fehler: 'Nur GET erlaubt.' });
+    return apiQuelle(req, res, url);
+  }
+  if (urlPath === '/api/publikation-speichern') {
+    if (req.method !== 'POST') return json(res, 405, { fehler: 'Nur POST erlaubt.' });
+    return apiPublikationSpeichern(req, res);
+  }
+  if (urlPath === '/api/termin-speichern') {
+    if (req.method !== 'POST') return json(res, 405, { fehler: 'Nur POST erlaubt.' });
+    return apiTerminSpeichern(req, res);
+  }
   if (urlPath === '/api/status') return json(res, 200, { ki: Boolean(process.env.ANTHROPIC_API_KEY) });
   if (urlPath === '/api/einfuehrung') {
     if (req.method !== 'POST') return json(res, 405, { fehler: 'Nur POST erlaubt.' });

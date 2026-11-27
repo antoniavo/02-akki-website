@@ -151,7 +151,7 @@ a:hover { text-decoration-color: var(--petrol); text-decoration-thickness: 2px; 
 .hero--kompakt { padding-bottom: 80px; overflow-x: clip; } /* der pulsierende Ring darf die Seite nie verbreitern; nach unten bleibt das Terminal-Pop-up frei sichtbar */
 .hero--kompakt canvas { height: 190px; }
 main section.einstiege { padding: 0; margin-top: -56px; position: relative; z-index: 2; }
-.einstiege__raster { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--a2); }
+.einstiege__raster { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--a2); }
 .hero__fuss { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--a2); min-height: 116px; }
 .hero__fuss .mitmach-rund, .hero__fuss .terminal-wrap { grid-column: 3; justify-self: end; }
 .hero__untertitel { grid-column: 2; margin: 0; text-align: center; color: var(--text-auf-dunkel); line-height: calc(var(--logo-fs1, 18px) * 1.35); }
@@ -460,7 +460,6 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 }
 @media (max-width: 1000px) {
   .archiv-karten, .termin-karten, .kacheln--vier { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .einstiege__raster { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hackathon-karte { grid-template-columns: 1fr; gap: var(--a3); padding: var(--a3); }
 }
 @media (max-width: 560px) {

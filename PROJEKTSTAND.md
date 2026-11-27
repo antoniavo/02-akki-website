@@ -4,7 +4,7 @@
 
 > **Für Claude Code nach einem Clear:** Lies zuerst diese Datei, dann `CLAUDE.md` (Regeln der Orga), `inhalte.md` (Inhalte, Designvorgaben, **„Offene Punkte – Gesamtliste“**) und `KONZEPT.md` (Smart Editor). Vor dem Arbeiten `git log` und `git status` ansehen; diese Datei kann hinter dem Repo zurückliegen. Die Historie der einzelnen Änderungen steht in der Git-Historie, hier steht nur der **gültige Stand**.
 >
-> **Kurzfassung:** Alle Seiten stehen (Blöcke A bis J des `ARBEITSAUFTRAG.md` erledigt, Block C bewusst anders gelöst). **Offen: Block K (Smart Editor)**, der Push zu GitHub (macht das Team) und die Vercel-Veröffentlichung. Alles Folgende ist lokal committet; ob schon gepusht ist, zeigt `git status` („ahead of origin“).
+> **Kurzfassung:** Alle Seiten stehen (Blöcke A bis J des `ARBEITSAUFTRAG.md` erledigt, Block C bewusst anders gelöst). **Block K (Smart Editor) ist teilweise fertig (Schritt 1 und 2, siehe Abschnitt 6)**; offen: KI-Entwurf, der Push zu GitHub (macht das Team) und die Vercel-Veröffentlichung. Alles Folgende ist lokal committet; ob schon gepusht ist, zeigt `git status` („ahead of origin“).
 
 ---
 
@@ -52,7 +52,7 @@ Node.js, keine Zusatzpakete, kein Build. `server.js` liefert `public/` aus (nur 
 | Daten | `public/daten/`: `beitraege.json` (KI-Lab-Termine, Kategorien, `bestaetigt`), `projekte.json`, `publikationen.json` (53 Einträge), `personen.json`, `organisation.json` (Wer wir sind), `usecases.json` (Hackathon, **10 Use Cases**), `kontakt.json` (`akki@dgou.de`, Betreffzeilen) |
 | Quelldaten | `daten/publikationen-ag.md` (Teamliste, Quelle der Publikationen), `daten/hackathon-website` und `daten/QUELLEN.md` (Referenz der Orga-Seite) |
 | Logos | `public/logo/`: `logo-animiert.js`, `logo-nav.svg`, `logo-nav-hell.svg` (Footer), `logo-hell.svg` (Browser-Icon), `logo-dunkel.svg`, `logo-vorschau.html` |
-| Smart Editor | `redaktion/redaktion.html`, **nur lokal** über `server.js` (`http://localhost:3000/redaktion`), nicht öffentlich |
+| Smart Editor | `redaktion/redaktion.html`, **nur lokal** über `server.js` (`http://localhost:3000/redaktion`), nicht öffentlich; Schnittstellen `/api/quelle`, `/api/publikation-speichern`, `/api/termin-speichern` |
 | Hosting | Vercel, `vercel.json` (Ausgabeordner `public`, kein Build). Suchmaschinen vorerst gesperrt (`noindex`, Header und Meta) |
 
 Alle Texte aus den Daten werden als reiner Text eingefügt; leere Felder (`null`) werden nicht angezeigt. Datensätze haben `quelle`, `stand`, `status` (`bestaetigt` | `entwurf`).
@@ -103,7 +103,7 @@ Alle Texte und Fakten stehen in **`inhalte.md`**. Quellen: AG-Präsentation Halb
 ## 6. Nächste Schritte
 
 1. **Push** (Team, GitHub Desktop → „Push origin“). Erst danach sieht Vercel die neuen Stände.
-2. **Block K: Smart Editor** (Beschreibung im `ARBEITSAUFTRAG.md`, Abschnitt K, und `KONZEPT.md`): DOI-/PubMed-Import über Crossref mit Dublettenprüfung gegen `publikationen.json`, KI-Entwurf nur mit API-Schlüssel in `.env` (serverseitig) und Evidence Check, Freigabe-Ablauf, **ohne Schlüssel** nur manuelle Eingabe, klar als „Demonstration ohne KI-Anbindung“ gekennzeichnet. Der Editor kennt noch nicht: neues Publikationsformat (`jahr`, `nr`, `themen`, `kennzeichen`), `bestaetigt`/`beginn`/`ende`/`kategorien` bei Terminen; er rechnet noch mit „erstem Dienstag, 18–19 Uhr“.
+2. **Block K: Smart Editor** (`ARBEITSAUFTRAG.md` Abschnitt K, `KONZEPT.md`). **Fertig und geprüft (27.11.):** Import per DOI (Crossref) oder PubMed-ID mit Dublettenprüfung gegen `publikationen.json`; Eintrag im aktuellen Format (`jahr`, `nr`, `themen`, `kennzeichen`, Autor:innen als „Nachname Initialen“); Freigabe („Freigegeben von“) schreibt in `publikationen.json` (Eintrag wird als Text eingefügt, Git-Verlauf bleibt klein). Reiter Veranstaltung speichert KI-Lab-Termine in `beitraege.json` (`beginn`, `ende`, `kategorien`, `bestaetigt`); ein Monatsplatzhalter ohne Titel wird ersetzt, gleicher Tag fragt vor dem Ersetzen. Schreibende Schnittstellen nur lokal und nur von der Editor-Seite. Newsletter-Reiter ohne „ersten Dienstag“ und ohne „offen für alle“. Ohne API-Schlüssel zeigt der Kopf „Demonstration ohne KI-Anbindung“. **Noch offen:** KI-Entwurf mit Evidence Check (braucht API-Schlüssel in `.env` und Teamfreigabe der Regeln aus `KONZEPT.md`, Abschnitt 4; der Knopf ist bis dahin gesperrt, die „Prüfnotizen“ werden nicht gespeichert).
 3. **Vercel-Veröffentlichung** (Antonia): vercel.com → mit GitHub anmelden → Projekt `02-akki-website` importieren → Framework „Other“, kein Build, Output `public` → Deploy. Live-URL notieren.
 4. **Abgabe:** `ergebnis.md` und kurze Beschreibung in `README.md` (siehe `GITHUB_ANLEITUNG.md`, Schritt 5).
 5. **Pitch** (15 Min.): Problem → Lösung → Live-Demo (Smart Editor: DOI oder KI-Lab-Einladung → Entwurf → Freigabe → erscheint auf der Seite) → Ausblick. Plan B: Bildschirmaufnahme der Demo.

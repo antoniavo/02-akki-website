@@ -232,7 +232,7 @@ async function apiPublikationSpeichern(req, res) {
   while (liste.some(p => p.id === id)) id = basis + '-' + i++;
 
   const angabe = [eintrag.band, eintrag.heft ? `(${eintrag.heft})` : '', eintrag.seiten ? ':' + eintrag.seiten : ''].join('') || null;
-  liste.unshift({
+  const neu = {
     id,
     nr: Math.min(0, ...liste.map(p => p.nr || 0)) - 1, // ganz nach vorn in der Liste
     autoren: eintrag.autoren, titel: eintrag.titel, journal: eintrag.journal, jahr: Number(eintrag.jahr),
@@ -240,10 +240,17 @@ async function apiPublikationSpeichern(req, res) {
     themen, kennzeichen, doi: doi || null, pubmed: eintrag.pubmed || null,
     quelle: 'Smart Editor (' + (eintrag.pubmed && !doi ? 'PubMed' : 'Crossref') + ')',
     freigegeben_von: eintrag.freigabe, stand: heuteIso(), status: 'bestaetigt',
-  });
-  datei.publikationen = liste;
-  datei.stand = heuteIso();
-  dateiSchreiben(PUB_DATEI, JSON.stringify(datei, null, 2) + '\n');
+  };
+  // Als Text einfügen statt die ganze Datei neu zu schreiben: der Git-Verlauf zeigt nur den neuen Eintrag
+  const roh = fs.readFileSync(PUB_DATEI, 'utf8');
+  const marke = roh.match(/"publikationen"\s*:\s*\[/);
+  if (!marke) return json(res, 500, { fehler: 'publikationen.json hat ein unerwartetes Format.' });
+  const einfuegen = marke.index + marke[0].length;
+  const block = JSON.stringify(neu, null, 2).replace(/^/gm, '    ');
+  let ergebnis = roh.slice(0, einfuegen) + '\n' + block + ',' + roh.slice(einfuegen);
+  ergebnis = ergebnis.replace(/("stand"\s*:\s*)"\d{4}-\d{2}-\d{2}"/, `$1"${heuteIso()}"`); // erstes "stand" = Dateikopf
+  try { JSON.parse(ergebnis); } catch { return json(res, 500, { fehler: 'Speichern abgebrochen: Die Datei wäre ungültig geworden.' }); }
+  dateiSchreiben(PUB_DATEI, ergebnis);
   return json(res, 200, { ok: true, id });
 }
 

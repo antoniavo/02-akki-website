@@ -215,11 +215,11 @@
       <div role="tabpanel" id="panel-newsletter" aria-labelledby="tab-newsletter" hidden>
         <div class="karte">
           <h2>1. Termin</h2>
-          <p class="hinweis">Vorgefüllt mit dem nächsten ersten Dienstag im Monat, 18–19 Uhr. Bei Bedarf ändern.</p>
+          <p class="hinweis">Datum und Uhrzeit eintragen. Es gibt keinen festen Rhythmus.</p>
           <div class="zeile3">
             <div class="feld"><label for="n-datum">Datum</label><input id="n-datum" type="date"></div>
-            <div class="feld"><label for="n-beginn">Beginn</label><input id="n-beginn" type="time" value="18:00"></div>
-            <div class="feld"><label for="n-ende">Ende</label><input id="n-ende" type="time" value="19:00"></div>
+            <div class="feld"><label for="n-beginn">Beginn</label><input id="n-beginn" type="time"></div>
+            <div class="feld"><label for="n-ende">Ende</label><input id="n-ende" type="time"></div>
           </div>
         </div>
 
@@ -301,43 +301,79 @@
     });
   });
 
-  // --- DOI bei Crossref abfragen (über server.js) ---
-  const form = document.getElementById('doi-form');
-  const knopf = document.getElementById('doi-knopf');
-  const meldung = document.getElementById('doi-meldung');
-  const setze = (id, wert) => { document.getElementById(id).textContent = wert; };
-  const feld = (id, wert) => { document.getElementById(id).value = wert; };
+  // --- Gemeinsame Helfer ---
+  const THEMEN = ['KI', 'Telemedizin', 'Lehre', 'Apps/DiGA', 'Social Media', 'Sportmedizin', 'VR/Simulation', 'Digitalisierung allgemein'];
+  const KATEGORIEN = ['KI-Tools', 'Automatisierung', 'Strategie', 'Praxisbericht', 'Datenschutz', 'Forschung', 'Klinische KI', 'Softwareentwicklung'];
+  const el = id => document.getElementById(id);
+  const wertVon = id => el(id).value.trim();
+  const setzeFeld = (id, w) => { el(id).value = w == null ? '' : w; };
+
+  function haken(containerId, namen, praefix) {
+    el(containerId).innerHTML = '';
+    namen.forEach((name, i) => {
+      const label = document.createElement('label');
+      const box = document.createElement('input');
+      box.type = 'checkbox'; box.value = name; box.id = `${praefix}-${i}`;
+      label.append(box, name);
+      el(containerId).append(label);
+    });
+  }
+  const angehakt = containerId => [...el(containerId).querySelectorAll('input:checked')].map(b => b.value);
+  haken('p-themen', THEMEN, 'p-thema');
+  haken('v-kategorien', KATEGORIEN, 'v-kat');
+
+  async function speichern(url, daten) {
+    const antwort = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(daten) });
+    const d = await antwort.json().catch(() => ({}));
+    return { ok: antwort.ok, status: antwort.status, d };
+  }
+
+  // KI-Anbindung vorhanden? Sonst Hinweis „Demonstration ohne KI-Anbindung“ im Kopf
+  fetch('/api/status').then(r => r.json()).then(s => { el('ohne-ki').hidden = Boolean(s.ki); }).catch(() => {});
+
+  // --- Publikation: DOI oder PubMed-ID abfragen (über server.js) ---
+  const form = el('doi-form');
+  const knopf = el('doi-knopf');
+  const meldung = el('doi-meldung');
 
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    const doi = document.getElementById('doi').value.trim();
+    const eingabe = wertVon('doi');
     meldung.className = 'meldung';
-    if (!doi) { meldung.textContent = 'Bitte eine DOI eingeben.'; return; }
+    el('dublette').hidden = true;
+    if (!eingabe) { meldung.textContent = 'Bitte eine DOI oder PubMed-ID eingeben.'; return; }
 
     knopf.disabled = true;
-    meldung.textContent = 'Frage Crossref an …';
+    meldung.textContent = 'Frage Crossref und PubMed an …';
     try {
-      const antwort = await fetch('/api/doi?doi=' + encodeURIComponent(doi));
+      const antwort = await fetch('/api/quelle?q=' + encodeURIComponent(eingabe));
       const d = await antwort.json();
       if (!antwort.ok) throw new Error(d.fehler || 'Unbekannter Fehler.');
 
-      setze('cr-titel', d.titel || '–');
-      setze('cr-autoren', d.autoren.length ? d.autoren.join(', ') : '–');
-      setze('cr-journal', d.journal || '–');
-      setze('cr-jahr', d.jahr || '–');
-      setze('cr-abstract', d.abstract || 'Crossref hat zu dieser Publikation kein Abstract.');
-      document.getElementById('crossref').hidden = false;
+      el('cr-abstract').textContent = d.abstract || 'Zu dieser Publikation liegt kein Abstract vor.';
+      el('crossref').hidden = false;
 
-      // Bekannte Angaben in den Beitrag übernehmen; Titel (deutsch) und Inhalte bleiben frei
-      feld('p-originaltitel', d.titel);
-      feld('p-autoren', d.autoren.join(', '));
-      feld('p-journal', d.journal);
-      feld('p-jahr', d.jahr);
-      feld('p-doi', d.doi);
+      setzeFeld('p-titel', d.titel);
+      setzeFeld('p-autoren', d.autoren.join(', '));
+      setzeFeld('p-journal', d.journal);
+      setzeFeld('p-jahr', d.jahr);
+      setzeFeld('p-band', d.band);
+      setzeFeld('p-heft', d.heft);
+      setzeFeld('p-seiten', d.seiten);
+      setzeFeld('p-doi', d.doi);
+      setzeFeld('p-pubmed', d.pubmed);
+      pruefePublikation();
 
-      meldung.textContent = d.abstract
-        ? 'Daten geladen. Bitte prüfen.'
-        : 'Daten geladen, aber ohne Abstract. Bitte prüfen.';
+      if (d.dublette) {
+        el('dublette').textContent = `Achtung: Diese Publikation steht schon auf der Seite („${d.dublette.titel}“, ${d.dublette.jahr}). Speichern ist gesperrt.`;
+        el('dublette').hidden = false;
+        meldung.textContent = 'Daten geladen.';
+        el('p-speichern').dataset.dublette = '1';
+      } else {
+        delete el('p-speichern').dataset.dublette;
+        meldung.textContent = 'Daten geladen. Bitte prüfen, Themen wählen und freigeben.';
+      }
+      pruefePublikation();
     } catch (fehler) {
       meldung.className = 'meldung meldung--fehler';
       meldung.textContent = fehler.message === 'Failed to fetch'
@@ -348,6 +384,84 @@
     }
   });
 
+  // --- Publikation: Prüfen und speichern ---
+  function pruefePublikation() {
+    const fehlt = [];
+    if (!wertVon('p-titel')) fehlt.push('Titel');
+    if (!wertVon('p-autoren')) fehlt.push('Autor:innen');
+    if (!wertVon('p-journal')) fehlt.push('Journal');
+    if (!/^\d{4}$/.test(wertVon('p-jahr'))) fehlt.push('Jahr (vier Ziffern)');
+    if (!wertVon('p-freigabe')) fehlt.push('Freigegeben von');
+    const gesperrt = Boolean(el('p-speichern').dataset.dublette);
+    el('p-speichern').disabled = fehlt.length > 0 || gesperrt;
+    el('p-fehlt').className = 'meldung';
+    el('p-fehlt').textContent = gesperrt ? 'Gesperrt: Die Publikation steht schon auf der Seite.' : fehlt.length ? 'Noch offen: ' + fehlt.join(', ') + '.' : 'Bereit.';
+  }
+  ['p-titel', 'p-autoren', 'p-journal', 'p-jahr', 'p-freigabe'].forEach(id => el(id).addEventListener('input', pruefePublikation));
+  pruefePublikation();
+
+  el('p-speichern').addEventListener('click', async () => {
+    const m = el('p-meldung');
+    m.className = 'meldung';
+    el('p-speichern').disabled = true;
+    try {
+      const { ok, d } = await speichern('/api/publikation-speichern', {
+        titel: wertVon('p-titel'), autoren: wertVon('p-autoren'), journal: wertVon('p-journal'), jahr: wertVon('p-jahr'),
+        band: wertVon('p-band'), heft: wertVon('p-heft'), seiten: wertVon('p-seiten'),
+        doi: wertVon('p-doi'), pubmed: wertVon('p-pubmed'),
+        themen: angehakt('p-themen'), kennzeichen: wertVon('p-kennzeichen'), freigegebenVon: wertVon('p-freigabe'),
+      });
+      if (!ok) throw new Error(d.fehler || 'Speichern nicht möglich.');
+      m.textContent = 'Gespeichert in public/daten/publikationen.json. Sie erscheint jetzt auf der Seite „Publikationen“. Zum Veröffentlichen bitte speichern (commit) und pushen.';
+      el('p-speichern').dataset.dublette = '1'; // gleiche Publikation nicht noch einmal speichern
+    } catch (fehler) {
+      m.className = 'meldung meldung--fehler';
+      m.textContent = fehler.message === 'Failed to fetch' ? 'Der lokale Server antwortet nicht. Läuft node server.js?' : fehler.message;
+    } finally {
+      pruefePublikation();
+    }
+  });
+
+  // --- Veranstaltung: KI-Lab-Termin prüfen und speichern ---
+  function pruefeTermin() {
+    const fehlt = [];
+    if (!wertVon('v-datum')) fehlt.push('Datum');
+    if (!wertVon('v-titel')) fehlt.push('Titel');
+    if (el('v-bestaetigt').checked && (!wertVon('v-beginn') || !wertVon('v-ende'))) fehlt.push('Beginn und Ende (für „bestätigt“)');
+    if (!wertVon('v-freigabe')) fehlt.push('Freigegeben von');
+    el('v-speichern').disabled = fehlt.length > 0;
+    el('v-fehlt').className = 'meldung';
+    el('v-fehlt').textContent = fehlt.length ? 'Noch offen: ' + fehlt.join(', ') + '.' : 'Bereit.';
+  }
+  ['v-datum', 'v-beginn', 'v-ende', 'v-titel', 'v-bestaetigt', 'v-freigabe'].forEach(id => el(id).addEventListener('input', pruefeTermin));
+  pruefeTermin();
+
+  async function terminSpeichern(ersetzen) {
+    const m = el('v-meldung');
+    m.className = 'meldung';
+    el('v-speichern').disabled = true;
+    try {
+      const { ok, status, d } = await speichern('/api/termin-speichern', {
+        datum: wertVon('v-datum'), beginn: wertVon('v-beginn'), ende: wertVon('v-ende'),
+        titel: wertVon('v-titel'), beschreibung: wertVon('v-kurzbeschreibung'), referent: wertVon('v-referent'),
+        kategorien: angehakt('v-kategorien'), bestaetigt: el('v-bestaetigt').checked,
+        freigegebenVon: wertVon('v-freigabe'), ersetzen,
+      });
+      if (status === 409 && d.ersetzbar && !ersetzen) {
+        if (confirm(d.fehler + ' Soll er ersetzt werden?')) return terminSpeichern(true);
+        m.textContent = 'Nichts geändert.';
+        return;
+      }
+      if (!ok) throw new Error(d.fehler || 'Speichern nicht möglich.');
+      m.textContent = 'Gespeichert in public/daten/beitraege.json. Der Termin erscheint jetzt auf der Seite „KI Lab“. Zum Veröffentlichen bitte speichern (commit) und pushen.';
+    } catch (fehler) {
+      m.className = 'meldung meldung--fehler';
+      m.textContent = fehler.message === 'Failed to fetch' ? 'Der lokale Server antwortet nicht. Läuft node server.js?' : fehler.message;
+    } finally {
+      pruefeTermin();
+    }
+  }
+  el('v-speichern').addEventListener('click', () => terminSpeichern(false));
   // =====================================================================
   // Newsletter: Einladung zum DGOU KI Lab
   // Nichts wird gespeichert oder automatisch versendet. Der Teams-Link
@@ -358,14 +472,6 @@
   window.akkiKontakt.then(k => { KONTAKT = k.email || '[Kontaktadresse fehlt]'; aktualisieren(); });
   const n = id => document.getElementById('n-' + id);
   const wert = id => n(id).value.trim();
-
-  // Datum vorfüllen
-  fetch('/api/naechster-termin').then(r => r.json()).then(t => {
-    if (!n('datum').value) n('datum').value = t.datum;
-    n('beginn').value = t.beginn;
-    n('ende').value = t.ende;
-    aktualisieren();
-  }).catch(() => {});
 
   // KI verfügbar?
   fetch('/api/status').then(r => r.json()).then(s => {
@@ -408,7 +514,7 @@
     zeilen.push(`Datum: ${datumDeutsch(wert('datum')) || '…'}`);
     zeilen.push(`Uhrzeit: ${uhrzeit() || '…'}`);
     zeilen.push(`Teams-Link: ${wert('teams') || '[Teams-Link fehlt]'}`, '');
-    zeilen.push('Offen für alle Interessierten, kostenlos.');
+    zeilen.push('Kostenlos.');
     zeilen.push(`Themenwünsche an ${KONTAKT}`, '');
     zeilen.push(ABSENDER);
     return zeilen.join('\n');
@@ -417,6 +523,7 @@
   function fehlendeAngaben() {
     const fehlt = [];
     if (!wert('datum')) fehlt.push('Datum');
+    if (!wert('beginn') || !wert('ende')) fehlt.push('Beginn und Ende');
     if (!wert('thema')) fehlt.push('Thema');
     if (!wert('einfuehrung')) fehlt.push('Einführung');
     if (!wert('teams')) fehlt.push('Teams-Link');

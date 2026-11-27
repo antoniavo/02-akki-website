@@ -110,15 +110,18 @@
     return k;
   }
 
-  function box(klasse, name, zusatz, link) {
+  function box(klasse, name, zusatz, link, schild) {
     const b = el('div', 'org-box ' + klasse);
+    // Titelzeile: Name (ggf. als Link) und optional ein kleines Schild wie "Sie sind hier"
+    const kopf = schild ? el('span', 'org-box__kopf') : b;
     if (link) {
       const a = el('a', null, name);
       a.href = link; a.target = '_blank'; a.rel = 'noopener';
-      b.appendChild(el('strong')).appendChild(a);
+      kopf.appendChild(el('strong')).appendChild(a);
     } else {
-      b.appendChild(el('strong', null, name));
+      kopf.appendChild(el('strong', null, name));
     }
+    if (schild) { kopf.appendChild(el('span', 'org-box__schild', schild)); b.appendChild(kopf); }
     if (zusatz) b.appendChild(el('span', 'org-box__zusatz', zusatz));
     return b;
   }
@@ -132,8 +135,12 @@
     const reihe = el('div', 'org-reihe');
     o.kind.kinder.forEach(k => {
       const kind = el('div', 'org-kind');
-      const b = box(k.hervorgehoben ? 'org-box--akki' : '', k.name, k.zusatz);
-      const namen = (k.ansprechpersonen || []).map(id => personen[id] && personen[id].name).filter(Boolean);
+      const b = box(k.hervorgehoben ? 'org-box--akki' : '', k.name, k.zusatz, null, k.schild);
+      const namenVon = ids => (ids || []).map(id => personen[id] && personen[id].name).filter(Boolean);
+      if (k.schwerpunkte) b.appendChild(el('span', 'org-box__zusatz', 'Schwerpunkte: ' + k.schwerpunkte));
+      const leitung = namenVon(k.leitung);
+      if (leitung.length) b.appendChild(el('span', 'org-box__zusatz', 'Leitung: ' + leitung.join(', ')));
+      const namen = namenVon(k.ansprechpersonen);
       if (namen.length) b.appendChild(el('span', 'org-box__zusatz', 'Ansprechpartner: ' + namen.join(', ')));
       kind.appendChild(b);
       reihe.appendChild(kind);

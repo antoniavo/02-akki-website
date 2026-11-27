@@ -525,3 +525,9 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 .ziel-kachel__icon svg { width: 22px; height: 22px; fill: none; stroke: var(--petrol-text); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .stand-zeile { font-size: .8125rem; color: #5C6772; }
 .stand-zeile a { color: inherit; }
+
+/* Organigramm: Titelzeile mit Schild, gleich hohe Kind-Boxen, Inhalt oben */
+.org-box__kopf { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 8px; }
+.org-box__schild { font-size: .75rem; font-weight: 700; line-height: 1; letter-spacing: .02em; color: var(--petrol-text); background: var(--weiss); border: 1px solid var(--petrol); border-radius: 999px; padding: 4px 10px; }
+.org-kind { align-items: stretch; }
+.org-kind .org-box { display: flex; flex-direction: column; justify-content: flex-start; }

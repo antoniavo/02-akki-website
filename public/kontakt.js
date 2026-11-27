@@ -8,6 +8,10 @@ window.akkiKontakt = fetch('daten/kontakt.json')
       el.textContent = kontakt.email;
       if (el.tagName === 'A') el.href = 'mailto:' + kontakt.email;
     });
+    // Knöpfe, die eine E-Mail mit Betreff öffnen (Text bleibt, nur der Link wird gesetzt)
+    document.querySelectorAll('a[data-kontakt-mailto]').forEach(el => {
+      el.href = 'mailto:' + kontakt.email + '?subject=' + encodeURIComponent(el.dataset.kontaktMailto);
+    });
     return kontakt;
   })
   .catch(() => {

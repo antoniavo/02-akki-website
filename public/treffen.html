@@ -68,18 +68,9 @@
     <div class="container">
       <div class="karte">
         <h2>Bisherige KI-Lab-Termine</h2>
-        <ul class="termine">
-          <li><span class="datum">07.01.2026</span><span class="titel">Automation mit n8n<span class="beschreibung">Automatisierte PubMed-Recherche und wissenschaftliche Newsletter</span></span></li>
-          <li><span class="datum">04.02.2026</span><span class="titel">Microsoft Copilot<span class="beschreibung">Funktionen und DSGVO-Konformität</span></span></li>
-          <li><span class="datum">04.03.2026</span><span class="titel">KI-Strategie in der Medizin<span class="beschreibung">Von der Idee zur sicheren Umsetzung in Klinik, Forschung und Verwaltung</span></span></li>
-          <li><span class="datum">07.04.2026</span><span class="titel">Claude – von Chatbot zu Cowork<span class="beschreibung">KI-Assistenz für medizinische, wissenschaftliche und administrative Aufgaben</span></span></li>
-          <li><span class="datum">12.05.2026</span><span class="titel">Claude Code<span class="beschreibung">KI im medizinischen Arbeitsalltag</span></span></li>
-          <li><span class="datum">Juni 2026</span><span class="titel"><span class="text-folgt">folgt</span></span></li>
-          <li><span class="datum">07.07.2026</span><span class="titel">Conus<span class="beschreibung">Klinische LLMs im Einsatz</span></span></li>
-          <li><span class="datum">18.08.2026</span><span class="titel">ChatGPT Work vs. Claude Cowork<span class="beschreibung">Praxisvergleich</span></span></li>
-          <li><span class="datum">15.09.2026</span><span class="titel">Gemini <span class="bestaetigen">wird bestätigt</span><span class="beschreibung">Ein Praxisbericht · Referentin: <span class="text-folgt">folgt</span></span></span></li>
-          <li><span class="datum">Oktober 2026</span><span class="titel"><span class="text-folgt">folgt</span></span></li>
-          <li><span class="datum">03.11.2026</span><span class="titel">Vom Arzt zum Softwareentwickler<span class="beschreibung">KI im klinischen Alltag · Philipp Michel</span></span></li>
+        <!-- Termine kommen aus public/daten/beitraege.json (über beitraege.js) -->
+        <ul class="termine" id="kilab-archiv">
+          <li class="hinweis">Termine werden geladen …</li>
         </ul>
         <p class="hinweis">Liste wird laufend ergänzt.</p>
       </div>
@@ -105,6 +96,7 @@
 </footer>
 
 <script src="kontakt.js"></script>
+<script src="beitraege.js"></script>
 <script src="menu.js"></script>
 </body>
 </html>

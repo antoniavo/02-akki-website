@@ -163,16 +163,17 @@ a:hover { text-decoration-color: var(--petrol); text-decoration-thickness: 2px; 
 .mitmach-rund__label { position: absolute; right: calc(100% + 16px); top: 50%; transform: translate(6px, -50%); padding: 6px 14px; border-radius: 999px; background: var(--weiss); color: var(--blau); font: 700 .9rem/1.2 var(--font-body); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s ease, transform .15s ease; }
 .mitmach-rund:hover .mitmach-rund__label, .mitmach-rund:focus-visible .mitmach-rund__label { opacity: 1; transform: translate(0, -50%); }
 
-.hackathon-karte { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--a4); padding: var(--a4); background: var(--navy); color: var(--text-auf-dunkel); border: 1px solid rgba(255, 255, 255, .18); border-radius: var(--radius); }
-.hackathon-karte::after { content: ""; position: absolute; right: -80px; bottom: -120px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, rgba(120, 203, 185, .22), rgba(120, 203, 185, 0) 70%); pointer-events: none; }
+.hackathon-karte { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--a4); padding: var(--a4); background: #3E6686; color: var(--text-auf-dunkel); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 22px; box-shadow: 0 24px 64px rgba(44, 79, 107, 0.22); }
 .hackathon-karte > * { position: relative; z-index: 1; }
-.hackathon-karte .eyebrow { color: var(--mint); }
+.hackathon-karte .eyebrow { color: #B8EDDF; }
 .hackathon-karte h2 { margin: 0 0 var(--a1); color: var(--text-auf-dunkel); font-weight: 800; font-size: clamp(1.9rem, 1.2rem + 2.4vw, 2.8rem); }
-.hackathon-karte__fakten { margin: 0 0 var(--a3); font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .95rem; color: var(--text-auf-dunkel-leise); }
-.hackathon-karte__zahl { margin: 0 0 var(--a2); font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .9rem; letter-spacing: .08em; text-transform: uppercase; color: var(--text-auf-dunkel-leise); }
+.hackathon-karte__fakten { margin: 0 0 var(--a3); font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .95rem; color: #E3ECF1; }
+.hackathon-karte__zahl { margin: 0 0 var(--a2); font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .9rem; letter-spacing: .08em; text-transform: uppercase; color: #E3ECF1; }
 .hackathon-karte__zahl strong { margin-right: 6px; font-family: var(--font-heading); font-size: 2.6rem; font-weight: 800; line-height: 1; letter-spacing: 0; color: var(--mint); vertical-align: -4px; }
-.hackathon-karte .knopf--auf-dunkel { background: transparent; color: var(--text-auf-dunkel); border-color: rgba(255, 255, 255, .6); }
+.hackathon-karte .knopf--auf-dunkel { background: transparent; color: var(--text-auf-dunkel); border-color: rgba(255, 255, 255, .5); }
 .hackathon-karte .knopf--auf-dunkel:hover { background: rgba(255, 255, 255, .14); border-color: var(--weiss); color: var(--text-auf-dunkel); }
+.hackathon-karte #hackathon-website { background: #007F75; border-color: rgba(255, 255, 255, .28); color: #fff; }
+.hackathon-karte #hackathon-website:hover { background: #009286; border-color: rgba(255, 255, 255, .4); color: #fff; }
 .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .chip { display: inline-block; padding: 5px 14px; border: 1px solid rgba(255, 255, 255, .3); border-radius: 999px; background: rgba(255, 255, 255, .07); color: var(--text-auf-dunkel); font-size: .88rem; font-weight: 600; text-decoration: none; transition: background .15s ease, color .15s ease, transform .15s ease; }
 .chip:hover { background: var(--mint); border-color: var(--mint); color: var(--navy); transform: translateY(-2px); }

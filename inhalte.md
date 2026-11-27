@@ -127,6 +127,17 @@ Hinweis: „Liste wird laufend ergänzt.“
 ## Impressum und Datenschutz
 - Verantwortliche Person / Stelle (Name, Anschrift): ___
 - Hinweis: Diese Angaben müssen vom Team bzw. von der DGOU kommen, nicht von der KI.
+- Stand: Impressum und Datenschutzerklärung liegen als ENTWURF auf der Website (Banner „Entwurf – rechtliche Freigabe durch die DGOU ausstehend“).
+- Offene Punkte [OFFEN], von der DGOU zu klären:
+  - Impressum: Inhaltlich verantwortlich nach § 18 Abs. 2 MStV (Name, Anschrift)
+  - Datenschutz: Name und Kontaktdaten des Datenschutzbeauftragten
+  - Datenschutz: Hosting-Anbieter bestätigen (voraussichtlich Vercel Inc., USA)
+  - Datenschutz: Genaue Liste der Server-Logfile-Daten und Speicherdauer beim Hosting-Anbieter
+  - Datenschutz: Grundlage der Übermittlung in die USA (z. B. Angemessenheitsbeschluss oder Standardvertragsklauseln) und Auftragsverarbeitungsvertrag
+  - Datenschutz: Rechtsgrundlage für Kontakt per E-Mail bestätigen (Entwurf: Art. 6 Abs. 1 lit. f DSGVO)
+  - Datenschutz: Speicherdauer von E-Mail-Anfragen
+  - Datenschutz: Zuständige Datenschutz-Aufsichtsbehörde
+  - Gesamter Text: rechtliche Prüfung und Freigabe durch die DGOU; danach Entwurf-Banner entfernen
 
 ---
 

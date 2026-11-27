@@ -119,6 +119,13 @@ main section + section { padding-top: 0; }
 .bestaetigen { display: inline-block; background: var(--hinweis-bg); border: 1px solid var(--hinweis-rahmen); color: var(--hinweis-text); border-radius: var(--radius-klein); padding: 0 7px; font-size: .78em; font-weight: 700; vertical-align: middle; }
 .hinweis { color: var(--text-leise); font-size: .95rem; }
 
+/* Rechtstexte (Impressum, Datenschutz) */
+.entwurf-banner { background: var(--hinweis-bg); color: var(--hinweis-text); border-bottom: 3px solid var(--hinweis-rahmen); text-align: center; padding: 12px 16px; font-size: 1.05rem; }
+.offen { display: inline-block; background: var(--hinweis-bg); border: 1px dashed var(--hinweis-text); color: var(--hinweis-text); border-radius: var(--radius-klein); padding: 0 6px; font-weight: 700; }
+.rechtstext .karte h3 { font-size: 1rem; margin: 18px 0 4px; }
+.rechtstext .karte p, .rechtstext .karte ul { margin-top: 0; }
+.rechtstext a { overflow-wrap: anywhere; }
+
 .karte { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
 .karte + .karte { margin-top: 16px; }
 .karte h2 { font-size: 1.35rem; }

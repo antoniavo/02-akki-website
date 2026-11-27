@@ -85,21 +85,6 @@
       "quelle": "DGOU-Gremienbericht 2026; Crossref (DOI 10.1007/s00132-025-04749-x)",
       "stand": "2026-11-27",
       "status": "entwurf"
-    },
-    {
-      "id": "sprachmodelle-patienteninformation",
-      "titel": "Sprachmodelle und Patienteninformation",
-      "text": "Wie genau beantworten KI-Sprachmodelle Patientenfragen zu orthopädischen Erkrankungen?",
-      "thema": "Patienteninformation",
-      "projektStatus": "Publiziert",
-      "umfeld": true,
-      "umfeldHinweis": "Forschung aus dem Umfeld der AG Digitalisierung, kein offizielles AKKI-Projekt",
-      "ansprechpersonen": [],
-      "publikation": "hu-2024-evaluating",
-      "link": null,
-      "quelle": "Publikationsliste der AG Digitalisierung (Hu et al. 2024, Digit Health, DOI 10.1177/20552076241272620); PubMed 39130521",
-      "stand": "2026-11-27",
-      "status": "entwurf"
     }
   ],
   "transfer": [

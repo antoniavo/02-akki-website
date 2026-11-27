@@ -14,6 +14,15 @@
   const rund = document.getElementById('mitmachen-knopf');
   const ring = rund && rund.querySelector('.mitmach-rund__ring');
   if (ring) {
+    // Buchstabenabstand so wählen, dass der Text die Kreisbahn (Umfang 2·π·41) genau füllt, egal welche Monospace-Schrift das Gerät hat
+    const text = ring.querySelector('text'), pfad = ring.querySelector('textPath');
+    const passen = () => {
+      text.style.letterSpacing = '0px';
+      const natuerlich = pfad.getComputedTextLength();
+      text.style.letterSpacing = Math.max(0, (2 * Math.PI * 41 - natuerlich) / pfad.textContent.length) + 'px';
+    };
+    passen();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(passen);
     const tempo = faktor => ring.getAnimations().forEach(a => a.updatePlaybackRate(faktor));
     ['pointerenter', 'focus'].forEach(e => rund.addEventListener(e, () => tempo(16 / 5)));
     ['pointerleave', 'blur'].forEach(e => rund.addEventListener(e, () => tempo(1)));

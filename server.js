@@ -14,8 +14,10 @@ const path = require('node:path');
 const PORT = process.env.PORT || 3000;
 const ROOT = path.join(__dirname, 'public');
 
-// Nur auf diesem Rechner erreichbar (KONZEPT.md, Abschnitt 4)
-const NUR_LOKAL = new Set(['/redaktion.html', '/api/doi']);
+// Der Smart Editor liegt bewusst NICHT in public/, damit er nie mit veröffentlicht wird.
+// Nur dieser Server liefert ihn aus, und nur an diesen Rechner (KONZEPT.md, Abschnitt 4).
+const REDAKTION = path.join(__dirname, 'redaktion', 'redaktion.html');
+const NUR_LOKAL = new Set(['/redaktion', '/redaktion/', '/redaktion.html']);
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -249,6 +251,15 @@ http.createServer((req, res) => {
   }
   if (urlPath.startsWith('/api/')) return json(res, 404, { fehler: 'Unbekannte Schnittstelle.' });
 
+  if (NUR_LOKAL.has(urlPath)) {
+    if (urlPath !== '/redaktion') { res.writeHead(301, { Location: '/redaktion' }); return res.end(); }
+    return fs.readFile(REDAKTION, (err, inhalt) => {
+      if (err) return seiteFolgt(res);
+      res.writeHead(200, { 'Content-Type': TYPES['.html'], 'Cache-Control': 'no-store' });
+      res.end(inhalt);
+    });
+  }
+
   if (urlPath.endsWith('/')) urlPath += 'index.html';
 
   const datei = path.normalize(path.join(ROOT, urlPath));
@@ -265,5 +276,5 @@ http.createServer((req, res) => {
   });
 }).listen(PORT, () => {
   console.log(`AKKI-Website läuft: http://localhost:${PORT}`);
-  console.log(`AKKI Smart Editor (nur lokal): http://localhost:${PORT}/redaktion.html`);
+  console.log(`AKKI Smart Editor (nur lokal): http://localhost:${PORT}/redaktion`);
 });

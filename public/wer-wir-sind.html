@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wer wir sind – AKKI</title>
 <meta name="description" content="Der AKKI ist der Arbeitskreis Künstliche Intelligenz der AG Digitalisierung der DGOU, gegründet im Januar 2021.">
-<link rel="icon" type="image/svg+xml" href="/logo/logo-hell.svg">
-<link rel="stylesheet" href="/style.css">
+<link rel="icon" type="image/svg+xml" href="logo/logo-hell.svg">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -15,19 +15,19 @@
 <nav class="nav" aria-label="Hauptnavigation">
   <div class="container">
     <div class="nav__marke">
-      <a class="nav__brand" href="/">
-        <img src="/logo/logo-dunkel.svg" alt="AKKI – zur Startseite">
+      <a class="nav__brand" href="index.html">
+        <img src="logo/logo-dunkel.svg" alt="AKKI – zur Startseite">
       </a>
       <p class="nav__zugehoerigkeit">Ein Arbeitskreis der <a href="https://www.digitalisierung-dgou.de/" target="_blank" rel="noopener">AG Digitalisierung</a> der <a href="https://dgou.de/" target="_blank" rel="noopener">DGOU</a></p>
     </div>
     <button class="nav__toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menü öffnen">☰</button>
     <ul class="nav__links" id="nav-links">
-      <li><a href="/">Start</a></li>
-      <li><a href="/wer-wir-sind.html" aria-current="page">Wer wir sind</a></li>
-      <li><a href="/projekte.html">Projekte</a></li>
-      <li><a href="/publikationen.html">Publikationen</a></li>
-      <li><a href="/treffen.html">Treffen</a></li>
-      <li><a href="/mitmachen.html">Mitmachen/Kontakt</a></li>
+      <li><a href="index.html">Start</a></li>
+      <li><a href="wer-wir-sind.html" aria-current="page">Wer wir sind</a></li>
+      <li><a href="projekte.html">Projekte</a></li>
+      <li><a href="publikationen.html">Publikationen</a></li>
+      <li><a href="treffen.html">Treffen</a></li>
+      <li><a href="mitmachen.html">Mitmachen/Kontakt</a></li>
     </ul>
   </div>
 </nav>
@@ -81,21 +81,21 @@
   <div class="container">
     <div>
       <p><strong>AKKI</strong> · Arbeitskreis Künstliche Intelligenz</p>
-      <p class="footer__pfad"><a href="https://dgou.de/" target="_blank" rel="noopener">DGOU</a> › <a href="https://www.digitalisierung-dgou.de/" target="_blank" rel="noopener">AG Digitalisierung</a> › <a href="/">AKKI</a></p>
+      <p class="footer__pfad"><a href="https://dgou.de/" target="_blank" rel="noopener">DGOU</a> › <a href="https://www.digitalisierung-dgou.de/" target="_blank" rel="noopener">AG Digitalisierung</a> › <a href="index.html">AKKI</a></p>
       <p>Partner: AK Medien und digitale Systeme</p>
     </div>
     <div>
       <p>Kontakt: <a data-kontakt-email></a></p>
       <ul>
-        <li><a href="/impressum.html">Impressum</a></li>
-        <li><a href="/datenschutz.html">Datenschutz</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="datenschutz.html">Datenschutz</a></li>
       </ul>
     </div>
   </div>
 </footer>
 
-<script src="/kontakt.js"></script>
-<script src="/menu.js"></script>
+<script src="kontakt.js"></script>
+<script src="menu.js"></script>
 <script>
   // Die Einordnung wird aus public/daten/organisation.json erzeugt.
   // Neue Gruppen oder Leitungen trägt man dort ein, ohne diese Seite zu ändern.
@@ -115,7 +115,7 @@
     return html + '</li>';
   }
 
-  fetch('/daten/organisation.json')
+  fetch('daten/organisation.json')
     .then(r => { if (!r.ok) throw new Error(); return r.json(); })
     .then(daten => {
       document.getElementById('organigramm').innerHTML =

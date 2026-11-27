@@ -44,15 +44,7 @@
     </div>
   </section>
 
-  <!-- AKKI-Publikationen stehen ganz oben und sind hervorgehoben -->
-  <section id="gruppe-akki" aria-labelledby="akki-titel" hidden>
-    <div class="container">
-      <h2 id="akki-titel">AKKI-Publikation</h2>
-      <ul class="pub-liste pub-liste--akki" id="liste-akki"></ul>
-    </div>
-  </section>
-
-  <!-- Danach kompakte Liste nach Jahr, neueste zuerst (Abschnitte werden aus den Daten erzeugt) -->
+  <!-- Rein chronologisch: nach Jahr gruppiert, neueste zuerst (Abschnitte werden aus den Daten erzeugt) -->
   <div id="jahre"></div>
 
   <section aria-label="Hinweis">
@@ -105,13 +97,13 @@
   }
 
   function eintrag(p) {
-    const li = el('li', 'pub-eintrag' + (p.kennzeichen === 'AKKI-Publikation' ? ' pub-eintrag--akki' : ''));
+    const li = el('li', 'pub-eintrag');
     li.id = p.id;
     li.appendChild(el('h3', 'pub-eintrag__titel', p.titel));
     if (p.autoren) li.appendChild(el('p', 'pub-eintrag__autoren', p.autoren));
     const meta = el('p', 'pub-eintrag__meta', [p.journal, p.jahr, p.angabe].filter(Boolean).join(' · '));
     // Kennzeichen nur als dezenter Text, kein farbiges Schild
-    if (p.kennzeichen) meta.appendChild(el('span', 'pub-eintrag__kennzeichen' + (p.kennzeichen === 'AKKI-Publikation' ? ' pub-eintrag__kennzeichen--akki' : ''), ' · ' + p.kennzeichen));
+    if (p.kennzeichen) meta.appendChild(el('span', 'pub-eintrag__kennzeichen', ' · ' + p.kennzeichen));
     li.appendChild(meta);
 
     const aktionen = el('div', 'pub-eintrag__aktionen');
@@ -166,14 +158,8 @@
           (auswahl.thema === 'Alle' || (p.themen || []).includes(auswahl.thema)) &&
           (!begriff || [p.titel, p.autoren, p.journal, p.jahr, p.doi].filter(Boolean).join(' ').toLowerCase().includes(begriff)));
 
-        // AKKI-Publikationen ganz oben, nur dort (nicht noch einmal in der Jahresliste)
-        const akki = treffer.filter(p => p.kennzeichen === 'AKKI-Publikation');
-        document.getElementById('liste-akki').replaceChildren(...akki.map(eintrag));
-        document.getElementById('gruppe-akki').hidden = akki.length === 0;
-
-        const rest = treffer.filter(p => p.kennzeichen !== 'AKKI-Publikation');
         const proJahr = new Map();
-        rest.forEach(p => { if (!proJahr.has(p.jahr)) proJahr.set(p.jahr, []); proJahr.get(p.jahr).push(p); });
+        treffer.forEach(p => { if (!proJahr.has(p.jahr)) proJahr.set(p.jahr, []); proJahr.get(p.jahr).push(p); });
         const abschnitte = [...proJahr.entries()].map(([jahr, liste], i) => {
           const s = el('section', i % 2 ? 'abschnitt--hell' : '');
           s.setAttribute('aria-labelledby', 'jahr-' + jahr);

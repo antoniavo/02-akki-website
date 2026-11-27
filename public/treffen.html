@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KI Lab – AKKI</title>
-<meta name="description" content="Das DGOU KI Lab des AKKI: KI kennenlernen, Erfahrungen austauschen, Wissen vertiefen. Online, regelmäßig und kostenlos. Nächster Termin und bisherige Veranstaltungen.">
+<meta name="description" content="Das DGOU KI Lab des AKKI: KI kennenlernen, Erfahrungen austauschen, Wissen vertiefen. Online, jeden ersten Dienstag im Monat, kostenlos. Nächster Termin und bisherige Veranstaltungen.">
 <!-- Vorerst fuer Suchmaschinen gesperrt, bis die DGOU die Seite freigibt (siehe inhalte.md) -->
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="logo/logo-hell.svg">
@@ -31,7 +31,7 @@
         </li>
         <li>
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-          Regelmäßig
+          Jeden ersten Dienstag im Monat
         </li>
         <li>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1"/></svg>
@@ -44,7 +44,7 @@
 </header>
 
 <main>
-  <!-- 2. Schmale Leiste: nächster Termin. Es erscheint nur ein BESTÄTIGTER Termin aus daten/beitraege.json (bestaetigt: true) -->
+  <!-- 2. Schmale Leiste: nächster Termin = nächster erster Dienstag im Monat (berechnet in beitraege.js); Thema und Referent:in aus daten/beitraege.json, wenn für diesen Tag eingetragen -->
   <section class="kl-leiste" aria-labelledby="naechster-titel">
     <div class="container kl-leiste__innen" id="naechster-termin">
       <h2 id="naechster-titel">
@@ -57,7 +57,7 @@
         <p class="naechster-termin__thema" data-feld="thema"></p>
         <p class="naechster-termin__referent" data-feld="referent" hidden></p>
       </div>
-      <p class="kl-leiste__ohne" data-feld="ohne-termin">Neue Termine werden hier angekündigt.</p>
+      <p class="kl-leiste__ohne" data-feld="ohne-termin">Der nächste Termin konnte gerade nicht berechnet werden.</p>
       <div class="kl-leiste__knoepfe">
         <button class="knopf knopf--rand" type="button" id="ics-knopf" hidden>In den Kalender (.ics)</button>
         <a class="knopf" data-kontakt-mailto="Newsletter KI Lab" href="mitmachen.html">Informiert bleiben</a>
@@ -130,7 +130,7 @@
         <summary>Wie läuft ein KI Lab ab?</summary>
         <ul class="liste">
           <li>Seit Januar 2026</li>
-          <li>In der Regel einmal im Monat, abends</li>
+          <li>Jeden ersten Dienstag im Monat</li>
           <li>Online über Microsoft Teams</li>
           <li>Kostenlos</li>
           <li id="moderation" hidden></li>

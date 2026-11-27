@@ -2,7 +2,7 @@
 // und zeigt sie dort an, wo die Seite passende Plätze hat:
 //   #aktuelles-liste   – Karten "Aktuelles" (Startseite)
 //   #kilab-letzte      – die letzten drei KI-Lab-Termine (Startseite)
-//   #naechster-termin  – nächster BESTÄTIGTER KI-Lab-Termin (bestaetigt: true, volles Datum, Zukunft, beginn/ende); sonst Newsletter-Hinweis (Seite "KI Lab")
+//   #naechster-termin  – nächster erster Dienstag im Monat mit Thema/Referent:in aus der Datei, falls eingetragen (Seite "KI Lab"); #kilab-naechster – dasselbe als Zeile (Startseite)
 //   #kilab-archiv      – Liste der bisherigen Termine mit Lupen-Suche (#kilab-suche) und Themenkacheln (.kl-thema); #kilab-zuletzt – jüngster Vortrag (Seite "KI Lab")
 // Alle Texte werden als reiner Text eingefügt (kein HTML aus der Datei).
 // Termine ohne Titel ("folgt") werden nicht angezeigt; Referent:innen nur, wenn eingetragen (= bestätigt).
@@ -37,15 +37,38 @@
       .sort((a, b) => String(b.datum).localeCompare(String(a.datum)));
   }
 
-  // Nächster bestätigter Termin: bestaetigt: true, volles Datum, heute oder später. Sonst null.
-  function naechsterBestaetigterTermin(daten) {
+  // Nächster Termin: das KI Lab findet jeden ersten Dienstag im Monat statt (vom Team bestätigt, 27.11.2026).
+  // Berechnet wird der nächste erste Dienstag (heute zählt noch mit). Thema und Referent:in nur, wenn für genau diesen Tag
+  // ein Eintrag mit Titel in beitraege.json steht. Die Uhrzeit kommt nur aus dem Eintrag oder aus "regeltermin" in beitraege.json
+  // (leer, solange sie nicht bestätigt ist). Nach dem Termin springt die Anzeige automatisch auf den nächsten Monat.
+  function ersterDienstag(jahr, monat) {
+    const wochentag = new Date(Date.UTC(jahr, monat - 1, 1)).getUTCDay(); // 0 = Sonntag, 2 = Dienstag
+    return 1 + ((2 - wochentag + 7) % 7);
+  }
+  const istUhrzeit = z => /^\d{2}:\d{2}$/.test(String(z));
+  function naechsterTermin(daten) {
     const j = berlinJetzt();
     const heute = `${j.jahr}-${zwei(j.monat)}-${zwei(j.tag)}`;
-    return (daten.kiLab || [])
-      .filter(t => t.bestaetigt === true && /^\d{4}-\d{2}-\d{2}$/.test(String(t.datum)) && String(t.datum) >= heute)
-      .sort((a, b) => String(a.datum).localeCompare(String(b.datum)))[0] || null;
+    let jahr = j.jahr, monat = j.monat;
+    let datum = `${jahr}-${zwei(monat)}-${zwei(ersterDienstag(jahr, monat))}`;
+    if (datum < heute) {
+      monat += 1;
+      if (monat > 12) { monat = 1; jahr += 1; }
+      datum = `${jahr}-${zwei(monat)}-${zwei(ersterDienstag(jahr, monat))}`;
+    }
+    const eintrag = ((daten && daten.kiLab) || []).find(t => t.datum === datum && t.titel) || null;
+    const regel = (daten && daten.regeltermin) || {};
+    const beginn = (eintrag && eintrag.beginn) || regel.beginn;
+    const ende = (eintrag && eintrag.ende) || regel.ende;
+    const hatZeit = istUhrzeit(beginn) && istUhrzeit(ende);
+    return {
+      datum,
+      titel: eintrag ? eintrag.titel : null,
+      referent: eintrag && eintrag.referent ? eintrag.referent : null,
+      beginn: hatZeit ? beginn : null,
+      ende: hatZeit ? ende : null,
+    };
   }
-
   // ---------- Startseite ----------
   function aktuellKarte(b) {
     const art = el('article', 'aktuell-karte');
@@ -85,6 +108,15 @@
     return a;
   }
 
+  function naechsterAufStartseite(a, t) {
+    if (!a || !t) return;
+    const [j, m, tag] = t.datum.split('-').map(Number);
+    const wochentag = WOCHENTAGE[new Date(Date.UTC(j, m - 1, tag)).getUTCDay()];
+    const zeit = t.beginn ? ` · ${t.beginn}–${t.ende} Uhr` : '';
+    a.querySelector('[data-feld="datum"]').textContent = `${wochentag}, ${datumText(t.datum)}${zeit}`;
+    a.querySelector('[data-feld="thema"]').textContent = [t.titel || 'Thema wird bekannt gegeben', t.referent].filter(Boolean).join(' · ');
+    a.hidden = false;
+  }
   // ---------- Seite "KI Lab": jüngster Vortrag, Themenkacheln, Liste ----------
   // "2026-11-03" -> "3. November 2026"
   function datumLang(datum) {
@@ -272,7 +304,7 @@
     teile.push(aktuell);
     return teile.join('\r\n');
   }
-  // beginn und ende kommen aus dem bestätigten Termin ("18:00"), es wird keine Uhrzeit angenommen
+  // beginn und ende nur, wenn die Uhrzeit bestätigt ist ("18:00"); sonst ein ganztägiger Kalendereintrag ohne Uhrzeit
   function kalenderdatei(datum, thema, email, beginn, ende) {
     const tag = datum.replace(/-/g, '');
     const uhr = z => z.replace(':', '') + '00';
@@ -282,6 +314,14 @@
       'Online über Microsoft Teams, kostenlos.',
       email ? `Kontakt: ${email}` : '',
     ].filter(Boolean).join('\n');
+    let zeitzeilen;
+    if (beginn && ende) {
+      zeitzeilen = [`DTSTART;TZID=Europe/Berlin:${tag}T${uhr(beginn)}`, `DTEND;TZID=Europe/Berlin:${tag}T${uhr(ende)}`];
+    } else {
+      const [j, m, t] = datum.split('-').map(Number);
+      const folgetag = new Date(Date.UTC(j, m - 1, t + 1)).toISOString().slice(0, 10).replace(/-/g, '');
+      zeitzeilen = [`DTSTART;VALUE=DATE:${tag}`, `DTEND;VALUE=DATE:${folgetag}`];
+    }
     const zeilen = [
       'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//AKKI//KI Lab//DE', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
       'BEGIN:VTIMEZONE', 'TZID:Europe/Berlin',
@@ -291,8 +331,7 @@
       'BEGIN:VEVENT',
       `UID:ki-lab-${datum}@akki`,
       'DTSTAMP:' + jetzt,
-      `DTSTART;TZID=Europe/Berlin:${tag}T${uhr(beginn)}`,
-      `DTEND;TZID=Europe/Berlin:${tag}T${uhr(ende)}`,
+      ...zeitzeilen,
       'SUMMARY:' + icsText('DGOU KI Lab' + (thema ? ': ' + thema : '')),
       'DESCRIPTION:' + icsText(beschreibung),
       'LOCATION:' + icsText('Online (Microsoft Teams)'),
@@ -301,7 +340,8 @@
     return zeilen.map(icsFalten).join('\r\n') + '\r\n';
   }
 
-  // Zeigt NUR einen bestätigten Termin. Ohne ihn bleibt der Hinweis "Den nächsten Termin kündigen wir ... an" stehen.
+  // Zeigt den nächsten ersten Dienstag. Thema und Referent:in nur, wenn eingetragen; die Uhrzeit nur, wenn bestätigt.
+  // Nur wenn gar kein Termin berechnet werden konnte (eintrag = null), bleibt der Platzhaltertext stehen.
   function naechsterTerminEinrichten(ziel, eintrag) {
     const mitTermin = ziel.querySelector('[data-feld="mit-termin"]');
     const ohneTermin = ziel.querySelector('[data-feld="ohne-termin"]');
@@ -316,7 +356,7 @@
     const thema = eintrag.titel || null;
     const [j, m, t] = datum.split('-').map(Number);
     const wochentag = WOCHENTAGE[new Date(Date.UTC(j, m - 1, t)).getUTCDay()];
-    const hatZeit = /^\d{2}:\d{2}$/.test(String(eintrag.beginn)) && /^\d{2}:\d{2}$/.test(String(eintrag.ende));
+    const hatZeit = istUhrzeit(eintrag.beginn) && istUhrzeit(eintrag.ende);
 
     ziel.querySelector('[data-feld="datum"]').textContent = `${wochentag}, ${datumText(datum)}`;
     const zeit = ziel.querySelector('[data-feld="zeit"]');
@@ -325,8 +365,7 @@
     const ref = ziel.querySelector('[data-feld="referent"]');
     if (ref) { ref.textContent = eintrag.referent || ''; ref.hidden = !eintrag.referent; }
 
-    // Kalenderdatei nur für bestätigte Termine mit Beginn und Ende
-    if (!knopf || !hatZeit) return;
+    if (!knopf) return;
     knopf.hidden = false;
     knopf.addEventListener('click', async () => {
       const kontakt = window.akkiKontakt ? await window.akkiKontakt : {};
@@ -338,13 +377,13 @@
       setTimeout(() => URL.revokeObjectURL(a.href), 1000);
     });
   }
-
   // ---------- Start ----------
   const aktuell = document.getElementById('aktuelles-liste');
   const letzte = document.getElementById('kilab-letzte');
   const naechster = document.getElementById('naechster-termin');
+  const naechsterStart = document.getElementById('kilab-naechster');
   const archiv = document.getElementById('kilab-archiv');
-  if (!aktuell && !letzte && !naechster && !archiv) return;
+  if (!aktuell && !letzte && !naechster && !naechsterStart && !archiv) return;
 
   fetch('daten/beitraege.json')
     .then(r => { if (!r.ok) throw new Error(); return r.json(); })
@@ -352,7 +391,8 @@
       const termine = bestaetigteTermine(daten);
       if (aktuell) aktuell.replaceChildren(...(daten.aktuelles || []).map(aktuellKarte));
       if (letzte) letzte.replaceChildren(...termine.slice(0, 3).map(terminKarteKurz));
-      if (naechster) naechsterTerminEinrichten(naechster, naechsterBestaetigterTermin(daten));
+      if (naechster) naechsterTerminEinrichten(naechster, naechsterTermin(daten));
+      naechsterAufStartseite(naechsterStart, naechsterTermin(daten));
       if (archiv) {
         const oeffnen = archivEinrichten(archiv, termine);
         zuletztEinrichten(document.getElementById('kilab-zuletzt'), termine[0], oeffnen);
@@ -362,6 +402,8 @@
     })
     .catch(() => {
       [aktuell, letzte, archiv].filter(Boolean).forEach(z => z.replaceChildren(el('p', 'hinweis', 'Die Inhalte konnten gerade nicht geladen werden.')));
-      if (naechster) naechsterTerminEinrichten(naechster, null);
+      // Ohne die Datei gibt es kein Thema, der Termin selbst lässt sich trotzdem berechnen
+      if (naechster) naechsterTerminEinrichten(naechster, naechsterTermin({}));
+      naechsterAufStartseite(naechsterStart, naechsterTermin({}));
     });
 })();

@@ -137,6 +137,46 @@ async function pubmedAbfragen(pmid) {
   };
 }
 
+// --- Nächster KI-Lab-Termin: jeden ersten Dienstag im Monat (vom Team bestätigt, 27.11.2026) ---
+// Gleiche Regel wie public/beitraege.js. Die Uhrzeit kommt nur aus der Datei (regeltermin oder Eintrag), sonst bleibt sie leer.
+
+function berlinHeute() {
+  const t = Object.fromEntries(new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Berlin', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).formatToParts(new Date()).map(p => [p.type, Number(p.value)]));
+  return { jahr: t.year, monat: t.month, tag: t.day };
+}
+function ersterDienstag(jahr, monat) {
+  const wochentag = new Date(Date.UTC(jahr, monat - 1, 1)).getUTCDay(); // 0 = Sonntag, 2 = Dienstag
+  return 1 + ((2 - wochentag + 7) % 7);
+}
+function naechsterTermin() {
+  const zwei = n => String(n).padStart(2, '0');
+  const h = berlinHeute();
+  const heute = `${h.jahr}-${zwei(h.monat)}-${zwei(h.tag)}`;
+  let jahr = h.jahr, monat = h.monat;
+  let datum = `${jahr}-${zwei(monat)}-${zwei(ersterDienstag(jahr, monat))}`;
+  if (datum < heute) {
+    monat += 1;
+    if (monat > 12) { monat = 1; jahr += 1; }
+    datum = `${jahr}-${zwei(monat)}-${zwei(ersterDienstag(jahr, monat))}`;
+  }
+  let daten = {};
+  try { daten = JSON.parse(fs.readFileSync(path.join(ROOT, 'daten', 'beitraege.json'), 'utf8')); } catch { /* ohne Datei: kein Thema */ }
+  const eintrag = (daten.kiLab || []).find(t => t.datum === datum && t.titel) || null;
+  const regel = daten.regeltermin || {};
+  const beginn = (eintrag && eintrag.beginn) || regel.beginn;
+  const ende = (eintrag && eintrag.ende) || regel.ende;
+  const ok = z => /^\d{2}:\d{2}$/.test(String(z));
+  const hatZeit = ok(beginn) && ok(ende);
+  return {
+    datum,
+    titel: eintrag ? eintrag.titel : '',
+    referent: eintrag && eintrag.referent ? eintrag.referent : '',
+    beginn: hatZeit ? beginn : '',
+    ende: hatZeit ? ende : '',
+  };
+}
 // --- Datendateien und Dublettenprüfung ---------------------------------------
 
 const DATEN = path.join(ROOT, 'daten');
@@ -410,6 +450,7 @@ http.createServer((req, res) => {
     return json(res, 403, { fehler: 'Anfrage nicht erlaubt.' });
   }
 
+  if (urlPath === '/api/naechster-termin') return json(res, 200, naechsterTermin());
   if (urlPath === '/api/quelle') {
     if (req.method !== 'GET') return json(res, 405, { fehler: 'Nur GET erlaubt.' });
     return apiQuelle(req, res, url);

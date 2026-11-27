@@ -86,6 +86,8 @@ Alles mit ⚠️ ist aus öffentlichen Quellen zusammengetragen und muss vor Ort
   - ___
 
 ## Treffen / KI-Lab
+- Rhythmus: jeden ersten Dienstag im Monat (vom Team bestätigt, 27.11.2026). Die Website berechnet den nächsten Termin automatisch, Thema und Referent:in nur, wenn in `beitraege.json` für diesen Tag eingetragen, sonst „Thema wird bekannt gegeben“.
+- Uhrzeit: nicht ausdrücklich bestätigt, deshalb nicht auf der Website. Sobald bestätigt: `regeltermin.beginn` und `regeltermin.ende` in `beitraege.json` eintragen (z. B. 18:00 und 19:00); die Kalenderdatei ist bis dahin ganztägig.
 - DGOU KI Lab, seit Januar 2026, online über Microsoft Teams, jeden ersten Dienstag im Monat, 1 Stunde (20 Min. Vortrag, 20 Min. Diskussion, 20 Min. AK-Meeting), offen für alle Interessierten.
 - Leitung: Dr. David Baur, Dr. Yasmin Youssef
 - Bisherige Themen:
@@ -113,7 +115,7 @@ Datum – Titel – Kurzbeschreibung
 - Oktober 2026 – folgt
 - 03.11.2026 – Vom Arzt zum Softwareentwickler – KI im klinischen Alltag – Philipp Michel
 
-Alle Termine 18–19 Uhr, online, kostenlos.
+Alle Termine online, kostenlos. (Frühere Angabe „18–19 Uhr“: nicht ausdrücklich bestätigt, wird nicht angezeigt.)
 Hinweis: „Liste wird laufend ergänzt.“
 
 ## Mitmachen
@@ -150,7 +152,7 @@ Hinweis: „Liste wird laufend ergänzt.“
 2. Aktuelle Arbeitskreise der AG und ihre Leitungen (Team: drei AKs; recherchiert: Medien und digitale Systeme, Weißbuch, S3-Leitlinie Coxarthrose; Kompetenzbereiche). Auf der Website steht nur der AK Medien und digitale Systeme.
 3. Gründung des AKKI im Januar 2021 bestätigen
 4. `akki@dgou.de` bei der DGOU einrichten lassen (bis dahin nicht zustellbar)
-5. KI Lab: aktueller Rhythmus, Ablauf, Teilnahmebedingungen („offen für alle“?), nächster bestätigter Termin (Eintrag mit `bestaetigt: true`, Datum, `beginn`, `ende` in `beitraege.json`), Auftakt Januar 2026 (vom Team festgelegt), Themen Juni und Oktober 2026
+5. KI Lab: Uhrzeit, Ablauf, Teilnahmebedingungen („offen für alle“?), nächster bestätigter Termin (Eintrag mit `bestaetigt: true`, Datum, `beginn`, `ende` in `beitraege.json`), Auftakt Januar 2026 (vom Team festgelegt), Themen Juni und Oktober 2026
 6. Referentin KI Lab 15.09.2026 (Anna Klempert oder Anna Völker?), bis dahin weggelassen
 7. Status der Forschungsprojekte (Wunddokumentation: Ergebnisse dürfen nicht behauptet werden)
 8. Freigabe von Personen- und Veranstaltungsfotos (bis dahin Initialen-Kreise, keine Bildplätze)
@@ -168,7 +170,7 @@ Hinweis: „Liste wird laufend ergänzt.“
 
 **Technische Hinweise:**
 - Startseite (Kopf mit lebendem Logo bewusst unverändert): Der Text spricht noch vom „monatlichen KI Lab“ und „offen für alle“ (siehe Punkt 5). Block C (heller Kopf) wurde zurückgestellt.
-- Smart Editor (`redaktion/`, `server.js`): rechnet noch mit „erstem Dienstag, 18–19 Uhr“ und kennt `bestaetigt`, `kategorien`, `beginn`, `ende` nicht (Block K).
+- Smart Editor (`redaktion/`, `server.js`): DOI-/PubMed-Import, Freigabe und Termine fertig (siehe PROJEKTSTAND); der Newsletter-Reiter füllt den nächsten ersten Dienstag vor, ohne Uhrzeit. KI-Entwurf noch offen.
 - Publikationen: `publikationen.json` stammt aus der Teamliste `daten/publikationen-ag.md` (56 Einträge 2020–2026; Titel und Autor:innen unverändert, Jahr und Heft/Seiten wie in der Liste). DOIs per Crossref nur bei eindeutiger Übereinstimmung von Titel, Jahr und Erstautor (49 von 53; Vorabdrucke und Berichtigungen ausgeschlossen). **Ohne DOI, bitte prüfen oder nachtragen:** Car J et al. 2025 (JAMA Netw Open, Digital health competencies framework); Youssef Y et al. 2024 (Z Orthop Unfall, Joint and functional examinations … video consultation); Tjardes T et al. 2020 (Chirurg, Künstliche Intelligenz in der Orthopädie und Unfallchirurgie) und Osterhoff G et al. 2020 (Unfallchirurg, Computerassistierte Entscheidungsfindung beim Traumapatienten): bei den beiden letzten führt Crossref keinen Erstautor, deshalb nicht eindeutig prüfbar.
 - Publikationen: Themen (KI, Telemedizin, Lehre, Apps/DiGA, Social Media, Sportmedizin, VR/Simulation, Digitalisierung allgemein) und Kennzeichen („AKKI-Publikation“: 1 Eintrag, „AG-Publikation“: 12 Einträge) wurden automatisch nach Stichworten in Autorenzeile, Titel und Journal vergeben. Bitte Stichprobe prüfen.
 - Publikationen: Nicht mehr auf der Website, weil nicht in der Teamliste: Kreuzband-Studie (The Knee 2026, DOI 10.1016/j.knee.2025.11.002), ChatGPT-Studie zur Schulterarthrose (Obere Extremität 2024, DOI 10.1007/s11678-024-00836-1), Fachartikel „Neue Führung – next Level Digitalisierung und KI“ (Orthopädie und Unfallchirurgie 5/2026, DOI 10.1007/s41785-026-4929-z), DGOU-Gremienbericht 2026 und Publikationsübersicht der AG. Bei Bedarf wieder ergänzen. Das Projekt „Sprachmodelle und Patienteninformation“ verweist jetzt auf Hu et al. 2024 (Digit Health).

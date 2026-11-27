@@ -215,7 +215,7 @@
       <div role="tabpanel" id="panel-newsletter" aria-labelledby="tab-newsletter" hidden>
         <div class="karte">
           <h2>1. Termin</h2>
-          <p class="hinweis">Datum und Uhrzeit eintragen. Es gibt keinen festen Rhythmus.</p>
+          <p class="hinweis">Vorgefüllt mit dem nächsten ersten Dienstag im Monat (Rhythmus vom Team bestätigt). Die Uhrzeit ist noch nicht bestätigt und muss eingetragen werden, sofern sie in der Datei nicht steht.</p>
           <div class="zeile3">
             <div class="feld"><label for="n-datum">Datum</label><input id="n-datum" type="date"></div>
             <div class="feld"><label for="n-beginn">Beginn</label><input id="n-beginn" type="time"></div>
@@ -473,6 +473,15 @@
   const n = id => document.getElementById('n-' + id);
   const wert = id => n(id).value.trim();
 
+  // Nächster erster Dienstag im Monat (berechnet im Server); Thema und Referent:in nur, wenn dafür ein Eintrag existiert
+  fetch('/api/naechster-termin').then(r => r.json()).then(t => {
+    if (!n('datum').value) n('datum').value = t.datum;
+    if (t.beginn && !n('beginn').value) n('beginn').value = t.beginn;
+    if (t.ende && !n('ende').value) n('ende').value = t.ende;
+    if (t.titel && !n('thema').value) n('thema').value = t.titel;
+    if (t.referent && !n('referent').value) n('referent').value = t.referent;
+    aktualisieren();
+  }).catch(() => {});
   // KI verfügbar?
   fetch('/api/status').then(r => r.json()).then(s => {
     if (!s.ki) {

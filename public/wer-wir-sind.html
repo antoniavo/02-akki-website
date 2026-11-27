@@ -19,44 +19,56 @@
 <header class="seitenkopf">
   <div class="container">
     <h1>Wer wir sind</h1>
-    <p>Der AKKI ist der Arbeitskreis Künstliche Intelligenz der AG Digitalisierung der DGOU. Gegründet wurde er im Januar 2021.</p>
+    <p id="untertitel">Der Arbeitskreis KI in der AG Digitalisierung der DGOU.</p>
   </div>
 </header>
 
 <main>
-  <section>
+  <section aria-labelledby="selbst-titel">
     <div class="container">
-      <div class="kacheln kacheln--zwei">
-        <article class="kachel">
-          <h2>Unsere Ziele</h2>
-          <ul class="liste">
-            <li>Alle Mitglieder zum Thema KI in Orthopädie und Unfallchirurgie auf dem neuesten Stand halten</li>
-            <li>Arbeit als Arbeitskreis innerhalb der AG Digitalisierung der DGOU</li>
-          </ul>
-        </article>
-        <article class="kachel">
-          <h2>Leitung</h2>
-          <p>Dr. David Baur, Prof. Georg Osterhoff <span class="bestaetigen">wird bestätigt</span></p>
-        </article>
-      </div>
+      <h2 id="selbst-titel">Selbstverständnis</h2>
+      <p class="prosa" id="selbstverstaendnis"></p>
     </div>
   </section>
 
-  <section>
+  <section class="abschnitt--hell" aria-labelledby="ziele-titel">
     <div class="container">
-      <div class="karte">
-        <h2>Rahmen</h2>
-        <p>Die Satzung der DGOU legt fest, was Arbeitsgemeinschaften und Arbeitskreise tun. Wortlaut/Link: <span class="text-folgt">Text folgt</span></p>
-      </div>
+      <h2 id="ziele-titel">Unsere Ziele</h2>
+      <ul class="liste ziele-liste" id="ziele"></ul>
+    </div>
+  </section>
 
-      <div class="karte">
-        <h2>Einordnung in der DGOU <span class="bestaetigen">vorläufig</span></h2>
-        <div id="organigramm"><p class="hinweis">Die Übersicht wird geladen …</p></div>
-        <h3 style="margin-top:20px">Ansprechpersonen</h3>
-        <p><span class="text-folgt">Text folgt</span></p>
-        <h3>Links zu den anderen Arbeitskreisen</h3>
-        <p><span class="text-folgt">Text folgt</span></p>
-      </div>
+  <section aria-labelledby="zeit-titel">
+    <div class="container">
+      <h2 id="zeit-titel">Meilensteine</h2>
+      <ol class="zeitleiste" id="zeitleiste"></ol>
+    </div>
+  </section>
+
+  <section class="abschnitt--hell" aria-labelledby="leitung-titel">
+    <div class="container">
+      <h2 id="leitung-titel">Leitung und Ansprechpersonen</h2>
+      <div class="kacheln" id="leitung"></div>
+      <p class="hinweis" id="leitung-stand"></p>
+
+      <h3 class="unterabschnitt">Leitung der AG Digitalisierung</h3>
+      <div class="kacheln" id="ag-leitung"></div>
+      <p class="hinweis" id="ag-leitung-stand"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="org-titel">
+    <div class="container">
+      <h2 id="org-titel">Einordnung in der DGOU</h2>
+      <div id="organigramm" class="org"></div>
+    </div>
+  </section>
+
+  <section class="abschnitt--hell" aria-labelledby="rahmen-titel">
+    <div class="container">
+      <h2 id="rahmen-titel">Rahmen und Satzung</h2>
+      <p class="prosa" id="rahmen-text"></p>
+      <p><a class="knopf knopf--sekundaer" id="satzung-link" hidden target="_blank" rel="noopener"></a></p>
     </div>
   </section>
 </main>
@@ -66,33 +78,104 @@
 <script src="layout.js"></script>
 <script src="kontakt.js"></script>
 <script>
-  // Die Einordnung wird aus public/daten/organisation.json erzeugt.
-  // Neue Gruppen oder Leitungen trägt man dort ein, ohne diese Seite zu ändern.
-  const TEXT_FOLGT = '<span class="text-folgt">Text folgt</span>';
+  // Alle Inhalte kommen aus public/daten/organisation.json und personen.json.
+  // Texte werden nur als reiner Text eingefügt. Leere Felder werden nicht angezeigt.
+  function el(tag, klasse, text) {
+    const e = document.createElement(tag);
+    if (klasse) e.className = klasse;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  const holen = datei => fetch(datei).then(r => { if (!r.ok) throw new Error(datei); return r.json(); });
 
-  function schutz(text) {
-    return String(text).replace(/[&<>"]/g, z => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[z]));
+  function personKarte(p, rollen, zusatz) {
+    const k = el('article', 'person-karte');
+    k.appendChild(el('span', 'initialen', p.initialen));
+    const t = el('div');
+    t.appendChild(el('h3', null, p.name));
+    rollen.forEach(r => t.appendChild(el('p', null, r)));
+    if (zusatz) t.appendChild(el('p', null, zusatz));
+    k.appendChild(t);
+    return k;
   }
 
-  function punkt(p) {
-    let html = '<li><span class="knoten">' + schutz(p.name) + '</span>';
-    if (p.pruefen) html += ' <span class="bestaetigen">wird geprüft</span>';
-    if ('zusatz' in p) html += '<span class="zusatz">' + (p.zusatz ? schutz(p.zusatz) : 'Schwerpunkt: ' + TEXT_FOLGT) + '</span>';
-    if ('leitung' in p) html += '<span class="zusatz">Leitung: ' + (p.leitung ? schutz(p.leitung) : TEXT_FOLGT) + '</span>';
-    if (p.ansprechpartner) html += '<span class="zusatz">Ansprechpartner: ' + schutz(p.ansprechpartner) + '</span>';
-    if (p.unterpunkte && p.unterpunkte.length) html += '<ul>' + p.unterpunkte.map(punkt).join('') + '</ul>';
-    return html + '</li>';
+  function box(klasse, name, zusatz, link) {
+    const b = el('div', 'org-box ' + klasse);
+    if (link) {
+      const a = el('a', null, name);
+      a.href = link; a.target = '_blank'; a.rel = 'noopener';
+      b.appendChild(el('strong')).appendChild(a);
+    } else {
+      b.appendChild(el('strong', null, name));
+    }
+    if (zusatz) b.appendChild(el('span', 'org-box__zusatz', zusatz));
+    return b;
   }
 
-  fetch('daten/organisation.json')
-    .then(r => { if (!r.ok) throw new Error(); return r.json(); })
-    .then(daten => {
-      document.getElementById('organigramm').innerHTML =
-        '<ul class="organigramm">' + punkt(daten.struktur) + '</ul>';
-    })
-    .catch(() => {
-      document.getElementById('organigramm').innerHTML = '<p>' + TEXT_FOLGT + '</p>';
+  function organigramm(o, personen) {
+    const ziel = document.getElementById('organigramm');
+    ziel.appendChild(box('', o.name, o.zusatz, o.link));
+    ziel.appendChild(el('div', 'org-linie'));
+    ziel.appendChild(box('', o.kind.name, null, o.kind.link));
+    ziel.appendChild(el('div', 'org-linie'));
+    const reihe = el('div', 'org-reihe');
+    o.kind.kinder.forEach(k => {
+      const kind = el('div', 'org-kind');
+      const b = box(k.hervorgehoben ? 'org-box--akki' : '', k.name, k.zusatz);
+      const namen = (k.ansprechpersonen || []).map(id => personen[id] && personen[id].name).filter(Boolean);
+      if (namen.length) b.appendChild(el('span', 'org-box__zusatz', 'Ansprechpartner: ' + namen.join(', ')));
+      kind.appendChild(b);
+      reihe.appendChild(kind);
     });
+    ziel.appendChild(reihe);
+  }
+
+  Promise.all([holen('daten/organisation.json'), holen('daten/personen.json')]).then(([org, pd]) => {
+    const personen = Object.fromEntries(pd.personen.map(p => [p.id, p]));
+    const setze = (id, text) => { const e = document.getElementById(id); if (e && text) e.textContent = text; };
+
+    setze('untertitel', org.untertitel);
+    setze('selbstverstaendnis', org.selbstverstaendnis && org.selbstverstaendnis.text);
+    document.getElementById('ziele').replaceChildren(...((org.ziele && org.ziele.liste) || []).map(z => el('li', null, z)));
+
+    document.getElementById('zeitleiste').replaceChildren(...(org.zeitleiste || []).map(z => {
+      const li = el('li', 'zeitleiste__punkt');
+      li.appendChild(el('strong', 'zeitleiste__datum', z.datum));
+      li.appendChild(el('span', null, z.text));
+      return li;
+    }));
+
+    // Leitung des AKKI und KI-Lab-Moderation (AG-Rollen stehen im eigenen Block darunter)
+    document.getElementById('leitung').replaceChildren(...(org.leitungPersonen || []).map(id => {
+      const p = personen[id];
+      return p ? personKarte(p, (p.rollen || []).filter(r => !r.startsWith('AG Digitalisierung'))) : null;
+    }).filter(Boolean));
+    setze('leitung-stand', org.leitungHinweis);
+
+    // Leitung der AG Digitalisierung, mit Quelle und Stand
+    const ag = pd.agLeitung;
+    if (ag) {
+      document.getElementById('ag-leitung').replaceChildren(...ag.mitglieder.map(m => {
+        const p = personen[m.person];
+        return p ? personKarte(p, [m.funktion], p.ort) : null;
+      }).filter(Boolean));
+      const stand = document.getElementById('ag-leitung-stand');
+      stand.textContent = `Stand: ${ag.stand} · ${ag.hinweis} · Quelle: `;
+      const a = el('a', null, 'Fachartikel „Neue Führung – next Level Digitalisierung und KI“, Orthopädie und Unfallchirurgie 5/2026');
+      a.href = 'https://doi.org/10.1007/s41785-026-4929-z'; a.target = '_blank'; a.rel = 'noopener';
+      stand.appendChild(a);
+    }
+
+    if (org.organigramm) organigramm(org.organigramm, personen);
+
+    if (org.rahmen) {
+      setze('rahmen-text', org.rahmen.text);
+      const l = document.getElementById('satzung-link');
+      if (org.rahmen.satzungLink) { l.href = org.rahmen.satzungLink; l.textContent = org.rahmen.satzungLinkText || 'Satzung ansehen'; l.hidden = false; }
+    }
+  }).catch(() => {
+    document.querySelector('main').appendChild(el('p', 'hinweis container', 'Die Inhalte konnten gerade nicht geladen werden.'));
+  });
 </script>
 </body>
 </html>

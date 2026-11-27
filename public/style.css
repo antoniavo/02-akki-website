@@ -308,6 +308,29 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 .rechtstext .karte p, .rechtstext .karte ul { margin-top: 0; }
 .rechtstext a { overflow-wrap: anywhere; }
 
+/* =============== Wer wir sind: Ziele, Zeitleiste, Organigramm =============== */
+[hidden] { display: none !important; }
+.unterabschnitt { margin-top: var(--a4); }
+.ziele-liste { max-width: var(--zeile); }
+.ziele-liste li { margin: 8px 0; }
+.zeitleiste { list-style: none; margin: var(--a3) 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--a2); }
+.zeitleiste__punkt { position: relative; padding-top: var(--a3); display: flex; flex-direction: column; gap: 2px; }
+.zeitleiste__punkt::before { content: ""; position: absolute; top: 7px; left: 0; right: calc(-1 * var(--a2)); height: 2px; background: var(--petrol); }
+.zeitleiste__punkt:last-child::before { right: 0; background: linear-gradient(90deg, var(--petrol), var(--rahmen)); }
+.zeitleiste__punkt::after { content: ""; position: absolute; top: 0; left: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--weiss); border: 3px solid var(--petrol); }
+.zeitleiste__datum { font-family: var(--font-heading); color: var(--blau); }
+.org { display: flex; flex-direction: column; align-items: center; margin-top: var(--a3); }
+.org-box { background: var(--weiss); border: 1px solid var(--rahmen); border-radius: var(--radius); padding: var(--a2) var(--a3); text-align: center; max-width: 440px; width: 100%; }
+.org-box strong { font-family: var(--font-heading); color: var(--blau); font-size: 1.1rem; }
+.org-box__zusatz { display: block; color: var(--text-2); font-size: .95rem; margin-top: 4px; }
+.org-box--akki { background: var(--mint-hell); border: 2px solid var(--petrol); }
+.org-linie { width: 2px; height: var(--a3); background: var(--petrol); }
+.org-reihe { display: grid; grid-template-columns: 1fr 1fr; gap: var(--a3); position: relative; padding-top: var(--a3); width: 100%; max-width: 900px; }
+.org-reihe::before { content: ""; position: absolute; top: 0; left: 25%; right: 25%; height: 2px; background: var(--petrol); }
+.org-kind { position: relative; display: flex; justify-content: center; }
+.org-kind::before { content: ""; position: absolute; top: calc(-1 * var(--a3)); left: 50%; width: 2px; height: var(--a3); background: var(--petrol); }
+.org-kind .org-box { max-width: none; }
+
 /* =============== Footer (eine Komponente, layout.js) =============== */
 .footer { background: var(--navy); color: var(--text-auf-dunkel); padding: var(--a4) 0; margin-top: var(--a3); }
 .footer__innen { display: flex; flex-wrap: wrap; gap: var(--a3); justify-content: space-between; }
@@ -327,6 +350,15 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
   .nav__links.nav__links--offen { display: flex; }
   .nav__links a { display: block; padding: 12px 0; border-bottom: 1px solid var(--rahmen); }
   .nav__links a[aria-current="page"] { border-bottom-color: var(--petrol); }
+}
+@media (max-width: 900px) {
+  .zeitleiste { grid-template-columns: 1fr; gap: 0; border-left: 2px solid var(--petrol); margin-left: 7px; }
+  .zeitleiste__punkt { padding: 0 0 var(--a3) var(--a3); }
+  .zeitleiste__punkt:last-child { padding-bottom: 0; }
+  .zeitleiste__punkt::before, .zeitleiste__punkt:last-child::before { display: none; }
+  .zeitleiste__punkt::after { left: -10px; top: 4px; width: 14px; height: 14px; }
+  .org-reihe { grid-template-columns: 1fr; }
+  .org-reihe::before { display: none; }
 }
 @media (max-width: 760px) {
   .kacheln, .kacheln--zwei, .termin-karten, .archiv-karten { grid-template-columns: 1fr; }

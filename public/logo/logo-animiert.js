@@ -4,10 +4,19 @@
     <canvas data-akki-logo style="width:100%;height:260px;background:#2C4F6B;border-radius:14px"></canvas>
     <script src="logo/logo-animiert.js"></script>
   Optional: data-untertitel="..." und data-zeile2="..." am <canvas> ändern die Texte unter dem Logo.
-  Ohne Zusatzprogramme. Bei "Bewegung reduzieren" im Betriebssystem wird nur das stille Logo gezeigt.
+  Optional: data-auto-hoehe am <canvas>: Das Logo wird ca. 70 % der Breite groß (max. 900 px, auf dem Handy ca. 90 %),
+  die Höhe des Canvas ergibt sich daraus (mit Abstand oben und unten), Untertitel wachsen mit (22 px bzw. 15 px bei voller Größe).
+  Lichtimpulse: eine kurze Kette aus 5 hellen Punkten (Weiß bis Mint) wandert über die Punktbahnen; überquerte Logo-Punkte leuchten kurz auf.
+  Ohne Zusatzprogramme. Bei "Bewegung reduzieren" im Betriebssystem wird nur das stille Logo gezeigt (keine Impulse).
 */
 (function () {
-  const BASE = '#78CBB9', ACC = '#FFFFFF', HEAD = '#FFFFFF', TXT = '#FFFFFF', TXT2 = '#78CBB9';
+  const BASE = '#8FDCCB', ACC = '#FFFFFF', TXT = '#FFFFFF', TXT2 = '#8FDCCB';
+  // Impuls-Kette: 5 Punkte, vorn Weiß, hinten Mint (#8FDCCB), Abstand = 10 Schritte auf der Spur
+  const BEADS = 5, SPACING = 10;
+  const BEAD_COLORS = Array.from({ length: BEADS }, (_, i) => {
+    const f = i / (BEADS - 1), a = [255, 255, 255], b = [143, 220, 203];
+    return 'rgb(' + a.map((v, k) => Math.round(v + (b[k] - v) * f)).join(',') + ')';
+  });
   const LETTERS = [
     [[0, 100, 35, 0], [35, 0, 70, 100], [14, 60, 56, 60]],
     [[0, 0, 0, 100], [0, 62, 54, 0], [19, 40, 58, 100]],
@@ -21,7 +30,8 @@
     const x = c.getContext('2d');
     const sub1 = c.dataset.untertitel || 'Arbeitskreis Künstliche Intelligenz';
     const sub2 = c.dataset.zeile2 || 'AG Digitalisierung · DGOU';
-    let W, H, P = [], E = [], N = [], Q = [], m = { x: -999, y: -999 }, last = 0, grid, MIN, txtY, fs;
+    const auto = c.hasAttribute('data-auto-hoehe');
+    let W, H, P = [], E = [], N = [], Q = [], m = { x: -999, y: -999 }, last = 0, grid, MIN, txtY, fs, fs2, SC = 1;
 
     function add(px, py) {
       const gx = Math.floor(px / MIN), gy = Math.floor(py / MIN);
@@ -39,11 +49,26 @@
 
     function build() {
       const r = window.devicePixelRatio || 1;
-      W = c.clientWidth; H = c.clientHeight || 260;
-      c.width = W * r; c.height = H * r; x.setTransform(r, 0, 0, r, 0, 0);
       const tot = WIDTHS.reduce((a, b) => a + b, 0) + GAP * 3;
-      const sc = Math.min((W * 0.8) / tot, (H * 0.58) / 100);
-      fs = Math.max(11, Math.min(18, sc * 11));
+      W = c.clientWidth;
+      let sc;
+      if (auto) {
+        // Schriftzug ca. 70 % der Breite (Handy bis 600 px: 90 %, dazwischen gleitend), höchstens 900 px
+        const anteil = Math.max(0.7, Math.min(0.9, 0.9 - (W - 600) / 400 * 0.2));
+        sc = Math.min(W * anteil, 900) / tot;
+        fs = Math.max(13, Math.min(22, sc * 6.6));   // Untertitel 1: 22 px bei voller Größe, mindestens 13 px
+        fs2 = Math.max(11, fs * 0.68);               // Untertitel 2: 15 px bei voller Größe, mindestens 11 px
+        const rand = Math.max(24, Math.min(40, W * 0.035));
+        H = Math.round(100 * sc + fs * 3.4 + 2 * rand);
+        c.style.height = H + 'px';
+      } else {
+        H = c.clientHeight || 260;
+        sc = Math.min((W * 0.8) / tot, (H * 0.58) / 100);
+        fs = Math.max(11, Math.min(18, sc * 11));
+        fs2 = fs * 0.75;
+      }
+      SC = sc;
+      c.width = W * r; c.height = H * r; x.setTransform(r, 0, 0, r, 0, 0);
       const blockH = 100 * sc + fs * 3.4;
       const ox = (W - tot * sc) / 2, oy = (H - blockH) / 2;
       txtY = oy + 100 * sc + fs * 1.9;
@@ -91,9 +116,10 @@
       for (const p of P) {
         const dx = p.x - m.x, dy = p.y - m.y;
         if (dx * dx + dy * dy < 1600) p.g = Math.min(1, p.g + 0.15);
-        p.g *= 0.965;
+        p.g *= 0.972;
       }
-      x.lineWidth = 0.8; x.strokeStyle = BASE; x.globalAlpha = 0.17; x.beginPath();
+      const lw = Math.max(0.8, SC * 0.3);
+      x.lineWidth = lw; x.strokeStyle = BASE; x.globalAlpha = 0.3; x.beginPath();
       for (const [i, j] of E) { x.moveTo(P[i].x, P[i].y); x.lineTo(P[j].x, P[j].y); }
       x.stroke();
       x.strokeStyle = ACC;
@@ -115,30 +141,38 @@
         }
         const A = P[q.a], B = P[q.b];
         q.tr.push([A.x + (B.x - A.x) * q.t, A.y + (B.y - A.y) * q.t]);
-        if (q.tr.length > 40) q.tr.shift();
+        if (q.tr.length > BEADS * SPACING) q.tr.shift();
       }
       Q = Q.filter(q => q.life > 0);
-      const pr = MIN * 0.33;
+      // Logo-Punkte: etwas heller und kräftiger (Deckkraft mindestens 0,85)
+      const pr = MIN * 0.37;
       for (const p of P) {
-        x.globalAlpha = 0.55 + p.g * 0.45; x.fillStyle = p.g > 0.2 ? ACC : BASE;
-        x.beginPath(); x.arc(p.x, p.y, pr + p.g * pr * 0.35, 0, 6.283); x.fill();
+        x.globalAlpha = 0.85 + p.g * 0.15; x.fillStyle = p.g > 0.2 ? ACC : BASE;
+        x.beginPath(); x.arc(p.x, p.y, pr + p.g * pr * 0.4, 0, 6.283); x.fill();
       }
-      x.lineCap = 'round';
+      // Lichtimpuls: kurze Kette aus 5 hellen Punkten (Weiß bis Mint) auf der Spur, kein runder Kopf mit Schweif mehr.
+      // Die Logo-Punkte, die ein Kettenglied überquert, leuchten kurz auf.
+      const hr = Math.max(2.4, SC * 0.9), nah = (MIN * 0.7) ** 2;
       for (const q of Q) {
         const tr = q.tr, fade = Math.min(1, q.life / 40);
-        for (let k = 1; k < tr.length; k++) {
-          const f = k / tr.length;
-          x.globalAlpha = f * 0.9 * fade; x.strokeStyle = ACC; x.lineWidth = 0.6 + f * 2.6;
-          x.beginPath(); x.moveTo(tr[k - 1][0], tr[k - 1][1]); x.lineTo(tr[k][0], tr[k][1]); x.stroke();
+        for (let i = BEADS - 1; i >= 0; i--) {
+          const k = tr.length - 1 - i * SPACING;
+          if (k < 0) continue;
+          const f = i / (BEADS - 1), bx = tr[k][0], by = tr[k][1], rad = hr * (1 - 0.4 * f);
+          for (const p of P) {
+            const dx = p.x - bx, dy = p.y - by;
+            if (dx * dx + dy * dy < nah) p.g = Math.max(p.g, 0.85 - 0.25 * f);
+          }
+          x.fillStyle = BEAD_COLORS[i];
+          x.globalAlpha = 0.22 * fade; x.beginPath(); x.arc(bx, by, rad * 2.1, 0, 6.283); x.fill();   // zarter Schein
+          x.globalAlpha = (1 - 0.35 * f) * fade; x.beginPath(); x.arc(bx, by, rad, 0, 6.283); x.fill();
         }
-        const h = tr[tr.length - 1];
-        if (h) { x.globalAlpha = fade; x.fillStyle = HEAD; x.beginPath(); x.arc(h[0], h[1], 2.8, 0, 6.283); x.fill(); }
       }
       x.globalAlpha = 1; x.textAlign = 'center'; x.textBaseline = 'alphabetic';
       x.fillStyle = TXT; x.font = '500 ' + fs + 'px Manrope, system-ui, sans-serif';
       if (x.letterSpacing !== undefined) x.letterSpacing = (fs * 0.08) + 'px';
       x.fillText(sub1, W / 2, txtY);
-      x.fillStyle = TXT2; x.font = '400 ' + (fs * 0.75) + 'px Manrope, system-ui, sans-serif';
+      x.fillStyle = TXT2; x.font = '400 ' + fs2 + 'px Manrope, system-ui, sans-serif';
       x.fillText(sub2, W / 2, txtY + fs * 1.35);
       if (x.letterSpacing !== undefined) x.letterSpacing = '0px';
       if (!reduce) requestAnimationFrame(draw);

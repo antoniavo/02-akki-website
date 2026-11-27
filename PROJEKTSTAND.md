@@ -3,7 +3,7 @@
 **Stand:** Fr 27.11.2026, nach **Block A** des Arbeitsauftrags · AKKI Hackathon 2026, Use Case 02 · Präsentation: Sa 28.11.2026
 
 > **Arbeitsauftrag (maßgeblich für Inhalte und Design):** `ARBEITSAUFTRAG.md` wird blockweise abgearbeitet (Reihenfolge Abschnitt 0.4: A, B, C, D, E, F, G, H, I, J, K). Bei Widersprüchen gelten die Teamentscheidungen aus Abschnitt 0.5 dort.
-> **Erledigt: Block A** (Design) und **Block B** (Datenstruktur: `projekte.json`, `publikationen.json`, `personen.json`, `usecases.json` neu, `kontakt.json` um Betreff-Vorlagen ergänzt; alle 6 DOIs per Crossref geprüft, alle lösen auf). **Block C** (Startseite) ist ebenfalls erledigt: heller Hero mit Navy-Logo-Kachel (mobil darunter), Willkommen, drei Schwerpunkte mit Buttons, Aktuelles (Hackathon hervorgehoben, Leitungswechsel aus `beitraege.json`, jüngste Publikation automatisch aus `publikationen.json`, Feld `datum` dort ergänzt), „Aus dem KI Lab“ (3 jüngste Termine), Mitmachen-Band mit 3 Mail-Buttons. **Nächster Block: D** (Wer wir sind, nutzt `personen.json`); `projekte.json` und `usecases.json` folgen in E, `publikationen.json` auch in F.
+> **Erledigt: Block A** (Design) und **Block B** (Datenstruktur: `projekte.json`, `publikationen.json`, `personen.json`, `usecases.json` neu, `kontakt.json` um Betreff-Vorlagen ergänzt; alle 6 DOIs per Crossref geprüft, alle lösen auf). **Nächster Block: C** (Startseite). Die neuen Dateien sind noch von keiner Seite eingebunden, das passiert in C bis F.
 > **Abweichung von A1:** Buttons und Text-Akzente nutzen `--petrol-text` `#007A70` statt `#008F83`, weil Weiß auf `#008F83` nur 4,0:1 erreicht (Soll 4,5:1, A6). `#008F83` bleibt für Linien, Rahmen, Hover und die Unterstreichung der aktiven Navigation.
 
 > **Neue Sitzung:** Vor dem Arbeiten `git log` ansehen und die Liste in Abschnitt 7 gegen den echten Stand prüfen. Diese Datei kann hinter dem Repo zurückliegen.
@@ -129,8 +129,7 @@ Alle Texte und Fakten stehen in **`inhalte.md`**. Wichtigste Quellen: AG-Präsen
 1. **`ARBEITSAUFTRAG.md` blockweise abarbeiten** (vor jedem Block `git status`, nach jedem Block speichern und kurz berichten; Push macht das Team):
    - ~~A Seitenübergreifendes Design~~ **erledigt**
    - ~~B Datenstruktur~~ **erledigt**
-   - ~~C Startseite~~ **erledigt**
-   - **D** Wer wir sind · **E** Projekte inkl. Hackathon · **F** Publikationen · **G** KI-Lab-Korrekturen · **H** Mitmachen & Kontakt · **I** Footer, Impressum, Datenschutz · **J** Qualitätskontrolle · **K** Smart Editor
+   - **C** Startseite (hell, Hero mit Logo-Kachel, Headline „Künstliche Intelligenz trifft medizinische Expertise.“) · **D** Wer wir sind · **E** Projekte inkl. Hackathon · **F** Publikationen · **G** KI-Lab-Korrekturen · **H** Mitmachen & Kontakt · **I** Footer, Impressum, Datenschutz · **J** Qualitätskontrolle · **K** Smart Editor
    - Damit sind die früheren Einzelaufträge „Design aufhellen“ und „Projektseite“ ersetzt (Wortlaut steht in der Git-Historie). Die KI-Lab-Seite wird in Block G korrigiert (nur bestätigte Termine, kein fester Rhythmus, „seit Dezember 2025“).
    - Auf der öffentlichen Seite entfernt der Auftrag (0.2) alle „Text folgt“-, „wird bestätigt“- und `[OFFEN]`-Platzhalter. Impressum und Datenschutz bleiben bis zur Freigabe als Entwurf.
 2. ~~KI-Lab-Seite fertigstellen~~ **Erledigt** (siehe Abschnitt 5)

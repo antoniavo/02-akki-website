@@ -1,31 +1,25 @@
 {
-  "_hinweis": "Zentrale Datei für 'Aktuelles' und die KI-Lab-Termine. Wird von index.html und treffen.html über beitraege.js geladen. Auf der Startseite erscheint zusätzlich automatisch die jüngste Publikation aus publikationen.json; KI-Lab-Termine nicht in 'aktuelles' wiederholen. Der Smart Editor soll später hier eintragen. Datum im Format JJJJ-MM-TT (oder JJJJ-MM, wenn der Tag noch fehlt). titel: null bedeutet 'folgt' (wird auf der Website nicht angezeigt). kategorie: KI-Tools, Automatisierung, Strategie oder Praxisbericht. referent nur eintragen, wenn bestätigt.",
+  "_hinweis": "Zentrale Datei für 'Aktuelles' und die KI-Lab-Termine. Wird von index.html und treffen.html über beitraege.js geladen. Der Smart Editor soll später hier eintragen. Datum im Format JJJJ-MM-TT (oder JJJJ-MM, wenn der Tag noch fehlt). titel: null bedeutet 'folgt' (wird auf der Website nicht angezeigt). kategorie: KI-Tools, Automatisierung, Strategie oder Praxisbericht. referent nur eintragen, wenn bestätigt.",
   "aktuelles": [
     {
       "id": "hackathon-2026",
       "art": "Veranstaltung",
-      "hervorgehoben": true,
       "titel": "AKKI Hackathon 2026",
       "zeitraum": "27.–28.11.2026",
-      "ort": "BG Klinikum Unfallkrankenhaus Berlin (Kesselhaus)",
-      "text": "Ärzt:innen und technikinteressierte Kolleg:innen entwickeln in zwei Tagen Prototypen zu neun KI-Use-Cases.",
-      "link": "https://akki-hackathon-2026.vercel.app/",
-      "linkText": "Zur Hackathon-Website",
-      "quelle": "Hackathon-Website",
-      "stand": "2026-11-27",
-      "status": "bestaetigt"
+      "ort": "Berlin",
+      "text": "Ärzt:innen und technikaffine Kolleg:innen bauen in zwei Tagen Prototypen zu neun KI-Use-Cases.",
+      "link": "projekte.html",
+      "linkText": "Zum Projekt"
     },
     {
-      "id": "neue-leitung-ag-2026",
-      "art": "Neuigkeit",
-      "titel": "Neue Leitung der AG Digitalisierung",
-      "zeitraum": "August 2026",
-      "text": "Prof. Dr. Benedikt J. Braun übernimmt den Vorsitz, Dr. David Baur ist stellvertretender Vorsitzender.",
-      "link": "https://doi.org/10.1007/s41785-026-4929-z",
-      "linkText": "Zum Fachartikel",
-      "quelle": "Fachartikel „Neue Führung – next Level Digitalisierung und KI“, Orthopädie und Unfallchirurgie 5/2026 (Übergabe am 06.08.2026)",
-      "stand": "2026-11-27",
-      "status": "entwurf"
+      "id": "ki-lab-2026-11-03",
+      "art": "KI Lab",
+      "titel": "Vom Arzt zum Softwareentwickler",
+      "zeitraum": "03.11.2026",
+      "ort": "Online",
+      "text": "KI im klinischen Alltag · Philipp Michel",
+      "link": "treffen.html",
+      "linkText": "Zum KI Lab"
     }
   ],
   "kiLab": [

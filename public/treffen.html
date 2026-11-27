@@ -49,21 +49,24 @@
     <div class="container kl-leiste__innen" id="naechster-termin">
       <h2 id="naechster-titel">
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-        Das nächste KI Lab
+        Nächstes KI Lab:
       </h2>
       <div class="kl-leiste__termin" data-feld="mit-termin" hidden>
         <p class="naechster-termin__datum" data-feld="datum"></p>
-        <p class="naechster-termin__zeit" data-feld="zeit"></p>
-        <p class="naechster-termin__thema" data-feld="thema"></p>
-        <p class="naechster-termin__referent" data-feld="referent" hidden></p>
       </div>
       <p class="kl-leiste__ohne" data-feld="ohne-termin">Der nächste Termin konnte gerade nicht berechnet werden.</p>
       <div class="kl-leiste__knoepfe">
         <button class="knopf knopf--rand" type="button" id="ics-knopf" hidden>In den Kalender (.ics)</button>
-        <a class="knopf" data-kontakt-mailto="Newsletter KI Lab" href="mitmachen.html">Informiert bleiben</a>
+        <a class="knopf knopf--rand" data-kontakt-mailto="Newsletter KI Lab" href="mitmachen.html">Informiert bleiben</a>
       </div>
-    </div>
-  </section>
+      <!-- Zweite Zeile: eingetragenes Thema (mit Referent:in) oder, solange keins eingetragen ist, die Frage nach einer Idee -->
+      <div class="kl-leiste__thema" data-feld="thema-block" hidden>
+        <p class="naechster-termin__thema" data-feld="thema" hidden></p>
+        <p class="naechster-termin__referent" data-feld="referent" hidden></p>
+        <p class="kl-leiste__frage" data-feld="ohne-thema">Das Thema steht noch aus. Haben Sie eine Idee?</p>
+        <a class="knopf" data-feld="vorschlag" data-kontakt-mailto="Themenvorschlag KI Lab">Thema vorschlagen</a>
+      </div>
+    </div>  </section>
 
   <!-- 3. Zuletzt im KI Lab (jüngster Vortrag, kommt aus beitraege.json) -->
   <section class="kl-abschnitt" id="kilab-zuletzt" aria-labelledby="zuletzt-titel" hidden>

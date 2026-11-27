@@ -103,13 +103,13 @@
         <h2 id="kilab-titel">Aus dem KI Lab</h2>
         <a class="pfeil-link" href="treffen.html">Alle Termine</a>
       </div>
-      <!-- Nächster erster Dienstag im Monat (berechnet in beitraege.js) -->
-      <a class="kilab-naechster" id="kilab-naechster" href="treffen.html" hidden>
-        <span class="kilab-naechster__label">Nächstes KI Lab</span>
-        <span class="kilab-naechster__datum" data-feld="datum"></span>
-        <span class="kilab-naechster__thema" data-feld="thema"></span>
-      </a>
-      <div class="termin-karten" id="kilab-letzte"></div>
+      <!-- Nächster erster Dienstag im Monat (berechnet in beitraege.js); Thema nur, wenn in beitraege.json eingetragen -->
+      <div class="kilab-naechster" id="kilab-naechster" hidden>
+        <p class="kilab-naechster__zeile"><span class="kilab-naechster__label">Nächstes KI Lab:</span> <span class="kilab-naechster__datum" data-feld="datum"></span></p>
+        <p class="kilab-naechster__thema" data-feld="thema" hidden></p>
+        <p class="kilab-naechster__frage" data-feld="ohne-thema">Das Thema steht noch aus. Haben Sie eine Idee?</p>
+        <a class="knopf knopf--rand" data-feld="vorschlag" data-kontakt-mailto="Themenvorschlag KI Lab">Thema vorschlagen</a>
+      </div>      <div class="termin-karten" id="kilab-letzte"></div>
     </div>
   </section>
 

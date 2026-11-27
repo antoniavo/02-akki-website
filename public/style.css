@@ -504,10 +504,12 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 }
 
 /* Startseite: nächstes KI Lab (erster Dienstag im Monat) */
-.kilab-naechster { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px var(--a2); margin-top: var(--a2); padding: 14px 20px; background: var(--weiss); border: 1px solid var(--rahmen); border-left: 6px solid var(--petrol); border-radius: var(--radius); text-decoration: none; color: var(--text); transition: box-shadow .15s ease; }
-.kilab-naechster:hover { box-shadow: 0 4px 16px var(--schatten); }
-.kilab-naechster:hover .kilab-naechster__datum { text-decoration: underline; text-decoration-color: var(--petrol); text-underline-offset: 3px; }
-.kilab-naechster[hidden] { display: none; }
-.kilab-naechster__label { font: 700 .85rem var(--font-heading); letter-spacing: .06em; text-transform: uppercase; color: var(--petrol-text); }
+.kilab-naechster { display: flex; flex-wrap: wrap; align-items: center; gap: 6px var(--a2); margin-top: var(--a2); padding: 14px 20px; background: var(--weiss); border: 1px solid var(--rahmen); border-left: 6px solid var(--petrol); border-radius: var(--radius); }
+.kilab-naechster[hidden], .kilab-naechster [hidden] { display: none; }
+.kilab-naechster p { margin: 0; }
+.kilab-naechster__zeile { flex: 1 1 100%; }
+.kilab-naechster__label { font: 700 .85rem var(--font-heading); letter-spacing: .06em; text-transform: uppercase; color: var(--petrol-text); margin-right: 6px; }
 .kilab-naechster__datum { font: 700 1.1rem var(--font-heading); color: var(--blau); }
-.kilab-naechster__thema { color: var(--text-2); }
+.kilab-naechster__thema { font-weight: 600; }
+.kilab-naechster__frage { color: var(--text-2); }
+.kilab-naechster .knopf { padding-top: 8px; padding-bottom: 8px; min-height: 40px; }

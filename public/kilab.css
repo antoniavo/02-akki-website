@@ -27,7 +27,10 @@ main section.kl-leiste + section { padding-top: var(--a4); }
 .kl-leiste p { margin: 0; }
 .kl-leiste__termin { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px var(--a2); flex: 1 1 320px; }
 .kl-leiste .naechster-termin__datum { font-size: 1.05rem; }
-.kl-leiste .naechster-termin__zeit, .kl-leiste .naechster-termin__thema, .kl-leiste .naechster-termin__referent { margin: 0; }
+.kl-leiste .naechster-termin__thema, .kl-leiste .naechster-termin__referent { margin: 0; }
+.kl-leiste__thema { flex: 1 1 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 8px var(--a2); padding-top: 10px; border-top: 1px solid var(--rahmen); }
+.kl-leiste__frage { color: var(--text-2); }
+.kl-leiste__thema[hidden], .kl-leiste__thema [hidden] { display: none; }
 .kl-leiste__ohne { flex: 1 1 240px; color: var(--text-2); }
 .kl-leiste__knoepfe { display: flex; flex-wrap: wrap; gap: 10px; margin-left: auto; }
 .kl-leiste .knopf { padding-top: 8px; padding-bottom: 8px; min-height: 40px; }

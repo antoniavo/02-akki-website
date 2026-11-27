@@ -108,13 +108,31 @@
     return a;
   }
 
-  function naechsterAufStartseite(a, t) {
-    if (!a || !t) return;
+  // "Dienstag, 1. Dezember 2026 · online" (mit "· 18:00–19:00 Uhr", nur wenn die Uhrzeit bestätigt ist)
+  function terminZeile(t) {
     const [j, m, tag] = t.datum.split('-').map(Number);
     const wochentag = WOCHENTAGE[new Date(Date.UTC(j, m - 1, tag)).getUTCDay()];
-    const zeit = t.beginn ? ` · ${t.beginn}–${t.ende} Uhr` : '';
-    a.querySelector('[data-feld="datum"]').textContent = `${wochentag}, ${datumText(t.datum)}${zeit}`;
-    a.querySelector('[data-feld="thema"]').textContent = [t.titel || 'Thema wird bekannt gegeben', t.referent].filter(Boolean).join(' · ');
+    const zeit = istUhrzeit(t.beginn) && istUhrzeit(t.ende) ? ` · ${t.beginn}–${t.ende} Uhr` : '';
+    return `${wochentag}, ${datumLang(t.datum)}${zeit} · online`;
+  }
+  // Thema und Referent:in nur, wenn eingetragen; sonst die Frage nach einer Idee mit Button "Thema vorschlagen" (kein erfundenes Thema)
+  function themaAnzeigen(ziel, t) {
+    const thema = ziel.querySelector('[data-feld="thema"]');
+    const ref = ziel.querySelector('[data-feld="referent"]');
+    const frage = ziel.querySelector('[data-feld="ohne-thema"]');
+    const vorschlag = ziel.querySelector('[data-feld="vorschlag"]');
+    const hat = !!t.titel;
+    if (thema) { thema.textContent = hat ? t.titel : ''; thema.hidden = !hat; }
+    if (ref) { ref.textContent = t.referent || ''; ref.hidden = !(hat && t.referent); }
+    if (frage) frage.hidden = hat;
+    if (vorschlag) vorschlag.hidden = hat;
+  }
+  function naechsterAufStartseite(a, t) {
+    if (!a || !t) return;
+    a.querySelector('[data-feld="datum"]').textContent = terminZeile(t);
+    themaAnzeigen(a, t);
+    const thema = a.querySelector('[data-feld="thema"]');
+    if (t.titel && t.referent) thema.textContent = `${t.titel} · ${t.referent}`;
     a.hidden = false;
   }
   // ---------- Seite "KI Lab": jüngster Vortrag, Themenkacheln, Liste ----------
@@ -345,26 +363,19 @@
   function naechsterTerminEinrichten(ziel, eintrag) {
     const mitTermin = ziel.querySelector('[data-feld="mit-termin"]');
     const ohneTermin = ziel.querySelector('[data-feld="ohne-termin"]');
+    const themaBlock = ziel.querySelector('[data-feld="thema-block"]');
     const knopf = document.getElementById('ics-knopf');
     const hatTermin = !!eintrag;
     if (mitTermin) mitTermin.hidden = !hatTermin;
     if (ohneTermin) ohneTermin.hidden = hatTermin;
+    if (themaBlock) themaBlock.hidden = !hatTermin;
     if (knopf) knopf.hidden = true;
     if (!hatTermin) return;
 
     const datum = eintrag.datum;
     const thema = eintrag.titel || null;
-    const [j, m, t] = datum.split('-').map(Number);
-    const wochentag = WOCHENTAGE[new Date(Date.UTC(j, m - 1, t)).getUTCDay()];
-    const hatZeit = istUhrzeit(eintrag.beginn) && istUhrzeit(eintrag.ende);
-
-    ziel.querySelector('[data-feld="datum"]').textContent = `${wochentag}, ${datumText(datum)}`;
-    const zeit = ziel.querySelector('[data-feld="zeit"]');
-    if (zeit) { zeit.textContent = hatZeit ? `${eintrag.beginn}–${eintrag.ende} Uhr · online` : 'Online'; }
-    ziel.querySelector('[data-feld="thema"]').textContent = thema || 'Thema wird bekannt gegeben';
-    const ref = ziel.querySelector('[data-feld="referent"]');
-    if (ref) { ref.textContent = eintrag.referent || ''; ref.hidden = !eintrag.referent; }
-
+    ziel.querySelector('[data-feld="datum"]').textContent = terminZeile(eintrag);
+    themaAnzeigen(ziel, eintrag);
     if (!knopf) return;
     knopf.hidden = false;
     knopf.addEventListener('click', async () => {

@@ -58,6 +58,8 @@
   .haken, .auswahl label { display: inline-flex; align-items: center; gap: 8px; font-weight: 400; margin: 0; }
   .haken input, .auswahl input { width: auto; }
   .feld select { font: 400 1rem var(--font-body); color: var(--dunkel); background: var(--kachel); border: 1px solid var(--border); border-radius: var(--radius-klein); padding: 10px 12px; }
+  .naechstes { background: var(--mint-hell); border-left: 4px solid var(--akzent); padding: 8px 12px; margin: 0 0 16px; }
+  .naechstes p { margin: 4px 0; }
   .ohne-ki { background: var(--mint-hell); border-left: 4px solid var(--akzent); padding: 8px 12px; margin-top: 8px; color: var(--dunkel); }
   @media (max-width: 760px) {
     .reiter button { padding: 10px 12px; }
@@ -215,6 +217,10 @@
       <div role="tabpanel" id="panel-newsletter" aria-labelledby="tab-newsletter" hidden>
         <div class="karte">
           <h2>1. Termin</h2>
+          <div class="naechstes" id="n-naechstes" hidden>
+            <p><strong>Nächstes KI Lab:</strong> <span id="n-zeile"></span></p>
+            <p id="n-ohne-thema">Das Thema steht noch aus. Haben Sie eine Idee? <a class="knopf knopf--leise" data-kontakt-mailto="Themenvorschlag KI Lab">Thema vorschlagen</a></p>
+          </div>
           <p class="hinweis">Vorgefüllt mit dem nächsten ersten Dienstag im Monat (Rhythmus vom Team bestätigt). Die Uhrzeit ist noch nicht bestätigt und muss eingetragen werden, sofern sie in der Datei nicht steht.</p>
           <div class="zeile3">
             <div class="feld"><label for="n-datum">Datum</label><input id="n-datum" type="date"></div>
@@ -480,6 +486,14 @@
     if (t.ende && !n('ende').value) n('ende').value = t.ende;
     if (t.titel && !n('thema').value) n('thema').value = t.titel;
     if (t.referent && !n('referent').value) n('referent').value = t.referent;
+    // Hinweiszeile: "Dienstag, 1. Dezember 2026 · online"; ohne eingetragenes Thema die Frage nach einer Idee
+    const [jj, mm, tt] = t.datum.split('-').map(Number);
+    const monate = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+    const tage = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+    const uhr = t.beginn && t.ende ? ` · ${t.beginn}–${t.ende} Uhr` : '';
+    n('zeile').textContent = `${tage[new Date(Date.UTC(jj, mm - 1, tt)).getUTCDay()]}, ${tt}. ${monate[mm - 1]} ${jj}${uhr} · online`;
+    n('ohne-thema').hidden = Boolean(t.titel);
+    n('naechstes').hidden = false;
     aktualisieren();
   }).catch(() => {});
   // KI verfügbar?

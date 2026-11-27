@@ -311,6 +311,8 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 /* =============== Wer wir sind: Ziele, Zeitleiste, Organigramm =============== */
 [hidden] { display: none !important; }
 .unterabschnitt { margin-top: var(--a4); }
+.pub-eintrag:target { background: var(--mint-hell); box-shadow: -12px 0 0 var(--mint-hell), 12px 0 0 var(--mint-hell); border-radius: var(--radius-klein); }
+.pub-eintrag__titel { margin-top: 0; }
 .filter-label { align-self: center; font-size: .85rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-2); margin-right: 2px; }
 .ziele-liste { max-width: var(--zeile); }
 .ziele-liste li { margin: 8px 0; }

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Publikationen – AKKI</title>
-<meta name="description" content="Publikationen aus dem Umfeld des AKKI, des Arbeitskreises Künstliche Intelligenz der AG Digitalisierung der DGOU.">
+<meta name="description" content="Wissenschaftliche Veröffentlichungen des AKKI und ausgewählte Arbeiten aus dem Umfeld der AG Digitalisierung der DGOU.">
 <!-- Vorerst fuer Suchmaschinen gesperrt, bis die DGOU die Seite freigibt (siehe inhalte.md) -->
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="logo/logo-hell.svg">
@@ -19,27 +19,55 @@
 <header class="seitenkopf">
   <div class="container">
     <h1>Publikationen</h1>
-    <p>Publikationen werden über doi.org verlinkt.</p>
+    <p>Wissenschaftliche Veröffentlichungen des AKKI und ausgewählte Arbeiten aus dem Umfeld der AG Digitalisierung.</p>
   </div>
 </header>
 
 <main>
-  <section>
+  <section aria-labelledby="suche-titel">
     <div class="container">
-      <article class="karte">
-        <h2>Neue Führung – next Level Digitalisierung und KI <span class="bestaetigen">wird bestätigt</span></h2>
-        <p>Braun &amp; Back · Springer Medizin, 10/2026</p>
-        <p>DOI: <span class="text-folgt">folgt</span></p>
-      </article>
-      <article class="karte">
-        <h2>DGOU-Gremienbericht 2026</h2>
-        <p>S. 28–31</p>
-        <p>Link: <span class="text-folgt">folgt</span></p>
-      </article>
-      <article class="karte">
-        <h2>Weitere Publikationen</h2>
-        <p><span class="text-folgt">Text folgt</span></p>
-      </article>
+      <h2 id="suche-titel" class="sr-only">Publikationen durchsuchen und filtern</h2>
+      <div class="archiv-werkzeuge">
+        <div class="suchfeld">
+          <label class="sr-only" for="pub-suche">Publikationen durchsuchen</label>
+          <input type="search" id="pub-suche" placeholder="Suchen nach Titel, Autor:in, Journal …" autocomplete="off">
+        </div>
+        <span class="hinweis" id="pub-anzahl" aria-live="polite"></span>
+      </div>
+      <div class="archiv-werkzeuge">
+        <div class="filter" id="filter-jahr" role="group" aria-label="Nach Jahr filtern"><span class="filter-label">Jahr</span></div>
+        <div class="filter" id="filter-typ" role="group" aria-label="Nach Typ filtern"><span class="filter-label">Typ</span></div>
+      </div>
+      <p class="sr-only" id="kopiert-status" role="status"></p>
+    </div>
+  </section>
+
+  <section id="gruppe-akki" aria-labelledby="akki-titel">
+    <div class="container">
+      <h2 id="akki-titel">Publikation des AKKI</h2>
+      <ul class="pub-liste" id="liste-akki"></ul>
+    </div>
+  </section>
+
+  <section id="gruppe-umfeld" class="abschnitt--hell" aria-labelledby="umfeld-titel">
+    <div class="container">
+      <h2 id="umfeld-titel">Ausgewählte Forschung aus dem Umfeld der AG Digitalisierung</h2>
+      <p class="hinweis">Arbeiten von Mitgliedern und Partnern aus dem Umfeld der AG, keine AKKI-Gemeinschaftspublikationen.</p>
+      <ul class="pub-liste" id="liste-umfeld"></ul>
+    </div>
+  </section>
+
+  <section id="gruppe-berichte" aria-labelledby="berichte-titel">
+    <div class="container">
+      <h2 id="berichte-titel">Verbandsmitteilungen und Berichte</h2>
+      <ul class="pub-liste" id="liste-berichte"></ul>
+    </div>
+  </section>
+
+  <section aria-label="Hinweis">
+    <div class="container">
+      <p class="hinweis" id="pub-leer" hidden>Keine passenden Publikationen gefunden.</p>
+      <p class="hinweis">Neue Publikationen werden über den AKKI Smart Editor ergänzt.</p>
     </div>
   </section>
 </main>
@@ -48,5 +76,126 @@
 
 <script src="layout.js"></script>
 <script src="kontakt.js"></script>
+<script>
+  // Alle Publikationen kommen aus public/daten/publikationen.json (Metadaten aus Crossref geprüft).
+  // Texte werden nur als reiner Text eingefügt. Leere Felder (null) werden nicht angezeigt.
+  const GRUPPEN = ['akki', 'umfeld', 'berichte'];
+
+  function el(tag, klasse, text) {
+    const e = document.createElement(tag);
+    if (klasse) e.className = klasse;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function link(text, href) {
+    const a = el('a', null, text);
+    a.href = href; a.target = '_blank'; a.rel = 'noopener';
+    return a;
+  }
+
+  // Zitation im Vancouver-Stil: Autoren. Titel. Journal. Jahr;Angabe. doi:...
+  function zitation(p) {
+    const teile = [];
+    if (p.autoren) teile.push(p.autoren + '.');
+    teile.push(p.titel + (/[.?!]$/.test(p.titel) ? '' : '.'));
+    if (p.journal) teile.push(p.journal + '.');
+    if (p.jahr) teile.push(p.jahr + (p.angabe ? ';' + p.angabe : '') + '.');
+    if (p.doi) teile.push('doi:' + p.doi);
+    else if (p.link) teile.push(p.link);
+    return teile.join(' ');
+  }
+
+  async function kopieren(text) {
+    try { await navigator.clipboard.writeText(text); return true; } catch (e) { /* weiter mit Ersatzweg */ }
+    const t = el('textarea'); t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+    document.body.appendChild(t); t.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    t.remove();
+    return ok;
+  }
+
+  function eintrag(p) {
+    const li = el('li', 'pub-eintrag');
+    li.id = p.id;
+    li.appendChild(el('h3', 'pub-eintrag__titel', p.titel));
+    if (p.autoren) li.appendChild(el('p', 'pub-eintrag__autoren', p.autoren));
+    const meta = [p.journal, p.jahr, p.angabe, p.erschienen].filter(Boolean).join(' · ');
+    if (meta) li.appendChild(el('p', 'pub-eintrag__meta', meta));
+    if (p.kurzfassung) li.appendChild(el('p', null, p.kurzfassung));
+
+    const aktionen = el('div', 'pub-eintrag__aktionen');
+    if (p.doi) aktionen.appendChild(link('DOI', 'https://doi.org/' + p.doi));
+    if (p.pubmed) aktionen.appendChild(link('PubMed', 'https://pubmed.ncbi.nlm.nih.gov/' + p.pubmed + '/'));
+    if (p.link) aktionen.appendChild(link(p.doi ? 'Zur Quelle' : 'Zum Dokument', p.link));
+    if (p.autoren || p.doi) {
+      const b = el('button', null, 'Zitation kopieren');
+      b.type = 'button';
+      b.addEventListener('click', async () => {
+        const ok = await kopieren(zitation(p));
+        b.textContent = ok ? 'Kopiert ✓' : 'Kopieren nicht möglich';
+        document.getElementById('kopiert-status').textContent = ok ? 'Zitation in die Zwischenablage kopiert.' : 'Kopieren nicht möglich.';
+        setTimeout(() => { b.textContent = 'Zitation kopieren'; }, 2000);
+      });
+      aktionen.appendChild(b);
+    }
+    if (aktionen.childNodes.length) li.appendChild(aktionen);
+    return li;
+  }
+
+  fetch('daten/publikationen.json')
+    .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+    .then(daten => {
+      // Neueste zuerst, Einträge ohne Datum zuletzt
+      const alle = (daten.publikationen || []).filter(p => p.titel)
+        .sort((a, b) => String(b.datum || '').localeCompare(String(a.datum || '')));
+      const auswahl = { jahr: 'Alle', typ: 'Alle' };
+      const suche = document.getElementById('pub-suche');
+
+      function filterKnoepfe(boxId, feld, werte) {
+        const box = document.getElementById(boxId);
+        ['Alle', ...werte].forEach(w => {
+          const b = el('button', 'filter-knopf', String(w));
+          b.type = 'button';
+          b.setAttribute('aria-pressed', w === 'Alle' ? 'true' : 'false');
+          b.addEventListener('click', () => {
+            auswahl[feld] = w;
+            box.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+            zeigen();
+          });
+          box.appendChild(b);
+        });
+      }
+      const jahre = [...new Set(alle.map(p => p.jahr).filter(Boolean))].sort((a, b) => b - a);
+      const typen = (daten.typen || []).filter(t => alle.some(p => p.typ === t));
+      filterKnoepfe('filter-jahr', 'jahr', jahre);
+      filterKnoepfe('filter-typ', 'typ', typen);
+
+      function zeigen() {
+        const begriff = suche.value.trim().toLowerCase();
+        const treffer = alle.filter(p =>
+          (auswahl.jahr === 'Alle' || p.jahr === auswahl.jahr) &&
+          (auswahl.typ === 'Alle' || p.typ === auswahl.typ) &&
+          (!begriff || [p.titel, p.autoren, p.journal, p.jahr, p.kurzfassung, p.doi, p.typ].filter(Boolean).join(' ').toLowerCase().includes(begriff)));
+        GRUPPEN.forEach(g => {
+          const liste = treffer.filter(p => p.gruppe === g);
+          document.getElementById('liste-' + g).replaceChildren(...liste.map(eintrag));
+          document.getElementById('gruppe-' + g).hidden = liste.length === 0;
+        });
+        document.getElementById('pub-leer').hidden = treffer.length > 0;
+        document.getElementById('pub-anzahl').textContent = treffer.length === 1 ? '1 Publikation' : treffer.length + ' Publikationen';
+      }
+      suche.addEventListener('input', zeigen);
+      zeigen();
+
+      // Sprung von einer Projektkarte (publikationen.html#<id>): erst nach dem Aufbau der Liste
+      const ziel = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      if (ziel) ziel.scrollIntoView();
+    })
+    .catch(() => {
+      document.getElementById('pub-leer').textContent = 'Die Publikationen konnten gerade nicht geladen werden.';
+      document.getElementById('pub-leer').hidden = false;
+    });
+</script>
 </body>
 </html>

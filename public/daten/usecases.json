@@ -1,0 +1,109 @@
+{
+  "_hinweis": "Hackathon 2026: Rahmendaten und neun Use Cases. Titel bestätigt, Kurzbeschreibungen redaktioneller Entwurf. Felder team, repository, demo, ergebnis bleiben ausgeblendet, solange sie null sind.",
+  "hackathon": {
+    "titel": "AKKI Hackathon 2026",
+    "text": "Beim ersten KI-Hackathon des AKKI entwickeln Ärztinnen, Ärzte und technikinteressierte Teilnehmende in interdisziplinären Teams Prototypen für Orthopädie und Unfallchirurgie. Programmierkenntnisse sind keine Voraussetzung.",
+    "zeitraum": "27.–28.11.2026",
+    "ort": "BG Klinikum Unfallkrankenhaus Berlin, Kesselhaus",
+    "veranstalter": "BG Klinikum Unfallkrankenhaus Berlin und Helliwood media & education im fjs e. V.",
+    "website": "https://akki-hackathon-2026.vercel.app/",
+    "hinweis": "Hackathon-Prototypen – nicht für den klinischen Einsatz",
+    "quelle": "Hackathon-Website; Teamangabe",
+    "stand": "2026-11-27",
+    "status": "bestaetigt"
+  },
+  "usecases": [
+    {
+      "id": "wund-ai",
+      "nr": 1,
+      "titel": "Wund-AI",
+      "text": "KI-gestützte strukturierte Wunddokumentation",
+      "team": null, "repository": null, "demo": null, "ergebnis": null,
+      "quelle": "Hackathon-Website (Titel); Kurzbeschreibung redaktionell",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "akki-website",
+      "nr": 2,
+      "titel": "AKKI-Website",
+      "text": "Website des Arbeitskreises mit KI-gestützter Redaktion (dieses Projekt)",
+      "team": null,
+      "repository": "https://github.com/antoniavo/02-akki-website",
+      "demo": null, "ergebnis": null,
+      "quelle": "Hackathon-Website (Titel); Kurzbeschreibung redaktionell",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "ekg-ai",
+      "nr": 3,
+      "titel": "EKG-AI",
+      "text": "KI-Unterstützung bei der Aufbereitung von EKG-Befunden",
+      "team": null, "repository": null, "demo": null, "ergebnis": null,
+      "quelle": "Hackathon-Website (Titel); Kurzbeschreibung redaktionell",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "avatar-uebersetzer",
+      "nr": 4,
+      "titel": "Medizinischer Avatar-Übersetzer",
+      "text": "Digitale Hilfe für mehrsprachige Patientenkommunikation",
+      "team": null, "repository": null, "demo": null, "ergebnis": null,
+      "quelle": "Hackathon-Website (Titel); Kurzbeschreibung redaktionell",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "reanimations-co-pilot",
+      "nr": 5,
+      "titel": "Reanimations-Co-Pilot",
+      "text": "Digitale Assistenz in Reanimationssituationen",
+      "team": null, "repository": null, "demo": null, "ergebnis": null,
+      "quelle": "Hackathon-Website (Titel); Kurzbeschreibung redaktionell",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "pflege-zusammenfassung",
+      "nr": 6,
+      "titel": "Pflege-Zusammenfassung",
+      "text": "KI-gestützte Zusammenfassung pflegerischer Dokumentation",
+      "team": null, "repository": null, "demo": null, "ergebnis": null,
+      "quelle": "Hackathon-Website (Titel); Kurzbeschreibung redaktionell",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "entlassungsassistent",
+      "nr": 7,
+      "titel": "Entlassungsassistent",
+      "text": "Unterstützung bei Entlassungsinformationen",
+      "team": null, "repository": null, "demo": null, "ergebnis": null,
+      "quelle": "Hackathon-Website (Titel); Kurzbeschreibung redaktionell",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "implantat-check",
+      "nr": 8,
+      "titel": "Implantat-Check",
+      "text": "Digitale Unterstützung rund um Implantatinformationen",
+      "team": null, "repository": null, "demo": null, "ergebnis": null,
+      "quelle": "Hackathon-Website (Titel); Kurzbeschreibung redaktionell",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "op-bericht-assistent",
+      "nr": 9,
+      "titel": "OP-Bericht-Assistent",
+      "text": "Entwürfe für die operative Dokumentation",
+      "team": null, "repository": null, "demo": null, "ergebnis": null,
+      "quelle": "Hackathon-Website (Titel); Kurzbeschreibung redaktionell",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    }
+  ]
+}

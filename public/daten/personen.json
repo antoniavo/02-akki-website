@@ -1,0 +1,91 @@
+{
+  "_hinweis": "Leitung und Ansprechpersonen. Keine Fotos (Initialen-Kreis), keine privaten Kontaktdaten. Titel und Schreibweisen sind beim Team noch zur Bestätigung. Leere Felder (null) werden nicht angezeigt. Ortsangaben nur, wenn eindeutig (bei Baur nennen Quellen Freiburg bzw. Leipzig, deshalb weggelassen).",
+  "personen": [
+    {
+      "id": "baur",
+      "name": "Dr. David Baur",
+      "initialen": "DB",
+      "rollen": ["AKKI-Leitung", "KI-Lab-Moderation", "AG Digitalisierung: stellvertretender Vorsitz"],
+      "ort": null,
+      "quelle": "AG-Präsentation 08.06.2026; DGOU-Meldung KI Lab; Fachartikel 02.10.2026",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "osterhoff",
+      "name": "Prof. Dr. Georg Osterhoff",
+      "initialen": "GO",
+      "rollen": ["AKKI-Leitung"],
+      "ort": null,
+      "quelle": "AG-Präsentation 08.06.2026",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "youssef",
+      "name": "Dr. Yasmin Youssef",
+      "initialen": "YY",
+      "rollen": ["KI-Lab-Moderation"],
+      "ort": null,
+      "quelle": "DGOU-Meldung KI Lab",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "braun",
+      "name": "Prof. Dr. Benedikt J. Braun",
+      "initialen": "BB",
+      "rollen": ["AG Digitalisierung: Vorsitz"],
+      "ort": "Tübingen",
+      "quelle": "Fachartikel „Neue Führung – next Level Digitalisierung und KI“, 02.10.2026",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "breitwieser",
+      "name": "Dr. Martin Breitwieser",
+      "initialen": "MB",
+      "rollen": ["AG Digitalisierung: Sekretär"],
+      "ort": "Salzburg",
+      "quelle": "Fachartikel „Neue Führung – next Level Digitalisierung und KI“, 02.10.2026",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "lindhorst",
+      "name": "PD Dr. Lindhorst",
+      "initialen": "L",
+      "rollen": ["Ansprechperson AK Medien und digitale Systeme"],
+      "ort": null,
+      "quelle": "Teamentscheidung (ARBEITSAUFTRAG 0.5)",
+      "stand": "2026-11-27",
+      "status": "bestaetigt"
+    },
+    {
+      "id": "gruener",
+      "name": "doc. Dr. Stephan Gruener",
+      "initialen": "SG",
+      "rollen": ["Ansprechperson AK Medien und digitale Systeme"],
+      "ort": null,
+      "quelle": "Teamentscheidung (ARBEITSAUFTRAG 0.5)",
+      "stand": "2026-11-27",
+      "status": "bestaetigt"
+    }
+  ],
+  "agLeitung": {
+    "titel": "Leitung der AG Digitalisierung",
+    "stand": "Oktober 2026",
+    "hinweis": "Übergabe am 06.08.2026",
+    "quelle": "Fachartikel „Neue Führung – next Level Digitalisierung und KI“, Orthopädie und Unfallchirurgie 5/2026, 02.10.2026",
+    "mitglieder": [
+      { "person": "braun", "funktion": "Vorsitz" },
+      { "person": "baur", "funktion": "Stellvertretender Vorsitz" },
+      { "person": "breitwieser", "funktion": "Sekretär" }
+    ]
+  },
+  "verantwortlich": {
+    "hinweis": "Inhaltlich verantwortlich (§ 18 Abs. 2 MStV), siehe Impressum.",
+    "namen": ["Prof. Dr. Benedikt Braun", "Dr. David Baur"],
+    "status": "bestaetigt"
+  }
+}

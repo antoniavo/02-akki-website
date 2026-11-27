@@ -1,0 +1,117 @@
+{
+  "_hinweis": "Schwerpunkte, Projekte und Wissenstransfer. Jeder Datensatz: id, quelle, stand, status (bestaetigt oder entwurf). Leere Felder (null) werden auf der Website nicht angezeigt. Projektstatus: Projektidee, In Planung, Laufend, Abgeschlossen, Publiziert. Keine Ergebnisse behaupten, keine Promotionsprojekte eintragen.",
+  "statusWerte": ["Projektidee", "In Planung", "Laufend", "Abgeschlossen", "Publiziert"],
+  "themenWerte": ["Klinische Dokumentation", "Diagnostik", "Prognostik", "Decision Support", "Patienteninformation", "Leitlinien", "Lehre", "Open Source"],
+  "schwerpunkte": [
+    {
+      "id": "leitliniensupport",
+      "titel": "KI-basierter Leitliniensupport",
+      "text": "Wie kann KI helfen, Leitlinien gezielt zu durchsuchen und relevante Empfehlungen quellenbasiert und nachvollziehbar bereitzustellen?",
+      "icon": "buch",
+      "thema": "Leitlinien",
+      "ansprechpersonen": ["osterhoff"],
+      "quelle": "DGOU-Gremienbericht 2026, Bericht der AG Digitalisierung",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "ki-zugang",
+      "titel": "Erleichterter KI-Zugang in O&U",
+      "text": "Technische und organisatorische Einstiegshürden abbauen und den praxisnahen Einsatz geeigneter KI-Werkzeuge erleichtern.",
+      "icon": "schluessel",
+      "thema": "Lehre",
+      "ansprechpersonen": ["osterhoff"],
+      "quelle": "DGOU-Gremienbericht 2026, Bericht der AG Digitalisierung",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "decision-support",
+      "titel": "Clinical Decision Support",
+      "text": "Selbstlernende Systeme zur Unterstützung klinischer Entscheidungen in Diagnostik, Prognostik und Therapieplanung – mit wissenschaftlicher Validierung und ärztlicher Entscheidungshoheit.",
+      "icon": "kompass",
+      "thema": "Decision Support",
+      "ansprechpersonen": [],
+      "quelle": "digitalisierung-dgou.de/schwerpunkte",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    }
+  ],
+  "projekte": [
+    {
+      "id": "wunddokumentation",
+      "titel": "KI-gestützte Wunddokumentation",
+      "text": "Validierungsstudie zur KI-gestützten Erstellung von Texten für die Wunddokumentation.",
+      "thema": "Klinische Dokumentation",
+      "projektStatus": "Laufend",
+      "umfeld": false,
+      "ansprechpersonen": ["osterhoff", "youssef"],
+      "publikation": null,
+      "link": null,
+      "quelle": "DGOU-Gremienbericht 2026, Bericht der AG Digitalisierung",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "arztbriefe",
+      "titel": "KI-basierte Arztbriefe – Zukunft oder Gefahr?",
+      "text": "Untersuchung KI-gestützter Lösungen zur Arztbrieferstellung im deutschsprachigen Raum: Funktionen, Einsetzbarkeit, Datensicherheit und Kosten.",
+      "thema": "Klinische Dokumentation",
+      "projektStatus": "Publiziert",
+      "umfeld": false,
+      "ansprechpersonen": [],
+      "publikation": "arztbriefe-2025",
+      "link": null,
+      "quelle": "DGOU-Gremienbericht 2026; Crossref (DOI 10.1007/s00132-025-04749-x)",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    },
+    {
+      "id": "sprachmodelle-patienteninformation",
+      "titel": "Sprachmodelle und Patienteninformation",
+      "text": "Wie genau beantworten KI-Sprachmodelle Patientenfragen zu orthopädischen Erkrankungen?",
+      "thema": "Patienteninformation",
+      "projektStatus": "Publiziert",
+      "umfeld": true,
+      "umfeldHinweis": "Forschung aus dem Umfeld der AG Digitalisierung, kein offizielles AKKI-Projekt",
+      "ansprechpersonen": [],
+      "publikation": "kreuzband-2026",
+      "link": null,
+      "quelle": "Crossref (DOI 10.1016/j.knee.2025.11.002); PubMed 41253635",
+      "stand": "2026-11-27",
+      "status": "entwurf"
+    }
+  ],
+  "transfer": [
+    {
+      "id": "ki-lab",
+      "titel": "DGOU KI Lab",
+      "text": "Online-Format zu KI-Werkzeugen und Praxisberichten, offen für alle.",
+      "link": "treffen.html",
+      "linkText": "Zum KI Lab",
+      "quelle": "inhalte.md",
+      "stand": "2026-11-27",
+      "status": "bestaetigt"
+    },
+    {
+      "id": "hackathon",
+      "titel": "AKKI Hackathon 2026",
+      "text": "Prototypen für Orthopädie und Unfallchirurgie in interdisziplinären Teams.",
+      "link": "projekte.html#hackathon",
+      "linkText": "Zum Hackathon",
+      "quelle": "Hackathon-Website",
+      "stand": "2026-11-27",
+      "status": "bestaetigt"
+    },
+    {
+      "id": "open-source",
+      "titel": "Open Source",
+      "text": "Quelltexte und Werkzeuge des AKKI auf GitHub.",
+      "link": "https://github.com/akkidgou-opensource",
+      "linkText": "Zu GitHub",
+      "quelle": "Teamangabe",
+      "stand": "2026-11-27",
+      "status": "bestaetigt"
+    }
+  ]
+}

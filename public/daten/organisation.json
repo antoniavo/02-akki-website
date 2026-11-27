@@ -1,27 +1,17 @@
 {
   "_hinweis": "Inhalte der Seite 'Wer wir sind'. Jeder Block: quelle, stand, status (bestaetigt oder entwurf). Weitere Arbeitskreise (Weißbuch, S3-Leitlinie Coxarthrose) und Kompetenzbereiche erst eintragen, wenn die aktuelle Struktur bestätigt ist. Personen stehen in personen.json (hier nur ihre id).",
-  "untertitel": "Der Arbeitskreis KI in der AG Digitalisierung der DGOU.",
-  "selbstverstaendnis": {
-    "text": "Der AKKI ist Teil der AG Digitalisierung der Deutschen Gesellschaft für Orthopädie und Unfallchirurgie. Er beschäftigt sich mit den Möglichkeiten selbstlernender Systeme in Patientenversorgung und Forschung – in Orthopädie und Unfallchirurgie und darüber hinaus.",
-    "quelle": "Redaktioneller Vorschlag",
-    "stand": "2026-11-27",
-    "status": "entwurf"
-  },
+  "untertitel": "Wir sind der Arbeitskreis KI der AG Digitalisierung der DGOU – für selbstlernende Systeme in Patientenversorgung und Forschung.",
   "ziele": {
-    "liste": [
-      "Aktuelle wissenschaftliche Erkenntnisse zu KI in der Medizin vermitteln",
-      "Den fachlichen und interdisziplinären Austausch fördern",
-      "Medizinische KI-Anwendungen wissenschaftlich bewerten",
-      "Forschungsprojekte entwickeln und unterstützen",
-      "Praxisnahe KI-Kompetenz fördern",
-      "Datenschutz, Ethik, Regulierung und Patientensicherheit diskutieren",
-      "Den verantwortungsvollen Transfer in die klinische Praxis unterstützen"
+    "kacheln": [
+      { "icon": "buch", "titel": "Wissen vermitteln", "text": "Aktuelle KI-Erkenntnisse praxisnah weitergeben." },
+      { "icon": "netz", "titel": "Vernetzen", "text": "Austausch zwischen Medizin, Forschung und Informatik." },
+      { "icon": "lupe", "titel": "Bewerten & forschen", "text": "KI-Anwendungen wissenschaftlich prüfen und Projekte unterstützen." },
+      { "icon": "schild", "titel": "Verantwortung", "text": "Datenschutz, Ethik und Patientensicherheit im Blick." }
     ],
     "quelle": "Redaktioneller Vorschlag, zur Teamfreigabe",
     "stand": "2026-11-27",
     "status": "entwurf"
-  },
-  "zeitleiste": [
+  },  "zeitleiste": [
     { "datum": "25.10.2018", "text": "Gründung der AG Digitalisierung", "quelle": "AG-Präsentation 08.06.2026" },
     { "datum": "Januar 2021", "text": "Gründung des Arbeitskreises KI", "quelle": "AG-Präsentation 08.06.2026" },
     { "datum": "Januar 2026", "text": "Start des DGOU KI Lab", "quelle": "Teamangabe" },
@@ -56,7 +46,7 @@
     "status": "bestaetigt"
   },
   "rahmen": {
-    "text": "Der AKKI ist organisatorisch in die AG Digitalisierung der DGOU eingebunden und orientiert sich an den Zielen der Fachgesellschaft: Förderung von Wissenschaft und Forschung, interdisziplinärer Austausch sowie Aus-, Fort- und Weiterbildung. Die Bildung von Arbeitsgemeinschaften ist in § 2 der Satzung der DGOU vorgesehen.",
+    "text": "Die Bildung von Arbeitsgemeinschaften ist in § 2 der Satzung der DGOU vorgesehen.",
     "satzungLink": "https://dgou.de/fileadmin/dgou/dgou/Dokumente/Ueber_uns/Satzung_und_Geschaeftsordnung/2026_DGOU_Satzung.pdf",
     "satzungLinkText": "Satzung der DGOU ansehen",
     "quelle": "DGOU-Satzung, Link geprüft 27.11.2026",

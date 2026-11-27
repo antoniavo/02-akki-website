@@ -516,3 +516,12 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 .kilab-naechster__thema { font-weight: 600; }
 .kilab-naechster__frage { color: var(--text-2); }
 .kilab-naechster .knopf { padding-top: 8px; padding-bottom: 8px; min-height: 40px; }
+
+/* Wer wir sind: Zielkacheln mit Icon, kleine Stand-/Quellenzeilen */
+.ziel-kachel { display: flex; flex-direction: column; gap: 6px; padding: 20px; }
+.ziel-kachel h3 { margin: 0; }
+.ziel-kachel p { margin: 0; color: var(--text-2); }
+.ziel-kachel__icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--mint-hell); margin-bottom: 4px; }
+.ziel-kachel__icon svg { width: 22px; height: 22px; fill: none; stroke: var(--petrol-text); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.stand-zeile { font-size: .8125rem; color: #5C6772; }
+.stand-zeile a { color: inherit; }

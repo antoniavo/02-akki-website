@@ -19,25 +19,11 @@
 <header class="seitenkopf">
   <div class="container">
     <h1>Wer wir sind</h1>
-    <p id="untertitel">Der Arbeitskreis KI in der AG Digitalisierung der DGOU.</p>
+    <p id="untertitel">Wir sind der Arbeitskreis KI der AG Digitalisierung der DGOU – für selbstlernende Systeme in Patientenversorgung und Forschung.</p>
   </div>
 </header>
 
 <main>
-  <section aria-labelledby="selbst-titel">
-    <div class="container">
-      <h2 id="selbst-titel">Selbstverständnis</h2>
-      <p class="prosa" id="selbstverstaendnis"></p>
-    </div>
-  </section>
-
-  <section class="abschnitt--hell" aria-labelledby="ziele-titel">
-    <div class="container">
-      <h2 id="ziele-titel">Unsere Ziele</h2>
-      <ul class="liste ziele-liste" id="ziele"></ul>
-    </div>
-  </section>
-
   <section aria-labelledby="zeit-titel">
     <div class="container">
       <h2 id="zeit-titel">Meilensteine</h2>
@@ -49,30 +35,36 @@
     <div class="container">
       <h2 id="leitung-titel">Leitung und Ansprechpersonen</h2>
       <div class="kacheln" id="leitung"></div>
-      <p class="hinweis" id="leitung-stand"></p>
+      <p class="hinweis stand-zeile" id="leitung-stand"></p>
 
       <h3 class="unterabschnitt">Leitung der AG Digitalisierung</h3>
       <div class="kacheln" id="ag-leitung"></div>
-      <p class="hinweis" id="ag-leitung-stand"></p>
+      <p class="hinweis stand-zeile" id="ag-leitung-stand"></p>
     </div>
   </section>
 
-  <section aria-labelledby="org-titel">
+  <section aria-labelledby="ziele-titel">
+    <div class="container">
+      <h2 id="ziele-titel">Unsere Ziele</h2>
+      <div class="kacheln kacheln--vier" id="ziele"></div>
+    </div>
+  </section>
+
+  <section class="abschnitt--hell" aria-labelledby="org-titel">
     <div class="container">
       <h2 id="org-titel">Einordnung in der DGOU</h2>
       <div id="organigramm" class="org"></div>
     </div>
   </section>
 
-  <section class="abschnitt--hell" aria-labelledby="rahmen-titel">
+  <section aria-labelledby="rahmen-titel">
     <div class="container">
-      <h2 id="rahmen-titel">Rahmen und Satzung</h2>
+      <h2 id="rahmen-titel">Satzung</h2>
       <p class="prosa" id="rahmen-text"></p>
       <p><a class="knopf knopf--sekundaer" id="satzung-link" hidden target="_blank" rel="noopener"></a></p>
     </div>
   </section>
 </main>
-
 <div id="seitenfuss"></div>
 
 <script src="layout.js"></script>
@@ -88,6 +80,25 @@
   }
   const holen = datei => fetch(datei).then(r => { if (!r.ok) throw new Error(datei); return r.json(); });
 
+  // Kachel "Unsere Ziele": Icon, Titel, ein Satz (alles aus organisation.json, nur als Text eingefügt)
+  const ZIEL_ICONS = {
+    buch: 'M3 5h6a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H3zM21 5h-6a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5H21z',
+    netz: 'M6 7.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM18 7.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM12 21.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM8.5 5h7M7.3 9.2l3.5 7.1M16.7 9.2l-3.5 7.1',
+    lupe: 'M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4M8.5 11.5l1.8 1.8 3.2-3.6',
+    schild: 'M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6zM9 12l2 2 4-4',
+  };
+  function zielKachel(z) {
+    const k = el('article', 'kachel ziel-kachel');
+    const icon = el('span', 'ziel-kachel__icon');
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('aria-hidden', 'true');
+    const pfad = document.createElementNS(NS, 'path');
+    pfad.setAttribute('d', ZIEL_ICONS[z.icon] || ZIEL_ICONS.buch);
+    svg.appendChild(pfad); icon.appendChild(svg);
+    k.append(icon, el('h3', null, z.titel), el('p', null, z.text));
+    return k;
+  }
   function personKarte(p, rollen, zusatz) {
     const k = el('article', 'person-karte');
     k.appendChild(el('span', 'initialen', p.initialen));
@@ -135,8 +146,7 @@
     const setze = (id, text) => { const e = document.getElementById(id); if (e && text) e.textContent = text; };
 
     setze('untertitel', org.untertitel);
-    setze('selbstverstaendnis', org.selbstverstaendnis && org.selbstverstaendnis.text);
-    document.getElementById('ziele').replaceChildren(...((org.ziele && org.ziele.liste) || []).map(z => el('li', null, z)));
+    document.getElementById('ziele').replaceChildren(...((org.ziele && org.ziele.kacheln) || []).map(zielKachel));
 
     document.getElementById('zeitleiste').replaceChildren(...(org.zeitleiste || []).map(z => {
       const li = el('li', 'zeitleiste__punkt');

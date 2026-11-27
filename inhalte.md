@@ -159,7 +159,7 @@ Hinweis: „Liste wird laufend ergänzt.“
 11. API-Schlüssel für die KI-Funktionen des Smart Editors
 
 **Redaktionelle Entwürfe ✍️ (auf der Website sichtbar, `status: "entwurf"`, vom Team freizugeben):**
-- „Wer wir sind“: Selbstverständnis, sieben Ziele, Zeitleiste, Leitung des AKKI und KI-Lab-Moderation (Stand 08.06.2026), Leitung der AG Digitalisierung (Stand Oktober 2026, Fachartikel)
+- „Wer wir sind“: Kopfsatz, vier Ziele (Kacheln), Zeitleiste, Leitung des AKKI und KI-Lab-Moderation (Stand 08.06.2026), Leitung der AG Digitalisierung (Stand Oktober 2026, Fachartikel)
 - „Projekte“: Schwerpunkt-Texte, Projektbeschreibungen, Kurzbeschreibungen der sieben Hackathon-Use-Cases, Einordnung „Forschung aus dem Umfeld der AG“
 - „Publikationen“: Kurzfassungen und Gruppierung (AKKI, Umfeld, Berichte)
 - „KI Lab“: Einleitung, Titel und Beschreibungen der neun Termine, Kategorien

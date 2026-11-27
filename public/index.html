@@ -18,20 +18,28 @@
 
 <header class="hero">
   <div class="container">
+    <!-- Die Hauptüberschrift (h1) ist nur für Screenreader sichtbar; sichtbar ist das lebende Logo -->
+    <h1 class="sr-only">AKKI – Arbeitskreis Künstliche Intelligenz der AG Digitalisierung der DGOU</h1>
     <!-- Lebendes AKKI-Logo, Einbau wie oben in public/logo/logo-animiert.js beschrieben -->
-    <canvas data-akki-logo></canvas>
+    <canvas data-akki-logo aria-hidden="true"></canvas>
+    <p class="hero__zugehoerig">Ein Arbeitskreis der <a href="https://www.digitalisierung-dgou.de/" target="_blank" rel="noopener">AG Digitalisierung</a> der <a href="https://dgou.de/" target="_blank" rel="noopener">DGOU</a></p>
     <div class="hero__text">
-      <h1>Künstliche Intelligenz. Medizinische Expertise. Gemeinsam Zukunft gestalten.</h1>
-      <p>Wir verbinden Wissenschaft, klinische Praxis und technologische Innovation in Orthopädie und Unfallchirurgie.</p>
       <div class="knopfreihe">
         <a class="knopf" href="treffen.html">KI Lab entdecken</a>
-        <a class="knopf knopf--hell" href="mitmachen.html">Mitmachen</a>
+        <a class="knopf knopf--hell" href="mitmachen.html" id="mitmachen-knopf">Mitmachen</a>
       </div>
     </div>
   </div>
 </header>
 
 <main>
+  <section aria-labelledby="aktuelles-titel">
+    <div class="container">
+      <h2 id="aktuelles-titel">Aktuelles</h2>
+      <div class="kacheln kacheln--zwei" id="aktuelles-liste"></div>
+    </div>
+  </section>
+
   <section class="einstieg" aria-labelledby="willkommen-titel">
     <div class="container">
       <h2 id="willkommen-titel">Willkommen beim AKKI</h2>
@@ -60,13 +68,6 @@
           <p>Gemeinsam bauen: vom Hackathon bis zum Open-Source-Projekt.</p>
         </article>
       </div>
-    </div>
-  </section>
-
-  <section aria-labelledby="aktuelles-titel">
-    <div class="container">
-      <h2 id="aktuelles-titel">Aktuelles</h2>
-      <div class="kacheln kacheln--zwei" id="aktuelles-liste"></div>
     </div>
   </section>
 

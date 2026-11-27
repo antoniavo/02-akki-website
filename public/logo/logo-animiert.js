@@ -1,7 +1,7 @@
 /*
   AKKI – lebendes Logo
   Einbau:
-    <canvas data-akki-logo style="width:100%;height:260px;background:#002B45;border-radius:14px"></canvas>
+    <canvas data-akki-logo style="width:100%;height:260px;background:#2C4F6B;border-radius:14px"></canvas>
     <script src="logo/logo-animiert.js"></script>
   Optional: data-untertitel="..." und data-zeile2="..." am <canvas> ändern die Texte unter dem Logo.
   Ohne Zusatzprogramme. Bei "Bewegung reduzieren" im Betriebssystem wird nur das stille Logo gezeigt.

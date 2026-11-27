@@ -35,7 +35,7 @@
   --mint-hell: #E6F5F1;     /* sparsam: höchstens ein hervorgehobener Bereich pro Seite */
   --weiss: #FFFFFF;         /* Seitenhintergrund und Standard-Kartenhintergrund */
   --hell: #F5F8FA;          /* abwechselnde Abschnitte, Seitenköpfe */
-  --navy: #002B45;          /* Logo-Kachel, Footer */
+  --navy: #2C4F6B;          /* Logo-Kachel, Footer */
   --text: #2B3A45;          /* Fließtext */
   --text-2: #4A5560;        /* Nebentext, Metadaten */
   --rahmen: #DCE5EC;        /* Kartenrahmen, Trennlinien */
@@ -69,14 +69,14 @@
   --folgt-bg: #EEF3F7;
   --folgt-rahmen: #9AAFC0;
   --fehler: #A3262A;
-  --schatten: rgba(0, 43, 69, .12);
+  --schatten: rgba(44, 79, 107, .12);
   --fokus: #00508A;         /* Tastatur-Fokus auf hellem Grund (mind. 3:1) */
   --fokus-auf-dunkel: #FFFFFF;
 
   /* ---- Status-Badges (Text immer gut lesbar) ---- */
   --badge-idee-bg: #FFFFFF;      --badge-idee-text: #2B3A45;
   --badge-planung-bg: #E3ECF3;   --badge-planung-text: #00395F;
-  --badge-laufend-bg: #78CBB9;   --badge-laufend-text: #002B45;
+  --badge-laufend-bg: #78CBB9;   --badge-laufend-text: #2C4F6B;
   --badge-fertig-bg: #E4EAEF;    --badge-fertig-text: #2B3A45;
   --badge-publiziert-bg: #00508A; --badge-publiziert-text: #FFFFFF;
 
@@ -129,11 +129,6 @@ a:hover { text-decoration-color: var(--petrol); text-decoration-thickness: 2px; 
 }
 .nav { background: var(--weiss); border-bottom: 1px solid var(--rahmen); }
 .nav__innen { display: flex; align-items: center; justify-content: space-between; gap: var(--a2); min-height: 64px; flex-wrap: wrap; padding-top: 6px; padding-bottom: 6px; }
-.nav__marke { display: flex; align-items: center; gap: 12px; }
-.nav__brand { display: flex; align-items: center; }
-.nav__brand img { height: 40px; width: auto; display: block; }
-.nav__zusatz { margin: 0; font-size: .78rem; line-height: 1.3; color: var(--text-2); white-space: nowrap; }
-.nav__zusatz a { color: var(--text-2); display: inline-block; padding: 4px 0; }
 .nav__toggle { display: none; background: var(--weiss); border: 1px solid var(--blau); color: var(--blau); border-radius: var(--radius-klein); font-size: 1.3rem; line-height: 1; width: 44px; height: 44px; cursor: pointer; }
 .nav__links { list-style: none; display: flex; gap: var(--a3); margin: 0; padding: 0; }
 .nav__links a { color: var(--text); text-decoration: none; font-weight: 600; font-size: .95rem; padding: 8px 0; border-bottom: 3px solid transparent; display: inline-block; }
@@ -148,9 +143,9 @@ a:hover { text-decoration-color: var(--petrol); text-decoration-thickness: 2px; 
 /* =============== Startseiten-Kopf (wird in Block C neu gebaut) =============== */
 .hero { background: var(--navy); }
 .hero canvas { display: block; width: 100%; height: 260px; background: var(--navy); border-radius: var(--radius); }
-.hero__text { padding: var(--a1) 0 var(--a4); max-width: 820px; }
-.hero__text h1 { color: var(--text-auf-dunkel); font-size: clamp(1.7rem, 4.5vw, 2.6rem); margin-bottom: 12px; }
-.hero__text p { color: var(--text-auf-dunkel-leise); font-size: 1.15rem; margin: 0 0 var(--a3); max-width: 680px; }
+.hero__zugehoerig { margin: var(--a2) 0 var(--a3); text-align: left; font-size: .9rem; line-height: 1.4; color: var(--text-auf-dunkel-leise); }
+.hero__zugehoerig a { color: var(--text-auf-dunkel); text-decoration: underline; display: inline-block; padding: 6px 0; }
+.hero__text { padding: 0 0 var(--a4); }
 .logo-kachel { background: var(--navy); border-radius: var(--radius); overflow: hidden; }
 .logo-kachel canvas { display: block; width: 100%; height: 260px; }
 
@@ -375,7 +370,7 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
   .footer__innen { grid-template-columns: 1fr; }
 }
 @media (max-width: 960px) {
-  .nav__toggle { display: block; }
+  .nav__toggle { display: block; margin-left: auto; }
   .nav__links { display: none; width: 100%; flex-direction: column; gap: 0; padding-bottom: var(--a1); max-height: calc(100vh - 150px); overflow-y: auto; }
   .nav__links.nav__links--offen { display: flex; }
   .nav__links a { display: block; padding: 12px 0; border-bottom: 1px solid var(--rahmen); }

@@ -183,14 +183,14 @@ Hinweis: „Liste wird laufend ergänzt.“
   - Mint `#78CBB9`: Logo, kleine Akzente, Badges (mit dunkler Schrift)
   - Mint-hell `#E6F5F1`: sparsam, höchstens ein hervorgehobener Bereich pro Seite
   - Weiß `#FFFFFF`: Seiten- und Kartenhintergrund; Hell `#F5F8FA`: abwechselnde Abschnitte und Seitenköpfe
-  - Navy `#002B45`: nur Logo-Kachel und Footer (Team: weniger Dunkelblau, Navigation und Seitenköpfe hell)
+  - Navy `#2C4F6B`: nur Logo-Kachel und Footer (Team: weniger Dunkelblau, Navigation und Seitenköpfe hell)
   - Text `#2B3A45`, Nebentext `#4A5560`, Rahmen `#DCE5EC`
-  - Lebendes Logo: Punkte/Linien `#78CBB9`, Impulse `#FFFFFF`, Hintergrund `#002B45`
+  - Lebendes Logo: Punkte/Linien `#78CBB9`, Impulse `#FFFFFF`, Hintergrund `#2C4F6B`
 - **Design-Vorgaben für alle Seiten:**
   - Schriften: Archivo für Überschriften, Manrope für Fließtext (lokal in public/fonts, ohne Google)
   - Ecken 14 px, Abstände 8/16/24/40/64 px, Inhaltsbreite max. 1200 px
   - Keine Stockfotos und keine Bildplätze, bis freigegebene Fotos vorliegen (Initialen-Kreis bei Personen)
 - Seiten: Start · Wer wir sind · Projekte · Publikationen · KI Lab · Mitmachen & Kontakt · Impressum · Datenschutz (Fußzeile). Navigation und Footer stehen nur in public/layout.js.
-- Logo: das lebende AKKI-Logo in public/logo/ – logo-animiert.js in der Logo-Kachel der Startseite auf #002B45; logo-nav.svg (statische Punkte-Wortmarke in Blau mit mintfarbenem Punkt) in der hellen Navigation; logo-hell.svg als Browser-Icon; logo-dunkel.svg für dunkle Flächen. Das alte AKKI-Zeichen aus der Hackathon-Seite wird nicht mehr verwendet.
+- Logo: das lebende AKKI-Logo in public/logo/ – logo-animiert.js in der Logo-Kachel der Startseite auf #2C4F6B; logo-nav.svg (statische Punkte-Wortmarke in Blau mit mintfarbenem Punkt) in der hellen Navigation; logo-hell.svg als Browser-Icon; logo-dunkel.svg für dunkle Flächen. Das alte AKKI-Zeichen aus der Hackathon-Seite wird nicht mehr verwendet.
 - **Suchmaschinen-Sperre (vorerst):** Die Seite ist für Google & Co. gesperrt, bis die DGOU sie freigibt. Wer die Adresse kennt, kann sie trotzdem öffnen. Zum Aufheben: in allen Seiten unter public/ die Zeile `<meta name="robots" content="noindex, nofollow">` samt Kommentar entfernen und in vercel.json den Block `"headers"` löschen.
 - Schreibregel: kurze, ansprechende Texte, pro Abschnitt höchstens 2 Sätze oder Stichpunkte

@@ -22,10 +22,6 @@
     kopf.insertAdjacentHTML('beforeend', `
 <nav class="nav" aria-label="Hauptnavigation">
   <div class="container nav__innen">
-    <div class="nav__marke">
-      <a class="nav__brand" href="index.html"><img src="logo/logo-nav.svg" alt="AKKI – zur Startseite" width="99" height="40"></a>
-      <p class="nav__zusatz"><a href="https://www.digitalisierung-dgou.de/" target="_blank" rel="noopener">AG Digitalisierung</a> · <a href="https://dgou.de/" target="_blank" rel="noopener">DGOU</a></p>
-    </div>
     <button class="nav__toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menü öffnen"><span aria-hidden="true">☰</span></button>
     <ul class="nav__links" id="nav-links">${links}</ul>
   </div>

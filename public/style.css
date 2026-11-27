@@ -171,15 +171,15 @@ main section.einstiege { padding: 0; margin-top: -56px; position: relative; z-in
 .mitmach-rund__pfeil { position: relative; font: 800 24px/1 var(--font-body); }
 .mitmach-rund__label { position: absolute; right: calc(100% + 16px); top: 50%; transform: translate(6px, -50%); padding: 6px 14px; border-radius: 999px; background: var(--weiss); color: var(--blau); font: 700 .9rem/1.2 var(--font-body); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s ease, transform .15s ease; }
 .mitmach-rund:hover .mitmach-rund__label, .mitmach-rund:focus-visible .mitmach-rund__label { opacity: 1; transform: translate(0, -50%); }
-.einstieg-kachel { display: flex; flex-direction: column; gap: 4px; position: relative; min-height: 176px; padding: var(--a3); background: var(--weiss); border: 1px solid var(--rahmen); border-radius: var(--radius); box-shadow: 0 10px 28px var(--schatten); text-decoration: none; color: var(--text); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
-.einstieg-kachel:hover, .einstieg-kachel:focus-visible { transform: translateY(-4px); border-color: var(--petrol); box-shadow: 0 16px 36px var(--schatten); }
-.einstieg-kachel__icon { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: var(--a1); border-radius: 50%; background: var(--mint-hell); transition: background .2s ease; }
-.einstieg-kachel__icon svg { width: 26px; height: 26px; fill: none; stroke: var(--petrol-text); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.einstieg-kachel { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; grid-template-rows: auto auto; column-gap: 14px; row-gap: 2px; align-items: center; position: relative; min-height: 92px; padding: 20px; background: var(--weiss); border: 1px solid var(--rahmen); border-radius: var(--radius); box-shadow: 0 10px 28px var(--schatten); text-decoration: none; color: var(--text); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.einstieg-kachel:hover, .einstieg-kachel:focus-visible { transform: translateY(-3px); border-color: var(--petrol); box-shadow: 0 16px 36px var(--schatten); }
+.einstieg-kachel__icon { grid-row: 1 / 3; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--mint-hell); transition: background .2s ease; }
+.einstieg-kachel__icon svg { width: 22px; height: 22px; fill: none; stroke: var(--petrol-text); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .einstieg-kachel:hover .einstieg-kachel__icon { background: var(--mint); }
 .einstieg-kachel:hover .einstieg-kachel__icon svg { stroke: var(--navy); }
-.einstieg-kachel__titel { font-family: var(--font-heading); font-weight: 800; font-size: 1.35rem; line-height: 1.2; color: var(--blau); overflow-wrap: break-word; hyphens: auto; }
-.einstieg-kachel__sub { font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--text-2); }
-.einstieg-kachel__pfeil { margin-top: auto; padding-top: var(--a1); font-size: 1.3rem; font-weight: 700; color: var(--petrol-text); transition: transform .2s ease; }
+.einstieg-kachel__titel { grid-column: 2; align-self: end; font-family: var(--font-heading); font-weight: 800; font-size: 1.25rem; line-height: 1.2; color: var(--blau); overflow-wrap: break-word; hyphens: auto; }
+.einstieg-kachel__sub { grid-column: 2; align-self: start; font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: var(--text-2); overflow-wrap: break-word; }
+.einstieg-kachel__pfeil { grid-row: 1 / 3; grid-column: 3; font-size: 1.3rem; font-weight: 700; color: var(--petrol-text); transition: transform .2s ease; }
 .einstieg-kachel:hover .einstieg-kachel__pfeil { transform: translateX(6px); }
 
 .hackathon-karte { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--a4); padding: var(--a4); background: var(--navy); color: var(--text-auf-dunkel); border: 1px solid rgba(255, 255, 255, .18); border-radius: var(--radius); }
@@ -453,6 +453,11 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 .footer__hinweis { color: var(--text-auf-dunkel-leise); }
 
 /* =============== Mobil =============== */
+@media (max-width: 1200px) {
+  .einstieg-kachel { padding: 18px 14px; column-gap: 10px; }
+  .einstieg-kachel__icon { width: 36px; height: 36px; }
+  .einstieg-kachel__sub { font-size: .68rem; letter-spacing: .02em; }
+}
 @media (max-width: 1000px) {
   .archiv-karten, .termin-karten, .kacheln--vier { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .einstiege__raster { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -487,9 +492,7 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
   .hero--kompakt canvas { height: 160px; }
   main section.einstiege { margin-top: -44px; }
   .einstiege__raster { grid-template-columns: 1fr; gap: var(--a1); }
-  .einstieg-kachel { min-height: 0; display: grid; grid-template-columns: 48px 1fr auto; grid-template-rows: auto auto; column-gap: var(--a2); align-items: center; padding: var(--a2); }
-  .einstieg-kachel__icon { grid-row: 1 / 3; margin-bottom: 0; }
-  .einstieg-kachel__pfeil { grid-row: 1 / 3; grid-column: 3; margin-top: 0; padding-top: 0; }
+  .einstieg-kachel { min-height: 84px; padding: 16px 18px; }
   .neu-pub { flex-wrap: wrap; }
   .neu-pub .kategorie { order: 3; }
   .mitmachen-kasten { padding: 22px; }

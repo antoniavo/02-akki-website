@@ -147,6 +147,56 @@ a:hover { text-decoration-color: var(--petrol); text-decoration-thickness: 2px; 
 .hero__zugehoerig { margin: var(--a2) 0 var(--a3); text-align: left; font-size: .9rem; line-height: 1.4; color: var(--text-auf-dunkel-leise); }
 .hero__zugehoerig a { color: var(--text-auf-dunkel); text-decoration: underline; display: inline-block; padding: 6px 0; }
 .hero__text { padding: 0 0 var(--a4); }
+
+/* =============== Startseite: kompakter Kopf, vier Einstiege, Hackathon-Karte, neue Publikationen =============== */
+.eyebrow { margin: 0 0 var(--a1); font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--petrol-text); }
+.hero--kompakt { padding-bottom: 80px; }
+.hero--kompakt canvas { height: 190px; }
+.hero--kompakt .hero__zugehoerig { margin: var(--a1) 0 0; }
+main section.einstiege { padding: 0; margin-top: -56px; position: relative; z-index: 2; }
+.einstiege__raster { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--a2); }
+.terminal-wrap--block { display: block; }
+.terminal-wrap--block > .einstieg-kachel { height: 100%; }
+.einstieg-kachel { display: flex; flex-direction: column; gap: 4px; position: relative; min-height: 176px; padding: var(--a3); background: var(--weiss); border: 1px solid var(--rahmen); border-radius: var(--radius); box-shadow: 0 10px 28px var(--schatten); text-decoration: none; color: var(--text); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.einstieg-kachel:hover, .einstieg-kachel:focus-visible { transform: translateY(-4px); border-color: var(--petrol); box-shadow: 0 16px 36px var(--schatten); }
+.einstieg-kachel__icon { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: var(--a1); border-radius: 50%; background: var(--mint-hell); transition: background .2s ease; }
+.einstieg-kachel__icon svg { width: 26px; height: 26px; fill: none; stroke: var(--petrol-text); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.einstieg-kachel:hover .einstieg-kachel__icon { background: var(--mint); }
+.einstieg-kachel:hover .einstieg-kachel__icon svg { stroke: var(--navy); }
+.einstieg-kachel__titel { font-family: var(--font-heading); font-weight: 800; font-size: 1.35rem; line-height: 1.2; color: var(--blau); overflow-wrap: break-word; hyphens: auto; }
+.einstieg-kachel__sub { font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--text-2); }
+.einstieg-kachel__pfeil { margin-top: auto; padding-top: var(--a1); font-size: 1.3rem; font-weight: 700; color: var(--petrol-text); transition: transform .2s ease; }
+.einstieg-kachel:hover .einstieg-kachel__pfeil { transform: translateX(6px); }
+
+.hackathon-karte { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--a4); padding: var(--a4); background: var(--navy); color: var(--text-auf-dunkel); border: 1px solid rgba(255, 255, 255, .18); border-radius: var(--radius); }
+.hackathon-karte::after { content: ""; position: absolute; right: -80px; bottom: -120px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, rgba(120, 203, 185, .22), rgba(120, 203, 185, 0) 70%); pointer-events: none; }
+.hackathon-karte > * { position: relative; z-index: 1; }
+.hackathon-karte .eyebrow { color: var(--mint); }
+.hackathon-karte h2 { margin: 0 0 var(--a1); color: var(--text-auf-dunkel); font-weight: 800; font-size: clamp(1.9rem, 1.2rem + 2.4vw, 2.8rem); }
+.hackathon-karte__fakten { margin: 0 0 var(--a3); font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .95rem; color: var(--text-auf-dunkel-leise); }
+.hackathon-karte__zahl { margin: 0 0 var(--a2); font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .9rem; letter-spacing: .08em; text-transform: uppercase; color: var(--text-auf-dunkel-leise); }
+.hackathon-karte__zahl strong { margin-right: 6px; font-family: var(--font-heading); font-size: 2.6rem; font-weight: 800; line-height: 1; letter-spacing: 0; color: var(--mint); vertical-align: -4px; }
+.knopf--auf-dunkel { background: transparent; color: var(--text-auf-dunkel); border-color: rgba(255, 255, 255, .6); }
+.knopf--auf-dunkel:hover { background: rgba(255, 255, 255, .14); border-color: var(--weiss); color: var(--text-auf-dunkel); }
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-block; padding: 5px 14px; border: 1px solid rgba(255, 255, 255, .3); border-radius: 999px; background: rgba(255, 255, 255, .07); color: var(--text-auf-dunkel); font-size: .88rem; font-weight: 600; text-decoration: none; transition: background .15s ease, color .15s ease, transform .15s ease; }
+.chip:hover { background: var(--mint); border-color: var(--mint); color: var(--navy); transform: translateY(-2px); }
+
+.termin-karte--block { flex-direction: row; align-items: flex-start; gap: var(--a2); }
+.termin-karte--block .datumsblock { flex: none; width: 68px; padding: 10px 0; }
+.termin-karte__inhalt { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.datumsblock__jahr { margin-top: 2px; font-size: .72rem; font-weight: 600; opacity: .85; }
+
+.neu-pubs { list-style: none; margin: var(--a2) 0 0; padding: 0; border-top: 1px solid var(--rahmen); }
+.neu-pub { display: flex; align-items: center; gap: var(--a2); padding: var(--a2) var(--a1); border-bottom: 1px solid var(--rahmen); text-decoration: none; color: var(--text); transition: background .15s ease; }
+.neu-pub:hover { background: var(--hell); }
+.neu-pub__text { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.neu-pub__titel { font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; line-height: 1.3; color: var(--blau); }
+.neu-pub:hover .neu-pub__titel { text-decoration: underline; text-decoration-color: var(--petrol); }
+.neu-pub__meta { font-size: .92rem; color: var(--text-2); }
+.neu-pub .kategorie { flex: none; }
+.neu-pub__pfeil { flex: none; font-size: 1.2rem; font-weight: 700; color: var(--petrol-text); transition: transform .2s ease; }
+.neu-pub:hover .neu-pub__pfeil { transform: translateX(5px); }
 .logo-kachel { background: var(--navy); border-radius: var(--radius); overflow: hidden; }
 .logo-kachel canvas { display: block; width: 100%; height: 260px; }
 
@@ -391,6 +441,8 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 /* =============== Mobil =============== */
 @media (max-width: 1000px) {
   .archiv-karten, .termin-karten, .kacheln--vier { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .einstiege__raster { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hackathon-karte { grid-template-columns: 1fr; gap: var(--a3); padding: var(--a3); }
   .footer__innen { grid-template-columns: 1fr 1fr; }
   .footer__spalte--marke { grid-column: 1 / -1; }
 }
@@ -415,6 +467,15 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 }
 @media (max-width: 760px) {
   .kacheln, .kacheln--zwei, .kacheln--vier, .termin-karten, .archiv-karten { grid-template-columns: 1fr; }
+  .hero--kompakt { padding-bottom: 64px; }
+  .hero--kompakt canvas { height: 160px; }
+  main section.einstiege { margin-top: -44px; }
+  .einstiege__raster { grid-template-columns: 1fr; gap: var(--a1); }
+  .einstieg-kachel { min-height: 0; display: grid; grid-template-columns: 48px 1fr auto; grid-template-rows: auto auto; column-gap: var(--a2); align-items: center; padding: var(--a2); }
+  .einstieg-kachel__icon { grid-row: 1 / 3; margin-bottom: 0; }
+  .einstieg-kachel__pfeil { grid-row: 1 / 3; grid-column: 3; margin-top: 0; padding-top: 0; }
+  .neu-pub { flex-wrap: wrap; }
+  .neu-pub .kategorie { order: 3; }
   .mitmachen-kasten { padding: 22px; }
   .termine li { grid-template-columns: 1fr; }
   .seitenkopf { padding: var(--a3) 0 var(--a2); }

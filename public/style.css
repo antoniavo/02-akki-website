@@ -186,6 +186,32 @@ main section + section { padding-top: 0; }
 .termin-karte__titel { font-family: var(--font-heading); font-weight: 700; color: var(--haupt); font-size: 1.1rem; line-height: 1.3; }
 .termin-karte__text { color: var(--text-neben); font-size: .95rem; }
 
+.termin-karte__kopf { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.kategorie { display: inline-block; font-size: .78rem; font-weight: 700; color: var(--haupt); background: var(--bg); border: 1px solid var(--akzent); border-radius: 999px; padding: 1px 10px; }
+
+/* Seite "KI Lab" */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.knopf--rand { background: transparent; color: var(--haupt); border-color: var(--haupt); }
+.naechster-termin__datum { font-family: var(--font-heading); font-weight: 700; font-size: 1.35rem; color: var(--haupt); margin: 0; }
+.naechster-termin__zeit { margin: 0 0 12px; color: var(--text-neben); }
+.naechster-termin__thema { font-weight: 700; margin: 0 0 4px; }
+.naechster-termin__referent { margin: 0 0 4px; color: var(--text-neben); }
+.naechster-termin .knopfreihe { margin-top: 16px; }
+.archiv-werkzeuge { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; margin: 12px 0 20px; }
+.suchfeld { flex: 1 1 260px; }
+.suchfeld input { width: 100%; font: 400 1rem var(--font-body); color: var(--dunkel); background: var(--bg); border: 1px solid var(--text-leise); border-radius: var(--radius-klein); padding: 10px 12px; }
+.suchfeld input:focus { outline: 3px solid var(--fokus); outline-offset: 1px; }
+.filter { display: flex; flex-wrap: wrap; gap: 8px; }
+.filter-knopf { font: 600 .95rem var(--font-body); color: var(--haupt); background: var(--bg); border: 1px solid var(--haupt); border-radius: 999px; padding: 6px 14px; cursor: pointer; min-height: 36px; }
+.filter-knopf:hover { border-color: var(--akzent); }
+.filter-knopf[aria-pressed="true"] { background: var(--haupt); color: var(--text-auf-dunkel); }
+.archiv-karten { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 1000px) { .archiv-karten, .termin-karten { grid-template-columns: repeat(2, 1fr); } }
+.archiv-karte { background: var(--kachel); border: 1px solid var(--border); border-top: 4px solid var(--akzent); border-radius: var(--radius); padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }
+.archiv-karte__titel { font-size: 1.1rem; margin: 2px 0 0; }
+.archiv-karte__referent { margin: 0; font-weight: 600; }
+.archiv-karte__text { margin: 0; color: var(--text-neben); }
+
 /* Mitmachen-Kasten (Mint nur als Fläche, Schrift dunkel) */
 .mitmachen-kasten { background: var(--mint); color: var(--dunkel); border-radius: var(--radius); padding: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 32px; }
 .mitmachen-kasten h2 { color: var(--dunkel); margin-bottom: 6px; }
@@ -222,7 +248,7 @@ main section + section { padding-top: 0; }
   .nav__links.offen { display: flex; }
   .nav__links a { display: block; padding: 10px 0; border-bottom: 1px solid var(--linie-auf-dunkel); }
   .nav__zugehoerigkeit { max-width: 150px; }
-  .kacheln, .kacheln--zwei, .termin-karten { grid-template-columns: 1fr; }
+  .kacheln, .kacheln--zwei, .termin-karten, .archiv-karten { grid-template-columns: 1fr; }
   .mitmachen-kasten { padding: 22px; }
   .termine li { grid-template-columns: 1fr; }
 }

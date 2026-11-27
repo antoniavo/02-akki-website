@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Treffen – DGOU KI Lab – AKKI</title>
-<meta name="description" content="Das DGOU KI Lab: online über Microsoft Teams, jeden ersten Dienstag im Monat, offen für alle Interessierten. Mit allen bisherigen Terminen.">
+<title>KI Lab – AKKI</title>
+<meta name="description" content="Das DGOU KI Lab: offenes Online-Format zu KI in der Medizin, einmal im Monat, kostenlos, für alle Interessierten. Nächster Termin und Archiv aller Termine.">
 <!-- Vorerst fuer Suchmaschinen gesperrt, bis die DGOU die Seite freigibt (siehe inhalte.md) -->
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="logo/logo-hell.svg">
@@ -28,7 +28,7 @@
       <li><a href="wer-wir-sind.html">Wer wir sind</a></li>
       <li><a href="projekte.html">Projekte</a></li>
       <li><a href="publikationen.html">Publikationen</a></li>
-      <li><a href="treffen.html" aria-current="page">Treffen</a></li>
+      <li><a href="treffen.html" aria-current="page">KI Lab</a></li>
       <li><a href="mitmachen.html">Mitmachen/Kontakt</a></li>
     </ul>
   </div>
@@ -36,15 +36,27 @@
 
 <header class="seitenkopf">
   <div class="container">
-    <h1>Treffen: DGOU KI Lab</h1>
-    <p>Das DGOU KI Lab ist offen für alle Interessierten.</p>
+    <h1>DGOU KI Lab</h1>
+    <p>Unser offenes Online-Format zu KI in der Medizin: praxisnahe Einblicke, Diskussion und Austausch – einmal im Monat, kostenlos, für alle Interessierten.</p>
   </div>
 </header>
 
 <main>
-  <section>
+  <section aria-labelledby="naechster-titel">
     <div class="container">
       <div class="kacheln kacheln--zwei">
+        <!-- Datum wird automatisch berechnet (erster Dienstag im Monat), Thema aus daten/beitraege.json -->
+        <article class="kachel naechster-termin" id="naechster-termin">
+          <h2 id="naechster-titel">Nächster Termin</h2>
+          <p class="naechster-termin__datum" data-feld="datum">wird berechnet …</p>
+          <p class="naechster-termin__zeit">18–19 Uhr · online</p>
+          <p class="naechster-termin__thema" data-feld="thema"></p>
+          <p class="naechster-termin__referent" data-feld="referent" hidden></p>
+          <div class="knopfreihe">
+            <button class="knopf" type="button" id="ics-knopf">In den Kalender (.ics)</button>
+            <a class="knopf knopf--rand" data-kontakt-mailto="Newsletter KI Lab">Newsletter abonnieren</a>
+          </div>
+        </article>
         <article class="kachel">
           <h2>So läuft es ab</h2>
           <ul class="liste">
@@ -55,24 +67,36 @@
             <li>Leitung: Dr. David Baur, Dr. Yasmin Youssef</li>
           </ul>
         </article>
-        <article class="kachel">
-          <h2>Nächste Termine</h2>
-          <p><span class="text-folgt">Text folgt</span></p>
-          <p>Themenwünsche an <a data-kontakt-email></a></p>
-        </article>
       </div>
     </div>
   </section>
 
-  <section>
+  <section aria-labelledby="archiv-titel">
     <div class="container">
-      <div class="karte">
-        <h2>Bisherige KI-Lab-Termine</h2>
-        <!-- Termine kommen aus public/daten/beitraege.json (über beitraege.js) -->
-        <ul class="termine" id="kilab-archiv">
-          <li class="hinweis">Termine werden geladen …</li>
-        </ul>
-        <p class="hinweis">Liste wird laufend ergänzt.</p>
+      <div class="abschnitt-kopf">
+        <h2 id="archiv-titel">Archiv</h2>
+        <p class="hinweis" id="kilab-anzahl" aria-live="polite"></p>
+      </div>
+      <div class="archiv-werkzeuge">
+        <label class="suchfeld">
+          <span class="sr-only">Termine durchsuchen</span>
+          <input type="search" id="kilab-suche" placeholder="Termine durchsuchen …" autocomplete="off">
+        </label>
+        <div class="filter" id="kilab-filter" role="group" aria-label="Nach Kategorie filtern"></div>
+      </div>
+      <!-- Termine kommen aus public/daten/beitraege.json (über beitraege.js) -->
+      <div class="archiv-karten" id="kilab-archiv"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="thema-titel">
+    <div class="container">
+      <div class="mitmachen-kasten">
+        <div>
+          <h2 id="thema-titel">Selbst ein Thema vorstellen?</h2>
+          <p>Schreiben Sie uns Ihren Themenvorschlag für das KI Lab.</p>
+        </div>
+        <a class="knopf" data-kontakt-mailto="Themenvorschlag KI Lab">Thema vorschlagen</a>
       </div>
     </div>
   </section>

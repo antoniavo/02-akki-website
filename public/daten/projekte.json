@@ -2,14 +2,14 @@
   "_hinweis": "Schwerpunkte, Projekte und Wissenstransfer. Jeder Datensatz: id, quelle, stand, status (bestaetigt oder entwurf). Leere Felder (null) werden auf der Website nicht angezeigt. Projektstatus: Projektidee, In Planung, Laufend, Abgeschlossen, Publiziert. Keine Ergebnisse behaupten, keine Promotionsprojekte eintragen.",
   "statusWerte": ["Projektidee", "In Planung", "Laufend", "Abgeschlossen", "Publiziert"],
   "themenWerte": ["Klinische Dokumentation", "Diagnostik", "Prognostik", "Decision Support", "Patienteninformation", "Leitlinien", "Lehre", "Open Source"],
+  "schwerpunkteAnsprechpersonen": ["osterhoff"],
   "schwerpunkte": [
     {
       "id": "leitliniensupport",
       "titel": "KI-basierter Leitliniensupport",
-      "text": "Wie kann KI helfen, Leitlinien gezielt zu durchsuchen und relevante Empfehlungen quellenbasiert und nachvollziehbar bereitzustellen?",
+      "text": "Leitlinien schneller durchsuchen, mit nachvollziehbaren Quellen.",
       "icon": "buch",
       "thema": "Leitlinien",
-      "ansprechpersonen": ["osterhoff"],
       "quelle": "DGOU-Gremienbericht 2026, Bericht der AG Digitalisierung",
       "stand": "2026-11-27",
       "status": "entwurf"
@@ -17,10 +17,9 @@
     {
       "id": "ki-zugang",
       "titel": "Erleichterter KI-Zugang in O&U",
-      "text": "Technische und organisatorische Einstiegshürden abbauen und den praxisnahen Einsatz geeigneter KI-Werkzeuge erleichtern.",
+      "text": "Einstiegshürden abbauen, passende Werkzeuge finden.",
       "icon": "schluessel",
       "thema": "Lehre",
-      "ansprechpersonen": ["osterhoff"],
       "quelle": "DGOU-Gremienbericht 2026, Bericht der AG Digitalisierung",
       "stand": "2026-11-27",
       "status": "entwurf"
@@ -28,10 +27,9 @@
     {
       "id": "decision-support",
       "titel": "Clinical Decision Support",
-      "text": "Selbstlernende Systeme zur Unterstützung klinischer Entscheidungen in Diagnostik, Prognostik und Therapieplanung – mit wissenschaftlicher Validierung und ärztlicher Entscheidungshoheit.",
+      "text": "KI als Entscheidungshilfe – die Entscheidung bleibt ärztlich.",
       "icon": "kompass",
       "thema": "Decision Support",
-      "ansprechpersonen": [],
       "quelle": "digitalisierung-dgou.de/schwerpunkte",
       "stand": "2026-11-27",
       "status": "entwurf"

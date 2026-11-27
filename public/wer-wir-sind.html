@@ -69,6 +69,7 @@
 
 <script src="layout.js"></script>
 <script src="kontakt.js"></script>
+<script src="zeitleiste.js"></script>
 <script>
   // Alle Inhalte kommen aus public/daten/organisation.json und personen.json.
   // Texte werden nur als reiner Text eingefügt. Leere Felder werden nicht angezeigt.
@@ -161,6 +162,7 @@
       li.appendChild(el('span', null, z.text));
       return li;
     }));
+    window.zeitleisteAnimieren(document.getElementById('zeitleiste'));
 
     // Leitung des AKKI und KI-Lab-Moderation (AG-Rollen stehen im eigenen Block darunter)
     document.getElementById('leitung').replaceChildren(...(org.leitungPersonen || []).map(id => {

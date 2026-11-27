@@ -158,4 +158,5 @@ Hinweis: „Liste wird laufend ergänzt.“
   - Keine Stockfotos. Bildplätze vorerst als Platzhalter „Foto folgt“.
 - Seiten: Start · Wer wir sind · Projekte · Publikationen · Treffen · Mitmachen/Kontakt · Impressum · Datenschutz (Fußzeile)
 - Logo: das lebende AKKI-Logo in public/logo/ – logo-animiert.js groß im Kopf der Startseite auf #002B45; logo-hell.svg / logo-dunkel.svg für Navigation und Browser-Icon. Das alte AKKI-Zeichen aus der Hackathon-Seite wird nicht mehr verwendet.
+- **Suchmaschinen-Sperre (vorerst):** Die Seite ist für Google & Co. gesperrt, bis die DGOU sie freigibt. Wer die Adresse kennt, kann sie trotzdem öffnen. Zum Aufheben: in allen Seiten unter public/ die Zeile `<meta name="robots" content="noindex, nofollow">` samt Kommentar entfernen und in vercel.json den Block `"headers"` löschen.
 - Schreibregel: kurze, ansprechende Texte, pro Abschnitt höchstens 2 Sätze oder Stichpunkte

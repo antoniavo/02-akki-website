@@ -26,6 +26,7 @@ Leitidee **„The Living Website“**: Die Seite pflegt sich mithilfe von KI wei
 - **Alles in `public/` ist öffentlich**, ebenso das GitHub-Repo. Keine internen Inhalte dort ablegen (Promotionsprojekte, Teams-Links, Schlüssel).
 - **API-Schlüssel** nur in `.env` (steht in `.gitignore`), nie im Chat, nie auf GitHub.
 - **Nichts erfinden.** Unbestätigte Angaben weglassen oder in `inhalte.md` als offen führen; keine sichtbaren „Text folgt“-Platzhalter. Medizinische Inhalte nicht eigenmächtig ändern (`CLAUDE.md`).
+- **Anrede: Sie-Form** auf der ganzen Website (Team-Entscheidung 28.11.2026; ein Versuch mit „du“ wurde am selben Tag zurückgenommen). Wörtliche Quelltexte in dritter Person („Sie sprechen“ bei Use Case 4 = die Patientinnen und Patienten) bleiben unverändert.
 - **Schreibregel:** kurze Texte, pro Abschnitt höchstens 2 Sätze oder Stichpunkte. Die **Startseite hat bewusst fast keinen Text** (keine Slogans, keine Begrüßung).
 - Pflichthinweis der Orga bleibt sichtbar (Kopf und Footer jeder Seite): „Prototyp – nur Testdaten. Kein Ersatz für ärztliche Beurteilung.“
 

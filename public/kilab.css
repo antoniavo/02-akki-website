@@ -21,7 +21,7 @@ main section.kl-abschnitt + section.kl-abschnitt { padding-top: var(--a4); }
 .kl-ticket__datum { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 96px; padding: 14px 12px; background: var(--navy); color: var(--text-auf-dunkel); border-radius: var(--radius-klein); line-height: 1.05; text-align: center; }
 .kl-ticket__tag { font: 800 2.6rem var(--font-heading); }
 .kl-ticket__monat { margin-top: 2px; font: 700 .9rem var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
-.kl-ticket__jahr { margin-top: 2px; font-size: .75rem; color: var(--text-auf-dunkel-leise); }
+.kl-ticket__jahr { margin-top: 2px; font-size: .8125rem; color: var(--text-auf-dunkel-leise); }
 .kl-ticket__text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .kl-ticket__text p { margin: 0; }
 .kl-ticket__zeile { font: 700 1.1rem var(--font-heading); color: var(--blau); }

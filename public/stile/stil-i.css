@@ -1,0 +1,42 @@
+﻿/* Stil I · Retro 98: Sternenhimmel, Windows-95-Fenster, Baustellenstreifen, Pixel-Optik, Klick-Zähler (in umschalter.js) */
+:root { --weiss: #C0C0C0; --hell: #000030; --text: #000; --text-2: #202020; --blau: #FFFFFF; --rahmen: #808080; --mint-hell: #D0D0D0; --radius: 0; --radius-klein: 0; --font-heading: "Courier New", "Lucida Console", monospace; }
+html, body, body.startseite { background-color: #000024; color: #fff; }
+body { background-image: radial-gradient(#fff 1px, transparent 1.5px), radial-gradient(#9cf 1px, transparent 1.5px), radial-gradient(#fff 1.5px, transparent 2px); background-size: 97px 97px, 151px 151px, 233px 233px; background-position: 0 0, 40px 60px, 120px 20px; font-family: "Courier New", "Lucida Console", monospace; }
+main > section, main section.abschnitt--hell, .startseite main section.abschnitt--hell { background: transparent; }
+h1, h2 { color: #fff; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; text-shadow: 3px 3px 0 #f00, -2px -2px 0 #00f; }
+main h2::after { content: ""; display: block; height: 10px; margin-top: 10px; background: repeating-linear-gradient(-45deg, #ffd800 0 12px, #000 12px 24px); }
+h3 { color: #000; font-family: "Courier New", monospace; }
+a { color: #0000EE; }
+a:visited { color: #551A8B; }
+main section > .container > p, .hinweis, .stand-zeile, .abschnitt-kopf a, .prosa, main section > .container > ul > li { color: #fff; }
+main section > .container > p a, .abschnitt-kopf a, .stand-zeile a { color: #7FDBFF; }
+/* Karten als Windows-95-Fenster mit Titelleiste */
+.kachel, .projekt-karte, .termin-karte, .archiv-karte, .schwerpunkt-kachel, .aktuell-karte, .mitmach-karte, .kilab-naechster, .org-box {
+  position: relative; background: #C0C0C0; color: #000; border: 3px outset #fff; border-radius: 0; box-shadow: 4px 4px 0 #000; padding-top: 40px; }
+.kachel::before, .termin-karte::before, .archiv-karte::before, .kilab-naechster::before, .aktuell-karte::before {
+  content: ""; position: absolute; top: 3px; left: 3px; right: 3px; width: auto; height: 20px; border-radius: 0; background: linear-gradient(90deg, #000080, #1084d0); box-shadow: inset -22px 0 0 #C0C0C0, inset -23px 0 0 #fff; }
+.kachel:hover, .termin-karte:hover, .mitmach-karte:hover { transform: none; box-shadow: 6px 6px 0 #000; }
+.kachel p, .projekt-karte p, .termin-karte p, .archiv-karte p, .schwerpunkt-kachel p, .kilab-naechster p, .kachel__nr { color: #000; }
+.kachel h3, .projekt-karte h3, .termin-karte__titel, .archiv-karte__titel, .schwerpunkt-kachel h3 { color: #000080; }
+.knopf, .knopf--hell, .knopf--sekundaer, .knopf--rand, .filter-knopf { background: #C0C0C0; color: #000; border: 3px outset #fff; border-radius: 0; font-family: "Courier New", monospace; font-weight: 700; text-transform: uppercase; box-shadow: 2px 2px 0 #000; }
+.knopf:hover, .knopf--hell:hover { background: #D8D8D8; color: #000; text-decoration: none; }
+.knopf:active { border-style: inset; }
+.hauptnav__knopf { border-radius: 0; font-family: "Courier New", monospace; text-transform: uppercase; background: #C0C0C0; color: #000; box-shadow: none; border: 2px outset #fff; }
+.hauptnav__knopf[aria-current="page"] { background: #000080; color: #fff; border-style: inset; }
+.chip, .badge, .kategorie { border-radius: 0; background: #C0C0C0; color: #000; border: 2px outset #fff; font-family: "Courier New", monospace; }
+.hackathon-karte { border-radius: 0; background: #C0C0C0; color: #000; border: 4px outset #fff; box-shadow: 6px 6px 0 #000; }
+.hackathon-karte h2, .hackathon-karte__fakten, .hackathon-karte__zahl, .hackathon-karte .eyebrow { color: #000; text-shadow: none; }
+.hackathon-karte h2::after { display: none; }
+.hackathon-karte .hackathon-hinweis, .hackathon-karte .hackathon-hinweis a { color: #000080; }
+.hackathon-karte .knopf--auf-dunkel, .hackathon-karte #hackathon-website { background: #C0C0C0; color: #000; border: 3px outset #fff; }
+.person__foto { border-radius: 0; border: 4px ridge #C0C0C0; box-shadow: 4px 4px 0 #000; }
+.person__name { color: #fff; }
+.person__funktion { color: #d0d0d0; }
+.datumsblock { background: #000; color: #7CFC00; border-radius: 0; border: 2px inset #808080; }
+.pub-eintrag { border-color: #808080; }
+.pub-eintrag__titel, .pub-eintrag__titel a { color: #fff; }
+.pub-eintrag__autoren, .pub-eintrag__meta { color: #d0d0d0; }
+.footer { background: #000080; border-top: 12px solid transparent; border-image: repeating-linear-gradient(-45deg, #ffd800 0 12px, #000 12px 24px) 12; }
+.startseite .hero--kompakt { background: linear-gradient(to bottom, #000050 0, #000050 calc(100% - var(--verlauf) - 12px), #000024 100%); }
+.zeitleiste__punkt { color: #fff; }
+.dgou-logo { border: 4px ridge #C0C0C0; }

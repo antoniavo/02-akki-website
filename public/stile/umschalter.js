@@ -1,7 +1,7 @@
 // Stil-Vorschau (nur zum Ausprobieren): lokal (localhost) immer sichtbar, online nach ?stil=aktuell|a|b|c|d|e. Die Wahl merkt sich der Browser (nur dieser Tab).
 // Unten links erscheint eine kleine Leiste zum Umschalten. Auf der echten Website (nicht localhost) sieht ohne ?stil niemand etwas davon.
 (function () {
-  const NAMEN = { aktuell: 'Aktuell', d: 'Hackathon', e: 'Kontrast', f: 'Tron', g: 'Roboter', h: 'Schrill' };
+  const NAMEN = { aktuell: 'Aktuell', d: 'Hackathon', e: 'Kontrast', f: 'Tron', g: 'Roboter', h: 'Schrill', i: 'Retro 98' };
   let wahl = null;
   try {
     const p = new URLSearchParams(location.search).get('stil');
@@ -36,4 +36,22 @@
   });
   document.addEventListener('DOMContentLoaded', () => document.body.appendChild(leiste));
   if (document.readyState !== 'loading') document.body.appendChild(leiste);
+
+  // Retro 98: Klick-Zähler (zählt nur die Klicks in diesem Tab, nichts wird gesendet; weg beim Schließen des Tabs)
+  if (wahl === 'i') {
+    let n = 0;
+    try { n = parseInt(sessionStorage.getItem('akkiKlicks') || '0', 10) || 0; } catch (e) {}
+    const box = document.createElement('div');
+    box.setAttribute('aria-hidden', 'true');
+    box.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:9998;background:#000;border:3px ridge #c0c0c0;padding:6px 10px;color:#7CFC00;font:700 20px/1 "Courier New",monospace;letter-spacing:.12em;text-shadow:0 0 6px #7CFC00';
+    const zeige = () => { box.textContent = 'KLICKS ' + String(n).padStart(6, '0'); };
+    zeige();
+    document.addEventListener('click', e => {
+      if (e.target.closest('[aria-label="Stil-Vorschau"]')) return;
+      n += 1; zeige();
+      try { sessionStorage.setItem('akkiKlicks', String(n)); } catch (err) {}
+    });
+    const einsetzen = () => document.body.appendChild(box);
+    if (document.body) einsetzen(); else document.addEventListener('DOMContentLoaded', einsetzen);
+  }
 })();

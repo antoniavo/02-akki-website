@@ -644,7 +644,7 @@ body.startseite { --verlauf: 200px; background: #F4F7F9; }
 /* Personen: offene Darstellung ohne Kasten (personen.js) */
 .personen { display: flex; flex-wrap: wrap; justify-content: center; gap: 56px 56px; max-width: 968px; margin: 56px auto; }
 .person { display: flex; flex-direction: column; align-items: center; text-align: center; width: 200px; }
-.person__foto { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; display: block; transition: transform .2s ease; }
+.person__foto { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; object-position: center 20%; display: block; transition: transform .2s ease; }
 .person__foto--initialen { display: flex; align-items: center; justify-content: center; background: #E6F5F1; color: #00508A; font-family: var(--font-heading); font-weight: 800; font-size: 2.6rem; }
 .person:hover .person__foto { transform: scale(1.05); }
 .person__name { margin-top: 20px; font-family: var(--font-heading); font-weight: 800; color: var(--blau); font-size: 1.1rem; line-height: 1.35; }

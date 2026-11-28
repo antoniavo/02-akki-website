@@ -682,4 +682,6 @@ body.startseite { --verlauf: 200px; background: #F4F7F9; }
 /* Logo der DGOU auf "Wer wir sind": zentriert, ohne Rahmen, unverändert */
 .logo-abschnitt .container { display: flex; justify-content: center; }
 .dgou-logo { display: block; width: 260px; max-width: 100%; height: auto; margin: var(--a3) 0; }
-.kilab-naechster__danach, .kl-ticket__danach { margin: 4px 0 0; color: var(--text-2); font-size: .95rem; }
+.kilab-naechster__danach, .kl-ticket__danach { margin: 10px 0 0; padding-top: 10px; border-top: 1px solid var(--rahmen); color: var(--text); font-size: 1.1rem; line-height: 1.45; }
+.kilab-naechster__danach { flex: 1 1 100%; }
+.kl-ticket__danach strong, .kilab-naechster__danach strong { color: var(--blau); }

@@ -1,0 +1,18 @@
+﻿/* Stil C · Kontrast: eckig, kräftige Linien, versetzte Mint-Schatten, große Überschriften */
+:root { --radius: 0; --radius-klein: 0; --schatten: transparent; --rahmen: #2C4F6B; }
+h1, h2 { font-weight: 800; letter-spacing: -.015em; }
+h2 { font-size: clamp(1.7rem, 1.2rem + 2vw, 2.4rem); }
+main h2 { display: inline-block; border-bottom: 4px solid var(--petrol); padding-bottom: 6px; }
+main > section { padding-top: 64px; padding-bottom: 64px; }
+.abschnitt--hell { background: #E6F5F1; border-top: 2px solid #2C4F6B; border-bottom: 2px solid #2C4F6B; }
+.kachel, .projekt-karte, .termin-karte, .archiv-karte, .schwerpunkt-kachel, .aktuell-karte, .mitmach-karte, .kilab-naechster, .org-box {
+  border: 2px solid #2C4F6B; box-shadow: 6px 6px 0 #78CBB9; background: #fff; transition: transform .12s ease, box-shadow .12s ease; }
+.wendekarte__hinten { border: 2px solid #2C4F6B; background: #E6F5F1; }
+.kachel::before, .termin-karte::before, .archiv-karte::before, .wendekarte__hinten::before, .kilab-naechster::before, .aktuell-karte::before { display: none; }
+.kachel:hover, .termin-karte:hover, .mitmach-karte:hover { transform: translate(-2px, -2px); box-shadow: 9px 9px 0 #78CBB9; }
+.knopf, .hauptnav__knopf, .filter-knopf { border-radius: 0; font-weight: 800; letter-spacing: .02em; }
+.knopf { border: 2px solid #2C4F6B; }
+.chip, .badge, .kategorie { border-radius: 0; }
+.hackathon-karte { border-radius: 0; box-shadow: 10px 10px 0 #78CBB9; border: 2px solid #fff; }
+.datumsblock { border-radius: 0; }
+.eyebrow, .kachel__nr { text-transform: uppercase; letter-spacing: .12em; }

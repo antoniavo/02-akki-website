@@ -76,3 +76,6 @@
 </footer>`;
   }
 })();
+
+// Stil-Vorschau (nur Test, Branch design-test): lädt stile/umschalter.js; ohne ?stil bleibt alles unverändert
+(function () { const s = document.createElement('script'); s.src = 'stile/umschalter.js'; document.head.appendChild(s); })();

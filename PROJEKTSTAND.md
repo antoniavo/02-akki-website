@@ -53,6 +53,7 @@ Node.js, keine Zusatzpakete, kein Build. `server.js` liefert `public/` aus (nur 
 | Quelldaten | `daten/publikationen-ag.md` (Teamliste, Quelle der Publikationen), `daten/hackathon-website` und `daten/QUELLEN.md` (Referenz der Orga-Seite) |
 | Logos | `public/logo/`: `logo-animiert.js`, `logo-nav.svg`, `logo-nav-hell.svg` (Footer), `logo-hell.svg` (Browser-Icon), `logo-dunkel.svg`, `logo-vorschau.html` |
 | Smart Editor | `redaktion/redaktion.html`, **nur lokal** über `server.js` (`http://localhost:3000/redaktion`), nicht öffentlich; Schnittstellen `/api/quelle`, `/api/publikation-speichern`, `/api/termin-speichern` |
+| Bearbeitungsbereich | `public/admin/index.html` + `config.yml` (Sveltia CMS von unpkg, Version 5.0.3, `noindex`), eine Eingabemaske je Datei in `public/daten/`; `/admin` schützt `server.js` per Passwort (siehe Abschnitt 9) |
 | Hosting | Vercel, `vercel.json` (Ausgabeordner `public`, kein Build). Suchmaschinen vorerst gesperrt (`noindex`, Header und Meta) |
 
 Alle Texte aus den Daten werden als reiner Text eingefügt; leere Felder (`null`) werden nicht angezeigt. Datensätze haben `quelle`, `stand`, `status` (`bestaetigt` | `entwurf`).
@@ -128,3 +129,24 @@ Alle Texte und Fakten stehen in **`inhalte.md`**. Quellen: AG-Präsentation Halb
 ## 8. Ausblick für den Pitch (nicht bis morgen bauen)
 
 Echter Newsletter-Versand über DGOU-Verteiler (Double-Opt-in) · Mediathek mit KI-Lab-Aufzeichnungen · AKKI AI Radar (automatisierte Literatursuche, Idee aus dem KI Lab zu n8n) · KI-Tool-Kompass · Plattform für alle Arbeitskreise der AG Digitalisierung mit gemeinsamem Designsystem und eigener Akzentfarbe je AK · Englische Version · eigene Domain unter der DGOU.
+
+---
+
+## 9. Bearbeitungsbereich /admin (Sveltia CMS)
+
+Texte, Termine, Projekte, Publikationen, Personen, Kontakt und Hackathon lassen sich in Eingabemasken mit deutschen Beschriftungen bearbeiten. Die Masken ändern direkt die JSON-Dateien in `public/daten/` (alle sieben Dateien, siehe `public/admin/config.yml`).
+
+**Einmal einrichten:** In der Datei `.env` (liegt nur auf dem Rechner, nie auf GitHub) zwei Zeilen eintragen: `ADMIN_USER=` und `ADMIN_PASSWORT=` mit selbst gewählten Werten (Vorlage: `.env.example`). Ohne diese Zeilen ist `/admin` gesperrt. Danach den Server neu starten (`node --env-file-if-exists=.env server.js`).
+
+**Benutzen:**
+1. `http://localhost:3000/admin/` im **Chrome oder Edge** öffnen, Benutzername und Passwort eingeben.
+2. „Mit lokalem Repository arbeiten“ wählen und den Projektordner `02-akki-website` auswählen (Zugriff erlauben).
+3. Links einen Bereich wählen, ändern, oben „Speichern“. Die Datei in `public/daten/` ist dann geändert; Website mit Strg+F5 neu laden.
+4. Veröffentlichen wie sonst: Änderung speichern (Commit) und in GitHub Desktop „Push origin“.
+
+**Fotos:** Bilddatei in `public/bilder/personen/` legen, in der Maske „Personen“ im Feld „Foto“ nur den Dateinamen eintragen.
+
+**Wichtig:**
+- Der Passwortschutz gilt nur für `server.js` (lokal). Liegt die Seite später auf Vercel, ist `/admin` dort nur eine statische Seite ohne Passwort; geschützt ist dann nur das Speichern, weil es eine GitHub-Anmeldung braucht („Mit GitHub anmelden“, Konto mit Schreibrecht auf `antoniavo/02-akki-website`).
+- Sveltia schreibt die JSON-Dateien beim Speichern neu und lässt leere Felder weg (statt `null`); die Website zeigt leere Felder ohnehin nicht an.
+- Leitung und Ansprechpersonen werden über die **Kennung** (z. B. `osterhoff`) aus der Personenliste verknüpft: Kennungen nicht ändern, solange sie irgendwo verwendet werden.

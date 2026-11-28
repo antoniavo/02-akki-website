@@ -11,429 +11,429 @@ public_folder: /bilder
 
 collections:
   - name: kilab
-    label: KI Lab und Aktuelles
-    label_singular: KI Lab und Aktuelles
+    label: 'KI Lab und Aktuelles'
+    label_singular: 'KI Lab und Aktuelles'
     files:
       - name: beitraege
-        label: KI-Lab-Termine und Aktuelles (beitraege.json)
+        label: 'KI-Lab-Termine und Aktuelles (beitraege.json)'
         file: public/daten/beitraege.json
         format: json
         fields:
-          - { name: _hinweis, label: Hinweis für das Team (wird nicht angezeigt), widget: text, required: false }
+          - { name: _hinweis, label: 'Hinweis für das Team (wird nicht angezeigt)', widget: text, required: false }
           - name: regeltermin
-            label: Regeltermin
+            label: 'Regeltermin'
             widget: object
             required: false
             fields:
-              - { name: regel, label: Regel (z. B. jeden ersten Dienstag im Monat), widget: string, required: false }
-              - { name: beginn, label: Beginn (nur wenn bestätigt, z. B. 18:00), widget: string, required: false }
-              - { name: ende, label: Ende (nur wenn bestätigt, z. B. 19:00), widget: string, required: false }
+              - { name: regel, label: 'Regel (z. B. jeden ersten Dienstag im Monat)', widget: string, required: false }
+              - { name: beginn, label: 'Beginn (nur wenn bestätigt, z. B. 18:00)', widget: string, required: false }
+              - { name: ende, label: 'Ende (nur wenn bestätigt, z. B. 19:00)', widget: string, required: false }
           - name: aktuelles
-            label: Aktuelles (Karte auf der Startseite)
-            label_singular: Eintrag
+            label: 'Aktuelles (Karte auf der Startseite)'
+            label_singular: 'Eintrag'
             widget: list
             required: false
             summary: "{{fields.titel}}"
             fields:
-              - { name: id, label: Kennung (ohne Leerzeichen), widget: string }
-              - { name: art, label: Art (z. B. Veranstaltung), widget: string, required: false }
-              - { name: titel, label: Titel, widget: string }
-              - { name: zeitraum, label: Zeitraum, widget: string, required: false }
-              - { name: ort, label: Ort, widget: string, required: false }
-              - { name: text, label: Text, widget: text, required: false }
-              - { name: link, label: Link (Adresse), widget: string, required: false }
-              - { name: linkText, label: Beschriftung des Links, widget: string, required: false }
+              - { name: id, label: 'Kennung (ohne Leerzeichen)', widget: string }
+              - { name: art, label: 'Art (z. B. Veranstaltung)', widget: string, required: false }
+              - { name: titel, label: 'Titel', widget: string }
+              - { name: zeitraum, label: 'Zeitraum', widget: string, required: false }
+              - { name: ort, label: 'Ort', widget: string, required: false }
+              - { name: text, label: 'Text', widget: text, required: false }
+              - { name: link, label: 'Link (Adresse)', widget: string, required: false }
+              - { name: linkText, label: 'Beschriftung des Links', widget: string, required: false }
           - name: kiLab
-            label: KI-Lab-Vorträge
-            label_singular: Vortrag
+            label: 'KI-Lab-Vorträge'
+            label_singular: 'Vortrag'
             widget: list
             required: false
             summary: "{{fields.datum}} {{fields.titel}}"
             fields:
-              - { name: datum, label: Datum (Jahr-Monat-Tag, z. B. 2026-12-01), widget: string }
-              - { name: beginn, label: Beginn (nur wenn bestätigt), widget: string, required: false }
-              - { name: ende, label: Ende (nur wenn bestätigt), widget: string, required: false }
-              - { name: titel, label: Titel, widget: string, required: false }
-              - { name: beschreibung, label: Beschreibung, widget: text, required: false }
-              - { name: referent, label: Referent:in (wird bei vergangenen Vorträgen nicht angezeigt), widget: string, required: false }
+              - { name: datum, label: 'Datum (Jahr-Monat-Tag, z. B. 2026-12-01)', widget: string }
+              - { name: beginn, label: 'Beginn (nur wenn bestätigt)', widget: string, required: false }
+              - { name: ende, label: 'Ende (nur wenn bestätigt)', widget: string, required: false }
+              - { name: titel, label: 'Titel', widget: string, required: false }
+              - { name: beschreibung, label: 'Beschreibung', widget: text, required: false }
+              - { name: referent, label: 'Referent:in (wird bei vergangenen Vorträgen nicht angezeigt)', widget: string, required: false }
               - name: kategorien
-                label: Kategorien
+                label: 'Kategorien'
                 widget: select
                 multiple: true
                 required: false
                 options: [KI-Tools, Automatisierung, Strategie, Praxisbericht, Datenschutz, Forschung, Klinische KI, Softwareentwicklung]
-              - { name: bestaetigt, label: Termin bestätigt, widget: boolean, required: false }
-              - { name: quelle, label: Quelle, widget: string, required: false }
-              - { name: freigegeben_von, label: Freigegeben von, widget: string, required: false }
-              - { name: stand, label: Stand (Jahr-Monat-Tag), widget: string, required: false }
-              - { name: status, label: Status, widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
+              - { name: bestaetigt, label: 'Termin bestätigt', widget: boolean, required: false }
+              - { name: quelle, label: 'Quelle', widget: string, required: false }
+              - { name: freigegeben_von, label: 'Freigegeben von', widget: string, required: false }
+              - { name: stand, label: 'Stand (Jahr-Monat-Tag)', widget: string, required: false }
+              - { name: status, label: 'Status', widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
 
   - name: forschung
-    label: Projekte
-    label_singular: Projekte
+    label: 'Projekte'
+    label_singular: 'Projekte'
     files:
       - name: projekte
-        label: Projekte, Schwerpunkte, Wissenstransfer (projekte.json)
+        label: 'Projekte, Schwerpunkte, Wissenstransfer (projekte.json)'
         file: public/daten/projekte.json
         format: json
         fields:
-          - { name: _hinweis, label: Hinweis für das Team (wird nicht angezeigt), widget: text, required: false }
+          - { name: _hinweis, label: 'Hinweis für das Team (wird nicht angezeigt)', widget: text, required: false }
           - name: statusWerte
-            label: Mögliche Projektstatus
+            label: 'Mögliche Projektstatus'
             widget: list
             required: false
             field: { name: wert, label: Status, widget: string }
           - name: themenWerte
-            label: Mögliche Themen
+            label: 'Mögliche Themen'
             widget: list
             required: false
             field: { name: wert, label: Thema, widget: string }
           - name: schwerpunkteAnsprechpersonen
-            label: Ansprechpersonen der Schwerpunkte (Kennung aus der Personenliste, z. B. osterhoff)
+            label: 'Ansprechpersonen der Schwerpunkte (Kennung aus der Personenliste, z. B. osterhoff)'
             widget: list
             required: false
             field: { name: id, label: Kennung der Person, widget: string }
           - name: schwerpunkte
-            label: Thematische Schwerpunkte
-            label_singular: Schwerpunkt
+            label: 'Thematische Schwerpunkte'
+            label_singular: 'Schwerpunkt'
             widget: list
             required: false
             summary: "{{fields.titel}}"
             fields:
-              - { name: id, label: Kennung (ohne Leerzeichen), widget: string }
-              - { name: titel, label: Titel, widget: string }
-              - { name: text, label: Text, widget: text, required: false }
-              - { name: icon, label: Symbol, widget: select, required: false, options: [buch, schluessel, kompass] }
-              - { name: thema, label: Thema, widget: string, required: false }
-              - { name: quelle, label: Quelle, widget: string, required: false }
-              - { name: stand, label: Stand (Jahr-Monat-Tag), widget: string, required: false }
-              - { name: status, label: Status, widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
+              - { name: id, label: 'Kennung (ohne Leerzeichen)', widget: string }
+              - { name: titel, label: 'Titel', widget: string }
+              - { name: text, label: 'Text', widget: text, required: false }
+              - { name: icon, label: 'Symbol', widget: select, required: false, options: [buch, schluessel, kompass] }
+              - { name: thema, label: 'Thema', widget: string, required: false }
+              - { name: quelle, label: 'Quelle', widget: string, required: false }
+              - { name: stand, label: 'Stand (Jahr-Monat-Tag)', widget: string, required: false }
+              - { name: status, label: 'Status', widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
           - name: projekte
-            label: Forschungsprojekte
-            label_singular: Projekt
+            label: 'Forschungsprojekte'
+            label_singular: 'Projekt'
             widget: list
             required: false
             summary: "{{fields.titel}}"
             fields:
-              - { name: id, label: Kennung (ohne Leerzeichen), widget: string }
-              - { name: titel, label: Titel, widget: string }
-              - { name: text, label: Kurztext, widget: text, required: false }
-              - { name: thema, label: Thema, widget: string, required: false }
-              - { name: projektStatus, label: Projektstatus, widget: select, required: false, options: [Projektidee, In Planung, Laufend, Abgeschlossen, Publiziert] }
-              - { name: statusLabel, label: Beschriftung des Status (falls abweichend), widget: string, required: false }
-              - { name: umfeld, label: Projekt im Umfeld (nicht direkt AKKI), widget: boolean, required: false }
-              - { name: vorgestellt, label: Hinweis (z. B. wo vorgestellt), widget: string, required: false }
+              - { name: id, label: 'Kennung (ohne Leerzeichen)', widget: string }
+              - { name: titel, label: 'Titel', widget: string }
+              - { name: text, label: 'Kurztext', widget: text, required: false }
+              - { name: thema, label: 'Thema', widget: string, required: false }
+              - { name: projektStatus, label: 'Projektstatus', widget: select, required: false, options: [Projektidee, In Planung, Laufend, Abgeschlossen, Publiziert] }
+              - { name: statusLabel, label: 'Beschriftung des Status (falls abweichend)', widget: string, required: false }
+              - { name: umfeld, label: 'Projekt im Umfeld (nicht direkt AKKI)', widget: boolean, required: false }
+              - { name: vorgestellt, label: 'Hinweis (z. B. wo vorgestellt)', widget: string, required: false }
               - name: mehr
-                label: Aufklappbar "Mehr erfahren"
-                label_singular: Punkt
+                label: 'Aufklappbar "Mehr erfahren"'
+                label_singular: 'Punkt'
                 widget: list
                 required: false
                 summary: "{{fields.label}}"
                 fields:
-                  - { name: label, label: Überschrift, widget: string }
-                  - { name: text, label: Text, widget: text }
-              - { name: poster, label: Poster (Link), widget: string, required: false }
+                  - { name: label, label: 'Überschrift', widget: string }
+                  - { name: text, label: 'Text', widget: text }
+              - { name: poster, label: 'Poster (Link)', widget: string, required: false }
               - name: ansprechpersonen
-                label: Ansprechpersonen (Kennung aus der Personenliste)
+                label: 'Ansprechpersonen (Kennung aus der Personenliste)'
                 widget: list
                 required: false
                 field: { name: id, label: Kennung der Person, widget: string }
-              - { name: publikation, label: Kennung einer Publikation (für „Zur Publikation“), widget: string, required: false }
-              - { name: link, label: Link (Adresse), widget: string, required: false }
-              - { name: quelle, label: Quelle, widget: string, required: false }
-              - { name: stand, label: Stand (Jahr-Monat-Tag), widget: string, required: false }
-              - { name: status, label: Status, widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
+              - { name: publikation, label: 'Kennung einer Publikation (für „Zur Publikation“)', widget: string, required: false }
+              - { name: link, label: 'Link (Adresse)', widget: string, required: false }
+              - { name: quelle, label: 'Quelle', widget: string, required: false }
+              - { name: stand, label: 'Stand (Jahr-Monat-Tag)', widget: string, required: false }
+              - { name: status, label: 'Status', widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
           - name: transfer
-            label: Wissenstransfer und Innovation
-            label_singular: Karte
+            label: 'Wissenstransfer und Innovation'
+            label_singular: 'Karte'
             widget: list
             required: false
             summary: "{{fields.titel}}"
             fields:
-              - { name: id, label: Kennung (ohne Leerzeichen), widget: string }
-              - { name: titel, label: Titel, widget: string }
-              - { name: text, label: Text, widget: text, required: false }
-              - { name: link, label: Link (Adresse), widget: string, required: false }
-              - { name: linkText, label: Beschriftung des Links, widget: string, required: false }
-              - { name: quelle, label: Quelle, widget: string, required: false }
-              - { name: stand, label: Stand (Jahr-Monat-Tag), widget: string, required: false }
-              - { name: status, label: Status, widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
+              - { name: id, label: 'Kennung (ohne Leerzeichen)', widget: string }
+              - { name: titel, label: 'Titel', widget: string }
+              - { name: text, label: 'Text', widget: text, required: false }
+              - { name: link, label: 'Link (Adresse)', widget: string, required: false }
+              - { name: linkText, label: 'Beschriftung des Links', widget: string, required: false }
+              - { name: quelle, label: 'Quelle', widget: string, required: false }
+              - { name: stand, label: 'Stand (Jahr-Monat-Tag)', widget: string, required: false }
+              - { name: status, label: 'Status', widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
       - name: usecases
-        label: Hackathon und Use Cases (usecases.json)
+        label: 'Hackathon und Use Cases (usecases.json)'
         file: public/daten/usecases.json
         format: json
         fields:
-          - { name: _hinweis, label: Hinweis für das Team (wird nicht angezeigt), widget: text, required: false }
+          - { name: _hinweis, label: 'Hinweis für das Team (wird nicht angezeigt)', widget: text, required: false }
           - name: hackathon
-            label: Hackathon
+            label: 'Hackathon'
             widget: object
             required: false
             fields:
-              - { name: titel, label: Titel, widget: string }
-              - { name: text, label: Text, widget: text, required: false }
-              - { name: zeitraum, label: Zeitraum, widget: string, required: false }
-              - { name: ort, label: Ort, widget: string, required: false }
-              - { name: veranstalter, label: Veranstalter, widget: string, required: false }
-              - { name: website, label: Website (Adresse), widget: string, required: false }
-              - { name: hinweis, label: Hinweis, widget: text, required: false }
-              - { name: quelle, label: Quelle, widget: string, required: false }
-              - { name: stand, label: Stand (Jahr-Monat-Tag), widget: string, required: false }
-              - { name: status, label: Status, widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
+              - { name: titel, label: 'Titel', widget: string }
+              - { name: text, label: 'Text', widget: text, required: false }
+              - { name: zeitraum, label: 'Zeitraum', widget: string, required: false }
+              - { name: ort, label: 'Ort', widget: string, required: false }
+              - { name: veranstalter, label: 'Veranstalter', widget: string, required: false }
+              - { name: website, label: 'Website (Adresse)', widget: string, required: false }
+              - { name: hinweis, label: 'Hinweis', widget: text, required: false }
+              - { name: quelle, label: 'Quelle', widget: string, required: false }
+              - { name: stand, label: 'Stand (Jahr-Monat-Tag)', widget: string, required: false }
+              - { name: status, label: 'Status', widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
           - name: usecases
-            label: Use Cases
-            label_singular: Use Case
+            label: 'Use Cases'
+            label_singular: 'Use Case'
             widget: list
             required: false
             summary: "{{fields.nr}} {{fields.titel}}"
             fields:
-              - { name: id, label: Kennung (ohne Leerzeichen), widget: string }
-              - { name: nr, label: Nummer, widget: number, value_type: int }
-              - { name: titel, label: Titel, widget: string }
-              - { name: kennzeichnung, label: Kennzeichnung (z. B. Freie Themenwahl), widget: string, required: false }
-              - { name: text, label: Kurzbeschreibung, widget: text, required: false }
-              - { name: idee, label: Projektidee (Rückseite der Karte), widget: text, required: false }
-              - { name: repo, label: Repository (Link auf der Rückseite), widget: string, required: false }
-              - { name: team, label: Team, widget: string, required: false }
-              - { name: repository, label: Repository (Link auf der Vorderseite), widget: string, required: false }
-              - { name: demo, label: Demo (Link), widget: string, required: false }
-              - { name: ergebnis, label: Ergebnis, widget: text, required: false }
-              - { name: quelle, label: Quelle, widget: string, required: false }
-              - { name: stand, label: Stand (Jahr-Monat-Tag), widget: string, required: false }
-              - { name: status, label: Status, widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
+              - { name: id, label: 'Kennung (ohne Leerzeichen)', widget: string }
+              - { name: nr, label: 'Nummer', widget: number, value_type: int }
+              - { name: titel, label: 'Titel', widget: string }
+              - { name: kennzeichnung, label: 'Kennzeichnung (z. B. Freie Themenwahl)', widget: string, required: false }
+              - { name: text, label: 'Kurzbeschreibung', widget: text, required: false }
+              - { name: idee, label: 'Projektidee (Rückseite der Karte)', widget: text, required: false }
+              - { name: repo, label: 'Repository (Link auf der Rückseite)', widget: string, required: false }
+              - { name: team, label: 'Team', widget: string, required: false }
+              - { name: repository, label: 'Repository (Link auf der Vorderseite)', widget: string, required: false }
+              - { name: demo, label: 'Demo (Link)', widget: string, required: false }
+              - { name: ergebnis, label: 'Ergebnis', widget: text, required: false }
+              - { name: quelle, label: 'Quelle', widget: string, required: false }
+              - { name: stand, label: 'Stand (Jahr-Monat-Tag)', widget: string, required: false }
+              - { name: status, label: 'Status', widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
 
   - name: veroeffentlichungen
-    label: Publikationen
-    label_singular: Publikationen
+    label: 'Publikationen'
+    label_singular: 'Publikationen'
     files:
       - name: publikationen
-        label: Publikationen (publikationen.json)
+        label: 'Publikationen (publikationen.json)'
         file: public/daten/publikationen.json
         format: json
         fields:
-          - { name: _hinweis, label: Hinweis für das Team (wird nicht angezeigt), widget: text, required: false }
-          - { name: quelle, label: Quelle der Liste, widget: string, required: false }
-          - { name: stand, label: Stand der Liste (Jahr-Monat-Tag), widget: string, required: false }
+          - { name: _hinweis, label: 'Hinweis für das Team (wird nicht angezeigt)', widget: text, required: false }
+          - { name: quelle, label: 'Quelle der Liste', widget: string, required: false }
+          - { name: stand, label: 'Stand der Liste (Jahr-Monat-Tag)', widget: string, required: false }
           - name: themen
-            label: Mögliche Themen (für den Filter)
+            label: 'Mögliche Themen (für den Filter)'
             widget: list
             required: false
             field: { name: thema, label: Thema, widget: string }
           - name: publikationen
-            label: Publikationen
-            label_singular: Publikation
+            label: 'Publikationen'
+            label_singular: 'Publikation'
             widget: list
             required: false
             summary: "{{fields.jahr}} {{fields.titel}}"
             fields:
-              - { name: id, label: Kennung (ohne Leerzeichen), widget: string }
-              - { name: nr, label: Nummer in der Liste, widget: number, value_type: int, required: false }
-              - { name: titel, label: Titel, widget: text }
-              - { name: autoren, label: Autor:innen, widget: text, required: false }
-              - { name: journal, label: Journal, widget: string, required: false }
-              - { name: jahr, label: Jahr, widget: number, value_type: int }
-              - { name: angabe, label: Angabe (Band, Heft, Seiten), widget: string, required: false }
-              - { name: band, label: Band, widget: string, required: false }
-              - { name: heft, label: Heft, widget: string, required: false }
-              - { name: seiten, label: Seiten, widget: string, required: false }
+              - { name: id, label: 'Kennung (ohne Leerzeichen)', widget: string }
+              - { name: nr, label: 'Nummer in der Liste', widget: number, value_type: int, required: false }
+              - { name: titel, label: 'Titel', widget: text }
+              - { name: autoren, label: 'Autor:innen', widget: text, required: false }
+              - { name: journal, label: 'Journal', widget: string, required: false }
+              - { name: jahr, label: 'Jahr', widget: number, value_type: int }
+              - { name: angabe, label: 'Angabe (Band, Heft, Seiten)', widget: string, required: false }
+              - { name: band, label: 'Band', widget: string, required: false }
+              - { name: heft, label: 'Heft', widget: string, required: false }
+              - { name: seiten, label: 'Seiten', widget: string, required: false }
               - name: themen
-                label: Themen
+                label: 'Themen'
                 widget: select
                 multiple: true
                 required: false
                 options: [KI, Telemedizin, Lehre, Apps/DiGA, Social Media, Sportmedizin, VR/Simulation, Digitalisierung allgemein]
-              - { name: kennzeichen, label: Kennzeichen, widget: select, required: false, options: [AKKI-Publikation, AG-Publikation] }
-              - { name: doi, label: DOI (ohne https://doi.org/), widget: string, required: false }
-              - { name: pubmed, label: PubMed-ID, widget: string, required: false }
-              - { name: quelle, label: Quelle, widget: string, required: false }
-              - { name: freigegeben_von, label: Freigegeben von, widget: string, required: false }
-              - { name: stand, label: Stand (Jahr-Monat-Tag), widget: string, required: false }
-              - { name: status, label: Status, widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
+              - { name: kennzeichen, label: 'Kennzeichen', widget: select, required: false, options: [AKKI-Publikation, AG-Publikation] }
+              - { name: doi, label: 'DOI (ohne https://doi.org/)', widget: string, required: false }
+              - { name: pubmed, label: 'PubMed-ID', widget: string, required: false }
+              - { name: quelle, label: 'Quelle', widget: string, required: false }
+              - { name: freigegeben_von, label: 'Freigegeben von', widget: string, required: false }
+              - { name: stand, label: 'Stand (Jahr-Monat-Tag)', widget: string, required: false }
+              - { name: status, label: 'Status', widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
 
   - name: team
-    label: Wer wir sind
-    label_singular: Wer wir sind
+    label: 'Wer wir sind'
+    label_singular: 'Wer wir sind'
     files:
       - name: personen
-        label: Personen (personen.json)
+        label: 'Personen (personen.json)'
         file: public/daten/personen.json
         format: json
         fields:
-          - { name: _hinweis, label: Hinweis für das Team (wird nicht angezeigt), widget: text, required: false }
+          - { name: _hinweis, label: 'Hinweis für das Team (wird nicht angezeigt)', widget: text, required: false }
           - name: personen
-            label: Personen
-            label_singular: Person
+            label: 'Personen'
+            label_singular: 'Person'
             widget: list
             required: false
             summary: "{{fields.name}}"
             fields:
-              - { name: id, label: Kennung (ohne Leerzeichen, wird anderswo verwendet), widget: string }
-              - { name: name, label: Name mit Titel, widget: string }
-              - { name: initialen, label: Initialen (für den Kreis ohne Foto), widget: string, required: false }
-              - { name: foto, label: Foto (nur Dateiname, Datei liegt in public/bilder/personen/), widget: string, required: false }
-              - { name: linkedin, label: LinkedIn (Adresse des Profils), widget: string, required: false }
+              - { name: id, label: 'Kennung (ohne Leerzeichen, wird anderswo verwendet)', widget: string }
+              - { name: name, label: 'Name mit Titel', widget: string }
+              - { name: initialen, label: 'Initialen (für den Kreis ohne Foto)', widget: string, required: false }
+              - { name: foto, label: 'Foto (nur Dateiname, Datei liegt in public/bilder/personen/)', widget: string, required: false }
+              - { name: linkedin, label: 'LinkedIn (Adresse des Profils)', widget: string, required: false }
               - name: rollen
-                label: Funktionen
+                label: 'Funktionen'
                 widget: list
                 required: false
                 field: { name: rolle, label: Funktion, widget: string }
-              - { name: ort, label: Ort, widget: string, required: false }
-              - { name: quelle, label: Quelle, widget: string, required: false }
-              - { name: stand, label: Stand (Jahr-Monat-Tag), widget: string, required: false }
-              - { name: status, label: Status, widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
+              - { name: ort, label: 'Ort', widget: string, required: false }
+              - { name: quelle, label: 'Quelle', widget: string, required: false }
+              - { name: stand, label: 'Stand (Jahr-Monat-Tag)', widget: string, required: false }
+              - { name: status, label: 'Status', widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
           - name: agLeitung
-            label: Leitung der AG Digitalisierung
+            label: 'Leitung der AG Digitalisierung'
             widget: object
             required: false
             fields:
-              - { name: titel, label: Überschrift, widget: string, required: false }
-              - { name: stand, label: Stand, widget: string, required: false }
-              - { name: hinweis, label: Hinweis, widget: string, required: false }
-              - { name: quelle, label: Quelle, widget: text, required: false }
+              - { name: titel, label: 'Überschrift', widget: string, required: false }
+              - { name: stand, label: 'Stand', widget: string, required: false }
+              - { name: hinweis, label: 'Hinweis', widget: string, required: false }
+              - { name: quelle, label: 'Quelle', widget: text, required: false }
               - name: mitglieder
-                label: Mitglieder
-                label_singular: Mitglied
+                label: 'Mitglieder'
+                label_singular: 'Mitglied'
                 widget: list
                 required: false
                 summary: "{{fields.person}}: {{fields.funktion}}"
                 fields:
-                  - { name: person, label: Kennung der Person, widget: string }
-                  - { name: funktion, label: Funktion, widget: string }
+                  - { name: person, label: 'Kennung der Person', widget: string }
+                  - { name: funktion, label: 'Funktion', widget: string }
           - name: verantwortlich
-            label: Inhaltlich verantwortlich (Impressum)
+            label: 'Inhaltlich verantwortlich (Impressum)'
             widget: object
             required: false
             fields:
-              - { name: hinweis, label: Hinweis, widget: string, required: false }
+              - { name: hinweis, label: 'Hinweis', widget: string, required: false }
               - name: namen
-                label: Namen
+                label: 'Namen'
                 widget: list
                 required: false
                 field: { name: name, label: Name, widget: string }
-              - { name: status, label: Status, widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
+              - { name: status, label: 'Status', widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
       - name: organisation
-        label: Seite „Wer wir sind“ (organisation.json)
+        label: 'Seite „Wer wir sind“ (organisation.json)'
         file: public/daten/organisation.json
         format: json
         fields:
-          - { name: _hinweis, label: Hinweis für das Team (wird nicht angezeigt), widget: text, required: false }
-          - { name: untertitel, label: Satz im Seitenkopf, widget: text, required: false }
+          - { name: _hinweis, label: 'Hinweis für das Team (wird nicht angezeigt)', widget: text, required: false }
+          - { name: untertitel, label: 'Satz im Seitenkopf', widget: text, required: false }
           - name: ziele
-            label: Unsere Ziele
+            label: 'Unsere Ziele'
             widget: object
             required: false
             fields:
               - name: kacheln
-                label: Kacheln
-                label_singular: Kachel
+                label: 'Kacheln'
+                label_singular: 'Kachel'
                 widget: list
                 required: false
                 summary: "{{fields.titel}}"
                 fields:
-                  - { name: icon, label: Symbol, widget: select, options: [buch, netz, lupe, schild] }
-                  - { name: titel, label: Titel, widget: string }
-                  - { name: text, label: Text, widget: text, required: false }
-              - { name: quelle, label: Quelle, widget: string, required: false }
-              - { name: stand, label: Stand (Jahr-Monat-Tag), widget: string, required: false }
-              - { name: status, label: Status, widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
+                  - { name: icon, label: 'Symbol', widget: select, options: [buch, netz, lupe, schild] }
+                  - { name: titel, label: 'Titel', widget: string }
+                  - { name: text, label: 'Text', widget: text, required: false }
+              - { name: quelle, label: 'Quelle', widget: string, required: false }
+              - { name: stand, label: 'Stand (Jahr-Monat-Tag)', widget: string, required: false }
+              - { name: status, label: 'Status', widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
           - name: zeitleiste
-            label: Meilensteine
-            label_singular: Meilenstein
+            label: 'Meilensteine'
+            label_singular: 'Meilenstein'
             widget: list
             required: false
             summary: "{{fields.datum}}: {{fields.text}}"
             fields:
-              - { name: datum, label: Datum (wie angezeigt), widget: string }
-              - { name: text, label: Text, widget: string }
-              - { name: quelle, label: Quelle, widget: string, required: false }
+              - { name: datum, label: 'Datum (wie angezeigt)', widget: string }
+              - { name: text, label: 'Text', widget: string }
+              - { name: quelle, label: 'Quelle', widget: string, required: false }
           - name: zeitleisteMeta
-            label: Meilensteine: Stand und Status
+            label: 'Meilensteine: Stand und Status'
             widget: object
             required: false
             fields:
-              - { name: stand, label: Stand (Jahr-Monat-Tag), widget: string, required: false }
-              - { name: status, label: Status, widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
-          - { name: leitungHinweis, label: Zeile unter der Leitung, widget: string, required: false }
+              - { name: stand, label: 'Stand (Jahr-Monat-Tag)', widget: string, required: false }
+              - { name: status, label: 'Status', widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
+          - { name: leitungHinweis, label: 'Zeile unter der Leitung', widget: string, required: false }
           - name: leitungPersonen
-            label: Leitung des AKKI (Kennung aus der Personenliste)
+            label: 'Leitung des AKKI (Kennung aus der Personenliste)'
             widget: list
             required: false
             field: { name: id, label: Kennung der Person, widget: string }
           - name: organigramm
-            label: Einordnung in der DGOU (Organigramm)
+            label: 'Einordnung in der DGOU (Organigramm)'
             widget: object
             required: false
             fields:
-              - { name: name, label: Oberste Ebene: Name, widget: string }
-              - { name: zusatz, label: Oberste Ebene: Zusatz, widget: string, required: false }
-              - { name: link, label: Oberste Ebene: Link, widget: string, required: false }
+              - { name: name, label: 'Oberste Ebene: Name', widget: string }
+              - { name: zusatz, label: 'Oberste Ebene: Zusatz', widget: string, required: false }
+              - { name: link, label: 'Oberste Ebene: Link', widget: string, required: false }
               - name: kind
-                label: Zweite Ebene
+                label: 'Zweite Ebene'
                 widget: object
                 required: false
                 fields:
-                  - { name: name, label: Name, widget: string }
-                  - { name: link, label: Link, widget: string, required: false }
+                  - { name: name, label: 'Name', widget: string }
+                  - { name: link, label: 'Link', widget: string, required: false }
                   - name: kinder
-                    label: Dritte Ebene (Arbeitskreise)
-                    label_singular: Arbeitskreis
+                    label: 'Dritte Ebene (Arbeitskreise)'
+                    label_singular: 'Arbeitskreis'
                     widget: list
                     required: false
                     summary: "{{fields.name}}"
                     fields:
-                      - { name: name, label: Name, widget: string }
-                      - { name: zusatz, label: Zusatz, widget: text, required: false }
-                      - { name: hervorgehoben, label: Hervorgehoben (AKKI), widget: boolean, required: false }
-                      - { name: schild, label: Schild (z. B. Sie sind hier), widget: string, required: false }
-                      - { name: schwerpunkte, label: Schwerpunkte, widget: text, required: false }
+                      - { name: name, label: 'Name', widget: string }
+                      - { name: zusatz, label: 'Zusatz', widget: text, required: false }
+                      - { name: hervorgehoben, label: 'Hervorgehoben (AKKI)', widget: boolean, required: false }
+                      - { name: schild, label: 'Schild (z. B. Sie sind hier)', widget: string, required: false }
+                      - { name: schwerpunkte, label: 'Schwerpunkte', widget: text, required: false }
                       - name: leitung
-                        label: Leitung (Kennung aus der Personenliste)
+                        label: 'Leitung (Kennung aus der Personenliste)'
                         widget: list
                         required: false
                         field: { name: id, label: Kennung der Person, widget: string }
                       - name: ansprechpersonen
-                        label: Ansprechpersonen (Kennung aus der Personenliste)
+                        label: 'Ansprechpersonen (Kennung aus der Personenliste)'
                         widget: list
                         required: false
                         field: { name: id, label: Kennung der Person, widget: string }
-              - { name: quelle, label: Quelle, widget: string, required: false }
-              - { name: stand, label: Stand (Jahr-Monat-Tag), widget: string, required: false }
-              - { name: status, label: Status, widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
+              - { name: quelle, label: 'Quelle', widget: string, required: false }
+              - { name: stand, label: 'Stand (Jahr-Monat-Tag)', widget: string, required: false }
+              - { name: status, label: 'Status', widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
           - name: rahmen
-            label: Satzung
+            label: 'Satzung'
             widget: object
             required: false
             fields:
-              - { name: text, label: Text, widget: text, required: false }
-              - { name: satzungLink, label: Link zur Satzung, widget: string, required: false }
-              - { name: satzungLinkText, label: Beschriftung des Links, widget: string, required: false }
-              - { name: quelle, label: Quelle, widget: string, required: false }
-              - { name: stand, label: Stand (Jahr-Monat-Tag), widget: string, required: false }
-              - { name: status, label: Status, widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
+              - { name: text, label: 'Text', widget: text, required: false }
+              - { name: satzungLink, label: 'Link zur Satzung', widget: string, required: false }
+              - { name: satzungLinkText, label: 'Beschriftung des Links', widget: string, required: false }
+              - { name: quelle, label: 'Quelle', widget: string, required: false }
+              - { name: stand, label: 'Stand (Jahr-Monat-Tag)', widget: string, required: false }
+              - { name: status, label: 'Status', widget: select, required: false, options: [{ label: bestätigt, value: bestaetigt }, { label: Entwurf, value: entwurf }] }
 
   - name: kontakt_gruppe
-    label: Kontakt
-    label_singular: Kontakt
+    label: 'Kontakt'
+    label_singular: 'Kontakt'
     files:
       - name: kontakt
-        label: Kontaktadresse und Betreffzeilen (kontakt.json)
+        label: 'Kontaktadresse und Betreffzeilen (kontakt.json)'
         file: public/daten/kontakt.json
         format: json
         fields:
-          - { name: email, label: E-Mail-Adresse, widget: string }
-          - { name: hinweis, label: Hinweis für das Team (wird nicht angezeigt), widget: text, required: false }
+          - { name: email, label: 'E-Mail-Adresse', widget: string }
+          - { name: hinweis, label: 'Hinweis für das Team (wird nicht angezeigt)', widget: text, required: false }
           - name: betreff
-            label: Betreffzeilen der E-Mails
+            label: 'Betreffzeilen der E-Mails'
             widget: object
             required: false
             fields:
-              - { name: mitarbeit, label: Mitarbeit, widget: string, required: false }
-              - { name: themenvorschlag, label: Themenvorschlag, widget: string, required: false }
-              - { name: forschung, label: Forschung, widget: string, required: false }
-              - { name: opensource, label: Open Source, widget: string, required: false }
-              - { name: allgemein, label: Allgemein, widget: string, required: false }
-              - { name: newsletter, label: Newsletter, widget: string, required: false }
+              - { name: mitarbeit, label: 'Mitarbeit', widget: string, required: false }
+              - { name: themenvorschlag, label: 'Themenvorschlag', widget: string, required: false }
+              - { name: forschung, label: 'Forschung', widget: string, required: false }
+              - { name: opensource, label: 'Open Source', widget: string, required: false }
+              - { name: allgemein, label: 'Allgemein', widget: string, required: false }
+              - { name: newsletter, label: 'Newsletter', widget: string, required: false }
           - name: betreffAuswahl
-            label: Reihenfolge der Betreff-Auswahl
+            label: 'Reihenfolge der Betreff-Auswahl'
             widget: list
             required: false
             field: { name: schluessel, label: Schlüssel, widget: string }

@@ -10,7 +10,7 @@
 (function () {
   const WEGE = [
     { titel: 'Am KI Lab teilnehmen', text: 'Aktuelle KI-Themen kennenlernen, Fragen stellen, Erfahrungen austauschen.', href: 'treffen.html', extra: { text: 'Newsletter', betreff: 'newsletter' } },
-    { titel: 'Ein eigenes Thema vorstellen', text: 'Praxisbericht, Studie oder spannendes Tool? Schlagen Sie ein Thema vor.', betreff: 'themenvorschlag' },
+    { titel: 'Ein eigenes Thema vorstellen', text: 'Praxisbericht, Studie oder spannendes Tool? Schlag ein Thema vor.', betreff: 'themenvorschlag' },
     { titel: 'Forschung mitgestalten', text: 'Forschungsfragen diskutieren und Kooperationen anregen.', betreff: 'forschung' },
     { titel: 'Technologie entwickeln', text: 'Projektideen einbringen und an Open-Source-Prototypen mitarbeiten.', betreff: 'opensource', extra: { text: 'GitHub', href: 'https://github.com/akkidgou-opensource' } },
   ];

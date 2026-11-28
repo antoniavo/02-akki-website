@@ -710,3 +710,4 @@ main section .container > p, main section .container > ul > li { max-width: 66ch
 /* Seitenbalken auf runder Box ersetzt: Vollrahmen mit kurzem Petrol-Akzent oben (wie bei den Karten) */
 .kilab-naechster, .aktuell-karte { position: relative; border-left: 1px solid var(--rahmen); }
 .kilab-naechster::before, .aktuell-karte::before { content: ""; position: absolute; left: var(--a3); top: -1px; width: 44px; height: 4px; border-radius: 0 0 4px 4px; background: var(--petrol); }
+.kilab-naechster__danach, .kl-ticket__danach { margin: 4px 0 0; color: var(--text-2); font-size: .95rem; }

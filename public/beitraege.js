@@ -61,8 +61,13 @@
     const beginn = (eintrag && eintrag.beginn) || regel.beginn;
     const ende = (eintrag && eintrag.ende) || regel.ende;
     const hatZeit = istUhrzeit(beginn) && istUhrzeit(ende);
+    // Danach: der nächste spätere Termin mit Titel (z. B. im Editor für den Januar angelegt), damit eingetragene Termine sichtbar sind
+    const danach = ((daten && daten.kiLab) || [])
+      .filter(t => t.titel && String(t.datum).length > 7 && t.datum > datum)
+      .sort((a, b) => String(a.datum).localeCompare(String(b.datum)))[0] || null;
     return {
       datum,
+      danach: danach ? { datum: danach.datum, titel: danach.titel } : null,
       titel: eintrag ? eintrag.titel : null,
       referent: eintrag && eintrag.referent ? eintrag.referent : null,
       beginn: hatZeit ? beginn : null,
@@ -125,6 +130,11 @@
     if (ref) { ref.textContent = t.referent || ''; ref.hidden = !(hat && t.referent); }
     if (frage) frage.hidden = hat;
     if (vorschlag) vorschlag.hidden = hat;
+    const danach = ziel.querySelector('[data-feld="danach"]');
+    if (danach) {
+      danach.hidden = !t.danach;
+      if (t.danach) danach.textContent = `Danach: ${terminZeile({ datum: t.danach.datum })} · ${t.danach.titel}`;
+    }
   }
   function naechsterAufStartseite(a, t) {
     if (!a || !t) return;

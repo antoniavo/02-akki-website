@@ -87,7 +87,7 @@ Alles mit ⚠️ ist aus öffentlichen Quellen zusammengetragen und muss vor Ort
 ## Treffen / KI-Lab
 - Rhythmus: jeden ersten Dienstag im Monat (vom Team bestätigt, 27.11.2026). Die Website berechnet den nächsten Termin automatisch, Thema und Referent:in nur, wenn in `beitraege.json` für diesen Tag eingetragen, sonst „Thema wird bekannt gegeben“.
 - Uhrzeit: nicht ausdrücklich bestätigt, deshalb nicht auf der Website. Sobald bestätigt: `regeltermin.beginn` und `regeltermin.ende` in `beitraege.json` eintragen (z. B. 18:00 und 19:00); die Kalenderdatei ist bis dahin ganztägig.
-- DGOU KI Lab, seit Januar 2026, online über Microsoft Teams, jeden ersten Dienstag im Monat, 1 Stunde (20 Min. Vortrag, 20 Min. Diskussion, 20 Min. AK-Meeting), offen für alle Interessierten.
+- DGOU KI Lab, seit Dezember 2025 (erste Vorträge ab 03.12.2025), online über Microsoft Teams, jeden ersten Dienstag im Monat, 1 Stunde (20 Min. Vortrag, 20 Min. Diskussion, 20 Min. AK-Meeting), offen für alle Interessierten.
 - Leitung: Dr. David Baur, Dr. Yasmin Youssef
 - Bisherige Themen:
   - Claude – Von Chatbot zu Cowork

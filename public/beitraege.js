@@ -335,6 +335,11 @@
       if (naechster) naechsterTerminEinrichten(naechster, naechsterTermin(daten));
       naechsterAufStartseite(naechsterStart, naechsterTermin(daten));
       if (archiv) vortraegeEinrichten(archiv, termine);
+      const aufz = document.getElementById('kilab-aufzeichnungen');
+      if (aufz && /^https:\/\//.test(daten.aufzeichnungenOrdner || '')) {
+        aufz.querySelector('a').href = daten.aufzeichnungenOrdner;
+        aufz.hidden = false;
+      }
     })
     .catch(() => {
       [aktuell, letzte, archiv].filter(Boolean).forEach(z => z.replaceChildren(el('p', 'hinweis', 'Die Inhalte konnten gerade nicht geladen werden.')));

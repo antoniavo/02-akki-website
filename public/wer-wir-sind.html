@@ -33,12 +33,9 @@
 
   <section class="abschnitt--hell" aria-labelledby="leitung-titel">
     <div class="container">
-      <h2 id="leitung-titel">Leitung und Ansprechpersonen</h2>
+      <h2 id="leitung-titel">Team</h2>
       <div id="leitung"></div>
       <p class="hinweis stand-zeile" id="leitung-stand"></p>
-
-      <h3 class="unterabschnitt">Leitung der AG Digitalisierung</h3>
-      <div id="ag-leitung"></div>
       <p class="hinweis stand-zeile" id="ag-leitung-stand"></p>
     </div>
   </section>
@@ -130,10 +127,11 @@
       const kind = el('div', 'org-kind');
       const b = box(k.hervorgehoben ? 'org-box--akki' : '', k.name, k.zusatz, null, k.schild);
       if (k.schwerpunkte) b.appendChild(el('span', 'org-box__zusatz', 'Schwerpunkte: ' + k.schwerpunkte));
-      const leitung = personenVon(k.leitung, personen);
-      if (leitung.length) b.appendChild(window.personenReihe(leitung.map(p => ({ person: p, funktionen: ['Leitung'] }))));
-      const ansprech = personenVon(k.ansprechpersonen, personen);
-      if (ansprech.length) b.appendChild(window.personenReihe(ansprech.map(p => ({ person: p, funktionen: ['Ansprechperson'] }))));
+      // Im Organigramm nur Namen als Text (keine Fotos)
+      const leitung = personenVon(k.leitung, personen).map(p => p.name);
+      if (leitung.length) b.appendChild(el('span', 'org-box__zusatz', 'Leitung: ' + leitung.join(', ')));
+      const ansprech = personenVon(k.ansprechpersonen, personen).map(p => p.name);
+      if (ansprech.length) b.appendChild(el('span', 'org-box__zusatz', 'Ansprechpersonen: ' + ansprech.join(', ')));
       kind.appendChild(b);
       reihe.appendChild(kind);
     });
@@ -155,16 +153,15 @@
     }));
     window.zeitleisteAnimieren(document.getElementById('zeitleiste'));
 
-    // Leitung des AKKI und KI-Lab-Moderation (AG-Rollen stehen im eigenen Block darunter)
-    document.getElementById('leitung').replaceChildren(window.personenReihe(personenVon(org.leitungPersonen, personen).map(p => (
-      { person: p, funktionen: (p.rollen || []).filter(r => !r.startsWith('AG Digitalisierung')) }))));
+    // Team: der einzige Ort mit Fotos. Jede Person nur einmal (Leitung des AKKI, dann Leitung der AG), Funktionen und Ort aus personen.json
+    const ag = pd.agLeitung;
+    const teamIds = [...new Set([...(org.leitungPersonen || []), ...((ag && ag.mitglieder) || []).map(m => m.person)])];
+    document.getElementById('leitung').replaceChildren(window.personenReihe(personenVon(teamIds, personen).map(p => (
+      { person: p, funktionen: [...(p.rollen || []), p.ort] }))));
     setze('leitung-stand', org.leitungHinweis);
 
-    // Leitung der AG Digitalisierung, mit Quelle und Stand
-    const ag = pd.agLeitung;
+    // Stand und Quelle der AG-Leitung
     if (ag) {
-      document.getElementById('ag-leitung').replaceChildren(window.personenReihe(ag.mitglieder.map(m => (
-        { person: personen[m.person], funktionen: [m.funktion, personen[m.person] && personen[m.person].ort] }))));
       const stand = document.getElementById('ag-leitung-stand');
       stand.textContent = `Stand: ${ag.stand} · ${ag.hinweis} · Quelle: `;
       const a = el('a', null, 'Fachartikel „Neue Führung – next Level Digitalisierung und KI“, Orthopädie und Unfallchirurgie 5/2026');

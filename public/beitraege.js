@@ -157,7 +157,7 @@
   function materialLinks(t) {
     // Folien und Aufzeichnung nur nach Freigabe: leer = ausgeblendet
     const material = el('p', 'archiv-karte__material');
-    [['Folien', t.folien], ['Aufzeichnung', t.aufzeichnung]].forEach(([name, url]) => {
+    [['Folien', t.folien], ['Aufzeichnung', t.aufzeichnung], ['Aufzeichnung ansehen', t.video]].forEach(([name, url]) => {
       if (!url) return;
       const a = el('a', 'pfeil-link', name);
       a.href = url; a.target = '_blank'; a.rel = 'noopener';

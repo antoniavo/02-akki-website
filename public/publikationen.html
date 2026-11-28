@@ -99,7 +99,17 @@
   function eintrag(p) {
     const li = el('li', 'pub-eintrag');
     li.id = p.id;
-    li.appendChild(el('h3', 'pub-eintrag__titel', p.titel));
+    // Titel ist ein Link: zuerst DOI, sonst PubMed, sonst nur Text
+    const titelAdresse = p.doi ? 'https://doi.org/' + p.doi : (p.pubmed ? 'https://pubmed.ncbi.nlm.nih.gov/' + p.pubmed + '/' : null);
+    const h = el('h3', 'pub-eintrag__titel');
+    if (titelAdresse) {
+      const a = el('a', null, p.titel);
+      a.href = titelAdresse; a.target = '_blank'; a.rel = 'noopener';
+      h.appendChild(a);
+    } else {
+      h.textContent = p.titel;
+    }
+    li.appendChild(h);
     if (p.autoren) li.appendChild(el('p', 'pub-eintrag__autoren', p.autoren));
     const meta = el('p', 'pub-eintrag__meta', [p.journal, p.jahr, p.angabe].filter(Boolean).join(' · '));
     // Kennzeichen nur als dezenter Text, kein farbiges Schild

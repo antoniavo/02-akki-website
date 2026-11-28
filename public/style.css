@@ -639,4 +639,5 @@ body.startseite { --verlauf: 200px; background: #F4F7F9; }
 .org-box .personen { justify-content: center; gap: var(--a2) var(--a3); margin-top: var(--a2); }
 .org-box .person { width: 132px; }
 .projekt-karte .personen { margin-top: var(--a2); gap: var(--a2); justify-content: flex-start; }
-@media (prefers-reduced-motion: reduce) { .person__foto, .person__linkedin { transition: none; } .person:hover .person__foto { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .person__foto, .person__linkedin { transition: none; } .person:hover .person__foto { transform: none; } }.pub-eintrag__titel a { color: inherit; text-decoration: none; }
+.pub-eintrag__titel a:hover, .pub-eintrag__titel a:focus-visible { color: var(--petrol-text); text-decoration: underline; text-underline-offset: 3px; }

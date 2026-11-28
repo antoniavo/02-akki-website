@@ -10,6 +10,7 @@
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
+const crypto = require('node:crypto');
 
 const PORT = process.env.PORT || 3000;
 const ROOT = path.join(__dirname, 'public');
@@ -31,6 +32,7 @@ const TYPES = {
   '.webp': 'image/webp',
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
+  '.yml': 'text/yaml; charset=utf-8',
 };
 
 function seiteFolgt(res) {
@@ -45,6 +47,32 @@ function seiteFolgt(res) {
 function json(res, status, daten) {
   res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' });
   res.end(JSON.stringify(daten));
+}
+
+// --- Bearbeitungsbereich /admin: nur mit Anmeldung (HTTP Basic Auth) ---------------------
+// Benutzername und Passwort stehen nur in .env (ADMIN_USER, ADMIN_PASSWORT). Fehlen sie, ist /admin gesperrt.
+// Die Zugangsdaten werden weder geloggt noch ausgegeben.
+function gleich(a, b) {
+  const x = crypto.createHash('sha256').update(String(a)).digest();
+  const y = crypto.createHash('sha256').update(String(b)).digest();
+  return crypto.timingSafeEqual(x, y); // gleich lange Prüfsummen, kein Zeitunterschied
+}
+function adminErlaubt(req, res) {
+  const user = process.env.ADMIN_USER, pass = process.env.ADMIN_PASSWORT;
+  if (!user || !pass) {
+    res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
+    res.end('Der Bearbeitungsbereich ist gesperrt.');
+    return false;
+  }
+  const kopf = String(req.headers.authorization || '');
+  if (kopf.startsWith('Basic ')) {
+    const roh = Buffer.from(kopf.slice(6), 'base64').toString('utf8');
+    const i = roh.indexOf(':');
+    if (i >= 0 && gleich(roh.slice(0, i), user) & gleich(roh.slice(i + 1), pass)) return true;
+  }
+  res.writeHead(401, { 'WWW-Authenticate': 'Basic realm="AKKI Bearbeitungsbereich", charset="UTF-8"', 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
+  res.end('Anmeldung nötig.');
+  return false;
 }
 
 function istLokal(req) {
@@ -441,6 +469,11 @@ http.createServer((req, res) => {
     urlPath = decodeURIComponent(url.pathname);
   } catch {
     return seiteFolgt(res);
+  }
+
+  if (urlPath === '/admin' || urlPath.startsWith('/admin/')) {
+    if (!adminErlaubt(req, res)) return;
+    if (urlPath === '/admin') { res.writeHead(301, { Location: '/admin/' }); return res.end(); }
   }
 
   if ((NUR_LOKAL.has(urlPath) || urlPath.startsWith('/api/')) && !istLokal(req)) return seiteFolgt(res);

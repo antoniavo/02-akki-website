@@ -1,0 +1,34 @@
+@import url('stil-d.css');
+/* Stil J · Videospiel (GTA-Vice-City-Look): Neon-Sonnenuntergang, Gitterboden, Spiel-Anzeige, Missionskarten, Geld-Zähler */
+:root { --weiss: rgba(18, 6, 42, .86); --hell: #12062A; --text: #fff; --text-2: #E6D3FF; --blau: #FF5FB2; --rahmen: #00E5FF; --mint-hell: rgba(0, 229, 255, .14); }
+html, body, body.startseite { background-color: #12062A; }
+body { background-image: linear-gradient(180deg, #12062A 0, #2B0A55 38%, #8A1D84 70%, #FF5FB2 100%); background-attachment: fixed; }
+body::after { content: ""; position: fixed; left: 0; right: 0; bottom: 0; height: 32vh; z-index: -1; pointer-events: none; background-image: linear-gradient(rgba(0, 229, 255, .55) 2px, transparent 2px), linear-gradient(90deg, rgba(0, 229, 255, .45) 2px, transparent 2px); background-size: 60px 38px; transform: perspective(300px) rotateX(58deg); transform-origin: bottom; opacity: .55; -webkit-mask-image: linear-gradient(transparent, #000 60%); mask-image: linear-gradient(transparent, #000 60%); }
+main > section, main section.abschnitt--hell, .startseite main section.abschnitt--hell { background: transparent; }
+h1, h2 { font-family: Impact, "Arial Black", "Archivo", sans-serif; font-style: italic; font-weight: 900; text-transform: uppercase; letter-spacing: .04em; color: #fff; -webkit-text-stroke: 2px #000; paint-order: stroke fill; text-shadow: 4px 4px 0 #FF2E93, 7px 7px 0 #000; }
+h3 { color: #fff; font-style: italic; }
+a { color: #00E5FF; }
+.kachel, .projekt-karte, .termin-karte, .archiv-karte, .schwerpunkt-kachel, .aktuell-karte, .mitmach-karte, .kilab-naechster, .org-box {
+  position: relative; background: rgba(18, 6, 42, .86); border: 2px solid #00E5FF; border-radius: 4px; color: #fff;
+  box-shadow: 0 0 0 2px #12062A, 0 0 18px rgba(0, 229, 255, .65), 6px 6px 0 #FF2E93; }
+.kachel::before, .termin-karte::before, .archiv-karte::before, .kilab-naechster::before, .aktuell-karte::before { top: -2px; left: -2px; width: 56px; height: 8px; border-radius: 0; background: #FFE600; }
+.kachel:hover, .termin-karte:hover, .mitmach-karte:hover { transform: translate(-2px, -2px); box-shadow: 0 0 0 2px #12062A, 0 0 28px rgba(0, 229, 255, .9), 9px 9px 0 #FF2E93; }
+.kachel__nr, .eyebrow, .filter-label { color: #FFE600; font-family: Impact, "Arial Black", sans-serif; letter-spacing: .12em; }
+.knopf, .knopf--hell { background: #FFE600; color: #000; border: 3px solid #000; border-radius: 4px; font-family: Impact, "Arial Black", sans-serif; font-style: italic; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; transform: skewX(-8deg); box-shadow: 4px 4px 0 #000; }
+.knopf:hover, .knopf--hell:hover { background: #FF2E93; color: #fff; transform: skewX(-8deg) translate(-2px, -2px); box-shadow: 6px 6px 0 #000; }
+.knopf--sekundaer, .knopf--rand, .knopf--auf-dunkel, .hackathon-karte .knopf--auf-dunkel { background: #00E5FF; color: #000; border-color: #000; }
+.hauptnav__knopf { border-radius: 4px; font-family: Impact, "Arial Black", sans-serif; font-style: italic; text-transform: uppercase; letter-spacing: .06em; font-weight: 400; font-size: .9rem; transform: skewX(-8deg); }
+.chip, .badge, .kategorie { border-radius: 4px; border: 2px solid #FFE600; background: rgba(0, 0, 0, .45); color: #FFE600; font-weight: 800; }
+.badge--laufend { background: #9BE564; color: #000; border-color: #000; }
+.hackathon-karte { border-radius: 4px; background: rgba(18, 6, 42, .9); border: 3px solid #FFE600; box-shadow: 0 0 0 3px #12062A, 0 0 30px rgba(255, 230, 0, .45), 9px 9px 0 #FF2E93; }
+.hackathon-karte h2 { text-shadow: 4px 4px 0 #00B8D4, 7px 7px 0 #000; }
+.hackathon-karte .hackathon-hinweis, .hackathon-karte .hackathon-hinweis a { color: #9BE564; }
+.person__foto { border-radius: 4px; border: 3px solid #FFE600; box-shadow: 0 0 0 3px #12062A, 6px 6px 0 #FF2E93; }
+.datumsblock { background: #000; color: #9BE564; border: 2px solid #9BE564; border-radius: 4px; }
+.pub-eintrag__titel, .pub-eintrag__titel a { color: #fff; }
+.pub-eintrag__autoren, .pub-eintrag__meta { color: #E6D3FF; }
+.footer { background: #000; border-top: 4px solid #FF2E93; box-shadow: 0 -6px 0 #00E5FF; }
+.startseite .hero--kompakt { background: linear-gradient(to bottom, #12062A 0, #1C0A3E calc(100% - var(--verlauf) - 12px), #2B0A55 100%); }
+.kopfband { background: #12062A; border-bottom: 3px solid #00E5FF; }
+.dgou-logo { border-radius: 4px; box-shadow: 0 0 0 3px #FFE600, 6px 6px 0 #FF2E93; }
+.hackathon-karte #hackathon-website, .hackathon-karte #hackathon-website:hover { background: #FFE600; color: #000; border-color: #000; }

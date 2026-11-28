@@ -387,10 +387,27 @@ main section.abschnitt--mint + section { padding-top: var(--a4); }
 
 /* =============== Mitmach-Terminal (terminal.js): Pop-up am Button "Mitmachen" und fest auf mitmachen.html =============== */
 .terminal-wrap { position: relative; display: inline-block; }
-.terminal { background: var(--navy); color: var(--text-auf-dunkel); border: 1px solid rgba(255, 255, 255, .28); border-radius: var(--radius); overflow: hidden; text-align: left; font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .92rem; line-height: 1.5; }
-.terminal--popup { overflow-y: auto; overscroll-behavior: contain; position: absolute; left: 0; top: calc(100% + 8px); z-index: 40; width: min(420px, calc(100vw - 32px)); box-shadow: 0 14px 36px rgba(0, 0, 0, .35); opacity: 0; transform: translateY(-6px); transition: opacity .2s ease, transform .2s ease; }
-.terminal--popup.terminal--oben { top: auto; bottom: calc(100% + 8px); transform: translateY(6px); }
-.terminal--popup.terminal--sichtbar { opacity: 1; transform: none; }
+.terminal { position: relative; background: #1E3A50; color: var(--text-auf-dunkel); border: 1px solid rgba(255, 255, 255, .28); border-radius: var(--radius); overflow: hidden; text-align: left; font-family: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .92rem; line-height: 1.5; }
+/* Aufgehen wie ein Terminal: erst dünne Mint-Linie (--linie), dann senkrecht aufziehen (--sichtbar), kurzes Flackern */
+.terminal--popup { overflow-y: auto; overscroll-behavior: contain; position: absolute; left: 0; top: calc(100% + 8px); z-index: 40; width: min(420px, calc(100vw - 32px)); box-shadow: 0 14px 36px rgba(0, 0, 0, .35); opacity: 0; clip-path: inset(calc(50% - 1.5px) -20px calc(50% - 1.5px) -20px); transition: opacity .2s ease, clip-path .2s ease, background-color .2s ease; }
+.terminal--popup.terminal--oben { top: auto; bottom: calc(100% + 8px); }
+.terminal--popup.terminal--linie { opacity: 1; background: #78CBB9; box-shadow: 0 0 14px 3px rgba(120, 203, 185, .8); transition: opacity .1s ease; }
+.terminal--popup.terminal--sichtbar { opacity: 1; clip-path: inset(-20px -20px -40px -20px); transition: clip-path .35s cubic-bezier(.2, .8, .2, 1), background-color .35s ease; animation: terminal-flackern .3s steps(1, end) .1s 1; }
+.terminal--popup:not(.terminal--sichtbar) > * { opacity: 0; }
+.terminal--popup.terminal--sichtbar > * { transition: opacity .15s ease .12s; }
+@keyframes terminal-flackern { 0% { opacity: 1; } 20% { opacity: .55; } 35% { opacity: 1; } 55% { opacity: .75; } 70% { opacity: 1; } 100% { opacity: 1; } }
+/* Feine Scanlines, sehr dezent */
+.terminal::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, .07) 0, rgba(0, 0, 0, .07) 1px, transparent 1px, transparent 3px); }
+/* Tippen: Links erst nach dem Text sichtbar, Fensterhöhe bleibt gleich */
+.terminal--tippt .terminal__liste, .terminal--tippt .terminal__kontakt, .terminal--tippt .terminal__ende { visibility: hidden; }
+.terminal__ende { margin: 8px 0 0; }
+.terminal__cursor { display: inline-block; width: .6em; height: 1.1em; vertical-align: text-bottom; background: var(--mint); margin-left: 2px; animation: terminal-cursor 1s steps(1, end) infinite; }
+@keyframes terminal-cursor { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .terminal--popup, .terminal--popup.terminal--sichtbar, .terminal--popup > * { transition: none !important; animation: none !important; }
+  .terminal--popup { clip-path: none; }
+  .terminal__cursor { animation: none; }
+}
 .terminal--fest { max-width: 720px; margin-top: var(--a3); }
 .terminal__kopf { display: flex; align-items: center; gap: 12px; padding: 6px 8px 6px 14px; border-bottom: 1px solid var(--linie-auf-dunkel); min-height: 40px; }
 .terminal__punkte { display: inline-flex; gap: 6px; }
@@ -625,19 +642,20 @@ body.startseite { --verlauf: 200px; background: #F4F7F9; }
 }
 
 /* Personen: offene Darstellung ohne Kasten (personen.js) */
-.personen { display: flex; flex-wrap: wrap; gap: var(--a3) var(--a4, 40px); margin-top: var(--a3); }
-.person { display: flex; flex-direction: column; align-items: center; text-align: center; width: 152px; }
-.person__foto { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; display: block; transition: transform .2s ease; }
-.person__foto--initialen { display: flex; align-items: center; justify-content: center; background: #E6F5F1; color: #00508A; font-family: var(--font-heading); font-weight: 800; font-size: 1.9rem; }
+.personen { display: flex; flex-wrap: wrap; justify-content: center; gap: 56px 56px; max-width: 968px; margin: 56px auto; }
+.person { display: flex; flex-direction: column; align-items: center; text-align: center; width: 200px; }
+.person__foto { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; display: block; transition: transform .2s ease; }
+.person__foto--initialen { display: flex; align-items: center; justify-content: center; background: #E6F5F1; color: #00508A; font-family: var(--font-heading); font-weight: 800; font-size: 2.6rem; }
 .person:hover .person__foto { transform: scale(1.05); }
-.person__name { margin-top: 12px; font-family: var(--font-heading); color: var(--blau); font-size: 1rem; line-height: 1.3; }
-.person__funktion { margin-top: 2px; color: var(--text-2); font-size: .8125rem; line-height: 1.35; }
-.person__linkedin { margin-top: 8px; width: 24px; height: 24px; border-radius: 50%; background: #008F83; display: flex; align-items: center; justify-content: center; transition: background-color .2s ease; }
-.person__linkedin svg { width: 14px; height: 14px; fill: #fff; }
+.person__name { margin-top: 20px; font-family: var(--font-heading); font-weight: 800; color: var(--blau); font-size: 1.1rem; line-height: 1.35; }
+.person__funktion { margin-top: 6px; color: #5C6772; font-size: .875rem; line-height: 1.5; }
+.person__linkedin { margin-top: 16px; width: 28px; height: 28px; border-radius: 50%; background: #008F83; display: flex; align-items: center; justify-content: center; transition: background-color .2s ease; }
+.person__linkedin svg { width: 16px; height: 16px; fill: #fff; }
 .person__linkedin:hover, .person__linkedin:focus-visible { background: #00A89A; }
-.personen--links { justify-content: flex-start; }
-.org-box .personen { justify-content: center; gap: var(--a2) var(--a3); margin-top: var(--a2); }
-.org-box .person { width: 132px; }
-.projekt-karte .personen { margin-top: var(--a2); gap: var(--a2); justify-content: flex-start; }
+.org-box .personen { gap: 40px 32px; margin: 32px auto 8px; max-width: none; }
+.org-box .person { width: 160px; }
+.projekt-karte .personen { margin: 32px 0 0; gap: 32px 24px; justify-content: flex-start; }
+.projekt-karte .person { width: 160px; }
+#schwerpunkte-ansprech .personen { margin: 40px auto 0; }
 @media (prefers-reduced-motion: reduce) { .person__foto, .person__linkedin { transition: none; } .person:hover .person__foto { transform: none; } }.pub-eintrag__titel a { color: inherit; text-decoration: none; }
 .pub-eintrag__titel a:hover, .pub-eintrag__titel a:focus-visible { color: var(--petrol-text); text-decoration: underline; text-underline-offset: 3px; }

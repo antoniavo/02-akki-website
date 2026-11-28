@@ -32,7 +32,10 @@
   function befehl(text) {
     const p = el('p', 'terminal__befehl');
     p.appendChild(el('span', null, '$ ')).setAttribute('aria-hidden', 'true');
-    p.appendChild(document.createTextNode(text));
+    // Der Text steht in einem eigenen Feld, damit das Pop-up ihn Zeichen für Zeichen tippen kann
+    const feld = el('span', 'terminal__tipp', text);
+    feld.dataset.text = text;
+    p.appendChild(feld);
     return p;
   }
 
@@ -53,7 +56,7 @@
     const punkte = el('span', 'terminal__punkte');
     punkte.setAttribute('aria-hidden', 'true');
     punkte.append(el('i'), el('i'), el('i'));
-    kopf.append(punkte, el('span', 'terminal__titel', 'akki – mitmachen'));
+    kopf.append(punkte, el('span', 'terminal__titel', 'akki@dgou: ~/mitmachen'));
     if (modus === 'popup') {
       const x = el('button', 'terminal__zu', '×');
       x.type = 'button';
@@ -93,6 +96,12 @@
       kontakt.appendChild(link('Alle Infos zum Mitmachen →', 'mitmachen.html'));
     }
     koerper.appendChild(kontakt);
+    if (modus === 'popup') {
+      // Abschlusszeile mit blinkendem Cursor (erscheint, wenn der Text fertig getippt ist)
+      const ende = el('p', 'terminal__befehl terminal__ende');
+      ende.appendChild(el('span', null, '$ ')).setAttribute('aria-hidden', 'true');
+      koerper.appendChild(ende);
+    }
     t.appendChild(koerper);
 
     // Adresse und Betreffzeilen aus kontakt.json eintragen (sobald geladen)
@@ -148,21 +157,66 @@
       if (obenPlatz > untenPlatz) { t.classList.add('terminal--oben'); t.style.maxHeight = Math.max(obenPlatz, 160) + 'px'; }
       else t.style.maxHeight = Math.max(untenPlatz, 160) + 'px';
     }
+    // ---- Tippen: Text Zeichen für Zeichen (25 ms), Links erst danach; Klick ins Fenster überspringt ----
+    const TIPP_MS = 25;
+    const felder = Array.from(t.querySelectorAll('.terminal__tipp'));
+    const gesperrt = Array.from(t.querySelectorAll('.terminal__liste, .terminal__kontakt'));
+    const cursor = el('span', 'terminal__cursor');
+    cursor.setAttribute('aria-hidden', 'true');
+    let tippTimer = null, tippt = false;
+    const reduziert = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function tippFertig() {
+      clearTimeout(tippTimer);
+      tippt = false;
+      felder.forEach(f => { f.textContent = f.dataset.text; });
+      t.classList.remove('terminal--tippt');
+      gesperrt.forEach(x => { x.inert = false; });
+      t.querySelector('.terminal__ende').appendChild(cursor);
+    }
+    function tippStart() {
+      if (reduziert()) { tippFertig(); return; }
+      tippt = true;
+      t.classList.add('terminal--tippt');
+      gesperrt.forEach(x => { x.inert = true; });
+      felder.forEach(f => { f.textContent = ''; });
+      let fi = 0, ci = 0;
+      felder[0].after(cursor);
+      (function schritt() {
+        if (fi >= felder.length) { tippFertig(); return; }
+        const f = felder[fi], text = f.dataset.text;
+        if (ci < text.length) { f.textContent = text.slice(0, ++ci); tippTimer = setTimeout(schritt, TIPP_MS); }
+        else { fi++; ci = 0; if (fi < felder.length) felder[fi].after(cursor); tippTimer = setTimeout(schritt, 200); }
+      })();
+    }
+    // Ein Klick ins Fenster zeigt sofort den ganzen Text
+    t.addEventListener('pointerdown', () => { if (tippt) tippFertig(); });
+
     function oeffnen() {
       clearTimeout(zuTimer); clearTimeout(ausTimer);
       if (offen) return;
       offen = true;
       t.hidden = false;
       platzieren();
-      void t.offsetWidth; // Startzustand festhalten, damit die Einblendung animiert
-      t.classList.add('terminal--sichtbar');
       knopf.setAttribute('aria-expanded', 'true');
+      if (reduziert()) { t.classList.add('terminal--sichtbar'); tippStart(); return; }
+      // Schritt 1: dünne leuchtende Linie, Schritt 2 (nach ca. 0,15 s): senkrecht aufziehen, Flackern; insgesamt ca. 0,5 s
+      t.classList.add('terminal--linie');
+      felder.forEach(f => { f.textContent = ''; });
+      t.classList.add('terminal--tippt');
+      void t.offsetWidth; // Startzustand festhalten
+      ausTimer = setTimeout(() => {
+        t.classList.remove('terminal--linie');
+        t.classList.add('terminal--sichtbar');
+        ausTimer = setTimeout(tippStart, 400);
+      }, 150);
     }
     function schliessen(fokusZumButton) {
-      clearTimeout(zuTimer);
+      clearTimeout(zuTimer); clearTimeout(ausTimer); clearTimeout(tippTimer);
       if (!offen) return;
       offen = false;
-      t.classList.remove('terminal--sichtbar');
+      tippt = false;
+      t.classList.remove('terminal--sichtbar', 'terminal--linie');
       knopf.setAttribute('aria-expanded', 'false');
       ausTimer = setTimeout(() => { t.hidden = true; }, ANIMATION);
       if (fokusZumButton) {

@@ -1,9 +1,9 @@
-﻿/* Stil A · Klar: nüchtern, flach, dünne Linien, kleine Rundungen, viel Weißraum */
+/* Stil A · Klar: nüchtern, flach, dünne Linien, kleine Rundungen, viel Weißraum */
 :root { --radius: 4px; --radius-klein: 3px; --schatten: transparent; --rahmen: #C9D6E0; }
 body { font-size: 1rem; }
 h1, h2, h3 { font-weight: 700; letter-spacing: -.01em; }
 main > section { padding-top: 56px; padding-bottom: 56px; }
-.abschnitt--hell { background: #fff; border-top: 1px solid var(--rahmen); border-bottom: 1px solid var(--rahmen); }
+main section.abschnitt--hell { background: #fff; border-top: 1px solid var(--rahmen); border-bottom: 1px solid var(--rahmen); }
 .kachel, .projekt-karte, .termin-karte, .archiv-karte, .schwerpunkt-kachel, .aktuell-karte, .mitmach-karte, .kilab-naechster, .org-box, .wendekarte__hinten {
   border: 1px solid var(--rahmen); box-shadow: none; background: #fff; }
 .wendekarte__hinten { background: #E6F5F1; border-color: #BFE3DA; }

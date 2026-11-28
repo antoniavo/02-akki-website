@@ -1,14 +1,17 @@
-﻿// Stil-Vorschau (nur zum Ausprobieren): Aufruf einmal mit ?stil=aktuell|a|b|c, danach merkt sich der Browser die Wahl (nur dieser Tab).
-// Unten links erscheint dann eine kleine Leiste zum Umschalten. Ohne ?stil sieht niemand etwas davon.
+// Stil-Vorschau (nur zum Ausprobieren): lokal (localhost) immer sichtbar, online nach ?stil=aktuell|a|b|c|d|e. Die Wahl merkt sich der Browser (nur dieser Tab).
+// Unten links erscheint eine kleine Leiste zum Umschalten. Auf der echten Website (nicht localhost) sieht ohne ?stil niemand etwas davon.
 (function () {
-  const NAMEN = { aktuell: 'Aktuell', a: 'A · Klar', b: 'B · Weich', c: 'C · Kontrast' };
+  const NAMEN = { aktuell: 'Aktuell', a: 'A · Klar', b: 'B · Weich', c: 'C · Eckig', d: 'D · Hackathon', e: 'E · Kontrast' };
   let wahl = null;
   try {
     const p = new URLSearchParams(location.search).get('stil');
     if (p && NAMEN[p]) sessionStorage.setItem('akkiStil', p);
     wahl = sessionStorage.getItem('akkiStil');
   } catch (e) { /* ohne Speicher keine Vorschau */ }
-  if (!wahl || !NAMEN[wahl]) return;
+  // Lokal (localhost) erscheint die Leiste immer; online nur nach ?stil=
+  const lokal = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  if (!NAMEN[wahl]) wahl = lokal ? 'aktuell' : null;
+  if (!wahl) return;
 
   if (wahl !== 'aktuell') {
     const l = document.createElement('link');

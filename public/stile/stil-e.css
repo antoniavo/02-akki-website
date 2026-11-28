@@ -1,0 +1,39 @@
+/* Stil E · Hoher Kontrast: kräftige Navy-Bänder wechseln mit weißen Flächen, fette Überschriften, dicke Linien, gut lesbar */
+:root { --radius: 12px; --radius-klein: 8px; --rahmen: #2C4F6B; --text: #0F1F2B; --text-2: #2F4352; }
+body { font-size: 1.125rem; color: #0F1F2B; }
+h1, h2 { font-weight: 800; letter-spacing: -.02em; }
+h2 { font-size: clamp(1.9rem, 1.3rem + 2.2vw, 2.7rem); }
+main > section { padding-top: 64px; padding-bottom: 64px; }
+a { text-decoration-thickness: 2px; }
+main section.abschnitt--hell { background: #2C4F6B; color: #fff; }
+.abschnitt--hell h2, .abschnitt--hell h3.unterabschnitt, .abschnitt--hell .person__name, .abschnitt--hell .abschnitt-kopf a { color: #fff; }
+.abschnitt--hell .hinweis, .abschnitt--hell .stand-zeile, .abschnitt--hell .person__funktion { color: #D6E3EC; }
+.abschnitt--hell .stand-zeile a, .abschnitt--hell .hinweis a { color: #fff; }
+.abschnitt--hell .eyebrow { color: #8FDCCB; }
+.abschnitt--hell p { color: #fff; }
+.kachel, .projekt-karte, .termin-karte, .archiv-karte, .schwerpunkt-kachel, .aktuell-karte, .mitmach-karte, .kilab-naechster {
+  background: #fff; color: #0F1F2B; border: 3px solid #2C4F6B; box-shadow: none; }
+.abschnitt--hell .kachel, .abschnitt--hell .projekt-karte, .abschnitt--hell .termin-karte, .abschnitt--hell .archiv-karte, .abschnitt--hell .schwerpunkt-kachel, .abschnitt--hell .kilab-naechster { border-color: #78CBB9; }
+.abschnitt--hell .kachel p, .abschnitt--hell .projekt-karte p, .abschnitt--hell .termin-karte p, .abschnitt--hell .archiv-karte p, .abschnitt--hell .schwerpunkt-kachel p, .abschnitt--hell .kilab-naechster p { color: #0F1F2B; }
+.kachel::before, .termin-karte::before, .archiv-karte::before, .wendekarte__hinten::before, .kilab-naechster::before, .aktuell-karte::before { height: 6px; width: 64px; background: #008F83; }
+.kachel:hover, .termin-karte:hover, .mitmach-karte:hover { border-color: #008F83; }
+.knopf, .knopf--hell { background: #2C4F6B; color: #fff; border: 2px solid #2C4F6B; border-radius: 10px; font-weight: 800; }
+.knopf:hover { background: #78CBB9; color: #0F1F2B; border-color: #78CBB9; text-decoration: none; }
+.knopf--sekundaer, .knopf--rand { background: #fff; color: #2C4F6B; border: 2px solid #2C4F6B; }
+.knopf--sekundaer:hover, .knopf--rand:hover { background: #2C4F6B; color: #fff; }
+.abschnitt--hell .knopf { background: #78CBB9; color: #0F1F2B; border-color: #78CBB9; }
+.abschnitt--hell .knopf:hover { background: #fff; border-color: #fff; }
+.abschnitt--hell .knopf--sekundaer, .abschnitt--hell .knopf--rand { background: transparent; color: #fff; border-color: #fff; }
+.hauptnav__knopf { border-radius: 10px; font-weight: 800; }
+.badge { border-radius: 8px; border-width: 2px; }
+.chip, .kategorie { border-radius: 8px; }
+.hackathon-karte { border-radius: 16px; background: #2C4F6B; border: 3px solid #78CBB9; box-shadow: none; }
+.eyebrow, .kachel__nr { font-weight: 800; }
+.pub-eintrag { border-color: #2C4F6B; }
+.pub-eintrag__titel { font-size: 1.2rem; }
+.org-box--akki { border-color: #008F83; }
+.dgou-logo { background: #fff; }
+/* Startseite: Kopf läuft in Weiß aus, Bänder bleiben Navy */
+body.startseite { background: #fff; }
+.startseite main section.abschnitt--hell { background: #2C4F6B; }
+.startseite .hero--kompakt { background: linear-gradient(to bottom, #2C4F6B 0, #2C4F6B calc(100% - var(--verlauf) - 12px), #ffffff 100%); }

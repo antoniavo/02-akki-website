@@ -1,0 +1,37 @@
+/* Stil D · Hackathon: dunkel wie die Hackathon-Website, Mint-Akzente, Monospace-Beschriftungen, leuchtende Pill-Buttons */
+:root { --weiss: #14283B; --hell: #10233A; --text: #E6EEF4; --text-2: #B4C4D0; --blau: #8FDCCB; --mint-hell: #1D3A52; --rahmen: rgba(234, 243, 247, .16); --schatten: rgba(0, 0, 0, .3); --folgt-bg: #1D3A52; }
+html, body { background: #0D2740; color: #E6EEF4; }
+h1, h2, h3 { color: #fff; }
+a { color: #8FDCCB; }
+main section.abschnitt--hell { background: #10233A; }
+.kachel, .projekt-karte, .termin-karte, .archiv-karte, .schwerpunkt-kachel, .aktuell-karte, .mitmach-karte, .kilab-naechster, .org-box {
+  background: #14283B; border: 1px solid rgba(234, 243, 247, .16); box-shadow: none; color: #E6EEF4; }
+.kachel h3, .projekt-karte h3, .termin-karte__titel, .archiv-karte__titel, .schwerpunkt-kachel h3, .kachel__nr, .person__name { color: #fff; }
+.kachel::before, .termin-karte::before, .archiv-karte::before, .kilab-naechster::before, .aktuell-karte::before { background: #78CBB9; }
+.hinweis, .stand-zeile, .person__funktion, .projekt-karte__meta { color: #B4C4D0; }
+.eyebrow, .kachel__nr, .filter-label { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; color: #78CBB9; }
+.knopf, .knopf--hell { background: #78CBB9; color: #0D2740; border-color: #78CBB9; border-radius: 999px; font-weight: 800; }
+.knopf:hover, .knopf--hell:hover { background: #8FDCCB; color: #0D2740; border-color: #8FDCCB; box-shadow: 0 8px 28px rgba(120, 203, 185, .35); text-decoration: none; }
+.knopf--sekundaer, .knopf--rand, .knopf--auf-dunkel { background: transparent; color: #8FDCCB; border-color: #78CBB9; }
+.knopf--sekundaer:hover, .knopf--rand:hover { background: rgba(120, 203, 185, .14); color: #fff; }
+.hackathon-karte .knopf--auf-dunkel { color: #fff; }
+.hauptnav__knopf { border-radius: 999px; }
+.badge--laufend, .badge--idee, .badge--planung, .badge--abgeschlossen, .badge--publiziert { border-radius: 999px; }
+.badge--idee { background: transparent; color: #E6EEF4; border-color: #B4C4D0; }
+.badge--planung { background: #1D3A52; color: #BFE3F6; }
+.badge--abgeschlossen { background: #1D3A52; color: #E6EEF4; }
+.pub-eintrag__titel, .pub-eintrag__titel a { color: #fff; }
+.pub-eintrag { border-color: rgba(234, 243, 247, .16); }
+.pub-eintrag__autoren, .pub-eintrag__meta { color: #B4C4D0; }
+.datumsblock { background: #1D3A52; color: #8FDCCB; border-radius: 10px; }
+.neu-pub, .neu-pub__titel { color: #E6EEF4; }
+.zeitleiste__punkt { color: #E6EEF4; }
+.zeitleiste__datum { color: #fff; }
+.dgou-logo { border-radius: 8px; }
+input, select, textarea { background: #14283B; color: #E6EEF4; border-color: rgba(234, 243, 247, .3); }
+.filter-knopf { background: transparent; color: #E6EEF4; border-color: rgba(234, 243, 247, .3); border-radius: 999px; }
+.filter-knopf[aria-pressed="true"] { background: #78CBB9; color: #0D2740; border-color: #78CBB9; }
+/* Startseite: Kopf läuft in den dunklen Grund aus */
+body.startseite { background: #0D2740; }
+.startseite main section.abschnitt--hell { background: #10233A; }
+.startseite .hero--kompakt { background: linear-gradient(to bottom, #2C4F6B 0, #2C4F6B calc(100% - var(--verlauf) - 12px), #1D3A52 calc(100% - var(--verlauf) * .6 - 12px), #0D2740 100%); }

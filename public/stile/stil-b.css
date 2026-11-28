@@ -1,8 +1,8 @@
-﻿/* Stil B · Weich: große Rundungen, sanfte Schatten, zarte Mint-Verläufe, freundlich */
+/* Stil B · Weich: große Rundungen, sanfte Schatten, zarte Mint-Verläufe, freundlich */
 :root { --radius: 26px; --radius-klein: 14px; --schatten: rgba(44, 79, 107, .16); }
 h1, h2 { font-weight: 800; }
 main > section { padding-top: 64px; padding-bottom: 64px; }
-.abschnitt--hell { background: linear-gradient(180deg, #F5F8FA 0%, #E9F6F2 100%); }
+main section.abschnitt--hell { background: linear-gradient(180deg, #F5F8FA 0%, #E9F6F2 100%); }
 .kachel, .projekt-karte, .termin-karte, .archiv-karte, .schwerpunkt-kachel, .aktuell-karte, .mitmach-karte, .kilab-naechster, .org-box {
   border: 1px solid transparent; box-shadow: 0 12px 32px rgba(44, 79, 107, .10); background: linear-gradient(180deg, #E6F5F1 0, #fff 90px); }
 .wendekarte__hinten { border: 1px solid transparent; box-shadow: 0 12px 32px rgba(44, 79, 107, .10); }

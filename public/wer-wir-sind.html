@@ -47,10 +47,9 @@
     </div>
   </section>
 
-  <section class="abschnitt--hell" aria-labelledby="org-titel">
+  <section class="abschnitt--hell logo-abschnitt">
     <div class="container">
-      <h2 id="org-titel">Einordnung in der DGOU</h2>
-      <div id="organigramm" class="org"></div>
+      <img class="dgou-logo" src="bilder/logo-dgou-ak-ki-web.png" alt="Logo der DGOU, Arbeitskreis KI der AG Digitalisierung" width="260" loading="lazy">
     </div>
   </section>
 
@@ -100,44 +99,6 @@
   }
   const personenVon = (ids, personen) => (ids || []).map(id => personen[id]).filter(Boolean);
 
-  function box(klasse, name, zusatz, link, schild) {
-    const b = el('div', 'org-box ' + klasse);
-    // Titelzeile: Name (ggf. als Link) und optional ein kleines Schild wie "Sie sind hier"
-    const kopf = schild ? el('span', 'org-box__kopf') : b;
-    if (link) {
-      const a = el('a', null, name);
-      a.href = link; a.target = '_blank'; a.rel = 'noopener';
-      kopf.appendChild(el('strong')).appendChild(a);
-    } else {
-      kopf.appendChild(el('strong', null, name));
-    }
-    if (schild) { kopf.appendChild(el('span', 'org-box__schild', schild)); b.appendChild(kopf); }
-    if (zusatz) b.appendChild(el('span', 'org-box__zusatz', zusatz));
-    return b;
-  }
-
-  function organigramm(o, personen) {
-    const ziel = document.getElementById('organigramm');
-    ziel.appendChild(box('', o.name, o.zusatz, o.link));
-    ziel.appendChild(el('div', 'org-linie'));
-    ziel.appendChild(box('', o.kind.name, null, o.kind.link));
-    ziel.appendChild(el('div', 'org-linie'));
-    const reihe = el('div', 'org-reihe');
-    o.kind.kinder.forEach(k => {
-      const kind = el('div', 'org-kind');
-      const b = box(k.hervorgehoben ? 'org-box--akki' : '', k.name, k.zusatz, null, k.schild);
-      if (k.schwerpunkte) b.appendChild(el('span', 'org-box__zusatz', 'Schwerpunkte: ' + k.schwerpunkte));
-      // Im Organigramm nur Namen als Text (keine Fotos)
-      const leitung = personenVon(k.leitung, personen).map(p => p.name);
-      if (leitung.length) b.appendChild(el('span', 'org-box__zusatz', 'Leitung: ' + leitung.join(', ')));
-      const ansprech = personenVon(k.ansprechpersonen, personen).map(p => p.name);
-      if (ansprech.length) b.appendChild(el('span', 'org-box__zusatz', 'Ansprechpersonen: ' + ansprech.join(', ')));
-      kind.appendChild(b);
-      reihe.appendChild(kind);
-    });
-    ziel.appendChild(reihe);
-  }
-
   Promise.all([holen('daten/organisation.json'), holen('daten/personen.json')]).then(([org, pd]) => {
     const personen = Object.fromEntries(pd.personen.map(p => [p.id, p]));
     const setze = (id, text) => { const e = document.getElementById(id); if (e && text) e.textContent = text; };
@@ -168,8 +129,6 @@
       a.href = 'https://doi.org/10.1007/s41785-026-4929-z'; a.target = '_blank'; a.rel = 'noopener';
       stand.appendChild(a);
     }
-
-    if (org.organigramm) organigramm(org.organigramm, personen);
 
     if (org.rahmen) {
       setze('rahmen-text', org.rahmen.text);

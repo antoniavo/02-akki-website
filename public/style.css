@@ -679,3 +679,6 @@ body.startseite { --verlauf: 200px; background: #F4F7F9; }
 .hackathon-hinweis--hell { margin: 0 0 var(--a2); color: var(--petrol-text); }
 .hackathon-hinweis--hell a:hover { color: var(--petrol-dunkel); }
 .hackathon-hinweis--deutlich { font-size: 1rem; font-weight: 700; }
+/* Logo der DGOU auf "Wer wir sind": zentriert, ohne Rahmen, unverändert */
+.logo-abschnitt .container { display: flex; justify-content: center; }
+.dgou-logo { display: block; width: 260px; max-width: 100%; height: auto; margin: var(--a3) 0; }

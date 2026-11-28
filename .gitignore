@@ -2,3 +2,8 @@
 node_modules
 _sicherung
 .DS_Store
+
+# Installierter Skill Impeccable (nicht ins Repo)
+.claude/skills/
+.claude/agents/
+.claude/settings.local.json

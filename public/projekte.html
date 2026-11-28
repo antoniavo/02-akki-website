@@ -168,21 +168,24 @@
   }
 
   function useCaseKarte(u) {
-    const k = el('article', 'kachel');
-    k.appendChild(el('span', 'kachel__nr', 'Use Case ' + u.nr + (u.kennzeichnung ? ' · ' + u.kennzeichnung : '')));
-    k.appendChild(el('h3', null, u.titel));
-    k.appendChild(el('p', null, u.text));
-    // Felder für später: bleiben unsichtbar, solange sie leer sind
-    if (u.team) k.appendChild(el('p', 'projekt-karte__meta', 'Team: ' + u.team));
-    if (u.ergebnis) k.appendChild(el('p', null, u.ergebnis));
-    const zeile = el('p');
-    if (u.repository) zeile.appendChild(link('Repository', u.repository, 'pfeil-link'));
-    if (u.demo) { zeile.appendChild(document.createTextNode(' ')); zeile.appendChild(link('Demo', u.demo, 'pfeil-link')); }
-    if (zeile.childNodes.length) k.appendChild(zeile);
-    return u.idee ? wendekarte(u, k) : k; // ohne Projektidee dreht sich die Karte nicht
+    // Mit Kennzeichnung (Use Case 7, "Freie Themenwahl"): breite Karte, Text links, Schild rechts
+    const breit = Boolean(u.kennzeichnung);
+    const k = el('article', 'kachel' + (breit ? ' kachel--breit' : ''));
+    const text = breit ? el('div', 'kachel__text') : k;
+    text.appendChild(el('span', 'kachel__nr', 'Use Case ' + u.nr));
+    text.appendChild(el('h3', null, u.titel));
+    text.appendChild(el('p', null, u.text));
+    // Felder für später: bleiben unsichtbar, solange sie leer sind (Repository-Links werden bewusst nicht angezeigt)
+    if (u.team) text.appendChild(el('p', 'projekt-karte__meta', 'Team: ' + u.team));
+    if (u.ergebnis) text.appendChild(el('p', null, u.ergebnis));
+    if (u.demo) { const zeile = el('p'); zeile.appendChild(link('Demo', u.demo, 'pfeil-link')); text.appendChild(zeile); }
+    if (breit) { k.appendChild(text); k.appendChild(el('span', 'schild-petrol', u.kennzeichnung)); }
+    const karte = u.idee ? wendekarte(u, k) : k; // ohne Projektidee dreht sich die Karte nicht
+    if (breit) karte.classList.add('usecase--breit');
+    return karte;
   }
 
-  // Wendekarte: Vorderseite wie bisher, Rückseite "Projektidee" mit Link zum Repository.
+  // Wendekarte: Vorderseite wie bisher, Rückseite "Projektidee" (ohne Repository-Link).
   // Drehen: Hover am Computer (nur per CSS), Antippen auf dem Handy, Enter/Leertaste am Knopf über der Vorderseite.
   function wendekarte(u, vorne) {
     const huelle = el('div', 'wendekarte');
@@ -201,7 +204,6 @@
     hinten.appendChild(zurueck);
     hinten.appendChild(el('h4', null, 'Projektidee'));
     hinten.appendChild(el('p', null, u.idee));
-    if (u.repo) hinten.appendChild(link('Zum Repository', u.repo, 'pfeil-link'));
 
     innen.append(vorne, hinten);
     huelle.appendChild(innen);

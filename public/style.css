@@ -662,3 +662,12 @@ body.startseite { --verlauf: 200px; background: #F4F7F9; }
 .terminal__koerper--popup p { margin: 0 0 6px; }
 .terminal__zeile--wartet { visibility: hidden; }
 .terminal__koerper--popup a { text-decoration-color: var(--mint); }
+/* Use Cases: Kartenhöhe nach Inhalt, Use Case 7 als breite Karte über die volle Rasterbreite */
+#usecases { align-items: start; }
+.usecase--breit { grid-column: 1 / -1; }
+.kachel--breit { display: flex; align-items: center; justify-content: space-between; gap: var(--a3); }
+.kachel--breit .kachel__text { flex: 1 1 auto; min-width: 0; max-width: 62ch; }
+.kachel--breit .kachel__text > :last-child { margin-bottom: 0; }
+.schild-petrol { flex: none; background: #008F83; color: #fff; font: 800 .875rem/1 var(--font-heading); letter-spacing: .02em; padding: 8px 14px; border-radius: 999px; }
+@media (max-width: 700px) { .kachel--breit { flex-direction: column; align-items: flex-start; } }
+.wendekarte__hinten p { font-size: .9rem; line-height: 1.45; margin-bottom: 0; }

@@ -1,7 +1,7 @@
 // Stil-Vorschau (nur zum Ausprobieren): lokal (localhost) immer sichtbar, online nach ?stil=aktuell|a|b|c|d|e. Die Wahl merkt sich der Browser (nur dieser Tab).
 // Unten links erscheint eine kleine Leiste zum Umschalten. Auf der echten Website (nicht localhost) sieht ohne ?stil niemand etwas davon.
 (function () {
-  const NAMEN = { aktuell: 'Aktuell', a: 'A · Klar', b: 'B · Weich', c: 'C · Eckig', d: 'D · Hackathon', e: 'E · Kontrast' };
+  const NAMEN = { aktuell: 'Aktuell', d: 'Hackathon', e: 'Kontrast', f: 'Tron', g: 'Roboter', h: 'Schrill' };
   let wahl = null;
   try {
     const p = new URLSearchParams(location.search).get('stil');
@@ -23,7 +23,7 @@
   const leiste = document.createElement('div');
   leiste.setAttribute('role', 'group');
   leiste.setAttribute('aria-label', 'Stil-Vorschau');
-  leiste.style.cssText = 'position:fixed;left:12px;bottom:12px;z-index:9999;display:flex;gap:4px;padding:6px;background:#1B2F40;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.35);font:600 13px system-ui,sans-serif';
+  leiste.style.cssText = 'position:fixed;left:12px;bottom:12px;z-index:9999;display:flex;flex-wrap:wrap;max-width:calc(100vw - 24px);gap:4px;padding:6px;background:#1B2F40;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.35);font:600 13px system-ui,sans-serif';
   Object.keys(NAMEN).forEach(k => {
     const b = document.createElement('button');
     b.type = 'button';

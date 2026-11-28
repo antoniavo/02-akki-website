@@ -1,0 +1,36 @@
+﻿/* Stil H · Schrill: Pop-Art, Knallfarben, dicke schwarze Linien, harte Schatten, leicht schiefe Karten */
+:root { --weiss: #FFFFFF; --hell: #FFF3B0; --text: #111111; --text-2: #222222; --blau: #111111; --rahmen: #111111; --mint-hell: #FFD6EC; --radius: 18px; }
+html, body, body.startseite { background-color: #FFF3B0; color: #111; }
+body { background-image: radial-gradient(#FFB6DB 2.5px, transparent 3px); background-size: 26px 26px; }
+main > section, main section.abschnitt--hell, .startseite main section.abschnitt--hell { background: transparent; }
+main section.abschnitt--hell:nth-of-type(even) { background: #B9F3E4; }
+h1, h2 { font-weight: 900; color: #111; letter-spacing: -.02em; }
+main h2 { display: inline-block; background: linear-gradient(transparent 55%, #FF2E93 55%); padding: 0 6px; transform: rotate(-1deg); }
+h3 { color: #111; }
+a { color: #D1006F; font-weight: 700; }
+.kachel, .projekt-karte, .termin-karte, .archiv-karte, .schwerpunkt-kachel, .aktuell-karte, .mitmach-karte, .kilab-naechster {
+  background: #fff; border: 3px solid #111; border-radius: 18px; box-shadow: 8px 8px 0 #111; color: #111; transition: transform .15s ease, box-shadow .15s ease; }
+.kacheln > *:nth-child(3n+1), .termin-karten > *:nth-child(3n+1) { transform: rotate(-1.2deg); }
+.kacheln > *:nth-child(3n+2), .termin-karten > *:nth-child(3n+2) { transform: rotate(.8deg); }
+.kacheln > *:nth-child(3n), .termin-karten > *:nth-child(3n) { transform: rotate(-.5deg); }
+.kachel:hover, .termin-karte:hover, .mitmach-karte:hover { transform: rotate(0) translate(-3px, -3px); box-shadow: 12px 12px 0 #111; }
+.kachel::before, .termin-karte::before, .archiv-karte::before, .kilab-naechster::before, .aktuell-karte::before { background: #FF2E93; width: 64px; height: 10px; border-radius: 0 0 8px 8px; }
+.knopf, .knopf--hell { background: #FF2E93; color: #111; border: 3px solid #111; border-radius: 999px; font-weight: 900; box-shadow: 4px 4px 0 #111; text-transform: uppercase; letter-spacing: .04em; }
+.knopf:hover, .knopf--hell:hover { background: #FFE600; color: #111; transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #111; text-decoration: none; }
+.knopf--sekundaer, .knopf--rand { background: #fff; color: #111; border-color: #111; }
+.hauptnav__knopf { border-radius: 999px; font-weight: 800; }
+.chip, .badge, .kategorie { border: 2px solid #111; border-radius: 999px; background: #B9F3E4; color: #111; font-weight: 800; }
+.badge--laufend { background: #FFE600; color: #111; }
+.badge--publiziert { background: #111; color: #FFE600; }
+.hackathon-karte { background: #00B3A4; color: #fff; border: 4px solid #111; border-radius: 28px; box-shadow: 12px 12px 0 #111; transform: rotate(-.6deg); }
+.hackathon-karte h2 { color: #111; background: #FFE600; transform: none; }
+.hackathon-karte .eyebrow, .hackathon-karte__fakten, .hackathon-karte__zahl { color: #111; }
+.hackathon-karte .hackathon-hinweis, .hackathon-karte .hackathon-hinweis a { color: #111; }
+.person__foto { border: 4px solid #111; box-shadow: 6px 6px 0 #FF2E93; }
+.datumsblock { background: #FFE600; color: #111; border: 3px solid #111; border-radius: 12px; }
+.pub-eintrag { border-color: #111; }
+.pub-eintrag__titel, .pub-eintrag__titel a { color: #111; }
+.stand-zeile, .hinweis, .person__funktion { color: #222; }
+.footer { background: #111; border-top: 6px solid #FF2E93; }
+.startseite .hero--kompakt { background: linear-gradient(to bottom, #2C4F6B 0, #2C4F6B calc(100% - var(--verlauf) - 12px), #FFF3B0 100%); }
+@media (prefers-reduced-motion: reduce) { .kacheln > *, .termin-karten > *, .hackathon-karte { transform: none !important; } }

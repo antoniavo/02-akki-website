@@ -129,7 +129,7 @@ Alle Texte und Fakten stehen in **`inhalte.md`**. Quellen: AG-Präsentation Halb
 
 ## 8. Ausblick für den Pitch (nicht bis morgen bauen)
 
-Echter Newsletter-Versand über DGOU-Verteiler (Double-Opt-in) · Mediathek mit KI-Lab-Aufzeichnungen · AKKI AI Radar (automatisierte Literatursuche, Idee aus dem KI Lab zu n8n) · KI-Tool-Kompass · Plattform für alle Arbeitskreise der AG Digitalisierung mit gemeinsamem Designsystem und eigener Akzentfarbe je AK · Englische Version · eigene Domain unter der DGOU.
+Echter Newsletter-Versand über DGOU-Verteiler (Double-Opt-in); **Wunsch des Teams (28.11.2026):** Wer auf „Anmelden“ bzw. „Newsletter abonnieren“ klickt, wird direkt in den monatlichen Newsletter aufgenommen (heute nur ein mailto-Link; dafür braucht es später einen Newsletter-Dienst der DGOU mit Anmeldung, Bestätigungs-E-Mail und angepasster Datenschutzerklärung) · Mediathek mit KI-Lab-Aufzeichnungen · AKKI AI Radar (automatisierte Literatursuche, Idee aus dem KI Lab zu n8n) · KI-Tool-Kompass · Plattform für alle Arbeitskreise der AG Digitalisierung mit gemeinsamem Designsystem und eigener Akzentfarbe je AK · Englische Version · eigene Domain unter der DGOU.
 
 ---
 

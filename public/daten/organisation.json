@@ -33,7 +33,7 @@
           "name": "AKKI",
           "zusatz": "Arbeitskreis Künstliche Intelligenz",
           "hervorgehoben": true,
-          "schild": "Du bist hier",
+          "schild": "Sie sind hier",
           "schwerpunkte": "KI in Patientenversorgung und Forschung: KI Lab, Leitliniensupport, Clinical Decision Support",
           "leitung": ["baur", "osterhoff"]
         },

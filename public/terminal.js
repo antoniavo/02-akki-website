@@ -39,6 +39,49 @@
     return p;
   }
 
+  // Kurzer Inhalt des Pop-ups: jede Zeile wird nacheinander getippt (auch die Links), Links sind erst danach klickbar.
+  // Jede Zeile: <p class="terminal__zeile-neu"> mit Vorsatz ($ oder >) und einem Feld .terminal__tipp (data-text = Text).
+  function popupKoerper() {
+    const koerper = el('div', 'terminal__koerper terminal__koerper--popup');
+    function zeile(praefix, text, a) {
+      const p = el('p', 'terminal__zeile-neu' + (praefix === '$' ? ' terminal__befehl' : ''));
+      p.appendChild(el('span', 'terminal__praefix', praefix + ' ')).setAttribute('aria-hidden', 'true');
+      const feld = el('span', 'terminal__tipp');
+      feld.dataset.text = text;
+      if (a) { a.appendChild(feld); p.appendChild(a); } else p.appendChild(feld);
+      koerper.appendChild(p);
+      return { p, feld, a };
+    }
+    const weg = (text, href, betreff) => {
+      const a = link('', href);
+      if (betreff) a.dataset.betreff = betreff;
+      return zeile('>', text, a);
+    };
+    zeile('$', 'akki mitmachen');
+    weg('KI Lab besuchen', 'treffen.html');
+    weg('Thema vorschlagen', 'mitmachen.html', 'themenvorschlag');
+    weg('Mitforschen & mitbauen', 'mitmachen.html');
+    zeile('$', 'akki kontakt');
+    const mail = link('', 'mitmachen.html');
+    const mailZeile = zeile('>', 'E-Mail schreiben', mail);
+    zeile('$', '');
+
+    // Adresse und Betreffzeile aus kontakt.json (über kontakt.js), noch bevor die Mail-Zeile getippt wird
+    if (window.akkiKontakt && window.akkiKontakt.then) {
+      window.akkiKontakt.then(k => {
+        if (!k || !k.email) return;
+        koerper.querySelectorAll('a[data-betreff]').forEach(a => {
+          const betreff = (k.betreff || {})[a.dataset.betreff];
+          if (betreff) a.href = 'mailto:' + k.email + '?subject=' + encodeURIComponent(betreff);
+        });
+        mail.href = 'mailto:' + k.email;
+        mailZeile.feld.dataset.text = k.email;
+        if (mailZeile.feld.textContent) mailZeile.feld.textContent = k.email;
+      });
+    }
+    return koerper;
+  }
+
   // Baut das Terminal. modus: 'popup' oder 'fest'
   function baue(modus, id) {
     const t = el('div', 'terminal ' + (modus === 'popup' ? 'terminal--popup' : 'terminal--fest'));
@@ -64,6 +107,8 @@
       kopf.appendChild(x);
     }
     t.appendChild(kopf);
+
+    if (modus === 'popup') { t.appendChild(popupKoerper()); return t; }
 
     const koerper = el('div', 'terminal__koerper');
     koerper.appendChild(befehl('akki mitmachen --wege'));
@@ -96,12 +141,6 @@
       kontakt.appendChild(link('Alle Infos zum Mitmachen →', 'mitmachen.html'));
     }
     koerper.appendChild(kontakt);
-    if (modus === 'popup') {
-      // Abschlusszeile mit blinkendem Cursor (erscheint, wenn der Text fertig getippt ist)
-      const ende = el('p', 'terminal__befehl terminal__ende');
-      ende.appendChild(el('span', null, '$ ')).setAttribute('aria-hidden', 'true');
-      koerper.appendChild(ende);
-    }
     t.appendChild(koerper);
 
     // Adresse und Betreffzeilen aus kontakt.json eintragen (sobald geladen)
@@ -157,36 +196,36 @@
       if (obenPlatz > untenPlatz) { t.classList.add('terminal--oben'); t.style.maxHeight = Math.max(obenPlatz, 160) + 'px'; }
       else t.style.maxHeight = Math.max(untenPlatz, 160) + 'px';
     }
-    // ---- Tippen: Text Zeichen für Zeichen (25 ms), Links erst danach; Klick ins Fenster überspringt ----
-    const TIPP_MS = 25;
-    const felder = Array.from(t.querySelectorAll('.terminal__tipp'));
-    const gesperrt = Array.from(t.querySelectorAll('.terminal__liste, .terminal__kontakt'));
+    // ---- Tippen: alle Zeilen nacheinander, 25 ms pro Zeichen, 150 ms Pause zwischen den Zeilen ----
+    // Nichts erscheint vor dem Tippen; Links sind klickbar, sobald ihre Zeile fertig ist. Klick ins Fenster zeigt alles sofort.
+    const TIPP_MS = 25, ZEILEN_PAUSE = 150;
+    const zeilen = Array.from(t.querySelectorAll('.terminal__zeile-neu')).map(p => ({ p, feld: p.querySelector('.terminal__tipp'), a: p.querySelector('a') }));
     const cursor = el('span', 'terminal__cursor');
     cursor.setAttribute('aria-hidden', 'true');
     let tippTimer = null, tippt = false;
     const reduziert = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    function zuruecksetzen() {
+      zeilen.forEach(z => { z.p.classList.add('terminal__zeile--wartet'); z.feld.textContent = ''; if (z.a) z.a.inert = true; });
+    }
     function tippFertig() {
       clearTimeout(tippTimer);
       tippt = false;
-      felder.forEach(f => { f.textContent = f.dataset.text; });
-      t.classList.remove('terminal--tippt');
-      gesperrt.forEach(x => { x.inert = false; });
-      t.querySelector('.terminal__ende').appendChild(cursor);
+      zeilen.forEach(z => { z.p.classList.remove('terminal__zeile--wartet'); z.feld.textContent = z.feld.dataset.text; if (z.a) z.a.inert = false; });
+      zeilen[zeilen.length - 1].p.appendChild(cursor);
     }
     function tippStart() {
       if (reduziert()) { tippFertig(); return; }
       tippt = true;
-      t.classList.add('terminal--tippt');
-      gesperrt.forEach(x => { x.inert = true; });
-      felder.forEach(f => { f.textContent = ''; });
-      let fi = 0, ci = 0;
-      felder[0].after(cursor);
+      zuruecksetzen();
+      let zi = 0, ci = 0;
       (function schritt() {
-        if (fi >= felder.length) { tippFertig(); return; }
-        const f = felder[fi], text = f.dataset.text;
-        if (ci < text.length) { f.textContent = text.slice(0, ++ci); tippTimer = setTimeout(schritt, TIPP_MS); }
-        else { fi++; ci = 0; if (fi < felder.length) felder[fi].after(cursor); tippTimer = setTimeout(schritt, 200); }
+        const z = zeilen[zi];
+        if (!z) { tippt = false; return; }
+        const text = z.feld.dataset.text; // die Adresse aus kontakt.json steht hier, sobald geladen
+        if (ci === 0) { z.p.classList.remove('terminal__zeile--wartet'); z.p.appendChild(cursor); }
+        if (ci < text.length) { z.feld.textContent = text.slice(0, ++ci); tippTimer = setTimeout(schritt, TIPP_MS); }
+        else { if (z.a) z.a.inert = false; zi++; ci = 0; tippTimer = setTimeout(schritt, ZEILEN_PAUSE); }
       })();
     }
     // Ein Klick ins Fenster zeigt sofort den ganzen Text
@@ -202,8 +241,7 @@
       if (reduziert()) { t.classList.add('terminal--sichtbar'); tippStart(); return; }
       // Schritt 1: dünne leuchtende Linie, Schritt 2 (nach ca. 0,15 s): senkrecht aufziehen, Flackern; insgesamt ca. 0,5 s
       t.classList.add('terminal--linie');
-      felder.forEach(f => { f.textContent = ''; });
-      t.classList.add('terminal--tippt');
+      zuruecksetzen();
       void t.offsetWidth; // Startzustand festhalten
       ausTimer = setTimeout(() => {
         t.classList.remove('terminal--linie');

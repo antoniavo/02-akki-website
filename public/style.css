@@ -659,3 +659,6 @@ body.startseite { --verlauf: 200px; background: #F4F7F9; }
 #schwerpunkte-ansprech .personen { margin: 40px auto 0; }
 @media (prefers-reduced-motion: reduce) { .person__foto, .person__linkedin { transition: none; } .person:hover .person__foto { transform: none; } }.pub-eintrag__titel a { color: inherit; text-decoration: none; }
 .pub-eintrag__titel a:hover, .pub-eintrag__titel a:focus-visible { color: var(--petrol-text); text-decoration: underline; text-underline-offset: 3px; }
+.terminal__koerper--popup p { margin: 0 0 6px; }
+.terminal__zeile--wartet { visibility: hidden; }
+.terminal__koerper--popup a { text-decoration-color: var(--mint); }

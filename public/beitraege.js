@@ -133,7 +133,11 @@
     const danach = ziel.querySelector('[data-feld="danach"]');
     if (danach) {
       danach.hidden = !t.danach;
-      if (t.danach) danach.textContent = `Danach: ${terminZeile({ datum: t.danach.datum })} · ${t.danach.titel}`;
+      if (t.danach) {
+        // "Danach:" und Thema fett, Datum normal (alles als reiner Text eingefügt)
+        const fett = text => { const s = document.createElement('strong'); s.textContent = text; return s; };
+        danach.replaceChildren(fett('Danach: '), document.createTextNode(terminZeile({ datum: t.danach.datum }) + ' · '), fett(t.danach.titel));
+      }
     }
   }
   function naechsterAufStartseite(a, t) {

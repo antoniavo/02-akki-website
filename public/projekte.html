@@ -49,6 +49,7 @@
     <div class="container">
       <h2 id="hackathon-titel">AKKI Hackathon 2026</h2>
       <p class="prosa" id="hackathon-text"></p>
+      <p class="hackathon-hinweis hackathon-hinweis--hell" id="hackathon-folge" hidden></p>
       <ul class="liste" id="hackathon-fakten"></ul>
       <p><a class="knopf" id="hackathon-link" hidden target="_blank" rel="noopener">Zur Hackathon-Website</a></p>
 
@@ -83,6 +84,7 @@
 
 <script src="layout.js"></script>
 <script src="kontakt.js"></script>
+<script src="hackathon-hinweis.js"></script>
 <script>
   // Alle Inhalte kommen aus public/daten/projekte.json, usecases.json und personen.json.
   // Texte werden nur als reiner Text eingefügt. Leere Felder (null) werden nicht angezeigt.
@@ -263,6 +265,7 @@
     const h = uc.hackathon;
     if (h) {
       document.getElementById('hackathon-text').textContent = h.text;
+      window.hackathonHinweis(document.getElementById('hackathon-folge'), h);
       const fakten = [['Termin', h.zeitraum], ['Ort', h.ort], ['Veranstalter', h.veranstalter]].filter(f => f[1]);
       document.getElementById('hackathon-fakten').replaceChildren(...fakten.map(([name, wert]) => {
         const li = el('li');

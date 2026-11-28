@@ -35,7 +35,9 @@
       const h = d.hackathon;
       if (!h) return;
       document.getElementById('hackathon-titel').textContent = h.titel;
-      document.getElementById('hackathon-fakten').textContent = [h.zeitraum, h.ort].filter(Boolean).join(' · ');
+      const zeitraum = window.hackathonZeitraum ? window.hackathonZeitraum(h) : h.zeitraum; // ab dem Stichtag "Rückblick: …"
+      document.getElementById('hackathon-fakten').textContent = [zeitraum, h.ort].filter(Boolean).join(' · ');
+      if (window.hackathonHinweis) window.hackathonHinweis(document.getElementById('hackathon-folge'), h);
       if (h.website) {
         const a = document.getElementById('hackathon-website');
         a.href = h.website; a.hidden = false;

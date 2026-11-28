@@ -8,6 +8,9 @@
     "veranstalter": "BG Klinikum Unfallkrankenhaus Berlin und Helliwood media & education im fjs e. V.",
     "website": "https://akki-hackathon-2026.vercel.app/",
     "hinweis": "Hackathon-Prototypen – nicht für den klinischen Einsatz",
+    "rueckblickAb": "2026-11-29",
+    "rueckblickPraefix": "Rückblick: ",
+    "folgeveranstaltung": { "text": "Nächster AKKI Hackathon: 2027 in Planung", "linkText": "Interesse? Schreiben Sie uns", "betreffSchluessel": "hackathon2027" },
     "quelle": "Hackathon-Website; Teamangabe",
     "stand": "2026-11-27",
     "status": "bestaetigt"

@@ -175,6 +175,16 @@ collections:
               - { name: ort, label: 'Ort', widget: string, required: false }
               - { name: veranstalter, label: 'Veranstalter', widget: string, required: false }
               - { name: website, label: 'Website (Adresse)', widget: string, required: false }
+              - { name: rueckblickAb, label: 'Rückblick ab (Jahr-Monat-Tag): ab diesem Tag zeigt die Startseite „Rückblick: …“', widget: string, required: false }
+              - { name: rueckblickPraefix, label: 'Vorsatz vor dem Zeitraum im Rückblick', widget: string, required: false }
+              - name: folgeveranstaltung
+                label: 'Nächster Hackathon (Zeile auf Startseite und Projekte)'
+                widget: object
+                required: false
+                fields:
+                  - { name: text, label: 'Text (z. B. Nächster AKKI Hackathon: 2027 in Planung)', widget: string }
+                  - { name: linkText, label: 'Text des E-Mail-Links', widget: string, required: false }
+                  - { name: betreffSchluessel, label: 'Schlüssel der Betreffzeile in der Kontakt-Maske (hackathon2027)', widget: string, required: false }
               - { name: hinweis, label: 'Hinweis', widget: text, required: false }
               - { name: quelle, label: 'Quelle', widget: string, required: false }
               - { name: stand, label: 'Stand (Jahr-Monat-Tag)', widget: string, required: false }
@@ -432,6 +442,7 @@ collections:
               - { name: opensource, label: 'Open Source', widget: string, required: false }
               - { name: allgemein, label: 'Allgemein', widget: string, required: false }
               - { name: newsletter, label: 'Newsletter', widget: string, required: false }
+              - { name: hackathon2027, label: 'Hackathon 2027', widget: string, required: false }
           - name: betreffAuswahl
             label: 'Reihenfolge der Betreff-Auswahl'
             widget: list

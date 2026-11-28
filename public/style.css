@@ -671,3 +671,11 @@ body.startseite { --verlauf: 200px; background: #F4F7F9; }
 .schild-petrol { flex: none; background: #008F83; color: #fff; font: 800 .875rem/1 var(--font-heading); letter-spacing: .02em; padding: 8px 14px; border-radius: 999px; }
 @media (max-width: 700px) { .kachel--breit { flex-direction: column; align-items: flex-start; } }
 .wendekarte__hinten p { font-size: .9rem; line-height: 1.45; margin-bottom: 0; }
+/* Hinweis auf den nächsten Hackathon: dezent (Startseite in Mint auf der blauen Karte, Projekte-Seite in Petrol); ab dem Stichtag etwas deutlicher */
+.hackathon-hinweis { margin: 0; font-size: .875rem; line-height: 1.5; color: #78CBB9; }
+.hackathon-hinweis a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.hackathon-hinweis a:hover { color: #B8EDDF; }
+.hackathon-karte .hackathon-hinweis { grid-column: 1 / -1; padding-top: var(--a2); border-top: 1px solid rgba(255, 255, 255, .15); }
+.hackathon-hinweis--hell { margin: 0 0 var(--a2); color: var(--petrol-text); }
+.hackathon-hinweis--hell a:hover { color: var(--petrol-dunkel); }
+.hackathon-hinweis--deutlich { font-size: 1rem; font-weight: 700; }

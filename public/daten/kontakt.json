@@ -7,7 +7,8 @@
     "forschung": "Forschungskooperation",
     "opensource": "Open-Source-Projekt",
     "allgemein": "Allgemeine Anfrage",
-    "newsletter": "Newsletter KI Lab"
+    "newsletter": "Newsletter KI Lab",
+    "hackathon2027": "Hackathon 2027"
   },
   "betreffAuswahl": ["mitarbeit", "themenvorschlag", "forschung", "opensource", "allgemein"]
 }
